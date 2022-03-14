@@ -25,4 +25,5 @@ float PID::calculate() {
 	output +=  -(1000 * KD * (feedback - oldFeedback) / DT ); //contributo derivativo
 
 	sumErr += referenceValue - feedback;
+  return output;
 }
