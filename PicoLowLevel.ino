@@ -1,47 +1,53 @@
-// costandi controllo PID
-#define KP_rel ?
-#define KI_rel ?
-#define KD_rel ?
+//ToDo add description of what the code does
+#include <Wire.h>
+#include "config.h"
+#include "PID.h"
+#include "Motor.h"
 
-#define KP_ass ?
-#define KI_ass ?
-#define KD_ass ?
+
+// global variables
+PID pidTrLeft(TR_LEFT_KP, TR_LEFT_KI, TR_LEFT_KD),
+  pidTrRight(TR_RIGHT_KP, TR_RIGHT_KI, TR_RIGHT_KD),
+  pidYaw(YAW_KP, YAW_KI, YAW_KD);
+
+Motor motorTrLeft(DRV_TR_LEFT_PWM,DRV_TR_LEFT_DIR),
+  motorTrRight(DRV_TR_RIGHT_PWM,DRV_TR_RIGHT_DIR),
+  motorYaw(DRV_YAW_PWM,DRV_YAW_DIR);
+
+
+// ToDo
+void receive(int numBytes){} // function that runs when data is received
+
 
 void setup() {
-  // put your setup code here, to run once:
+  //I2C setup
+  Wire.begin(I2C_ADDRESS);     // join I2C bus with respective address
+  Wire.onReceive(receive); // receive data function
+  
+  // PID setup reference value
+  pidTrLeft.updateReferenceValue(START_TR_LEFT);
+  pidTrLeft.updateReferenceValue(START_TR_RIGHT);
+  pidYaw.updateReferenceValue(START_YAW);
+
+  // Motors setup
+  motorTrLeft.begin();
+  motorTrRight.begin();
+  motorYaw.begin();
+
+  // ToDo:
+  //  setup other output/input pins
 
 }
 
 void loop() {
+  // ToDo
+  // read encoders data -> pid.update feedback
+  // read serial data   -> pid.updatereferencevalue
+  // 
 
-  //si legge la velocità dell'encoder Relativo e la posizione dell'encoder Assoluto
-  velREL = ;
+  // PID calculations and motor control
+  motorTrLeft.write(pidTrLeft.calculate());
+  motorTrRight.write(pidTrRight.calculate());
+  motorYaw.write(pidYaw.calculate());
 
-  //velocità di output Encoder Relativo
-  outputREL = (setPoint_REL - velREL) * KP_REL;   // contributo proporzionale
-  outputREL += (sumErr * KI_REL * DT / 1000);         // contributo integrativo
-  outputREL +=  -(1000 * KD_REL * (encoderAngle - oldEncoderAngle) / DT ); //contributo derivativo
-
-
-  sommaErr_REL += setPoint_REL - velREL;
-
-  //scrittura della nuova velocità
-  analogWrite(PIN_PWM, outputREL);
-
-
-  //Lettura della posizione dell'encoder Assoluto
-  posizioneASS = ;
-
-  //velocità di output Encoder Assoluto
-  outputASS = (setPoint_ASS - posizioneASS) * KP_ass;   // contributo proporzionale
-  outputASS += (sumErr * KI_ASS * DT / 1000);         // contributo integrativo
-  outputASS +=  -(1000 * KD_ASS * (encoderAngle - oldEncoderAngle) / DT ); //contributo derivativo
-
-
-  sommaErr_ASS += setPoint_ASS - posizioneASS;
-
-  //scrittura della nuova velocità
-  analogWrite(PIN_PWM, outputASS);
-
-  
 }
