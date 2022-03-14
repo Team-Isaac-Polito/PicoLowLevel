@@ -1,4 +1,9 @@
 #include "functions.h"
+#include "Arduino.h"
+#include "config.h"
+
+extern unsigned long countStepsLeft;
+extern unsigned long countStepsRight;
 
 void receive(int numBytes){}
 

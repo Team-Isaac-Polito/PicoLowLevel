@@ -3,7 +3,7 @@
 
 
 // ToDo
-void receive(int numBytes)(); // function that runs when data is received
+void receive(int numBytes); // function that runs when data is received
 void handleEncoderLeft();
 void handleEncoderRight();
 

@@ -4,6 +4,7 @@
 #include "PID.h"
 #include "Motor.h"
 #include "ams_as5048b.h"
+#include "functions.h"
 
 // global variables
 PID pidTrLeft(TR_LEFT_KP, TR_LEFT_KI, TR_LEFT_KD),
@@ -16,7 +17,7 @@ Motor motorTrLeft(DRV_TR_LEFT_PWM,DRV_TR_LEFT_DIR),
 
 AMS_AS5048B absEncoder;
 
-unsigned long tempo;
+unsigned long tempo,countStepsLeft = 0,countStepsRight = 0;
 
 
 void setup() {
