@@ -1,13 +1,14 @@
 #include "PID.h"
 
 PID::PID(float kp, float ki, float kd) {
+<<<<<<< HEAD
 	 
   KP = kp;
   KI = ki;
   KP = kd;
 
   //ToDo inizializzare altre variabili: error_i, old_error
- 
+
 }
 
 void PID::updateReferenceValue(float ref) {
@@ -31,5 +32,6 @@ float PID::calculate() {
   output = KP*error + KI*error_i + KD*error_d;
  
   old_error = error;
+  return output;
 
 }
