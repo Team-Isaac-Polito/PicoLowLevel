@@ -6,18 +6,18 @@
 
 
 class PID {
-	public:
-		PID(float kp, float ki, float kd);
-		void updateReferenceValue(float ref);
-		float calculate();
-		void updateFeedback(float fb);
+  public:
+    PID(float kp, float ki, float kd);
+    void updateReferenceValue(float ref);
+    float calculate();
+    void updateFeedback(float fb);
 
-	private:
-		float KP,KI,KD;
-		float referenceValue;
-		float error;
-		float feedback,oldFeedback;
-		float sumErr;
+  private:
+    float KP,KI,KD;
+    float referenceValue;
+    float error;
+    float feedback,oldFeedback;
+    float sumErr;
 };
 
 
