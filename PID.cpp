@@ -22,8 +22,20 @@ float PID::calculate() {
   float error=0, error_d=0;
   //calcolo errori dei 3 contributi
   error = referenceValue - feedback;    //contributo proporzionale
-  error_i += error*DT /1000;            //contributo integrativo 
+  //error_i += error*DT /1000;            //contributo integrativo 
   error_d = 1000*(error - old_error) / DT;   //contributo derivativo
+
+  //anti-windup: si attiva se 1)l’output è in saturazione e 2)l’errore ha segno concorde all’output
+  if ((output > max_output || output<min_output)) && (error*output>0){
+    error_i = error_i;      //blocca l’incremento dell’errore integrale
+    if (output > max_output)
+      output = max_output;    //riporta il valore troppo alto al valore massimo, così da mantenerlo reattivo in caso di errore negativo
+    else
+      output = min_output;
+  }
+  else {
+    error_i += error*DT /1000;    //l’errore integrale con anti-windup non attivo [contributo integrativo]
+  }
  
   //velocità di output Encoder Relativo
   output = KP*error + KI*error_i + KD*error_d;
