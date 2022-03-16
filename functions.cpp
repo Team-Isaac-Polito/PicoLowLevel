@@ -21,26 +21,26 @@ void handleEncoderRight(){
 
 float getLeftEncoderData() {
   ////calcolo numero di giri albero////
-  cli(); // AG INIZIO operazione atomica - non può essere interrotta da interrupt
+  noInterrupts(); // AG INIZIO operazione atomica - non può essere interrotta da interrupt
   float rpm = ((float(countStepsLeft) / 12.0) * (60.0 * 1000.0 /DT)) / 74.83;
 
   ///* quando count=12 il motore effettua un giro (interno, non dell'albero)[trasformo gli impulsi in giri]
   //(60.0 * 1000 / DT) passo da ms a minuti
   ///74.83) divido per il rapporto di trasmissione del motore
   countStepsLeft = 0;
-  sei();
+  interrupts();
   return rpm;      
 }
 
 float getRightEncoderData() {
     ////calcolo numero di giri albero////
-    cli();                                                              // AG INIZIO operazione atomica - non può essere interrotta da interrupt
+    noInterrupts();//inizio operazione atomica
     float rpm = ((float(countStepsRight) / 12.0) * (60.0 * 1000.0 /DT)) / 74.83;
 
     ///* quando count=12 il motore effettua un giro (interno, non dell'albero)[trasformo gli impulsi in giri]
     //(60.0 * 1000 / DT) passo da ms a minuti
     ///74.83) divido per il rapporto di trasmissione del motore
     countStepsRight = 0;
-    sei();
+    interrupts();
     return rpm;      
 }

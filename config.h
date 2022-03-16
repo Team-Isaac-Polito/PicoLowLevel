@@ -13,6 +13,9 @@
 #define START_TR_RIGHT	START_TR_LEFT
 #define START_YAW		12 //TODO
 
+#define MAX_OUTPUT		255
+#define MIN_OUTPUT		-MAX_OUTPUT
+
 // traction left
 #define TR_LEFT_KP		1
 #define TR_LEFT_KI		2
@@ -50,3 +53,4 @@
 
 #define ENC_TR_RIGHT_A	23
 #define ENC_TR_RIGHT_B	23
+

@@ -18,29 +18,31 @@ void PID::updateFeedback(float fb) {
 }
 
 float PID::calculate() {
-  float output;
-  float error=0, error_d=0;
+  float errorP=0, errorD=0;
+
   //calcolo errori dei 3 contributi
-  error = referenceValue - feedback;    //contributo proporzionale
-  //error_i += error*DT /1000;            //contributo integrativo 
-  error_d = 1000*(error - old_error) / DT;   //contributo derivativo
+  errorP = referenceValue - feedback;
+  //errorI += error * DT / 1000;            //contributo integrativo 
+  errorD = 1000 * (errorP - oldError) / DT;   //contributo derivativo
 
   //anti-windup: si attiva se 1)l’output è in saturazione e 2)l’errore ha segno concorde all’output
-  if ((output > max_output || output<min_output)) && (error*output>0){
-    error_i = error_i;      //blocca l’incremento dell’errore integrale
-    if (output > max_output)
-      output = max_output;    //riporta il valore troppo alto al valore massimo, così da mantenerlo reattivo in caso di errore negativo
+  if ((output > MAX_OUTPUT || output < MIN_OUTPUT) && (errorP * output > 0)){
+    //non incremento l’errore integrale
+
+    if (output > MAX_OUTPUT)
+      output = MAX_OUTPUT;    //riporta il valore troppo alto al valore massimo, così da mantenerlo reattivo in caso di errore negativo
     else
-      output = min_output;
+      output = MIN_OUTPUT;
   }
   else {
-    error_i += error*DT /1000;    //l’errore integrale con anti-windup non attivo [contributo integrativo]
+    errorI += errorP * DT / 1000;    //l’errore integrale con anti-windup non attivo [contributo integrativo]
   }
  
-  //velocità di output Encoder Relativo
-  output = KP*error + KI*error_i + KD*error_d;
+  // somma dei contributi
+  output = KP * errorP + KI * errorI + KD * errorD;
 
-  old_error = error;
+  oldError = errorP;
+
   return output;
 
 }

@@ -15,9 +15,8 @@ class PID {
   private:
     float KP,KI,KD;
     float referenceValue;
-    float error;
     float feedback,oldFeedback;
-    float sumErr;
+    float errorI,output,oldError;
 };
 
 
