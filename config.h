@@ -1,7 +1,13 @@
 // configuration file 
 
+
+// 
+#define SERIAL_DEBUG_ATTIVATO 1
+
+
 // I2C config
 #define I2C_ADDRESS		0x15
+
 
 
 //  - - - PID control constants

@@ -21,6 +21,12 @@ unsigned long tempo,countStepsLeft = 0,countStepsRight = 0;
 
 
 void setup() {
+  // Serial Debug
+#if SERIAL_DEBUG_ATTIVATO 
+  Serial.begin(115200);
+#endif
+  DEBUG("START SETUP");
+
   //I2C setup
   Wire.begin(I2C_ADDRESS);     // join I2C bus with respective address
   Wire.onReceive(receive); // receive data function
@@ -64,28 +70,44 @@ void setup() {
   // ToDo:
   //  setup other output/input pins
 
+  DEBUG("END SETUP");
 }
 
 void loop() {
   if(millis() - tempo < DT) return; // eseguo solo quando è passato DT tempo - ToDo check if working on pico
   tempo = millis();
+  DEBUG("EXECUTING LOOP");
 
+  DEBUG("CHECKING I2C DATA");
   // TODO
   // read serial data   -> pid.updatereferencevalue
+  DEBUG("END CHECKING I2C DATA");
 
+  DEBUG("READING ABSOLUTE ENCODER ANGLE");
   // read absolute encoder 
   absEncoder.updateMovingAvgExp();
   pidYaw.updateFeedback(absEncoder.angleR(U_DEG, false));
+  DEBUG("END READING ABSOLUTE ENCODER ANGLE");
 
+  DEBUG("READING TRACTION ENCODERS DATA");
+  DEBUG("TRACTION LEFT");
   pidTrLeft.updateFeedback(getLeftEncoderData());
+  DEBUG("TRACTION RIGHT");
   pidTrRight.updateFeedback(getRightEncoderData());
+  DEBUG("END READING TRACTION ENCODERS DATA");
 
+
+  DEBUG("CALCULATING PIDS VALUES AND WRITING MOTORS");
   // PID calculations and motor control
   digitalWrite(LED_BUILTIN, HIGH);   // turn the LED on to manually check calculation and writing data time use
 
+  DEBUG("TRACTION LEFT");
   motorTrLeft.write(pidTrLeft.calculate());
+  DEBUG("TRACTION RIGHT");
   motorTrRight.write(pidTrRight.calculate());
+  DEBUG("YAW");
   motorYaw.write(pidYaw.calculate());
 
   digitalWrite(LED_BUILTIN, LOW); // turn off the led
+  DEBUG("END CALCULATING PIDS VALUES AND WRITING MOTORS");
 }

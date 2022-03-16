@@ -1,4 +1,5 @@
 #include "PID.h"
+#include "functions.h"
 
 PID::PID(float kp, float ki, float kd) {
   KP = kp;
@@ -9,10 +10,12 @@ PID::PID(float kp, float ki, float kd) {
 }
 
 void PID::updateReferenceValue(float ref) {
+  DEBUG(ref);
   referenceValue = ref;
 }
 
 void PID::updateFeedback(float fb) {
+  DEBUG(fb);
   oldFeedback = feedback;
   feedback = fb;
 }
