@@ -17,7 +17,9 @@ Motor motorTrLeft(DRV_TR_LEFT_PWM,DRV_TR_LEFT_DIR),
 
 AMS_AS5048B absEncoder;
 
-unsigned long tempo, countStepsLeft = 0, countStepsRight = 0;
+long tempo, 
+  countStepsLeft = 0, 
+  countStepsRight = 0;
 
 int refTrLeft = START_TR_LEFT,
     refTrRight = START_TR_RIGHT,
@@ -41,7 +43,7 @@ void setup() {
 
   // ENCODER ASSOLUTO
   //init AMS_AS5048B object
-  // ToDo check if necessary to change to wire1 inside library
+  // ToDo check if necessary to change to wire1 inside library - done, hope it works
   absEncoder.begin();
 
   //set clock wise counting

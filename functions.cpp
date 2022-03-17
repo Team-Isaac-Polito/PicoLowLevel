@@ -2,8 +2,8 @@
 #include "Arduino.h"
 #include "config.h"
 
-extern unsigned long countStepsLeft;
-extern unsigned long countStepsRight;
+extern long countStepsLeft;
+extern long countStepsRight;
 extern int refTrLeft;
 extern int refTrRight;
 extern int refYaw;
