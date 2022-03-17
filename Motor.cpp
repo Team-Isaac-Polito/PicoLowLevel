@@ -12,7 +12,10 @@ void Motor::begin() {
 }
 
 void Motor::write(float value) {
+  DEBUG("PID VALUE");
   DEBUG(value);
-  analogWrite(pwm, constrain(abs(value), 0, 255));
+  DEBUG("MOTOR VALUE");
+  DEBUG(constrain(abs(value), 0, MAX_OUTPUT));
+  analogWrite(pwm, constrain(abs(value), 0, MAX_OUTPUT));
   digitalWrite(dir, value > 0);
 }

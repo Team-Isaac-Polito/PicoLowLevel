@@ -13,19 +13,19 @@
 //  - - - PID control constants
 //  
 
-#define DT				19
+#define DT				50
 
 #define START_TR_LEFT	0
 #define START_TR_RIGHT	START_TR_LEFT
-#define START_YAW		12 //TODO
+#define START_YAW		0 //TODO
 
-#define MAX_OUTPUT		255
+#define MAX_OUTPUT		1023
 #define MIN_OUTPUT		-MAX_OUTPUT
 
 // traction left
-#define TR_LEFT_KP		1
-#define TR_LEFT_KI		2
-#define TR_LEFT_KD		3
+#define TR_LEFT_KP		.91
+#define TR_LEFT_KI		.1
+#define TR_LEFT_KD		.3
 
 // traction right
 #define TR_RIGHT_KP 	TR_LEFT_KP
@@ -33,30 +33,38 @@
 #define TR_RIGHT_KD 	TR_LEFT_KD
 
 // yaw
-#define YAW_KP			1
-#define YAW_KI			1
-#define YAW_KD			1
+#define YAW_KP			.91
+#define YAW_KI			.1
+#define YAW_KD			.3
 
 
 //  - - - DRIVER pins
 
 // traction left
-#define DRV_TR_LEFT_DIR	1
-#define DRV_TR_LEFT_PWM	1
+#define DRV_TR_LEFT_DIR	15
+#define DRV_TR_LEFT_PWM	14
+#define DRV_TR_LEFT_SLP	
+#define DRV_TR_LEFT_FLT	
+#define DRV_TR_LEFT_CS		// current sense
 
 // traction right
-#define DRV_TR_RIGHT_DIR	1
-#define DRV_TR_RIGHT_PWM	1
+#define DRV_TR_RIGHT_DIR	11
+#define DRV_TR_RIGHT_PWM	10
+#define DRV_TR_LEFT_SLP
+#define DRV_TR_LEFT_FLT
+#define DRV_TR_LEFT_CS
 
 // yaw
-#define DRV_YAW_DIR		1
-#define DRV_YAW_PWM		1
-
+#define DRV_YAW_DIR		7
+#define DRV_YAW_PWM		6
+#define DRV_TR_LEFT_SLP
+#define DRV_TR_LEFT_FLT
+#define DRV_TR_LEFT_CS
 
 // ENCODER PINS
-#define ENC_TR_LEFT_A	23
-#define ENC_TR_LEFT_B	23
+#define ENC_TR_LEFT_A	27
+#define ENC_TR_LEFT_B	28
 
-#define ENC_TR_RIGHT_A	23
-#define ENC_TR_RIGHT_B	23
+#define ENC_TR_RIGHT_A	22
+#define ENC_TR_RIGHT_B	26
 

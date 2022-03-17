@@ -17,8 +17,11 @@ Motor motorTrLeft(DRV_TR_LEFT_PWM,DRV_TR_LEFT_DIR),
 
 AMS_AS5048B absEncoder;
 
-unsigned long tempo,countStepsLeft = 0,countStepsRight = 0;
+unsigned long tempo, countStepsLeft = 0, countStepsRight = 0;
 
+int refTrLeft = START_TR_LEFT,
+    refTrRight = START_TR_RIGHT,
+    refYaw = START_YAW;
 
 void setup() {
   // Serial Debug
@@ -30,11 +33,6 @@ void setup() {
   //I2C setup
   Wire.begin(I2C_ADDRESS);     // join I2C bus with respective address
   Wire.onReceive(receive); // receive data function
-
-  // PID setup reference value
-  pidTrLeft.updateReferenceValue(START_TR_LEFT);
-  pidTrLeft.updateReferenceValue(START_TR_RIGHT);
-  pidYaw.updateReferenceValue(START_YAW);
 
   // MOTORS SETUP
   motorTrLeft.begin();
@@ -51,7 +49,7 @@ void setup() {
   absEncoder.setClockWise(true); 
 
   //set the 0 to the sensor
-  //absEncoder.zeroRegW(0x0);
+  absEncoder.zeroRegW(0x0); // ToDo, non dobbiamo partire da 0
 
   // ENCODER TRAZIONE
   pinMode(ENC_TR_LEFT_A,INPUT);
@@ -70,18 +68,27 @@ void setup() {
   // ToDo:
   //  setup other output/input pins
 
+  tempo = millis();
+
+
   DEBUG("END SETUP");
 }
 
 void loop() {
-  if(millis() - tempo < DT) return; // eseguo solo quando è passato DT tempo - ToDo check if working on pico
+  if(millis() - tempo < DT) return; // eseguo solo quando è passato DT tempo
   tempo = millis();
-  DEBUG("EXECUTING LOOP");
 
-  DEBUG("CHECKING I2C DATA");
-  // TODO
-  // read serial data   -> pid.updatereferencevalue
-  DEBUG("END CHECKING I2C DATA");
+  DEBUG("EXECUTING LOOP");
+  DEBUG(tempo);
+
+  DEBUG(" - SETPOINT - ");
+  DEBUG("TR LEFT");
+  pidTrLeft.updateReferenceValue(refTrLeft * 4);
+  DEBUG("TR RIGHT");
+  pidTrRight.updateReferenceValue(refTrRight * 4);
+  DEBUG("YAW");
+  pidYaw.updateReferenceValue(refYaw);
+  DEBUG("END SETPOINT");
 
   DEBUG("READING ABSOLUTE ENCODER ANGLE");
   // read absolute encoder 

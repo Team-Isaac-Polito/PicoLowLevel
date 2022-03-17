@@ -4,8 +4,15 @@
 
 extern unsigned long countStepsLeft;
 extern unsigned long countStepsRight;
+extern int refTrLeft;
+extern int refTrRight;
+extern int refYaw;
 
-void receive(int numBytes){}
+void receive(int numBytes){
+  refTrLeft = Wire.read();
+  refTrRight = Wire.read();
+  resYaw = Wire.read();
+}
 
 //ISR dell'interrupt motore R, viene richiamata ad ogni fronte di salita del segnale nell' encoder1A (RISING)
 void handleEncoderLeft()
@@ -20,27 +27,41 @@ void handleEncoderRight(){
 
 
 float getLeftEncoderData() {
-  ////calcolo numero di giri albero////
+  static int tempo;
   noInterrupts(); // AG INIZIO operazione atomica - non può essere interrotta da interrupt
-  float rpm = ((float(countStepsLeft) / 12.0) * (60.0 * 1000.0 /DT)) / 74.83;
 
-  ///* quando count=12 il motore effettua un giro (interno, non dell'albero)[trasformo gli impulsi in giri]
-  //(60.0 * 1000 / DT) passo da ms a minuti
-  ///74.83) divido per il rapporto di trasmissione del motore
+  DEBUG("STEPS COUNTED");
+  DEBUG(countStepsLeft);
+
+  float rpm = countStepsLeft * 1000 / (1.9*(millis()-tempo));
+
+  DEBUG("CALCULATED RPM");
+  DEBUG(rpm);
+
   countStepsLeft = 0;
+  tempo = millis();
+
   interrupts();
+  
   return rpm;      
 }
 
 float getRightEncoderData() {
-    ////calcolo numero di giri albero////
-    noInterrupts();//inizio operazione atomica
-    float rpm = ((float(countStepsRight) / 12.0) * (60.0 * 1000.0 /DT)) / 74.83;
+  static int tempo;
+  noInterrupts(); // AG INIZIO operazione atomica - non può essere interrotta da interrupt
 
-    ///* quando count=12 il motore effettua un giro (interno, non dell'albero)[trasformo gli impulsi in giri]
-    //(60.0 * 1000 / DT) passo da ms a minuti
-    ///74.83) divido per il rapporto di trasmissione del motore
-    countStepsRight = 0;
-    interrupts();
-    return rpm;      
+  DEBUG("STEPS COUNTED");
+  DEBUG(countStepsRight);
+
+  float rpm = countStepsRight * 1000 / (1.9*(millis()-tempo));
+
+  DEBUG("CALCULATED RPM");
+  DEBUG(rpm);
+
+  countStepsRight = 0;
+  tempo = millis();
+
+  interrupts();
+  
+  return rpm;      
 }

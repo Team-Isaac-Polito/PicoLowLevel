@@ -7,6 +7,9 @@ PID::PID(float kp, float ki, float kd) {
   KP = kd;
 
   //ToDo inizializzare altre variabili: error_i, old_error
+  errorI = 0;
+  oldError = 0;
+  tempo = millis();
 }
 
 void PID::updateReferenceValue(float ref) {
@@ -23,6 +26,9 @@ void PID::updateFeedback(float fb) {
 float PID::calculate() {
   float errorP=0, errorD=0;
 
+  int dt = millis() - tempo;
+
+  
   //calcolo errori dei 3 contributi
   errorP = referenceValue - feedback;
   //errorI += error * DT / 1000;            //contributo integrativo 
@@ -31,6 +37,7 @@ float PID::calculate() {
   //anti-windup: si attiva se 1)l’output è in saturazione e 2)l’errore ha segno concorde all’output
   if ((output > MAX_OUTPUT || output < MIN_OUTPUT) && (errorP * output > 0)){
     //non incremento l’errore integrale
+    DEBUG("ANTIWINDUP ATTIVO ----------------------------------------");
 
     if (output > MAX_OUTPUT)
       output = MAX_OUTPUT;    //riporta il valore troppo alto al valore massimo, così da mantenerlo reattivo in caso di errore negativo
@@ -43,8 +50,17 @@ float PID::calculate() {
  
   // somma dei contributi
   output = KP * errorP + KI * errorI + KD * errorD;
+  DEBUG("PROPORTIONAL");
+  DEBUG(KP * errorP);
+  DEBUG("INTEGRATIVE");
+  DEBUG(KI * errorI);
+  DEBUG("DERIVATIVE");
+  DEBUG(KD * errorD);
 
   oldError = errorP;
+
+  tempo = millis();
+  
 
   return output;
 
