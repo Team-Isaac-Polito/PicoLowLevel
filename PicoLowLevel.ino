@@ -44,6 +44,8 @@ void setup() {
   // ENCODER ASSOLUTO
   //init AMS_AS5048B object
   // ToDo check if necessary to change to wire1 inside library - done, hope it works
+  Wire1.setSDA(2);
+  Wire1.setSCL(3);
   absEncoder.begin();
 
   //set clock wise counting

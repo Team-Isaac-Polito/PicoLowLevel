@@ -58,6 +58,7 @@ void AMS_AS5048B::begin(void) {
 
 	#ifdef USE_WIREBEGIN_ENABLED
 		Wire1.begin();
+
 	#endif
 	#ifdef SERIAL_DEBUG_ENABLED
 		_debugFlag = true;

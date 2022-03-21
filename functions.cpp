@@ -1,6 +1,7 @@
 #include "functions.h"
 #include "Arduino.h"
 #include "config.h"
+#include <Wire.h>
 
 extern long countStepsLeft;
 extern long countStepsRight;
@@ -9,9 +10,24 @@ extern int refTrRight;
 extern int refYaw;
 
 void receive(int numBytes){
+  /*  Serial.println(F("---> recieved events"));
+  int n; 
+  
+  Serial.print(numBytes);
+  Serial.println(F("bytes recieved"));
+  for(;numBytes>0;numBytes--) {
+    n = Wire.read();
+  Serial.print(F("recieved value : "));
+  Serial.println(n);
+  
+  }
+  
+  return;
   refTrLeft = Wire.read();
-  refTrRight = Wire.read();
-  resYaw = Wire.read();
+  refTrRight = Wire.read();*/
+  refYaw = Wire.read();
+  DEBUG("RECEIVED DATA");
+  DEBUG(refYaw);  
 }
 
 //ISR dell'interrupt motore R, viene richiamata ad ogni fronte di salita del segnale nell' encoder1A (RISING)

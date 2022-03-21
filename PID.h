@@ -17,6 +17,7 @@ class PID {
     float referenceValue;
     float feedback,oldFeedback;
     float errorI,output,oldError;
+    int tempo;
 };
 
 

@@ -33,9 +33,9 @@
 #define TR_RIGHT_KD 	TR_LEFT_KD
 
 // yaw
-#define YAW_KP			.91
-#define YAW_KI			.1
-#define YAW_KD			.3
+#define YAW_KP			3
+#define YAW_KI			.3
+#define YAW_KD			.35
 
 
 //  - - - DRIVER pins
@@ -55,8 +55,8 @@
 #define DRV_TR_LEFT_CS
 
 // yaw
-#define DRV_YAW_DIR		7
-#define DRV_YAW_PWM		6
+#define DRV_YAW_DIR		21
+#define DRV_YAW_PWM		20
 #define DRV_TR_LEFT_SLP
 #define DRV_TR_LEFT_FLT
 #define DRV_TR_LEFT_CS
@@ -67,4 +67,3 @@
 
 #define ENC_TR_RIGHT_A	22
 #define ENC_TR_RIGHT_B	26
-

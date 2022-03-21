@@ -1,5 +1,7 @@
+#include "config.h"
 #include "Motor.h"
 #include "functions.h"
+
 
 Motor::Motor(byte pwm, byte dir) {
   this->pwm = pwm;
