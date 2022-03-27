@@ -62,9 +62,36 @@ float PID::calculate() {
 
   oldError = errorP;
 
+
+
+  //codice per il calcolo del periodo di oscillazione della sinusoide ottenuta durante il Tuning [Metodo ziegler-Nichols]
+if (i != N_CAMPIONAMENTI){
+  if (output > oldOutput){    //sta ancora salendo, aggiorno il valore di picco
+    flag = 1;
+  }
+  else if ((output < oldOutput) && flag = 1){   //è iniziata la discesa
+    campionamenti[i] = tempo;    //salvo il valore del tempo associato al picco (loop precedente)
+    i++;
+    flag = 0;
+  }
+
+  //calcolo la media dei periodi di oscillazione
+  if (i > 2){
+    tOscillazione = campionamenti[i-1] - campionamenti[i-2];
+    media = (tOscillazione + media) / 2;
+  }
+  else if (i == 2){
+     tOscillazione = campionamenti[i-1] - campionamenti[i-2];
+     media = tOscillazione;
+  }
+
+}
+  DEBUG("PERIOD OF OSCILLATION");
+  DEBUG(media);
+  
+  output = oldOutput;
   tempo = millis();
   
-
   return output;
 
 }

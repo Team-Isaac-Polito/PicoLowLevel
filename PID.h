@@ -3,7 +3,7 @@
 
 #include <Arduino.h>
 #include "config.h"
-
+#define N_CAMPIONAMENTI 200
 
 class PID {
   public:
@@ -18,6 +18,8 @@ class PID {
     float feedback,oldFeedback;
     float errorI,output,oldError;
     int tempo;
+    int campionamenti[N_CAMPIONAMENTI] = {0};
+    int flag, tOscillazione, i = 0, oldOuput = 0, media=0;
 };
 
 
