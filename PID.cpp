@@ -69,7 +69,7 @@ if (i != N_CAMPIONAMENTI){
   if (output > oldOutput){    //sta ancora salendo, aggiorno il valore di picco
     flag = 1;
   }
-  else if ((output < oldOutput) && flag = 1){   //è iniziata la discesa
+  else if ((output < oldOutput) && flag == 1){   //è iniziata la discesa
     campionamenti[i] = tempo;    //salvo il valore del tempo associato al picco (loop precedente)
     i++;
     flag = 0;

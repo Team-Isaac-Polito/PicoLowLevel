@@ -19,7 +19,7 @@ class PID {
     float errorI,output,oldError;
     int tempo;
     int campionamenti[N_CAMPIONAMENTI] = {0};
-    int flag, tOscillazione, i = 0, oldOuput = 0, media=0;
+    int flag, tOscillazione, i = 0, oldOutput = 0, media=0;
 };
 
 
