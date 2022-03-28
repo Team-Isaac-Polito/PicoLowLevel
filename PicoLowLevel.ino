@@ -25,6 +25,23 @@ int refTrLeft = START_TR_LEFT,
     refTrRight = START_TR_RIGHT,
     refYaw = START_YAW;
 
+union serialData_t {
+  byte valueBuffer[12];
+  float value[3];
+} serialData;
+
+enum {traction_left, traction_right, yaw};
+
+void receive(int byteCount){
+    DEBUG("RECEIVED DATA");
+
+    for(uint8_t index = 0; index<byteCount; index++){
+        serialData.valueBuffer[index] = Wire.read();
+    }
+    
+    return;
+}
+
 void setup() {
   // Serial Debug
 #if SERIAL_DEBUG_ATTIVATO 
@@ -41,6 +58,10 @@ void setup() {
   motorTrRight.begin();
   motorYaw.begin();
 
+  serialData.value[traction_left] = START_TR_LEFT;
+  serialData.value[traction_right] = START_TR_RIGHT;
+  serialData.value[yaw] = START_YAW;
+  
   // ENCODER ASSOLUTO
   //init AMS_AS5048B object
   // ToDo check if necessary to change to wire1 inside library - done, hope it works
@@ -78,6 +99,7 @@ void setup() {
   DEBUG("END SETUP");
 }
 
+
 void loop() {
   if(millis() - tempo < DT) return; // eseguo solo quando è passato DT tempo
   tempo = millis();
@@ -87,13 +109,13 @@ void loop() {
 
   DEBUG(" - SETPOINT - ");
   DEBUG("TR LEFT");
-  pidTrLeft.updateReferenceValue(refTrLeft * 4);
+  pidTrLeft.updateReferenceValue(serialData.value[traction_left]);
   DEBUG("TR RIGHT");
-  pidTrRight.updateReferenceValue(refTrRight * 4);
+  pidTrRight.updateReferenceValue(serialData.value[traction_right]);
   DEBUG("YAW");
-  pidYaw.updateReferenceValue(refYaw);
+  pidYaw.updateReferenceValue(serialData.value[yaw]);
   DEBUG("END SETPOINT");
-
+return;
   DEBUG("READING ABSOLUTE ENCODER ANGLE");
   // read absolute encoder 
   absEncoder.updateMovingAvgExp();
