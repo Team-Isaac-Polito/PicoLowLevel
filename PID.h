@@ -3,7 +3,6 @@
 
 #include <Arduino.h>
 #include "config.h"
-#define N_CAMPIONAMENTI 200
 
 class PID {
   public:
@@ -13,13 +12,14 @@ class PID {
     void updateFeedback(float fb);
 
   private:
+    void mediaTuning(float, int);
     float KP,KI,KD;
     float referenceValue;
     float feedback,oldFeedback;
     float errorI,output,oldError;
-    int tempo;
-    int campionamenti[N_CAMPIONAMENTI] = {0};
-    int flag, tOscillazione, i = 0, oldOutput = 0, media=0;
+    float oldOutput = 0;
+    float tOscillazione, campionamenti[N_CAMPIONAMENTI] = {0};
+    int tempo, media=0, tuningIndex = 0, flagTuninInterno;
 };
 
 
