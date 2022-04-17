@@ -50,6 +50,8 @@ void setup() {
   DEBUG("START SETUP");
 
   //I2C setup
+  Wire.setSDA(I2C_PIN_SDA);
+  Wire.setSCL(I2C_PIN_SDA);
   Wire.begin(I2C_ADDRESS);     // join I2C bus with respective address
   Wire.onReceive(receive); // receive data function
 
@@ -65,8 +67,8 @@ void setup() {
   // ENCODER ASSOLUTO
   //init AMS_AS5048B object
   // ToDo check if necessary to change to wire1 inside library - done, hope it works
-  Wire1.setSDA(2);
-  Wire1.setSCL(3);
+  Wire1.setSDA(I2C_ENC_PIN_SDA);
+  Wire1.setSCL(I2C_ENC_PIN_SCL);
   absEncoder.begin();
 
   //set clock wise counting
@@ -115,7 +117,6 @@ void loop() {
   DEBUG("YAW");
   pidYaw.updateReferenceValue(serialData.value[yaw]);
   DEBUG("END SETPOINT");
-return;
   DEBUG("READING ABSOLUTE ENCODER ANGLE");
   // read absolute encoder 
   absEncoder.updateMovingAvgExp();

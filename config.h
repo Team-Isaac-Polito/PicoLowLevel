@@ -7,7 +7,11 @@
 
 // I2C config
 #define I2C_ADDRESS		0x15
+#define I2C_PIN_SDA		20
+#define I2C_PIN_SCL		21
 
+#define I2C_ENC_PIN_SDA		2
+#define I2C_ENC_PIN_SCL		3
 
 
 //  - - - PID control constants
@@ -25,7 +29,7 @@
 // traction left
 #define TR_LEFT_KP		.91
 #define TR_LEFT_KI		.1
-#define TR_LEFT_KD		.3
+#define TR_LEFT_KD		.0
 
 // traction right
 #define TR_RIGHT_KP 	TR_LEFT_KP
@@ -41,29 +45,29 @@
 //  - - - DRIVER pins
 
 // traction left
-#define DRV_TR_LEFT_DIR	15
-#define DRV_TR_LEFT_PWM	14
+#define DRV_TR_LEFT_DIR	16
+#define DRV_TR_LEFT_PWM	17
 #define DRV_TR_LEFT_SLP	
 #define DRV_TR_LEFT_FLT	
 #define DRV_TR_LEFT_CS		// current sense
 
 // traction right
-#define DRV_TR_RIGHT_DIR	11
-#define DRV_TR_RIGHT_PWM	10
+#define DRV_TR_RIGHT_DIR	14
+#define DRV_TR_RIGHT_PWM	15
 #define DRV_TR_LEFT_SLP
 #define DRV_TR_LEFT_FLT
 #define DRV_TR_LEFT_CS
 
 // yaw
-#define DRV_YAW_DIR		21
-#define DRV_YAW_PWM		20
+#define DRV_YAW_DIR		4
+#define DRV_YAW_PWM		5
 #define DRV_TR_LEFT_SLP
 #define DRV_TR_LEFT_FLT
 #define DRV_TR_LEFT_CS
 
 // ENCODER PINS
-#define ENC_TR_LEFT_A	27
-#define ENC_TR_LEFT_B	28
+#define ENC_TR_LEFT_A	11
+#define ENC_TR_LEFT_B	10
 
-#define ENC_TR_RIGHT_A	22
-#define ENC_TR_RIGHT_B	26
+#define ENC_TR_RIGHT_A	12
+#define ENC_TR_RIGHT_B	13
