@@ -26,6 +26,10 @@
 #define MAX_OUTPUT		1023
 #define MIN_OUTPUT		-MAX_OUTPUT
 
+//Campionamenti per il Tuning
+#define N_CAMPIONAMENTI 200
+#define FLAG_TUNING 1
+
 // traction left
 #define TR_LEFT_KP		.91
 #define TR_LEFT_KI		.1

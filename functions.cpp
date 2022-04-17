@@ -5,6 +5,8 @@
 
 extern long countStepsLeft;
 extern long countStepsRight;
+int campionamenti[N_CAMPIONAMENTI] = {0};
+int flag, tOscillazione, i = 0, oldOutput = 0, media=0;
 //extern union serialData_t serialData;
 
 

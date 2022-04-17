@@ -6,7 +6,6 @@ PID::PID(float kp, float ki, float kd) {
   KI = ki;
   KD = kd;
 
-  //ToDo inizializzare altre variabili: error_i, old_error
   errorI = 0;
   oldError = 0;
   tempo = millis();
@@ -63,35 +62,42 @@ float PID::calculate() {
   oldError = errorP;
 
 
-
-  //codice per il calcolo del periodo di oscillazione della sinusoide ottenuta durante il Tuning [Metodo ziegler-Nichols]
-if (i != N_CAMPIONAMENTI){
-  if (output > oldOutput){    //sta ancora salendo, aggiorno il valore di picco
-    flag = 1;
-  }
-  else if ((output < oldOutput) && flag == 1){   //è iniziata la discesa
-    campionamenti[i] = tempo;    //salvo il valore del tempo associato al picco (loop precedente)
-    i++;
-    flag = 0;
-  }
-
-  //calcolo la media dei periodi di oscillazione
-  if (i > 2){
-    tOscillazione = campionamenti[i-1] - campionamenti[i-2];
-    media = (tOscillazione + media) / 2;
-  }
-  else if (i == 2){
-     tOscillazione = campionamenti[i-1] - campionamenti[i-2];
-     media = tOscillazione;
-  }
-
-}
-  DEBUG("PERIOD OF OSCILLATION");
-  DEBUG(media);
+  //richiama la funzione per il calcolo del periodo di oscillazione e print della media - Tuning
+  if (FLAG_TUNING == 1)
+    mediaTuning(output, tempo);
   
-  output = oldOutput;
   tempo = millis();
   
   return output;
+
+}
+
+
+void PID::mediaTuning(float output, int tempo){      //codice per il calcolo del periodo di oscillazione della sinusoide ottenuta durante il Tuning [Metodo ziegler-Nichols]
+  if (tuningIndex != N_CAMPIONAMENTI){
+    if (output > oldOutput){    //sta ancora salendo, aggiorno il valore di picco
+      flagTuninInterno = 1;
+    }
+    else if ((output < oldOutput) && flagTuninInterno == 1){   //è iniziata la discesa
+      campionamenti[tuningIndex] = tempo;    //salvo il valore del tempo associato al picco (loop precedente)
+      tuningIndex++;
+      flagTuninInterno = 0;
+    }
+  
+    //calcolo la media dei periodi di oscillazione
+    if (tuningIndex > 2){
+      tOscillazione = campionamenti[tuningIndex-1] - campionamenti[tuningIndex-2];
+      media = (tOscillazione + media) / 2;
+    }
+    else if (tuningIndex == 2){
+       tOscillazione = campionamenti[tuningIndex-1] - campionamenti[tuningIndex-2];
+       media = tOscillazione;
+    }
+}
+
+  DEBUG("PERIOD OF OSCILLATION");
+  DEBUG(media);
+  
+  oldOutput = output;
 
 }

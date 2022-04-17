@@ -66,7 +66,6 @@ void setup() {
   
   // ENCODER ASSOLUTO
   //init AMS_AS5048B object
-  // ToDo check if necessary to change to wire1 inside library - done, hope it works
   Wire1.setSDA(I2C_ENC_PIN_SDA);
   Wire1.setSCL(I2C_ENC_PIN_SCL);
   absEncoder.begin();
