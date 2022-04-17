@@ -32,7 +32,7 @@ union serialData_t {
 
 enum {traction_left, traction_right, yaw};
 
-int motorTestDir = 1,
+int motorTestDir = 3,
   motorTestValue = 0;
 
 
@@ -136,9 +136,9 @@ void loop() {
 
   motorTestValue += motorTestDir;
 
-  if(motorTestValue == 1000)
-    motorTestDir = -1;
-  else if(motorTestValue == -1000)
-    motorTestDir = 1;
+  if(motorTestValue == 1002)
+    motorTestDir = -3;
+  else if(motorTestValue == -1002)
+    motorTestDir = 3;
 
 }
