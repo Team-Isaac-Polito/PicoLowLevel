@@ -32,6 +32,11 @@ union serialData_t {
 
 enum {traction_left, traction_right, yaw};
 
+int motorTestDir = 1,
+  motorTestValue = 0;
+
+
+
 void receive(int byteCount){
     DEBUG("RECEIVED DATA");
 
@@ -108,14 +113,6 @@ void loop() {
   DEBUG("EXECUTING LOOP");
   DEBUG(tempo);
 
-  DEBUG(" - SETPOINT - ");
-  DEBUG("TR LEFT");
-  pidTrLeft.updateReferenceValue(serialData.value[traction_left]);
-  DEBUG("TR RIGHT");
-  pidTrRight.updateReferenceValue(serialData.value[traction_right]);
-  DEBUG("YAW");
-  pidYaw.updateReferenceValue(serialData.value[yaw]);
-  DEBUG("END SETPOINT");
   DEBUG("READING ABSOLUTE ENCODER ANGLE");
   // read absolute encoder 
   absEncoder.updateMovingAvgExp();
@@ -129,18 +126,19 @@ void loop() {
   pidTrRight.updateFeedback(getRightEncoderData());
   DEBUG("END READING TRACTION ENCODERS DATA");
 
-
-  DEBUG("CALCULATING PIDS VALUES AND WRITING MOTORS");
-  // PID calculations and motor control
-  digitalWrite(LED_BUILTIN, HIGH);   // turn the LED on to manually check calculation and writing data time use
-
+  DEBUG("WRITING DATA TO MOTORS");  
   DEBUG("TRACTION LEFT");
-  motorTrLeft.write(pidTrLeft.calculate());
+  motorTrLeft.write(motorTestValue);
   DEBUG("TRACTION RIGHT");
-  motorTrRight.write(pidTrRight.calculate());
+  motorTrRight.write(motorTestValue);
   DEBUG("YAW");
-  motorYaw.write(pidYaw.calculate());
+  motorYaw.write(motorTestValue);
 
-  digitalWrite(LED_BUILTIN, LOW); // turn off the led
-  DEBUG("END CALCULATING PIDS VALUES AND WRITING MOTORS");
+  motorTestValue += motorTestDir;
+
+  if(motorTestValue == 1000)
+    motorTestDir = -1;
+  else if(motorTestValue == -1000)
+    motorTestDir = 1;
+
 }

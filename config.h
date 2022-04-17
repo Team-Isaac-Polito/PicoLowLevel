@@ -17,7 +17,7 @@
 //  - - - PID control constants
 //  
 
-#define DT				50
+#define DT				100
 
 #define START_TR_LEFT	0
 #define START_TR_RIGHT	START_TR_LEFT
