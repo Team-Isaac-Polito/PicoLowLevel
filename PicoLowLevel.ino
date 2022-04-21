@@ -69,7 +69,7 @@ void setup() {
   serialData.value[traction_right] = START_TR_RIGHT;
   serialData.value[yaw] = START_YAW;
   
-  // ENCODER ASSOLUTO
+ /* // ENCODER ASSOLUTO
   //init AMS_AS5048B object
   Wire1.setSDA(I2C_ENC_PIN_SDA);
   Wire1.setSCL(I2C_ENC_PIN_SCL);
@@ -81,7 +81,7 @@ void setup() {
 
   //set the 0 to the sensor
   absEncoder.zeroRegW(0x0); // ToDo, non dobbiamo partire da 0
-
+*/
   // ENCODER TRAZIONE
   pinMode(ENC_TR_LEFT_A,INPUT);
   pinMode(ENC_TR_LEFT_B,INPUT);
@@ -112,13 +112,13 @@ void loop() {
 
   DEBUG("EXECUTING LOOP");
   DEBUG(tempo);
-
+/*
   DEBUG("READING ABSOLUTE ENCODER ANGLE");
   // read absolute encoder 
   absEncoder.updateMovingAvgExp();
   pidYaw.updateFeedback(absEncoder.angleR(U_DEG, false));
   DEBUG("END READING ABSOLUTE ENCODER ANGLE");
-
+*/
   DEBUG("READING TRACTION ENCODERS DATA");
   DEBUG("TRACTION LEFT");
   pidTrLeft.updateFeedback(getLeftEncoderData());
