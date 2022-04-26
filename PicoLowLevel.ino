@@ -54,11 +54,11 @@ void setup() {
 #endif
   DEBUG("START SETUP");
 
-  //I2C setup
+  /*//I2C setup
   Wire.setSDA(I2C_PIN_SDA);
   Wire.setSCL(I2C_PIN_SDA);
   Wire.begin(I2C_ADDRESS);     // join I2C bus with respective address
-  Wire.onReceive(receive); // receive data function
+  Wire.onReceive(receive); // receive data function*/
 
   // MOTORS SETUP
   motorTrLeft.begin();
