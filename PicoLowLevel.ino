@@ -25,20 +25,25 @@ int refTrLeft = START_TR_LEFT,
     refTrRight = START_TR_RIGHT,
     refYaw = START_YAW;
 
-union serialData_t {
-  byte valueBuffer[12];
-  float value[3];
-} serialData;
+  union serialData_t {
+    byte valueBuffer[8];
+    float value[2];
+  } serialData;
 
 enum {traction_left, traction_right, yaw};
 
 void receive(int byteCount){
+ // if(byteCount < 12) {DEBUG("not enough");return;}
     DEBUG("RECEIVED DATA");
+    DEBUG(byteCount);
 
     for(uint8_t index = 0; index<byteCount; index++){
         serialData.valueBuffer[index] = Wire.read();
     }
-    
+
+    DEBUG(serialData.value[0]);
+    DEBUG(serialData.value[1]);
+    //DEBUG(serialData.value[2]);
     return;
 }
 
@@ -51,9 +56,10 @@ void setup() {
 
   //I2C setup
   Wire.setSDA(I2C_PIN_SDA);
-  Wire.setSCL(I2C_PIN_SDA);
+  Wire.setSCL(I2C_PIN_SCL);
   Wire.begin(I2C_ADDRESS);     // join I2C bus with respective address
   Wire.onReceive(receive); // receive data function
+
 
   // MOTORS SETUP
   motorTrLeft.begin();
@@ -64,7 +70,7 @@ void setup() {
   serialData.value[traction_right] = START_TR_RIGHT;
   serialData.value[yaw] = START_YAW;
   
-  // ENCODER ASSOLUTO
+ /* // ENCODER ASSOLUTO
   //init AMS_AS5048B object
   Wire1.setSDA(I2C_ENC_PIN_SDA);
   Wire1.setSCL(I2C_ENC_PIN_SCL);
@@ -76,7 +82,7 @@ void setup() {
 
   //set the 0 to the sensor
   absEncoder.zeroRegW(0x0); // ToDo, non dobbiamo partire da 0
-
+*/
   // ENCODER TRAZIONE
   pinMode(ENC_TR_LEFT_A,INPUT);
   pinMode(ENC_TR_LEFT_B,INPUT);
@@ -102,12 +108,34 @@ void setup() {
 
 
 void loop() {
+  /*if(Serial.available() >= 4) {
+      serialData.value[traction_left] = - Serial.parseFloat(SKIP_WHITESPACE);
+      
+      serialData.value[traction_right] = Serial.parseFloat(SKIP_WHITESPACE);
+  }*/
+  return;
   if(millis() - tempo < DT) return; // eseguo solo quando è passato DT tempo
   tempo = millis();
+  
 
-  DEBUG("EXECUTING LOOP");
+ /* DEBUG("EXECUTING LOOP");
   DEBUG(tempo);
 
+  DEBUG("TRACTION LEFT");
+  motorTrLeft.write(serialData.value[traction_left]);
+  DEBUG("TRACTION RIGHT");
+  motorTrRight.write(serialData.value[traction_right]);
+  return;*/
+
+  /*  DEBUG("READING TRACTION ENCODERS DATA");
+  DEBUG("TRACTION LEFT");
+  pidTrLeft.updateFeedback(getLeftEncoderData());
+  DEBUG("TRACTION RIGHT");
+  pidTrRight.updateFeedback(getRightEncoderData());
+  DEBUG("END READING TRACTION ENCODERS DATA");
+*/
+  
+  /*
   DEBUG(" - SETPOINT - ");
   DEBUG("TR LEFT");
   pidTrLeft.updateReferenceValue(serialData.value[traction_left]);
@@ -115,12 +143,14 @@ void loop() {
   pidTrRight.updateReferenceValue(serialData.value[traction_right]);
   DEBUG("YAW");
   pidYaw.updateReferenceValue(serialData.value[yaw]);
-  DEBUG("END SETPOINT");
-  DEBUG("READING ABSOLUTE ENCODER ANGLE");
+  DEBUG("END SETPOINT");*/
+
+  
+  /*DEBUG("READING ABSOLUTE ENCODER ANGLE");
   // read absolute encoder 
   absEncoder.updateMovingAvgExp();
   pidYaw.updateFeedback(absEncoder.angleR(U_DEG, false));
-  DEBUG("END READING ABSOLUTE ENCODER ANGLE");
+  DEBUG("END READING ABSOLUTE ENCODER ANGLE");*/
 
   DEBUG("READING TRACTION ENCODERS DATA");
   DEBUG("TRACTION LEFT");
@@ -133,13 +163,11 @@ void loop() {
   DEBUG("CALCULATING PIDS VALUES AND WRITING MOTORS");
   // PID calculations and motor control
   digitalWrite(LED_BUILTIN, HIGH);   // turn the LED on to manually check calculation and writing data time use
-
+/*
   DEBUG("TRACTION LEFT");
-  motorTrLeft.write(pidTrLeft.calculate());
-  DEBUG("TRACTION RIGHT");
-  motorTrRight.write(pidTrRight.calculate());
-  DEBUG("YAW");
-  motorYaw.write(pidYaw.calculate());
+  */
+  /*DEBUG("YAW");
+  motorYaw.write(pidYaw.calculate());*/
 
   digitalWrite(LED_BUILTIN, LOW); // turn off the led
   DEBUG("END CALCULATING PIDS VALUES AND WRITING MOTORS");

@@ -17,7 +17,7 @@
 //  - - - PID control constants
 //  
 
-#define DT				50
+#define DT				200
 
 #define START_TR_LEFT	0
 #define START_TR_RIGHT	START_TR_LEFT
@@ -49,29 +49,29 @@
 //  - - - DRIVER pins
 
 // traction left
-#define DRV_TR_LEFT_DIR	16
-#define DRV_TR_LEFT_PWM	17
+#define DRV_TR_LEFT_DIR	15
+#define DRV_TR_LEFT_PWM	14
 #define DRV_TR_LEFT_SLP	
 #define DRV_TR_LEFT_FLT	
 #define DRV_TR_LEFT_CS		// current sense
 
 // traction right
-#define DRV_TR_RIGHT_DIR	14
-#define DRV_TR_RIGHT_PWM	15
+#define DRV_TR_RIGHT_DIR	9
+#define DRV_TR_RIGHT_PWM	8
 #define DRV_TR_LEFT_SLP
 #define DRV_TR_LEFT_FLT
 #define DRV_TR_LEFT_CS
 
 // yaw
-#define DRV_YAW_DIR		4
-#define DRV_YAW_PWM		5
+#define DRV_YAW_DIR		3
+#define DRV_YAW_PWM		2
 #define DRV_TR_LEFT_SLP
 #define DRV_TR_LEFT_FLT
 #define DRV_TR_LEFT_CS
 
 // ENCODER PINS
-#define ENC_TR_LEFT_A	11
-#define ENC_TR_LEFT_B	10
+#define ENC_TR_LEFT_A	13
+#define ENC_TR_LEFT_B	12
 
-#define ENC_TR_RIGHT_A	12
-#define ENC_TR_RIGHT_B	13
+#define ENC_TR_RIGHT_A	10
+#define ENC_TR_RIGHT_B	11

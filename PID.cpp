@@ -51,9 +51,9 @@ float PID::calculate() {
   output = KP * errorP + KI * errorI + KD * errorD;
   DEBUG("PROPORTIONAL");
   DEBUG(KP * errorP);
-  DEBUG(KP);
-  DEBUG(KI);
-  DEBUG(KD);
+ // DEBUG(KP);
+ // DEBUG(KI);
+ // DEBUG(KD);
   DEBUG("INTEGRATIVE");
   DEBUG(KI * errorI);
   DEBUG("DERIVATIVE");
@@ -62,10 +62,10 @@ float PID::calculate() {
   oldError = errorP;
 
 
-  //richiama la funzione per il calcolo del periodo di oscillazione e print della media - Tuning
+ /* //richiama la funzione per il calcolo del periodo di oscillazione e print della media - Tuning
   if (FLAG_TUNING == 1)
     mediaTuning(output, tempo);
-  
+  */
   tempo = millis();
   
   return output;
