@@ -1,15 +1,6 @@
 #include <Wire.h>
 #include "Motor.h"
-
-#define I2C_ADDRESS    0x15
-#define I2C_PIN_SDA   20
-#define I2C_PIN_SCL   21
-
-#define DRV_TR_LEFT_DIR  15
-#define DRV_TR_LEFT_PWM 14
-
-#define DRV_TR_RIGHT_DIR  9
-#define DRV_TR_RIGHT_PWM  8
+#include "definitions.h"
 
 bool updm = false;
 
@@ -44,8 +35,8 @@ void setup() {
   Wire.onReceive(receive);
 
   // initializing PWM
-  analogWriteFreq(50000); // switching frequency to 50kHz
-  analogWriteRange(512); // analogWrite range from 0 to 512, default is 255
+  analogWriteFreq(PWM_FREQUENCY); // switching frequency to 50kHz
+  analogWriteRange(PWM_MAX_VALUE); // analogWrite range from 0 to 512, default is 255
 
   // motor initialization
   motorTrLeft.begin(); 

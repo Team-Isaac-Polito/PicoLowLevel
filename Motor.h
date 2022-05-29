@@ -2,8 +2,7 @@
 #define MOTOR_H
 
 #include <Arduino.h>
-
-#define MAX_OUTPUT    1023
+#include "definitions.h"
 
 /**
  * Motor class used to control simple DC motors.
