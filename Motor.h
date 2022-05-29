@@ -5,6 +5,9 @@
 
 #define MAX_OUTPUT    1023
 
+/**
+ * Motor class used to control simple DC motors.
+ */
 class Motor {
   public:
     Motor(byte pwm, byte dir);
