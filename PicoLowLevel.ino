@@ -1,6 +1,7 @@
 #include <Wire.h>
 #include "Motor.h"
 #include "definitions.h"
+#include "Debug.h"
 
 bool updm = false;
 
@@ -42,15 +43,15 @@ void setup() {
   motorTrLeft.begin(); 
   motorTrRight.begin();
 
-  Serial.println("BEGIN");
+  Debug.println("BEGIN", Levels::INFO);
 }
 
 void loop() {
   // only set motor speed if we received new data
   if (updm) {
-    Serial.print("TRACTION LEFT:\t");
+    Debug.print("TRACTION LEFT:\t");
     motorTrLeft.write(serialData.value[traction_left]);
-    Serial.print("TRACTION RIGHT:\t");
+    Debug.print("TRACTION RIGHT:\t");
     motorTrRight.write(-serialData.value[traction_right]);
     updm = false;
   }

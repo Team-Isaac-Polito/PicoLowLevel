@@ -24,7 +24,7 @@ void Motor::begin() {
 void Motor::write(float value) {
   int vli = (int) value;
   int mot = constrain(abs(vli), 0, PWM_MAX_VALUE);
-  Serial.println(vli);
+  Debug.println(vli);
   analogWrite(pwm, mot);
   digitalWrite(dir, vli < 0);
 }
