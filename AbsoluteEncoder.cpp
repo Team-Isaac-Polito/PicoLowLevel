@@ -1,4 +1,4 @@
-#include "absoluteEncoder.h"
+#include "AbsoluteEncoder.h"
 
 /**
  * Creates object - nothing needed

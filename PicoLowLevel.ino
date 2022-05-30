@@ -1,6 +1,6 @@
 #include <Wire.h>
 #include "Motor.h"
-#include "absoluteEncoder.h"
+#include "AbsoluteEncoder.h"
 #include "definitions.h"
 #include "Debug.h"
 
