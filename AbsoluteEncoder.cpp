@@ -4,18 +4,14 @@
  * Creates object - nothing needed
  *
  */
-AbsoluteEncoder::AbsoluteEncoder(byte i2c_sda, byte i2c_scl) {
-  this->i2c_sda = i2c_sda;
-  this->i2c_scl = i2c_scl;
+AbsoluteEncoder::AbsoluteEncoder() {
 }
 
 void AbsoluteEncoder::begin() {
-  Wire1.setSDA(i2c_sda);
-  Wire1.setSCL(i2c_scl);
   absEncoder.begin();
   absEncoder.setClockWise(true); 
 
-  this->setZero();
+  setZero();
  }
 
 void AbsoluteEncoder::setZero() {
