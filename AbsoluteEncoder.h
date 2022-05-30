@@ -9,7 +9,7 @@
 /**
  * Class used as a wrapper for the ams_as5048b library to read data from the absolute encoder.
  */
-class AbsoluteEncoder {
+class AbsoluteEncoder: private AMS_AS5048B { 
   public:
     AbsoluteEncoder();
     void begin();
@@ -18,7 +18,6 @@ class AbsoluteEncoder {
     void update();
 
   private:
-    AMS_AS5048B absEncoder;
 };
 
 #endif

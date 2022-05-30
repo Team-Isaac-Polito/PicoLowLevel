@@ -8,20 +8,20 @@ AbsoluteEncoder::AbsoluteEncoder() {
 }
 
 void AbsoluteEncoder::begin() {
-  absEncoder.begin();
-  absEncoder.setClockWise(true); 
+  AMS_AS5048B::begin();
+  AMS_AS5048B::setClockWise(true); 
 
   setZero();
  }
 
 void AbsoluteEncoder::setZero() {
-  absEncoder.zeroRegW(0x0);
+  AMS_AS5048B::zeroRegW(0x0);
 }
 
 float AbsoluteEncoder::readAngle() {
-  return absEncoder.angleR(U_DEG, false);
+  return AMS_AS5048B::angleR(U_DEG, false);
 }
 
 void AbsoluteEncoder::update() {
-  absEncoder.updateMovingAvgExp();
+  AMS_AS5048B::updateMovingAvgExp();
 }
