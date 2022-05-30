@@ -11,14 +11,16 @@
  */
 class AbsoluteEncoder {
   public:
-    AbsoluteEncoder();
+    AbsoluteEncoder(byte i2c_sda, byte i2c_scl);
     void begin();
     void setZero();
     float readAngle();
-    
+    void update();
+
   private:
     AMS_AS5048B absEncoder;
-
+    byte i2c_sda;
+    byte i2c_scl;
 };
 
 #endif
