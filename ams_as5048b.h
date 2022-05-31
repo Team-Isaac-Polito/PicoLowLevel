@@ -57,7 +57,7 @@
 
 
 // OPERATIONS
-#define SERIAL_DEBUG_ENABLED
+//#define SERIAL_DEBUG_ENABLED - modified to use custom Debug class
 //#define USE_WIREBEGIN_ENABLED // to comment if Wire.begin() function is called in Setup() for instance. Usefull to manage one or several I2C devices in the same sketch
 
 // Default addresses for AS5048B

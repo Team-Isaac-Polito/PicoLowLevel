@@ -60,12 +60,13 @@ void AMS_AS5048B::begin(void) {
 		Wire1.begin();
 
 	#endif
-	#ifdef SERIAL_DEBUG_ENABLED
+	/* modified to use custom debug class
+	 * #ifdef SERIAL_DEBUG_ENABLED
 		_debugFlag = true;
 		if (!Serial) {
 			Serial.begin(9600);
 		}
-	#endif
+	#endif*/
 
 	_clockWise = false;
 	_lastAngleRaw = 0.0;
@@ -432,8 +433,11 @@ uint8_t AMS_AS5048B::readReg8(uint8_t address) {
 	Wire1.write(address);
 	requestResult = Wire1.endTransmission(false);
 	if (requestResult){
-		Serial.print("I2C error: ");
-		Serial.println(requestResult);
+		//modified to use custom debug class
+		Debug.print("ABSOLUTE ENCODER - I2C Error - ", Levels::WARN);
+  		Debug.println(requestResult, Levels::WARN);
+		/*Serial.print("I2C error: ");
+		Serial.println(requestResult);*/
 	}
 
 	Wire1.requestFrom(_chipAddress, nbByte2Read);
@@ -453,9 +457,12 @@ uint16_t AMS_AS5048B::readReg16(uint8_t address) {
 	Wire1.beginTransmission(_chipAddress);
 	Wire1.write(address);
 	requestResult = Wire1.endTransmission(false);
-	if (requestResult){
-		Serial.print("I2C error: ");
-		Serial.println(requestResult);
+	if (requestResult){		
+		//modified to use custom debug class
+		Debug.print("ABSOLUTE ENCODER - I2C Error - ", Levels::WARN);
+  		Debug.println(requestResult, Levels::WARN);
+		/*Serial.print("I2C error: ");
+		Serial.println(requestResult);*/
 	}
 
 
@@ -554,9 +561,4 @@ double AMS_AS5048B::getExpAvgRawAngle(void) {
 	angle = (angle / twopi) * AS5048B_RESOLUTION;
 
 	return angle;
-}
-
-void AMS_AS5048B::printDebug(void) {
-
-	return;
 }
