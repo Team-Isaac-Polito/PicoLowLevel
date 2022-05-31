@@ -1,6 +1,7 @@
 #include <Wire.h>
 #include "Motor.h"
 #include "AbsoluteEncoder.h"
+#include "TractionEncoder.h"
 #include "PID.h"
 #include "definitions.h"
 #include "Debug.h"
@@ -19,6 +20,9 @@ enum {traction_left, traction_right};
 Motor motorTrLeft(DRV_TR_LEFT_PWM,DRV_TR_LEFT_DIR);
 Motor motorTrRight(DRV_TR_RIGHT_PWM,DRV_TR_RIGHT_DIR);
 
+TractionEncoder encoderTrLeft(ENC_TR_LEFT_A,ENC_TR_LEFT_B);
+TractionEncoder encoderTrRight(ENC_TR_RIGHT_A,ENC_TR_RIGHT_B);
+
 // event on incoming I²C data
 void receive(int byteCount) {
   updm = true;
@@ -27,6 +31,14 @@ void receive(int byteCount) {
     serialData.valueBuffer[index] = Wire.read();
   }
 }
+
+void encoderTrRightISR() {
+  encoderTrRight.ISR();
+}
+void encoderTrLeftISR() {
+  encoderTrLeft.ISR();
+}
+
 
 void setup() {
   Serial.begin(115200);
@@ -42,8 +54,17 @@ void setup() {
   analogWriteRange(PWM_MAX_VALUE); // analogWrite range from 0 to 512, default is 255
 
   // motor initialization
-  motorTrLeft.begin(); 
+  motorTrLeft.begin();
+
   motorTrRight.begin();
+
+  // encoder initialization
+  encoderTrLeft.begin();
+  attachInterrupt(digitalPinToInterrupt(ENC_TR_LEFT_A), encoderTrLeftISR, RISING);    
+
+  encoderTrRight.begin();
+  attachInterrupt(digitalPinToInterrupt(ENC_TR_RIGHT_A), encoderTrRightISR, RISING);    
+
 
   Debug.println("BEGIN", Levels::INFO);
 }

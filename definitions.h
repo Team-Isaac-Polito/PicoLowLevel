@@ -17,4 +17,12 @@
 #define DRV_TR_RIGHT_DIR  9
 #define DRV_TR_RIGHT_PWM  8
 
+//Encoder pins
+#define ENC_TR_LEFT_A   13
+#define ENC_TR_LEFT_B   12
+
+#define ENC_TR_RIGHT_A  10
+#define ENC_TR_RIGHT_B  11
+
+
 #endif
