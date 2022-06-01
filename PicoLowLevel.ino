@@ -26,7 +26,7 @@ TractionEncoder encoderTrRight(ENC_TR_RIGHT_A,ENC_TR_RIGHT_B);
 // event on incoming I²C data
 void receive(int byteCount) {
   updm = true;
-  Serial.println("RECEIVED DATA");
+  Debug.println("RECEIVED DATA");
   for (uint8_t index = 0; index < byteCount && index < 8; index++) {
     serialData.valueBuffer[index] = Wire.read();
   }
