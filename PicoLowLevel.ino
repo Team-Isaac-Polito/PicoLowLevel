@@ -32,13 +32,6 @@ void receive(int byteCount) {
   }
 }
 
-void encoderTrRightISR() {
-  encoderTrRight.ISR();
-}
-void encoderTrLeftISR() {
-  encoderTrLeft.ISR();
-}
-
 
 void setup() {
   Serial.begin(115200);
@@ -57,14 +50,6 @@ void setup() {
   motorTrLeft.begin();
 
   motorTrRight.begin();
-
-  // encoder initialization
-  encoderTrLeft.begin();
-  attachInterrupt(digitalPinToInterrupt(ENC_TR_LEFT_A), encoderTrLeftISR, RISING);    
-
-  encoderTrRight.begin();
-  attachInterrupt(digitalPinToInterrupt(ENC_TR_RIGHT_A), encoderTrRightISR, RISING);    
-
 
   Debug.println("BEGIN", Levels::INFO);
 }

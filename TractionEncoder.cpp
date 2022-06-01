@@ -14,8 +14,7 @@ TractionEncoder::TractionEncoder(byte pin_a, byte pin_b) {
 void TractionEncoder::begin() {
     pinMode(pin_a,INPUT);
     pinMode(pin_b,INPUT);
-    //attachInterrupt(digitalPinToInterrupt(pin_a), std::bind(&TractionEncoder::ISR, this), RISING)
-    //attachInterrupt(digitalPinToInterrupt(pin_a), &ISR_wrapper, RISING);    
+    attachInterrupt(digitalPinToInterrupt(pin_a), &ISR_wrapper, RISING, this);
 }
 
 float TractionEncoder::getSpeed() {
@@ -42,4 +41,8 @@ float TractionEncoder::getSpeed() {
 
 void TractionEncoder::ISR() {   
     countSteps += digitalRead(pin_b) == HIGH ? 1 : -1; // aggiungo o tolgo un passo in base al segnale del pin direzione
+}
+
+void TractionEncoder::ISR_wrapper(TractionEncoder* te) {
+  te->ISR();
 }
