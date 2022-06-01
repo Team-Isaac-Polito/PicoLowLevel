@@ -48,7 +48,6 @@ void setup() {
 
   // motor initialization
   motorTrLeft.begin();
-
   motorTrRight.begin();
 
   Debug.println("BEGIN", Levels::INFO);

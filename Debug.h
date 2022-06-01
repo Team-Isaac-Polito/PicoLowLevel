@@ -45,7 +45,7 @@ private:
   Levels level;
 };
 
-// default instance, extern so any class can use it
+// making the default instance extern so any class can use it
 extern SerialDebug Debug;
 
 #endif

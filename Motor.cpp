@@ -19,7 +19,8 @@ void Motor::begin() {
 }
 
 /**
- * Sets the motor speed, value from 0 (OFF) to maximum PWM value.
+ * Sets the motor speed.
+ * @param value Speed of the motor, ranging from 0 to maximum PWM value.
  */
 void Motor::write(float value) {
   int vli = (int) value;

@@ -74,4 +74,5 @@ String SerialDebug::getLevel(Levels level) {
   }
 }
 
+// creation of the default instance
 SerialDebug Debug;
