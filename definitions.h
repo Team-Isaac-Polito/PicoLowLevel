@@ -1,6 +1,8 @@
 #ifndef definitions_h
 #define definitions_h
 
+#define DT 100
+
 // PWM configuration
 #define PWM_MAX_VALUE 512
 #define PWM_FREQUENCY 50000

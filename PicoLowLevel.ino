@@ -8,6 +8,8 @@
 
 bool updm = false;
 
+int tempo;
+
 // used to convert from byte to float, both arrays share the same memory
 union serialData_t {
   byte valueBuffer[8];
@@ -50,10 +52,25 @@ void setup() {
   motorTrLeft.begin();
   motorTrRight.begin();
 
+  
+  encoderTrLeft.begin();
+  encoderTrRight.begin();
+
+  tempo = millis();
   Debug.println("BEGIN", Levels::INFO);
 }
 
 void loop() {
+  if(millis() - tempo < DT) return; // eseguo solo quando è passato DT tempo
+  tempo = millis();
+
+  Debug.println("ENCODER");
+  Debug.print("LEFT \t- ");
+  Debug.println(encoderTrLeft.getSpeed());
+  Debug.print("RIGHT \t- ");
+  Debug.println(encoderTrRight.getSpeed());
+  
+  
   // only set motor speed if we received new data
   if (updm) {
     Debug.print("TRACTION LEFT:\t");
