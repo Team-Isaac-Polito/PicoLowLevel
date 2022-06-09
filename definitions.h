@@ -12,6 +12,9 @@
 #define I2C_PIN_SDA   20
 #define I2C_PIN_SCL   21
 
+#define I2C_SENS_SDA   18
+#define I2C_SENS_SCL   19
+
 // Battery configuration
 #define BAT_LOW 11.1f
 #define BAT_PIN 28
@@ -24,6 +27,9 @@
 
 #define DRV_TR_RIGHT_DIR  9
 #define DRV_TR_RIGHT_PWM  8
+
+#define DRV_YAW_DIR  3
+#define DRV_YAW_PWM  2
 
 //Encoder pins
 #define ENC_TR_LEFT_A   13

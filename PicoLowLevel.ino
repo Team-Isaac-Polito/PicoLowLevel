@@ -23,9 +23,13 @@ enum {traction_left, traction_right};
 
 Motor motorTrLeft(DRV_TR_LEFT_PWM,DRV_TR_LEFT_DIR);
 Motor motorTrRight(DRV_TR_RIGHT_PWM,DRV_TR_RIGHT_DIR);
+Motor motorYaw(DRV_YAW_PWM,DRV_YAW_DIR);
 
 TractionEncoder encoderTrLeft(ENC_TR_LEFT_A,ENC_TR_LEFT_B);
 TractionEncoder encoderTrRight(ENC_TR_RIGHT_A,ENC_TR_RIGHT_B);
+AbsoluteEncoder encoderYaw;
+
+PID pidYaw(.5,0.0001,0.35 ,1023,0.5);
 
 Battery battery;
 
@@ -47,6 +51,9 @@ void setup() {
   Wire.setSCL(I2C_PIN_SCL);
   Wire.begin(I2C_ADDRESS);
   Wire.onReceive(receive);
+  Wire1.setSDA(I2C_SENS_SDA);
+  Wire1.setSCL(I2C_SENS_SCL);
+  Wire1.begin();
 
   // initializing PWM
   analogWriteFreq(PWM_FREQUENCY); // switching frequency to 50kHz
@@ -55,9 +62,16 @@ void setup() {
   // motor initialization
   motorTrLeft.begin();
   motorTrRight.begin();
+  motorYaw.begin();
 
+  // encoder initialization
   encoderTrLeft.begin();
   encoderTrRight.begin();
+  encoderYaw.begin();
+
+  // set yaw to zero
+  encoderYaw.setZero();
+  pidYaw.updateReferenceValue(180);
 
   Debug.println("BEGIN", Levels::INFO);
 }
@@ -65,15 +79,26 @@ void setup() {
 void loop() {
   int time_cur = millis();
 
-  // eseguo solo quando è passato DT tempo
+  // pid routine, to be executed every DT milliseconds
   if (time_cur - time_enc > DT) { 
     time_enc = millis();
 
+    // yaw setting
+    encoderYaw.update();
+    pidYaw.updateFeedback(encoderYaw.readAngle());
+    pidYaw.calculate();
+    motorYaw.write(pidYaw.getOutput());
+
+    // debug output
     Debug.println("ENCODER");
     Debug.print("LEFT \t- ");
     Debug.println(encoderTrLeft.getSpeed());
     Debug.print("RIGHT \t- ");
     Debug.println(encoderTrRight.getSpeed());
+    Debug.print("AGLE \t- ");
+    Debug.println(encoderYaw.readAngle());
+    Debug.print("EENCODER OUTPUT \t- ");
+    Debug.println(pidYaw.getOutput());
   }
 
   // read battery voltage every second
