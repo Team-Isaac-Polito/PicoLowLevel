@@ -12,6 +12,12 @@
 #define I2C_PIN_SDA   20
 #define I2C_PIN_SCL   21
 
+// Battery configuration
+#define BAT_LOW 11.1f
+#define BAT_PIN 28
+#define BAT_R1 10000
+#define BAT_R2 3300
+
 // Motors pins
 #define DRV_TR_LEFT_DIR  15
 #define DRV_TR_LEFT_PWM 14

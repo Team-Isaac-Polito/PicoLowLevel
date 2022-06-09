@@ -25,6 +25,8 @@ Motor motorTrRight(DRV_TR_RIGHT_PWM,DRV_TR_RIGHT_DIR);
 TractionEncoder encoderTrLeft(ENC_TR_LEFT_A,ENC_TR_LEFT_B);
 TractionEncoder encoderTrRight(ENC_TR_RIGHT_A,ENC_TR_RIGHT_B);
 
+Battery battery;
+
 // event on incoming I²C data
 void receive(int byteCount) {
   updm = true;
@@ -70,6 +72,8 @@ void loop() {
   Debug.print("RIGHT \t- ");
   Debug.println(encoderTrRight.getSpeed());
   
+  Debug.print("Battery voltage is: ");
+  Debug.println(battery.readVoltage());  
   
   // only set motor speed if we received new data
   if (updm) {
