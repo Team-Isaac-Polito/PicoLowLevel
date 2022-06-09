@@ -9,7 +9,8 @@
 
 bool updm = false;
 
-int tempo;
+int time_enc = 0;
+int time_bat = 0;
 
 // used to convert from byte to float, both arrays share the same memory
 union serialData_t {
@@ -55,27 +56,34 @@ void setup() {
   motorTrLeft.begin();
   motorTrRight.begin();
 
-  
   encoderTrLeft.begin();
   encoderTrRight.begin();
 
-  tempo = millis();
   Debug.println("BEGIN", Levels::INFO);
 }
 
 void loop() {
-  if(millis() - tempo < DT) return; // eseguo solo quando è passato DT tempo
-  tempo = millis();
+  int time_cur = millis();
 
-  Debug.println("ENCODER");
-  Debug.print("LEFT \t- ");
-  Debug.println(encoderTrLeft.getSpeed());
-  Debug.print("RIGHT \t- ");
-  Debug.println(encoderTrRight.getSpeed());
-  
-  Debug.print("Battery voltage is: ");
-  Debug.println(battery.readVoltage());  
-  
+  // eseguo solo quando è passato DT tempo
+  if (time_cur - time_enc > DT) { 
+    time_enc = millis();
+
+    Debug.println("ENCODER");
+    Debug.print("LEFT \t- ");
+    Debug.println(encoderTrLeft.getSpeed());
+    Debug.print("RIGHT \t- ");
+    Debug.println(encoderTrRight.getSpeed());
+  }
+
+  // read battery voltage every second
+  if (time_cur - time_bat > 1000) {
+    time_bat = millis();
+
+    Debug.print("Battery voltage is: ");
+    Debug.println(battery.readVoltage());
+  }
+
   // only set motor speed if we received new data
   if (updm) {
     Debug.print("TRACTION LEFT:\t");
