@@ -1,6 +1,7 @@
 #include <Wire.h>
 #include "Motor.h"
 #include "AbsoluteEncoder.h"
+#include "Battery.h"
 #include "TractionEncoder.h"
 #include "PID.h"
 #include "definitions.h"
