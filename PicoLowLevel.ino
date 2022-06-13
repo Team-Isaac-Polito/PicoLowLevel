@@ -5,6 +5,7 @@
 #include "TractionEncoder.h"
 #include "PID.h"
 #include "definitions.h"
+#include "mod_config.h"
 #include "Debug.h"
 
 bool updm = false;
@@ -23,13 +24,15 @@ enum {traction_left, traction_right};
 
 Motor motorTrLeft(DRV_TR_LEFT_PWM,DRV_TR_LEFT_DIR);
 Motor motorTrRight(DRV_TR_RIGHT_PWM,DRV_TR_RIGHT_DIR);
-Motor motorYaw(DRV_YAW_PWM,DRV_YAW_DIR);
 
 TractionEncoder encoderTrLeft(ENC_TR_LEFT_A,ENC_TR_LEFT_B);
 TractionEncoder encoderTrRight(ENC_TR_RIGHT_A,ENC_TR_RIGHT_B);
-AbsoluteEncoder encoderYaw;
 
+#ifdef MODC_YAW
+Motor motorYaw(DRV_YAW_PWM,DRV_YAW_DIR);
+AbsoluteEncoder encoderYaw;
 PID pidYaw(.5,0.0001,0.35 ,1023,0.5);
+#endif
 
 Battery battery;
 
@@ -51,9 +54,6 @@ void setup() {
   Wire.setSCL(I2C_PIN_SCL);
   Wire.begin(I2C_ADDRESS);
   Wire.onReceive(receive);
-  Wire1.setSDA(I2C_SENS_SDA);
-  Wire1.setSCL(I2C_SENS_SCL);
-  Wire1.begin();
 
   // initializing PWM
   analogWriteFreq(PWM_FREQUENCY); // switching frequency to 50kHz
@@ -62,16 +62,22 @@ void setup() {
   // motor initialization
   motorTrLeft.begin();
   motorTrRight.begin();
-  motorYaw.begin();
 
   // encoder initialization
   encoderTrLeft.begin();
   encoderTrRight.begin();
-  encoderYaw.begin();
+
+#ifdef MODC_YAW
+  //Wire1.setSDA(I2C_SENS_SDA);
+  //Wire1.setSCL(I2C_SENS_SCL);
+  //Wire1.begin();
+  //motorYaw.begin();
+  //encoderYaw.begin();
 
   // set yaw to zero
-  encoderYaw.setZero();
-  pidYaw.updateReferenceValue(180);
+  //encoderYaw.setZero();
+  //pidYaw.updateReferenceValue(180);
+#endif
 
   Debug.println("BEGIN", Levels::INFO);
 }
@@ -83,11 +89,7 @@ void loop() {
   if (time_cur - time_enc > DT) { 
     time_enc = millis();
 
-    // yaw setting
-    encoderYaw.update();
-    pidYaw.updateFeedback(encoderYaw.readAngle());
-    pidYaw.calculate();
-    motorYaw.write(pidYaw.getOutput());
+
 
     // debug output
     Debug.println("ENCODER");
@@ -95,10 +97,17 @@ void loop() {
     Debug.println(encoderTrLeft.getSpeed());
     Debug.print("RIGHT \t- ");
     Debug.println(encoderTrRight.getSpeed());
+#ifdef MODC_YAW    
+    // yaw setting
+    encoderYaw.update();
+    pidYaw.updateFeedback(encoderYaw.readAngle());
+    pidYaw.calculate();
+    motorYaw.write(pidYaw.getOutput());
     Debug.print("AGLE \t- ");
     Debug.println(encoderYaw.readAngle());
     Debug.print("EENCODER OUTPUT \t- ");
     Debug.println(pidYaw.getOutput());
+#endif
   }
 
   // read battery voltage every second
