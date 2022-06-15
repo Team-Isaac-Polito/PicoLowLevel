@@ -1,14 +1,21 @@
-COMPILER = /home/andrea/bin/arduino-cli
+COMPILER = arduino-cli
 BOARD_NAME = pico:rp2040:rpipico
-BUILD_PATH = ./bin
-BUILD_PATH1 = ./bin/mod1
-BUILD_PATH2 = ./bin/mod2
-BUILD_PATH3 = ./bin/mod3
+BUILD_PATH = .//bin
+BUILD_PATH1 = .//bin//mod1
+BUILD_PATH2 = .//bin//mod2
+BUILD_PATH3 = .//bin//mod3
 
 MODULE1 = MOD_HEAD
 MODULE2 = MOD_MIDDLE
 MODULE3 = MOD_TAIL
 
+ifdef OS
+	RM = del /s /q
+else
+   ifeq ($(shell uname), Linux)
+      RM = rm -rf
+   endif
+endif
 
 target: distclean
 	echo compiling module 1
@@ -22,4 +29,4 @@ target: distclean
 	
 
 distclean: 
-	rm -rf $(BUILD_PATH)
+	$(RM) "$(BUILD_PATH)"
