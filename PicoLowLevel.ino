@@ -15,12 +15,12 @@ int time_bat = 0;
 
 // used to convert from byte to float, both arrays share the same memory
 union serialData_t {
-  byte valueBuffer[8];
-  float value[2];
+  byte valueBuffer[12];
+  float value[3];
 } serialData;
 
 // field identifier for serialData values
-enum {traction_left, traction_right};
+enum {traction_left, traction_right, yaw};
 
 Motor motorTrLeft(DRV_TR_LEFT_PWM,DRV_TR_LEFT_DIR);
 Motor motorTrRight(DRV_TR_RIGHT_PWM,DRV_TR_RIGHT_DIR);
@@ -31,7 +31,7 @@ TractionEncoder encoderTrRight(ENC_TR_RIGHT_A,ENC_TR_RIGHT_B);
 #ifdef MODC_YAW
 Motor motorYaw(DRV_YAW_PWM,DRV_YAW_DIR);
 AbsoluteEncoder encoderYaw;
-PID pidYaw(.5,0.0001,0.35 ,1023,0.5);
+PID pidYaw(PID_YAW_KP,PID_YAW_KI,PID_YAW_KD ,PID_YAW_MAX_OUTPUT,PID_YAW_EMA_ALPHA);
 #endif
 
 Battery battery;
@@ -40,7 +40,7 @@ Battery battery;
 void receive(int byteCount) {
   updm = true;
   Debug.println("RECEIVED DATA");
-  for (uint8_t index = 0; index < byteCount && index < 8; index++) {
+  for (uint8_t index = 0; index < byteCount && index < 12; index++) {
     serialData.valueBuffer[index] = Wire.read();
   }
 }
@@ -68,15 +68,13 @@ void setup() {
   encoderTrRight.begin();
 
 #ifdef MODC_YAW
-  //Wire1.setSDA(I2C_SENS_SDA);
-  //Wire1.setSCL(I2C_SENS_SCL);
-  //Wire1.begin();
-  //motorYaw.begin();
-  //encoderYaw.begin();
+  Wire1.setSDA(I2C_SENS_SDA);
+  Wire1.setSCL(I2C_SENS_SCL);
+  Wire1.begin();
+  motorYaw.begin();
+  encoderYaw.begin();
 
-  // set yaw to zero
-  //encoderYaw.setZero();
-  //pidYaw.updateReferenceValue(180);
+  pidYaw.updateReferenceValue(0);
 #endif
 
   Debug.println("BEGIN", Levels::INFO);
@@ -87,7 +85,7 @@ void loop() {
 
   // pid routine, to be executed every DT milliseconds
   if (time_cur - time_enc > DT) { 
-    time_enc = millis();
+    time_enc = time_cur;
 
 
 
@@ -103,9 +101,9 @@ void loop() {
     pidYaw.updateFeedback(encoderYaw.readAngle());
     pidYaw.calculate();
     motorYaw.write(pidYaw.getOutput());
-    Debug.print("AGLE \t- ");
+    Debug.print("READ ANGLE \t- ");
     Debug.println(encoderYaw.readAngle());
-    Debug.print("EENCODER OUTPUT \t- ");
+    Debug.print("YAW MOTOR \t- ");
     Debug.println(pidYaw.getOutput());
 #endif
   }
@@ -120,6 +118,11 @@ void loop() {
 
   // only set motor speed if we received new data
   if (updm) {
+    Debug.println("UPDATE RECEIVED DATA.");
+#ifdef MODC_YAW
+    Debug.println("YAW:");
+    pidYaw.updateReferenceValue(serialData.value[yaw]);
+#endif
     Debug.print("TRACTION LEFT:\t");
     motorTrLeft.write(serialData.value[traction_left]);
     Debug.print("TRACTION RIGHT:\t");

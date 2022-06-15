@@ -4,6 +4,7 @@
 #include <Arduino.h>
 #include "Debug.h"
 #include "definitions.h"
+#include "mod_config.h"
 #include "ams_as5048b.h"
 
 /**

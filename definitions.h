@@ -30,12 +30,23 @@
 #define DRV_YAW_DIR  3
 #define DRV_YAW_PWM  2
 
-//Encoder pins
+// Encoder pins
 #define ENC_TR_LEFT_A   13
 #define ENC_TR_LEFT_B   12
 
 #define ENC_TR_RIGHT_A  10
 #define ENC_TR_RIGHT_B  11
 
+// YAW MIN/MAX
+#define YAW_MAX_ANGLE 30
+#define YAW_MIN_ANGLE -YAW_MAX_ANGLE
+
+
+// PID configuration
+#define PID_YAW_KP			.5
+#define PID_YAW_KI			.0001
+#define PID_YAW_KD			.35
+#define PID_YAW_MAX_OUTPUT	1023
+#define PID_YAW_EMA_ALPHA	.5
 
 #endif
