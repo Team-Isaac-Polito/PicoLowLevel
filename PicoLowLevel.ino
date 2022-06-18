@@ -3,6 +3,7 @@
 #include "AbsoluteEncoder.h"
 #include "Battery.h"
 #include "TractionEncoder.h"
+#include "DynamixelSerial.h"
 #include "PID.h"
 #include "definitions.h"
 #include "mod_config.h"
@@ -76,6 +77,13 @@ void setup() {
 
   pidYaw.updateReferenceValue(0);
 #endif
+
+  // Dynamixel ServoMotor Pitch
+  Serial1.setRX(1);
+  Serial1.setTX(0);
+  Dynamixel.setSerial(&Serial1);
+  Dynamixel.begin(19200);
+
 
   Debug.println("BEGIN", Levels::INFO);
 }

@@ -49,4 +49,9 @@
 #define PID_YAW_MAX_OUTPUT	1023
 #define PID_YAW_EMA_ALPHA	.5
 
+
+// DYN servo config 
+// - maybe it will be added in mod_config as it can vary between modules
+#define DYN_ADDR    2
+
 #endif
