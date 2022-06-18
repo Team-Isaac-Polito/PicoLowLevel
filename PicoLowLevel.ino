@@ -1,4 +1,5 @@
 #include <Wire.h>
+#include <SPI.h>
 #include "Motor.h"
 #include "AbsoluteEncoder.h"
 #include "Battery.h"
@@ -8,20 +9,14 @@
 #include "definitions.h"
 #include "mod_config.h"
 #include "Debug.h"
-
-bool updm = false;
+#include "mcp2515.h"
+#include "communication.h"
 
 int time_enc = 0;
 int time_bat = 0;
 
-// used to convert from byte to float, both arrays share the same memory
-union serialData_t {
-  byte valueBuffer[12];
-  float value[3];
-} serialData;
-
-// field identifier for serialData values
-enum {traction_left, traction_right, yaw};
+struct can_frame canMsg;
+MCP2515 mcp2515(10);
 
 Motor motorTrLeft(DRV_TR_LEFT_PWM,DRV_TR_LEFT_DIR);
 Motor motorTrRight(DRV_TR_RIGHT_PWM,DRV_TR_RIGHT_DIR);
@@ -37,24 +32,13 @@ PID pidYaw(PID_YAW_KP,PID_YAW_KI,PID_YAW_KD ,PID_YAW_MAX_OUTPUT,PID_YAW_EMA_ALPH
 
 Battery battery;
 
-// event on incoming I²C data
-void receive(int byteCount) {
-  updm = true;
-  Debug.println("RECEIVED DATA");
-  for (uint8_t index = 0; index < byteCount && index < 12; index++) {
-    serialData.valueBuffer[index] = Wire.read();
-  }
-}
-
-
 void setup() {
   Serial.begin(115200);
 
-  // I²C initialization
-  Wire.setSDA(I2C_PIN_SDA);
-  Wire.setSCL(I2C_PIN_SCL);
-  Wire.begin(I2C_ADDRESS);
-  Wire.onReceive(receive);
+  // CAN initialization
+  mcp2515.reset();
+  mcp2515.setBitrate(CAN_125KBPS);
+  mcp2515.setNormalMode();
 
   // initializing PWM
   analogWriteFreq(PWM_FREQUENCY); // switching frequency to 50kHz
@@ -123,19 +107,65 @@ void loop() {
     Debug.print("Battery voltage is: ");
     Debug.println(battery.readVoltage());
   }
+  
+  if (mcp2515.readMessage(&canMsg) == MCP2515::ERROR_OK && (canMsg.can_id == CAN_ID)) {
+    Debug.println("RECEIVED CANBUS DATA");
 
-  // only set motor speed if we received new data
-  if (updm) {
-    Debug.println("UPDATE RECEIVED DATA.");
-#ifdef MODC_YAW
-    Debug.println("YAW:");
-    pidYaw.updateReferenceValue(serialData.value[yaw]);
-#endif
-    Debug.print("TRACTION LEFT:\t");
-    motorTrLeft.write(serialData.value[traction_left]);
-    Debug.print("TRACTION RIGHT:\t");
-    motorTrRight.write(-serialData.value[traction_right]);
-    updm = false;
+    int data;
+
+    switch (canMsg.data[0]) {
+      case DATA_TRACTION_LEFT:
+        data = canMsg.data[1] | canMsg.data[2]<<8;
+        motorTrLeft.write(data);
+
+        Debug.print("TRACTION LEFT DATA :\t");
+        Debug.println(data);
+      break;
+      case DATA_TRACTION_RIGHT:
+        data = canMsg.data[1] | canMsg.data[2]<<8;
+        motorTrRight.write(data);
+
+        Debug.print("TRACTION RIGHT DATA :\t");
+        Debug.println(data);
+      break;
+      case DATA_YAW:  
+        data = canMsg.data[1] | canMsg.data[2]<<8;
+        pidYaw.updateReferenceValue(data);
+
+        Debug.print("YAW DATA :\t");
+        Debug.println(data);
+      break;
+      case DATA_PITCH:
+        Debug.print("TODO");
+        
+      break;
+      case SEND_STATUS:
+        Debug.print("TODO");
+        
+      break;
+      case SEND_IMU_DATA:
+        Debug.print("TODO");
+        
+      break;
+      case SEND_YAW_ENCODER:
+        Debug.print("TODO");
+        
+      break;
+      case SEND_TRACTION_LEFT_SPEED:
+        Debug.print("TODO");
+        
+      break;
+      case SEND_TRACTION_RIGHT_SPEED:
+        Debug.print("TODO");
+        
+      break;
+      case SEND_BATTERY_VOLTAGE:
+        Debug.print("TODO");
+        
+      break;
+    }
+    
+    
+
   }
-
 }
