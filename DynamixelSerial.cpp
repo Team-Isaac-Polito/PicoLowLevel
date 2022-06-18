@@ -178,7 +178,7 @@ int DynamixelClass::turn(unsigned char ID, bool SIDE, int Speed) {
   Speed_H = Speed >> 8;
   Speed_L = Speed;
   // side 0 is left
-  if (SIDE!=0) Speed_H + 4;
+  if (SIDE!=0) Speed_H += 4;
 
   byte cmd[] = {AX_WRITE_DATA, AX_GOAL_SPEED_L, Speed_L, Speed_H};
   writeBuf(ID, cmd, 4);
