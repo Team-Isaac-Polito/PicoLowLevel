@@ -16,7 +16,7 @@ int time_enc = 0;
 int time_bat = 0;
 
 struct can_frame canMsg;
-MCP2515 mcp2515(10);
+MCP2515 mcp2515(5);
 
 Motor motorTrLeft(DRV_TR_LEFT_PWM,DRV_TR_LEFT_DIR);
 Motor motorTrRight(DRV_TR_RIGHT_PWM,DRV_TR_RIGHT_DIR);
@@ -108,7 +108,7 @@ void loop() {
     Debug.print("Battery voltage is: ");
     Debug.println(battery.readVoltage());
   }
-  
+
   if (mcp2515.readMessage(&canMsg) == MCP2515::ERROR_OK && (canMsg.can_id == CAN_ID)) {
     Debug.println("RECEIVED CANBUS DATA");
 
@@ -121,52 +121,44 @@ void loop() {
 
         Debug.print("TRACTION LEFT DATA :\t");
         Debug.println(data);
-      break;
+        break;
       case DATA_TRACTION_RIGHT:
         data = canMsg.data[1] | canMsg.data[2]<<8;
         motorTrRight.write(data);
 
         Debug.print("TRACTION RIGHT DATA :\t");
         Debug.println(data);
-      break;
+        break;
       case DATA_YAW:  
         data = canMsg.data[1] | canMsg.data[2]<<8;
         pidYaw.updateReferenceValue(data);
 
         Debug.print("YAW DATA :\t");
         Debug.println(data);
-      break;
+        break;
       case DATA_PITCH:
         Debug.print("TODO");
-        
-      break;
+        break;
       case SEND_STATUS:
         Debug.print("TODO");
-        
-      break;
+        break;        
       case SEND_IMU_DATA:
         Debug.print("TODO");
-        
-      break;
+        break;
       case SEND_YAW_ENCODER:
         Debug.print("TODO");
-        
-      break;
+        break;
       case SEND_TRACTION_LEFT_SPEED:
         Debug.print("TODO");
-        
-      break;
+        break;
       case SEND_TRACTION_RIGHT_SPEED:
         Debug.print("TODO");
-        
-      break;
+        break;
       case SEND_BATTERY_VOLTAGE:
         Debug.print("TODO");
-        
-      break;
+        break;
     }
     
-    
-
   }
+ 
 }
