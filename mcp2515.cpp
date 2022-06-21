@@ -12,12 +12,18 @@ const struct MCP2515::RXBn_REGS MCP2515::RXB[N_RXBUFFERS] = {
     {MCP_RXB1CTRL, MCP_RXB1SIDH, MCP_RXB1DATA, CANINTF_RX1IF}
 };
 
-MCP2515::MCP2515(const uint8_t _CS, const uint32_t _SPI_CLOCK)
-{
-    SPI.begin();
-
+MCP2515::MCP2515(const uint8_t _CS, const uint32_t _SPI_CLOCK) {
     SPICS = _CS;
     SPI_CLOCK = _SPI_CLOCK;
+}
+
+void MCP2515::begin() {
+    SPI.setRX(4);
+    SPI.setCS(5);
+    SPI.setSCK(6);
+    SPI.setTX(7);
+    SPI.begin();
+    
     pinMode(SPICS, OUTPUT);
     endSPI();
 }

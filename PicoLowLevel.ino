@@ -36,6 +36,7 @@ void setup() {
   Serial.begin(115200);
 
   // CAN initialization
+  mcp2515.begin();
   mcp2515.reset();
   mcp2515.setBitrate(CAN_125KBPS);
   mcp2515.setNormalMode();
