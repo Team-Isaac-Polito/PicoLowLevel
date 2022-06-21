@@ -131,8 +131,9 @@ void loop() {
         break;
       case DATA_YAW:  
         data = canMsg.data[1] | canMsg.data[2]<<8;
+#ifdef MODC_YAW  
         pidYaw.updateReferenceValue(data);
-
+#endif
         Debug.print("YAW DATA :\t");
         Debug.println(data);
         break;
