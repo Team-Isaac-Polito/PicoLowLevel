@@ -124,6 +124,7 @@ void loop() {
         break;
       case DATA_TRACTION_RIGHT:
         data = canMsg.data[1] | canMsg.data[2]<<8;
+        data = -data; // one side needs to rotate on the opposite direction
         motorTrRight.write(data);
 
         Debug.print("TRACTION RIGHT DATA :\t");
