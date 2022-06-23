@@ -136,23 +136,21 @@ int DynamixelClass::setBD(unsigned char ID, long baud) {
 }
 
 int DynamixelClass::move(unsigned char ID, int Position) {
-  char Position_H, Position_L;
-  Position_H = Position >> 8;           // 16 bits - 2 x 8 bits variables
-  Position_L = Position;
+  byte pos_l = Position >> 8;
+  byte pos_h = Position;
 
-  byte cmd[] = {AX_WRITE_DATA, AX_GOAL_POSITION_L, Position_L, Position_H};
+  byte cmd[] = {AX_WRITE_DATA, AX_GOAL_POSITION_L, pos_l, pos_h};
   writeBuf(ID, cmd, 4);
   return readStatus();
 }
 
 int DynamixelClass::moveSpeed(unsigned char ID, int Position, int Speed) {
-  char Position_H, Position_L, Speed_H, Speed_L;
-  Position_H = Position >> 8;
-  Position_L = Position;                // 16 bits - 2 x 8 bits variables
-  Speed_H = Speed >> 8;
-  Speed_L = Speed;                      // 16 bits - 2 x 8 bits variables
+  byte pos_l = Position >> 8;
+  byte pos_h = Position;
+  byte speed_l = Speed >> 8;
+  byte speed_h = Speed;
 
-  byte cmd[] = {AX_WRITE_DATA, AX_GOAL_POSITION_L, Position_L, Position_H, Speed_L, Speed_H};
+  byte cmd[] = {AX_WRITE_DATA, AX_GOAL_POSITION_L, pos_l, pos_h, speed_l, speed_h};
   writeBuf(ID, cmd, 6);
   return readStatus();
 }
@@ -174,13 +172,12 @@ int DynamixelClass::setEndless(unsigned char ID, bool Status) {
 }
 
 int DynamixelClass::turn(unsigned char ID, bool SIDE, int Speed) {
-  char Speed_H, Speed_L;
-  Speed_H = Speed >> 8;
-  Speed_L = Speed;
+  byte speed_l = Speed >> 8;
+  byte speed_h = Speed;
   // side 0 is left
-  if (SIDE!=0) Speed_H += 4;
+  if (SIDE!=0) speed_h += 4; // ???
 
-  byte cmd[] = {AX_WRITE_DATA, AX_GOAL_SPEED_L, Speed_L, Speed_H};
+  byte cmd[] = {AX_WRITE_DATA, AX_GOAL_SPEED_L, speed_l, speed_h};
   writeBuf(ID, cmd, 4);
   return readStatus();
 }
@@ -255,23 +252,21 @@ int DynamixelClass::setVoltageLimit(unsigned char ID, unsigned char DVoltage, un
 }
 
 int DynamixelClass::setAngleLimit(unsigned char ID, int CWLimit, int CCWLimit) {
-  char CW_H, CW_L, CCW_H, CCW_L;
-  CW_H = CWLimit >> 8;
-  CW_L = CWLimit;                // 16 bits - 2 x 8 bits variables
-  CCW_H = CCWLimit >> 8;
-  CCW_L = CCWLimit;
+  byte al_cw_h = CWLimit >> 8;
+  byte al_cw_l = CWLimit;
+  byte al_ccw_h = CCWLimit >> 8;
+  byte al_ccw_l = CCWLimit;
 
-  byte cmd[] = {AX_WRITE_DATA, AX_CW_ANGLE_LIMIT_L, CW_L, CW_H, AX_CCW_ANGLE_LIMIT_L, CCW_L, CCW_H};
+  byte cmd[] = {AX_WRITE_DATA, AX_CW_ANGLE_LIMIT_L, al_cw_l, al_cw_h, AX_CCW_ANGLE_LIMIT_L, al_ccw_l, al_ccw_h};
   writeBuf(ID, cmd, 7);
   return readStatus();
 }
 
 int DynamixelClass::setMaxTorque(unsigned char ID, int MaxTorque) {
-  char MaxTorque_H, MaxTorque_L;
-  MaxTorque_H = MaxTorque >> 8;           // 16 bits - 2 x 8 bits variables
-  MaxTorque_L = MaxTorque;
+  byte torque_h = MaxTorque >> 8;
+  byte torque_l = MaxTorque;
 
-  byte cmd[] = {AX_WRITE_DATA, AX_MAX_TORQUE_L, MaxTorque_L, MaxTorque_H};
+  byte cmd[] = {AX_WRITE_DATA, AX_MAX_TORQUE_L, torque_l, torque_h};
   writeBuf(ID, cmd, 4);
   return readStatus();
 }
@@ -313,11 +308,10 @@ int DynamixelClass::setCSlope(unsigned char ID, unsigned char CWCSlope, unsigned
 }
 
 int DynamixelClass::setPunch(unsigned char ID, int Punch) {
-  char Punch_H, Punch_L;
-  Punch_H = Punch >> 8;           // 16 bits - 2 x 8 bits variables
-  Punch_L = Punch;
+  byte punch_h = Punch >> 8;
+  byte punch_l = Punch;
 
-  byte cmd[] = {AX_WRITE_DATA, AX_PUNCH_L, Punch_L, Punch_H};
+  byte cmd[] = {AX_WRITE_DATA, AX_PUNCH_L, punch_l, punch_h};
   writeBuf(ID, cmd, 4);
   return readStatus();
 }
