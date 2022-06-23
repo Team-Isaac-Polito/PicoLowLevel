@@ -53,12 +53,7 @@
 
 class DynamixelClass {
 private:
-	HardwareSerial *serialPort;
-
-	unsigned char Checksum; 
-	unsigned char Direction_Pin;
-	unsigned char Time_Counter;
-	unsigned char Incoming_Byte;               
+	HardwareSerial *serialPort;     
 
 	void writeByte(byte b);
 	bool waitBytes(int n);

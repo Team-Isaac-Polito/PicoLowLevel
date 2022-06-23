@@ -47,12 +47,12 @@ int DynamixelClass::readWord() {
   waitBytes(7);
 
   while (serialPort->available() > 0) {
-    unsigned char in = serialPort->read();
+    byte in = serialPort->read();
     if (in==255 && serialPort->peek()==255) {
       serialPort->read();                            // Start Bytes
       serialPort->read();                            // Ax-12 ID
       serialPort->read();                            // Length
-      unsigned char status = serialPort->read();
+      byte status = serialPort->read();
 
       if (status!=0) out = -status;
       else out = serialPort->read();
@@ -66,12 +66,12 @@ int DynamixelClass::readDWord() {
   waitBytes(8);
 
   while (serialPort->available() > 0) {
-    unsigned char in = serialPort->read();
+    byte in = serialPort->read();
     if (in == 255 && serialPort->peek() == 255) {
       serialPort->read();  // Start Bytes
       serialPort->read();  // Ax-12 ID
       serialPort->read();  // Length
-      unsigned char status = serialPort->read();
+      byte status = serialPort->read();
 
       if (status != 0) out = -status;
       else out = serialPort->read() | (serialPort->read() << 8);
@@ -85,8 +85,8 @@ int DynamixelClass::readStatus() {
   waitBytes(6);
   
   while (serialPort->available() > 0) {
-    Incoming_Byte = serialPort->read();
-    if ( (Incoming_Byte == 255) & (serialPort->peek() == 255) ) {
+    byte in = serialPort->read();
+    if ( (in == 255) & (serialPort->peek() == 255) ) {
       serialPort->read();                                    // Start Bytes
       serialPort->read();                                    // Ax-12 ID
       serialPort->read();                                    // Length
