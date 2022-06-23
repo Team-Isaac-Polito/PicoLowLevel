@@ -8,12 +8,12 @@ void DynamixelClass::writeByte(byte b) {
 
 bool DynamixelClass::waitBytes(int n) {
   int tc = 0;
-  while ((serialPort->available() < n) && (tc < TIME_OUT)) {
+  while ((serialPort->available() < n) && (tc < AX_TIME_OUT)) {
     tc++;
     delayMicroseconds(1000);
   }
   
-  return tc >= TIME_OUT;
+  return tc >= AX_TIME_OUT;
 }
 
 void DynamixelClass::writeMode() {
@@ -175,7 +175,7 @@ int DynamixelClass::turn(unsigned char ID, bool SIDE, int Speed) {
 
 void DynamixelClass::action() {
   byte cmd[] = {AX_ACTION};
-  writeBuf(BROADCAST_ID, cmd, 1);
+  writeBuf(AX_BROADCAST_ID, cmd, 1);
 }
 
 int DynamixelClass::enableTorque( unsigned char ID, bool Status) {
@@ -191,19 +191,19 @@ int DynamixelClass::enableLED(unsigned char ID, bool Status) {
 }
 
 int DynamixelClass::readTemperature(unsigned char ID) {
-  byte cmd[] = {AX_READ_DATA, AX_PRESENT_TEMPERATURE, AX_BYTE_READ};
+  byte cmd[] = {AX_READ_DATA, AX_PRESENT_TEMPERATURE, 1};
   writeBuf(ID, cmd, 3);
   return readWord();
 }
 
 int DynamixelClass::readPosition(unsigned char ID) {
-  byte cmd[] = {AX_READ_DATA, AX_PRESENT_POSITION_L, AX_BYTE_READ_POS};
+  byte cmd[] = {AX_READ_DATA, AX_PRESENT_POSITION_L, 2};
   writeBuf(ID, cmd, 3);
   return readDWord();
 }
 
 int DynamixelClass::readVoltage(unsigned char ID) {
-  byte cmd[] = {AX_READ_DATA, AX_PRESENT_VOLTAGE, AX_BYTE_READ};
+  byte cmd[] = {AX_READ_DATA, AX_PRESENT_VOLTAGE, 1};
   writeBuf(ID, cmd, 3);
   return readWord();
 }
@@ -286,31 +286,31 @@ int DynamixelClass::setPunch(unsigned char ID, int Punch) {
 }
 
 int DynamixelClass::moving(unsigned char ID) {
-  byte cmd[] = {AX_READ_DATA, AX_MOVING, AX_BYTE_READ};
+  byte cmd[] = {AX_READ_DATA, AX_MOVING, 1};
   writeBuf(ID, cmd, 3);
   return readWord();
 }
 
 int DynamixelClass::lockRegister(unsigned char ID) {
-  byte cmd[] = {AX_WRITE_DATA, AX_LOCK, LOCK};
+  byte cmd[] = {AX_WRITE_DATA, AX_LOCK, AX_LOCK};
   writeBuf(ID, cmd, 3);
   return readStatus();
 }
 
 int DynamixelClass::RWStatus(unsigned char ID) {
-  byte cmd[] = {AX_READ_DATA, AX_REGISTERED_INSTRUCTION, AX_BYTE_READ};
+  byte cmd[] = {AX_READ_DATA, AX_REGISTERED_INSTRUCTION, 1};
   writeBuf(ID, cmd, 3);
   return readWord();
 }
 
 int DynamixelClass::readSpeed(unsigned char ID) {
-  byte cmd[] = {AX_READ_DATA, AX_PRESENT_SPEED_L, AX_BYTE_READ_POS};
+  byte cmd[] = {AX_READ_DATA, AX_PRESENT_SPEED_L, 2};
   writeBuf(ID, cmd, 3);
   return readDWord();
 }
 
 int DynamixelClass::readLoad(unsigned char ID) {
-  byte cmd[] = {AX_READ_DATA, AX_PRESENT_LOAD_L, AX_BYTE_READ_POS};
+  byte cmd[] = {AX_READ_DATA, AX_PRESENT_LOAD_L, 2};
   writeBuf(ID, cmd, 3);
   return readDWord();
 }
