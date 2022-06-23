@@ -156,19 +156,10 @@ int DynamixelClass::moveSpeed(unsigned char ID, int Position, int Speed) {
 }
 
 int DynamixelClass::setEndless(unsigned char ID, bool Status) {
-  if ( Status ) {
-    char AX_CCW_AL_LT = 0;     // Changing the CCW Angle Limits for Full Rotation.
+  int al_ccw = Status?0:AX_DEFAULT_CCW_AL; // endless mode is enabled when both limits are set to 0
+  if(!Status) turn(ID, 0, 0); // stop the motor before disabling endless mode
 
-    byte cmd[] = {AX_WRITE_DATA, AX_CCW_ANGLE_LIMIT_L, AX_CCW_AL_LT, AX_CCW_AL_LT};
-    writeBuf(ID, cmd, 4);
-  }
-  else {
-    turn(ID, 0, 0);
-
-    byte cmd[] = {AX_WRITE_DATA, AX_CCW_ANGLE_LIMIT_L, AX_CCW_AL_L, AX_CCW_AL_H};
-    writeBuf(ID, cmd, 4);
-  }
-  return readStatus();
+  return setAngleLimit(ID, 0, al_ccw);
 }
 
 int DynamixelClass::turn(unsigned char ID, bool SIDE, int Speed) {

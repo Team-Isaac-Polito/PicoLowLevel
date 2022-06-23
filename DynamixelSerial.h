@@ -74,10 +74,11 @@
 #define AX_BYTE_READ_POS            2
 #define BROADCAST_ID                254
 #define AX_START                    255
-#define AX_CCW_AL_L                 255 
-#define AX_CCW_AL_H                 3
 #define TIME_OUT                    10         // Este parametro depende de la velocidad de transmision
 #define LOCK                        1
+
+// defaults
+#define AX_DEFAULT_CCW_AL			1023
 
 #include <Arduino.h>
 #include <HardwareSerial.h>
