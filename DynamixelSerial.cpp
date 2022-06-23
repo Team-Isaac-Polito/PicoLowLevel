@@ -173,28 +173,6 @@ int DynamixelClass::turn(unsigned char ID, bool SIDE, int Speed) {
   return readStatus();
 }
 
-int DynamixelClass::moveRW(unsigned char ID, int Position) {
-  char Position_H, Position_L;
-  Position_H = Position >> 8;           // 16 bits - 2 x 8 bits variables
-  Position_L = Position;
-
-  byte cmd[] = {AX_REG_WRITE, AX_GOAL_POSITION_L, Position_L, Position_H};
-  writeBuf(ID, cmd, 4);
-  return readStatus();
-}
-
-int DynamixelClass::moveSpeedRW(unsigned char ID, int Position, int Speed) {
-  char Position_H, Position_L, Speed_H, Speed_L;
-  Position_H = Position >> 8;
-  Position_L = Position;                // 16 bits - 2 x 8 bits variables
-  Speed_H = Speed >> 8;
-  Speed_L = Speed;                      // 16 bits - 2 x 8 bits variables
-
-  byte cmd[] = {AX_REG_WRITE, AX_GOAL_POSITION_L, Position_L, Position_H, Speed_L, Speed_H};
-  writeBuf(ID, cmd, 6);
-  return readStatus();
-}
-
 void DynamixelClass::action() {
   byte cmd[] = {AX_ACTION};
   writeBuf(BROADCAST_ID, cmd, 1);

@@ -119,8 +119,6 @@ public:
 	int moveSpeed(unsigned char ID, int Position, int Speed);
 	int setEndless(unsigned char ID,bool Status);
 	int turn(unsigned char ID, bool SIDE, int Speed);
-	int moveRW(unsigned char ID, int Position);
-	int moveSpeedRW(unsigned char ID, int Position, int Speed);
 	
 	void action(void);
 	
