@@ -178,13 +178,13 @@ void DynamixelClass::action() {
   writeBuf(BROADCAST_ID, cmd, 1);
 }
 
-int DynamixelClass::torqueStatus( unsigned char ID, bool Status) {
+int DynamixelClass::enableTorque( unsigned char ID, bool Status) {
   byte cmd[] = {AX_WRITE_DATA, AX_TORQUE_ENABLE, Status};
   writeBuf(ID, cmd, 3);
   return readStatus();
 }
 
-int DynamixelClass::ledStatus(unsigned char ID, bool Status) {
+int DynamixelClass::enableLED(unsigned char ID, bool Status) {
   byte cmd[] = {AX_WRITE_DATA, AX_LED, Status};
   writeBuf(ID, cmd, 3);
   return readStatus();

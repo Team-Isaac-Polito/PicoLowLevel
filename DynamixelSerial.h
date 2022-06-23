@@ -144,8 +144,8 @@ public:
 	int readSpeed(unsigned char ID);
 	int readLoad(unsigned char ID);
 	
-	int torqueStatus(unsigned char ID, bool Status);
-	int ledStatus(unsigned char ID, bool Status);
+	int enableTorque(unsigned char ID, bool Status);
+	int enableLED(unsigned char ID, bool Status);
 };
 
 extern DynamixelClass Dynamixel;
