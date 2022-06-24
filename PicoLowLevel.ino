@@ -14,6 +14,7 @@
 
 int time_enc = 0;
 int time_bat = 0;
+int time_data = 0;
 
 struct can_frame canMsg;
 MCP2515 mcp2515(5);
@@ -114,6 +115,8 @@ void loop() {
 
     int data;
 
+    time_data = time_cur;
+
     switch (canMsg.data[0]) {
       case DATA_TRACTION_LEFT:
         data = canMsg.data[1] | canMsg.data[2]<<8;
@@ -161,6 +164,9 @@ void loop() {
         break;
     }
     
+  } else if (time_cur - time_data > 1000) { //if we do not receive data for more than a second stop motors
+    motorTrLeft.write(0);
+    motorTrRight.write(0);
   }
  
 }
