@@ -50,26 +50,29 @@
 #include <Arduino.h>
 #include <HardwareSerial.h>
 
-class DynamixelClass {
+class DynamixelInterface {
 private:
-	HardwareSerial *serialPort;     
-
+	HardwareSerial *serialPort;
 	void writeByte(byte b);
 	bool waitBytes(int n);
 
-	void writeBuf(unsigned char ID, byte* buf, int len);
+	void writeMode();
+	void readMode();
+
+public:
+	void setSerial(HardwareSerial *sPort);
+	void begin(long baud);
+	void end();
+
+	void writeBuf(byte id, byte* buf, int len);
+
 	int readStatus();
 	int readWord();
 	int readDWord();
+};
 
-	void writeMode();
-	void readMode();
-	
+class DynamixelClass {
 public:
-	void setSerial(HardwareSerial *sPort);
-	
-	void begin(long baud);
-	void end(void);
 	
 	int reset(unsigned char ID);
 	int ping(unsigned char ID); 
@@ -110,6 +113,6 @@ public:
 	int enableLED(unsigned char ID, bool Status);
 };
 
-extern DynamixelClass Dynamixel;
+extern DynamixelInterface Dynamixel;
 
 #endif
