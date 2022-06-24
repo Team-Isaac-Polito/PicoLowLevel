@@ -42,7 +42,6 @@
 // Constants
 #define AX_BROADCAST_ID             254
 #define AX_START                    255
-#define AX_LOCK						1
 
 // Configurations
 #define AX_DEFAULT_CCW_AL			1023

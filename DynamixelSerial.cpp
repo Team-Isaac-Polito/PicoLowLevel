@@ -292,9 +292,9 @@ int DynamixelClass::moving(unsigned char ID) {
 }
 
 int DynamixelClass::lockRegister(unsigned char ID) {
-  byte cmd[] = {AX_WRITE_DATA, AX_LOCK, AX_LOCK};
   writeBuf(ID, cmd, 3);
   return readStatus();
+  byte cmd[] = {AX_WRITE_DATA, AX_LOCK, true};
 }
 
 int DynamixelClass::RWStatus(unsigned char ID) {
