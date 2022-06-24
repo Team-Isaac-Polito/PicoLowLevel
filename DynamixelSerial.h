@@ -71,46 +71,49 @@ public:
 	int readDWord();
 };
 
-class DynamixelClass {
+class DynamixelMotor {
+private:
+	byte id;
 public:
+	DynamixelMotor(byte id) : id(id) {}
 	
-	int reset(unsigned char ID);
-	int ping(unsigned char ID); 
+	int reset();
+	int ping(); 
 	
-	int setID(unsigned char ID, unsigned char newID);
-	int setBD(unsigned char ID, long baud);
+	int setID(unsigned char newID);
+	int setBD(long baud);
 	
-	int move(unsigned char ID, int Position);
-	int moveSpeed(unsigned char ID, int Position, int Speed);
-	int setEndless(unsigned char ID,bool Status);
-	int turn(unsigned char ID, bool SIDE, int Speed);
+	int move(int Position);
+	int moveSpeed(int Position, int Speed);
+	int setEndless(bool Status);
+	int turn(bool SIDE, int Speed);
 	
 	void action(void);
 	
-	int setTempLimit(unsigned char ID, unsigned char Temperature);
-	int setAngleLimit(unsigned char ID, int CWLimit, int CCWLimit);
-	int setVoltageLimit(unsigned char ID, unsigned char DVoltage, unsigned char UVoltage);
-	int setMaxTorque(unsigned char ID, int MaxTorque);
-	int setSRL(unsigned char ID, unsigned char SRL);
-	int setRDT(unsigned char ID, unsigned char RDT);
-	int setLEDAlarm(unsigned char ID, unsigned char LEDAlarm);
-	int setShutdownAlarm(unsigned char ID, unsigned char SALARM);
-	int setCMargin(unsigned char ID, unsigned char CWCMargin, unsigned char CCWCMargin);
-	int setCSlope(unsigned char ID, unsigned char CWCSlope, unsigned char CCWCSlope);
-	int setPunch(unsigned char ID, int Punch);
+	int setTempLimit(unsigned char Temperature);
+	int setAngleLimit(int CWLimit, int CCWLimit);
+	int setVoltageLimit(unsigned char DVoltage, unsigned char UVoltage);
+	int setMaxTorque(int MaxTorque);
+	int setSRL(unsigned char SRL);
+	int setRDT(unsigned char RDT);
+	int setLEDAlarm(unsigned char LEDAlarm);
+	int setShutdownAlarm(unsigned char SALARM);
+	int setCMargin(unsigned char CWCMargin, unsigned char CCWCMargin);
+	int setCSlope(unsigned char CWCSlope, unsigned char CCWCSlope);
+	int setPunch(int Punch);
 	
-	int moving(unsigned char ID);
-	int lockRegister(unsigned char ID);
-	int RWStatus(unsigned char ID);
+	int moving();
+	int lockRegister();
+	int RWStatus();
 	
-	int readTemperature(unsigned char ID);
-	int readVoltage(unsigned char ID);
-	int readPosition(unsigned char ID);
-	int readSpeed(unsigned char ID);
-	int readLoad(unsigned char ID);
+	int readTemperature();
+	int readVoltage();
+	int readPosition();
+	int readSpeed();
+	int readLoad();
 	
-	int enableTorque(unsigned char ID, bool Status);
-	int enableLED(unsigned char ID, bool Status);
+	int enableTorque(bool Status);
+	int enableLED(bool Status);
 };
 
 extern DynamixelInterface Dynamixel;
