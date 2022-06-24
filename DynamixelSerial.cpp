@@ -121,14 +121,14 @@ int DynamixelMotor::ping() {
   return Dynamixel.readStatus();
 }
 
-int DynamixelMotor::setID(unsigned char newID) {
+int DynamixelMotor::setID(byte newID) {
   byte cmd[] = {AX_WRITE_DATA, AX_ID, newID};
   Dynamixel.writeBuf(id, cmd, 3);
   return Dynamixel.readStatus();
 }
 
 int DynamixelMotor::setBD(long baud) {
-  unsigned char Baud_Rate = (2000000 / baud) - 1;
+  byte Baud_Rate = (2000000 / baud) - 1;
   
   byte cmd[] = {AX_WRITE_DATA, AX_BAUD_RATE, Baud_Rate};
   Dynamixel.writeBuf(id, cmd, 3);
@@ -208,13 +208,13 @@ int DynamixelMotor::readVoltage() {
   return Dynamixel.readWord();
 }
 
-int DynamixelMotor::setTempLimit(unsigned char Temperature) {
+int DynamixelMotor::setTempLimit(byte Temperature) {
   byte cmd[] = {AX_WRITE_DATA, AX_LIMIT_TEMPERATURE, Temperature};
   Dynamixel.writeBuf(id, cmd, 3);
   return Dynamixel.readStatus();
 }
 
-int DynamixelMotor::setVoltageLimit(unsigned char DVoltage, unsigned char UVoltage) {
+int DynamixelMotor::setVoltageLimit(byte DVoltage, byte UVoltage) {
   byte cmd[] = {AX_WRITE_DATA, AX_DOWN_LIMIT_VOLTAGE, DVoltage, UVoltage};
   Dynamixel.writeBuf(id, cmd, 4);
   return Dynamixel.readStatus();
@@ -240,37 +240,37 @@ int DynamixelMotor::setMaxTorque(int MaxTorque) {
   return Dynamixel.readStatus();
 }
 
-int DynamixelMotor::setSRL(unsigned char SRL) {
+int DynamixelMotor::setSRL(byte SRL) {
   byte cmd[] = {AX_WRITE_DATA, AX_RETURN_LEVEL, SRL};
   Dynamixel.writeBuf(id, cmd, 3);
   return Dynamixel.readStatus();
 }
 
-int DynamixelMotor::setRDT(unsigned char RDT) {
+int DynamixelMotor::setRDT(byte RDT) {
   byte cmd[] = {AX_WRITE_DATA, AX_RETURN_LEVEL, (byte)(RDT/2)};
   Dynamixel.writeBuf(id, cmd, 3);
   return Dynamixel.readStatus();
 }
 
-int DynamixelMotor::setLEDAlarm(unsigned char LEDAlarm) {
+int DynamixelMotor::setLEDAlarm(byte LEDAlarm) {
   byte cmd[] = {AX_WRITE_DATA, AX_ALARM_LED, LEDAlarm};
   Dynamixel.writeBuf(id, cmd, 3);
   return Dynamixel.readStatus();
 }
 
-int DynamixelMotor::setShutdownAlarm(unsigned char SALARM) {
+int DynamixelMotor::setShutdownAlarm(byte SALARM) {
   byte cmd[] = {AX_WRITE_DATA, AX_ALARM_SHUTDOWN, SALARM};
   Dynamixel.writeBuf(id, cmd, 3);
   return Dynamixel.readStatus();
 }
 
-int DynamixelMotor::setCMargin(unsigned char CWCMargin, unsigned char CCWCMargin) {
+int DynamixelMotor::setCMargin(byte CWCMargin, byte CCWCMargin) {
   byte cmd[] = {AX_WRITE_DATA, AX_CW_COMPLIANCE_MARGIN, CWCMargin, AX_CCW_COMPLIANCE_MARGIN, CCWCMargin};
   Dynamixel.writeBuf(id, cmd, 5);
   return Dynamixel.readStatus();
 }
 
-int DynamixelMotor::setCSlope(unsigned char CWCSlope, unsigned char CCWCSlope) {
+int DynamixelMotor::setCSlope(byte CWCSlope, byte CCWCSlope) {
   byte cmd[] = {AX_WRITE_DATA, AX_CW_COMPLIANCE_SLOPE, CWCSlope, AX_CCW_COMPLIANCE_SLOPE, CCWCSlope};
   Dynamixel.writeBuf(id, cmd, 5);
   return Dynamixel.readStatus();

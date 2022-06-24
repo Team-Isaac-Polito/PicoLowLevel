@@ -80,7 +80,7 @@ public:
 	int reset();
 	int ping(); 
 	
-	int setID(unsigned char newID);
+	int setID(byte newID);
 	int setBD(long baud);
 	
 	int move(int Position);
@@ -90,16 +90,16 @@ public:
 	
 	void action(void);
 	
-	int setTempLimit(unsigned char Temperature);
+	int setTempLimit(byte Temperature);
 	int setAngleLimit(int CWLimit, int CCWLimit);
-	int setVoltageLimit(unsigned char DVoltage, unsigned char UVoltage);
+	int setVoltageLimit(byte DVoltage, byte UVoltage);
 	int setMaxTorque(int MaxTorque);
-	int setSRL(unsigned char SRL);
-	int setRDT(unsigned char RDT);
-	int setLEDAlarm(unsigned char LEDAlarm);
-	int setShutdownAlarm(unsigned char SALARM);
-	int setCMargin(unsigned char CWCMargin, unsigned char CCWCMargin);
-	int setCSlope(unsigned char CWCSlope, unsigned char CCWCSlope);
+	int setSRL(byte SRL);
+	int setRDT(byte RDT);
+	int setLEDAlarm(byte LEDAlarm);
+	int setShutdownAlarm(byte SALARM);
+	int setCMargin(byte CWCMargin, byte CCWCMargin);
+	int setCSlope(byte CWCSlope, byte CCWCSlope);
 	int setPunch(int Punch);
 	
 	int moving();
