@@ -54,8 +54,7 @@ AMS_AS5048B::AMS_AS5048B(uint8_t chipAddress) {
 */
 /**************************************************************************/
 
-void AMS_AS5048B::begin(byte addr) {
-	_chipAddress = addr;
+void AMS_AS5048B::begin() {
 
 	#ifdef USE_WIREBEGIN_ENABLED
 		Wire1.begin();

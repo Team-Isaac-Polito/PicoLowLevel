@@ -3,8 +3,8 @@
 /**
  * Creates object - nothing needed
  */
-AbsoluteEncoder::AbsoluteEncoder(byte addr) {
-  address = addr;
+AbsoluteEncoder::AbsoluteEncoder(byte addr) : AMS_AS5048B(addr) {
+  
 }
 
 /**
@@ -13,7 +13,7 @@ AbsoluteEncoder::AbsoluteEncoder(byte addr) {
 void AbsoluteEncoder::begin() {
   Debug.println("ABSOLUTE ENCODER - BEGIN ", Levels::INFO);
 
-  AMS_AS5048B::begin(address);
+  AMS_AS5048B::begin();
   
   setClockWise(true);
 }

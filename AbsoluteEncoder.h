@@ -19,7 +19,6 @@ class AbsoluteEncoder: private AMS_AS5048B {
     void update();
 
   private:
-    byte address;
 };
 
 #endif
