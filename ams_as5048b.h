@@ -105,7 +105,7 @@ class AMS_AS5048B {
 	AMS_AS5048B(void);
 	AMS_AS5048B(uint8_t chipAddress);
 
-	void		begin(void); // to init the object, must be called in the setup loop
+	void		begin(byte address); // to init the object, must be called in the setup loop
 	void		toggleDebug(void); // start / stop debug through serial at anytime
 	void		setClockWise(boolean cw = true); //set clockwise counting, default is false (native sensor)
 	void		progRegister(uint8_t regVal); //nothing so far - manipulate the OTP register

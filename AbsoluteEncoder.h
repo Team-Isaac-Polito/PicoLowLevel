@@ -12,13 +12,14 @@
  */
 class AbsoluteEncoder: private AMS_AS5048B { 
   public:
-    AbsoluteEncoder();
+    AbsoluteEncoder(byte addr = 0x44);
     void begin();
     void setZero();
     float readAngle();
     void update();
 
   private:
+    byte address;
 };
 
 #endif

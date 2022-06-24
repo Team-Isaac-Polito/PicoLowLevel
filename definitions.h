@@ -11,6 +11,8 @@
 #define I2C_SENS_SDA   18
 #define I2C_SENS_SCL   19
 
+#define ABSOLUTE_ENCODER_ADDRESS 0x40 // ToDo check, maybe 0x44
+
 // Battery configuration
 #define BAT_LOW 11.1f
 #define BAT_PIN 28

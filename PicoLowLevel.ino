@@ -26,7 +26,7 @@ TractionEncoder encoderTrRight(ENC_TR_RIGHT_A,ENC_TR_RIGHT_B);
 
 #ifdef MODC_YAW
 Motor motorYaw(DRV_YAW_PWM,DRV_YAW_DIR);
-AbsoluteEncoder encoderYaw;
+AbsoluteEncoder encoderYaw(ABSOLUTE_ENCODER_ADDRESS);
 PID pidYaw(PID_YAW_KP,PID_YAW_KI,PID_YAW_KD ,PID_YAW_MAX_OUTPUT,PID_YAW_EMA_ALPHA);
 #endif
 
