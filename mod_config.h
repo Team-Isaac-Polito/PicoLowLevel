@@ -5,6 +5,7 @@
 // select here which module to build for
 // teoricamente definiti dal compilatore
 //#define MOD_HEAD
+//#define MOD_MIDDLE
 //#define MOD_TAIL
 
 
