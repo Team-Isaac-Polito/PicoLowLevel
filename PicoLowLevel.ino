@@ -113,7 +113,7 @@ void loop() {
   if (mcp2515.readMessage(&canMsg) == MCP2515::ERROR_OK && (canMsg.can_id == CAN_ID)) {
     Debug.println("RECEIVED CANBUS DATA");
 
-    int data;
+    int16_t data;
 
     time_data = time_cur;
 
