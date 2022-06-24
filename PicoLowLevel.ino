@@ -164,7 +164,8 @@ void loop() {
         break;
     }
     
-  } else if (time_cur - time_data > 1000) { //if we do not receive data for more than a second stop motors
+  } else if (time_cur - time_data > 1000 && time_data != -1) { //if we do not receive data for more than a second stop motors
+    time_data = -1;
     motorTrLeft.write(0);
     motorTrRight.write(0);
   }
