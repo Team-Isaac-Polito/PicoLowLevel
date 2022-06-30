@@ -1,0 +1,30 @@
+name: PicoLowLevel CI
+
+on:
+  push:
+
+
+jobs:
+        
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        ref: refs/heads/canbus
+    - name: Build code with arduino-cli and make
+      run: |
+        curl -fsSL https://raw.githubusercontent.com/arduino/arduino-cli/master/install.sh | BINDIR=/usr/local/bin sh
+        arduino-cli --additional-urls https://github.com/earlephilhower/arduino-pico/releases/download/global/package_rp2040_index.json core install rp2040:rp2040
+        make
+    - name: Rename built files
+      run: |
+        mkdir upload
+        mv bin/mod1/PicoLowLevel.ino.uf2 upload/mod1.uf2
+        mv bin/mod2/PicoLowLevel.ino.uf2 upload/mod2.uf2
+        mv bin/mod3/PicoLowLevel.ino.uf2 upload/mod3.uf2
+    - uses: actions/upload-artifact@v3
+      with:
+        name: Built files
+        path: upload
