@@ -1,5 +1,5 @@
 COMPILER = arduino-cli
-BOARD_NAME = pico:rp2040:rpipico
+BOARD_NAME = rp2040:rp2040:rpipico
 BUILD_PATH = .//bin
 BUILD_PATH1 = .//bin//mod1
 BUILD_PATH2 = .//bin//mod2
