@@ -42,8 +42,8 @@
 
 
 // PID configuration
-#define PID_YAW_KP			.5
-#define PID_YAW_KI			.0001
+#define PID_YAW_KP			9.5
+#define PID_YAW_KI			.001
 #define PID_YAW_KD			.35
 #define PID_YAW_MAX_OUTPUT	1023
 #define PID_YAW_EMA_ALPHA	.5
