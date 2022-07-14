@@ -94,7 +94,12 @@ void loop() {
     encoderYaw.update();
     pidYaw.updateFeedback(encoderYaw.readAngle());
     pidYaw.calculate();
-    motorYaw.write(pidYaw.getOutput());
+    
+    int outPid = pidYaw.getOutput();
+
+    if (abs(outPid) < 60) outPid = 0;
+    motorYaw.write(outPid);
+
     Debug.print("READ ANGLE \t- ");
     Debug.println(encoderYaw.readAngle());
     Debug.print("YAW MOTOR \t- ");
