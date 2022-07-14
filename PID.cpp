@@ -38,7 +38,7 @@ void PID::calculate() {
   dt = millis() - tempo; // sarà fatto a frequenza fissata, andrà eliminato e magari aggiunto come parametro al costruttore
 
   // e[k] = r[k] - y[k], error between setpoint and true position
-  error = feedback - referenceValue;
+  error = referenceValue - feedback;
 
   // e_f[k] = α e[k] + (1-α) e_f[k-1], filtered error
   ef = alpha * error + (1 - alpha) * old_ef;
