@@ -36,17 +36,18 @@
 #define ENC_TR_RIGHT_A  10
 #define ENC_TR_RIGHT_B  11
 
+
 // YAW MIN/MAX
 #define YAW_MAX_ANGLE 30
 #define YAW_MIN_ANGLE -YAW_MAX_ANGLE
 
 
 // PID configuration
-#define PID_YAW_KP			9.5
-#define PID_YAW_KI			.001
-#define PID_YAW_KD			.35
+#define PID_YAW_KP			13
+#define PID_YAW_KI			.005
+#define PID_YAW_KD			1000
 #define PID_YAW_MAX_OUTPUT	1023
-#define PID_YAW_EMA_ALPHA	.5
+#define PID_YAW_EMA_ALPHA	1
 
 
 // DYN servo config 
