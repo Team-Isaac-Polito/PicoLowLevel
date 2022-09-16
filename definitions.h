@@ -49,9 +49,9 @@
 #define PID_YAW_MAX_OUTPUT	1023
 #define PID_YAW_EMA_ALPHA	1
 
-#define PID_TR_KP			1
-#define PID_TR_KI			.005
-#define PID_TR_KD			1000
+#define PID_TR_KP			0.1
+#define PID_TR_KI			.0005
+#define PID_TR_KD			0.0
 #define PID_TR_MAX_OUTPUT	1023
 #define PID_TR_EMA_ALPHA	1
 
