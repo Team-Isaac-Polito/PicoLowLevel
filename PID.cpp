@@ -31,6 +31,11 @@ float PID::getOutput() {
   return output;
 }
 
+
+float PID::getReferenceValue() {
+  return referenceValue;
+}
+
 void PID::calculate() {
   int dt;
   float error,ef,derivative,new_integral;
