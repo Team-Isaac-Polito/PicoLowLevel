@@ -13,14 +13,14 @@ PID::PID(float kp, float ki, float kd, float max_output, float alpha) {
 }
 
 void PID::updateReferenceValue(float ref) {
-  Debug.print("PID - Updated reference value - ", Levels::DEBUG);
+  Debug.print("PID - Updated reference value  ", Levels::DEBUG);
   Debug.println(ref, Levels::DEBUG);
 
   referenceValue = ref;
 }
 
 void PID::updateFeedback(float fb) {  
-  Debug.print("PID - Updated feedback - ", Levels::DEBUG);
+  Debug.print("PID - Updated feedback  ", Levels::DEBUG);
   Debug.println(fb, Levels::DEBUG);
   
   feedback = fb;
@@ -66,7 +66,7 @@ void PID::calculate() {
   else // Anti-windup
       integral = new_integral;
 
-  Debug.print("PID - Calculated output - ", Levels::DEBUG);
+  Debug.print("PID - Calculated output  ", Levels::DEBUG);
   Debug.println(output, Levels::DEBUG);
 
   
