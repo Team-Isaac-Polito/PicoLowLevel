@@ -86,6 +86,15 @@ void loop() {
   int time_cur = millis();
   float temp;
 
+
+  while (Serial.available() > 0)
+  {
+    int data = Serial.parseInt();
+    pidTrLeft.updateReferenceValue(data);
+    data = Serial.parseInt();
+    pidTrRight.updateReferenceValue(data);
+  }
+
   // pid routine, to be executed every DT milliseconds
   if (time_cur - time_enc > DT) { 
     time_enc = time_cur;
@@ -141,7 +150,8 @@ void loop() {
     Debug.println(battery.readVoltage());
   }
 
-  if (mcp2515.readMessage(&canMsg) == MCP2515::ERROR_OK && (canMsg.can_id == CAN_ID)) {
+
+  /*if (mcp2515.readMessage(&canMsg) == MCP2515::ERROR_OK && (canMsg.can_id == CAN_ID)) {
     Debug.println("RECEIVED CANBUS DATA");
 
     int16_t data;
@@ -199,8 +209,8 @@ void loop() {
     
   } else if (time_cur - time_data > 1000 && time_data != -1) { //if we do not receive data for more than a second stop motors
     time_data = -1;
-  }
     pidTrLeft.updateReferenceValue(0);
     pidTrRight.updateReferenceValue(0);
+  }*/
  
 }
