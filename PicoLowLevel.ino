@@ -25,6 +25,10 @@ Motor motorTrRight(DRV_TR_RIGHT_PWM,DRV_TR_RIGHT_DIR);
 TractionEncoder encoderTrLeft(ENC_TR_LEFT_A,ENC_TR_LEFT_B);
 TractionEncoder encoderTrRight(ENC_TR_RIGHT_A,ENC_TR_RIGHT_B);
 
+PID pidTrLeft(PID_TR_KP,PID_TR_KI,PID_TR_KD ,PID_TR_MAX_OUTPUT,PID_TR_EMA_ALPHA);
+PID pidTrRight(PID_TR_KP,PID_TR_KI,PID_TR_KD ,PID_TR_MAX_OUTPUT,PID_TR_EMA_ALPHA);
+
+
 #ifdef MODC_YAW
 Motor motorYaw(DRV_YAW_PWM,DRV_YAW_DIR);
 AbsoluteEncoder encoderYaw(ABSOLUTE_ENCODER_ADDRESS);
@@ -54,6 +58,10 @@ void setup() {
   encoderTrLeft.begin();
   encoderTrRight.begin();
 
+  // PID initialization
+  pidTrLeft.updateReferenceValue(0);
+  pidTrRight.updateReferenceValue(0);
+
 #ifdef MODC_YAW
   Wire1.setSDA(I2C_SENS_SDA);
   Wire1.setSCL(I2C_SENS_SCL);
@@ -76,6 +84,7 @@ void setup() {
 
 void loop() {
   int time_cur = millis();
+  float temp;
 
   // pid routine, to be executed every DT milliseconds
   if (time_cur - time_enc > DT) { 
@@ -83,12 +92,29 @@ void loop() {
 
 
 
-    // debug output
-    Debug.println("ENCODER");
-    Debug.print("LEFT \t- ");
-    Debug.println(encoderTrLeft.getSpeed());
-    Debug.print("RIGHT \t- ");
-    Debug.println(encoderTrRight.getSpeed());
+    // PID
+    
+    temp = encoderTrLeft.getSpeed();
+    Debug.print("LEFT ENCODER \t- ");
+    Debug.println(temp);
+    pidTrLeft.updateFeedback(temp);
+    pidTrLeft.calculate();
+    temp = pidTrLeft.getOutput();
+    motorTrLeft.write(temp);
+    Debug.print("LEFT MOTOR OUTPUT \t- ");
+    Debug.println(temp);
+
+    
+    temp = encoderTrRight.getSpeed();
+    Debug.print("RIGHT ENCODER \t- ");
+    Debug.println(temp);
+    pidTrRight.updateFeedback(temp);
+    pidTrRight.calculate();
+    temp = pidTrRight.getOutput();
+    motorTrRight.write(temp);
+    Debug.print("LEFT MOTOR OUTPUT \t- ");
+    Debug.println(temp);
+
 #ifdef MODC_YAW    
     // yaw setting
     encoderYaw.update();
@@ -125,7 +151,8 @@ void loop() {
     switch (canMsg.data[0]) {
       case DATA_TRACTION_LEFT:
         data = canMsg.data[1] | canMsg.data[2]<<8;
-        motorTrLeft.write(data);
+        //motorTrLeft.write(data);
+        pidTrLeft.updateReferenceValue(data);
 
         Debug.print("TRACTION LEFT DATA :\t");
         Debug.println(data);
@@ -133,8 +160,9 @@ void loop() {
       case DATA_TRACTION_RIGHT:
         data = canMsg.data[1] | canMsg.data[2]<<8;
         data = -data; // one side needs to rotate on the opposite direction
-        motorTrRight.write(data);
-
+        // motorTrRight.write(data);
+        pidTrRight.updateReferenceValue(data);
+        
         Debug.print("TRACTION RIGHT DATA :\t");
         Debug.println(data);
         break;
