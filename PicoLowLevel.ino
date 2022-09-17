@@ -35,6 +35,10 @@ AbsoluteEncoder encoderYaw(ABSOLUTE_ENCODER_ADDRESS);
 PID pidYaw(PID_YAW_KP,PID_YAW_KI,PID_YAW_KD ,PID_YAW_MAX_OUTPUT,PID_YAW_EMA_ALPHA);
 #endif
 
+#ifdef MODC_PITCH
+DynamixelMotor motorPitch(SERVO_ID);
+#endif
+
 Battery battery;
 
 void setup() {
@@ -72,12 +76,12 @@ void setup() {
   pidYaw.updateReferenceValue(0);
 #endif
 
-  // Dynamixel ServoMotor Pitch
+#ifdef MODC_PITCH
   Serial1.setRX(1);
   Serial1.setTX(0);
   Dynamixel.setSerial(&Serial1);
   Dynamixel.begin(19200);
-
+#endif
 
   Debug.println("BEGIN", Levels::INFO);
 }
