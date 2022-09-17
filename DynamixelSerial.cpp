@@ -136,8 +136,8 @@ int DynamixelMotor::setBD(long baud) {
 }
 
 int DynamixelMotor::move(int Position) {
-  byte pos_l = Position >> 8;
-  byte pos_h = Position;
+  byte pos_h = Position >> 8;
+  byte pos_l = Position;
 
   byte cmd[] = {AX_WRITE_DATA, AX_GOAL_POSITION_L, pos_l, pos_h};
   Dynamixel.writeBuf(id, cmd, 4);
@@ -145,10 +145,10 @@ int DynamixelMotor::move(int Position) {
 }
 
 int DynamixelMotor::moveSpeed(int Position, int Speed) {
-  byte pos_l = Position >> 8;
-  byte pos_h = Position;
-  byte speed_l = Speed >> 8;
-  byte speed_h = Speed;
+  byte pos_h = Position >> 8;
+  byte pos_l = Position;
+  byte speed_h = Speed >> 8;
+  byte speed_l = Speed;
 
   byte cmd[] = {AX_WRITE_DATA, AX_GOAL_POSITION_L, pos_l, pos_h, speed_l, speed_h};
   Dynamixel.writeBuf(id, cmd, 6);
