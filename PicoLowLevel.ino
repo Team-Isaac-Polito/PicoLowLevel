@@ -185,7 +185,13 @@ void loop() {
         Debug.println(data);
         break;
       case DATA_PITCH:
-        Debug.print("TODO");
+        data = canMsg.data[1] | canMsg.data[2]<<8;
+#ifdef MODC_PITCH
+        data = map(data, 0, 1023, SERVO_MIN, SERVO_MAX);
+        motorPitch.moveSpeed(data, SERVO_SPEED);
+#endif
+        Debug.print("PITCH MOTOR DATA : \t");
+        Debug.println(data);
         break;
       case SEND_STATUS:
         Debug.print("TODO");
