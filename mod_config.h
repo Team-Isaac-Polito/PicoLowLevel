@@ -10,7 +10,6 @@
 
 
 #if defined(MOD_TAIL)
-#define CAN_ID    0x15  // TAIL
 #define CAN_ID    0x17  // TAIL
 #define MODC_YAW
 #define ABS_ENC_OFFSET 169 // TODO
@@ -23,7 +22,6 @@
 #define ABS_ENC_OFFSET 160 // TODO
 
 #elif defined(MOD_HEAD)
-#define CAN_ID    0x17  // HEAD
 #define CAN_ID    0x15  // HEAD
 
 #endif
