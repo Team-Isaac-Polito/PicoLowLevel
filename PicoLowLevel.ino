@@ -84,44 +84,50 @@ void setup() {
 
 void loop() {
   int time_cur = millis();
-  float temp;
+  float speed, outPid;
 
   // pid routine, to be executed every DT milliseconds
   if (time_cur - time_enc > DT) { 
     time_enc = time_cur;
 
+    // LEFT TRACTION PID 
+    speed = encoderTrLeft.getSpeed();
 
+    Debug.print("LEFT ENCODER \t ");
+    Debug.println(speed);
 
-    // PID
-    
-    temp = encoderTrLeft.getSpeed();
-    Debug.print("LEFT ENCODER \t- ");
-    Debug.println(temp);
-    pidTrLeft.updateFeedback(temp);
+    pidTrLeft.updateFeedback(speed);
     pidTrLeft.calculate();
-    temp = pidTrLeft.getOutput();
-    motorTrLeft.write(temp);
-    Debug.print("LEFT MOTOR OUTPUT \t- ");
-    Debug.println(temp);
-
     
-    temp = encoderTrRight.getSpeed();
-    Debug.print("RIGHT ENCODER \t- ");
-    Debug.println(temp);
-    pidTrRight.updateFeedback(temp);
-    pidTrRight.calculate();
-    temp = pidTrRight.getOutput();
-    motorTrRight.write(temp);
-    Debug.print("LEFT MOTOR OUTPUT \t- ");
-    Debug.println(temp);
+    outPid = pidTrLeft.getOutput();
+    
+    motorTrLeft.write(outPid);
+    Debug.print("LEFT MOTOR OUTPUT \t ");
+    Debug.println(outPid);
 
+    // RIGHT TRACTION PID
+    speed = encoderTrRight.getSpeed();
+
+    Debug.print("RIGHT ENCODER \t ");
+    Debug.println(speed);
+
+    pidTrRight.updateFeedback(speed);
+    pidTrRight.calculate();
+    
+    outPid = pidTrRight.getOutput();
+    
+    motorTrRight.write(outPid);
+    Debug.print("LEFT MOTOR OUTPUT \t ");
+    Debug.println(outPid);
+
+    // YAW PID
 #ifdef MODC_YAW    
     // yaw setting
     encoderYaw.update();
     pidYaw.updateFeedback(encoderYaw.readAngle());
     pidYaw.calculate();
     
-    int outPid = pidYaw.getOutput();
+    outPid = pidYaw.getOutput();
 
     if (abs(outPid) < 60) outPid = 0;
     motorYaw.write(outPid);
