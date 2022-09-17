@@ -55,9 +55,4 @@
 #define PID_TR_MAX_OUTPUT	1023
 #define PID_TR_EMA_ALPHA	1
 
-
-// DYN servo config 
-// - maybe it will be added in mod_config as it can vary between modules
-#define DYN_ADDR    2
-
 #endif
