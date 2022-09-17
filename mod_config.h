@@ -9,20 +9,18 @@
 //#define MOD_TAIL
 
 
-#if defined(MOD_TAIL)
-#define CAN_ID    0x17  // TAIL
-#define MODC_YAW
-#define ABS_ENC_OFFSET 169 // TODO
-
-
+#elif defined(MOD_HEAD)
+#define CAN_ID    0x15  // HEAD
 
 #elif defined(MOD_MIDDLE)
 #define CAN_ID    0x16  // MIDDLE
 #define MODC_YAW
 #define ABS_ENC_OFFSET 160 // TODO
 
-#elif defined(MOD_HEAD)
-#define CAN_ID    0x15  // HEAD
+#if defined(MOD_TAIL)
+#define CAN_ID    0x17  // TAIL
+#define MODC_YAW
+#define ABS_ENC_OFFSET 169 // TODO
 
 #endif
 
