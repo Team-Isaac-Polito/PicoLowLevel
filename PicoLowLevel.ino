@@ -95,10 +95,12 @@ void loop() {
     time_enc = time_cur;
 
     // LEFT TRACTION PID 
+    Debug.println("\n\n\n\n");
     speed = encoderTrLeft.getSpeed();
-
     Debug.print("LEFT ENCODER \t ");
     Debug.println(speed);
+    Debug.print("LEFT REF VAL ");
+    Debug.println(pidTrLeft.getReferenceValue());
 
     pidTrLeft.updateFeedback(speed);
     pidTrLeft.calculate();
@@ -109,11 +111,14 @@ void loop() {
     Debug.print("LEFT MOTOR OUTPUT \t ");
     Debug.println(outPid);
 
+    Debug.println("--------------------------------------------");
+
     // RIGHT TRACTION PID
     speed = encoderTrRight.getSpeed();
-
     Debug.print("RIGHT ENCODER \t ");
     Debug.println(speed);
+    Debug.print("RIGHT REF VAL ");
+    Debug.println(pidTrRight.getReferenceValue());
 
     pidTrRight.updateFeedback(speed);
     pidTrRight.calculate();
@@ -121,7 +126,7 @@ void loop() {
     outPid = pidTrRight.getOutput();
     
     motorTrRight.write(outPid);
-    Debug.print("LEFT MOTOR OUTPUT \t ");
+    Debug.print("RIGHT MOTOR OUTPUT \t ");
     Debug.println(outPid);
 
     // YAW PID
@@ -137,9 +142,12 @@ void loop() {
     motorYaw.write(outPid);
 
     Debug.print("READ ANGLE \t- ");
+    Debug.print("YAW REF VALUE ");
+    Debug.println(pidYaw.getReferenceValue());
+    Debug.print("READ ANGLE ");
     Debug.println(encoderYaw.readAngle());
-    Debug.print("YAW MOTOR \t- ");
-    Debug.println(pidYaw.getOutput());
+    Debug.print("YAW MOTOR ");
+    Debug.println(outPid);
 #endif
   }
 
