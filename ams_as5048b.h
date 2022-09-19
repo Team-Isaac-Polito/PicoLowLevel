@@ -59,6 +59,9 @@
 #define _AMS_AS5048B_H_
 
 
+#define ANGLE_READ_ERROR -1000
+
+
 // OPERATIONS
 //#define SERIAL_DEBUG_ENABLED - modified to use custom Debug class
 //#define USE_WIREBEGIN_ENABLED // to comment if Wire.begin() function is called in Setup() for instance. Usefull to manage one or several I2C devices in the same sketch
@@ -140,6 +143,7 @@ class AMS_AS5048B {
 	double		_movingAvgExpCos;
 	double		_movingAvgExpAlpha;
 	int		_movingAvgCountLoop;
+	boolean		_i2cerror;
 
 	//methods
 	uint8_t		readReg8(uint8_t address);

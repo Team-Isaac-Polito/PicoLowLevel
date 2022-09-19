@@ -354,6 +354,8 @@ double AMS_AS5048B::angleR(int unit, boolean newVal) {
 	else {
 		angleRaw = _lastAngleRaw;
 	}
+	
+	if ( _i2cerror ) return ANGLE_READ_ERROR;
 
 	return AMS_AS5048B::convertAngle(unit, angleRaw);
 }
@@ -460,10 +462,11 @@ uint16_t AMS_AS5048B::readReg16(uint8_t address) {
 	if (requestResult){		
 		//modified to use custom debug class
 		Debug.print("ABSOLUTE ENCODER - I2C Error - ", Levels::WARN);
-  	Debug.println(requestResult, Levels::WARN);
+  		Debug.println(requestResult, Levels::WARN);
 		/*Serial.print("I2C error: ");
 		Serial.println(requestResult);*/
-	}
+		_i2cerror = true;
+	} else _i2cerror = false;
 
 
 	Wire1.requestFrom(_chipAddress, nbByte2Read);

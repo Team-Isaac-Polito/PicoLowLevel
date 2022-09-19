@@ -139,7 +139,7 @@ void loop() {
     // yaw setting
     encoderYaw.update();
     float angle = encoderYaw.readAngle();
-    if(abs(angle - oldAngle) < 30) {
+    if(angle != ANGLE_READ_ERROR && abs(angle - oldAngle) < 30) {
       pidYaw.updateFeedback(angle);
       oldAngle = angle;
     }
