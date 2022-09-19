@@ -41,6 +41,9 @@ DynamixelMotor motorPitch(SERVO_ID);
 
 Battery battery;
 
+float oldAngle;
+
+
 void setup() {
   Serial.begin(115200);
 
@@ -84,6 +87,8 @@ void setup() {
 #endif
 
   Debug.println("BEGIN", Levels::INFO);
+  encoderYaw.update();
+  oldAngle = encoderYaw.readAngle();
 }
 
 void loop() {
@@ -133,15 +138,17 @@ void loop() {
 #ifdef MODC_YAW    
     // yaw setting
     encoderYaw.update();
-    pidYaw.updateFeedback(encoderYaw.readAngle());
+    float angle = encoderYaw.readAngle();
+    if(abs(angle - oldAngle) < 30) {
+      pidYaw.updateFeedback(angle);
+      oldAngle = angle;
+    }
     pidYaw.calculate();
     
-    outPid = pidYaw.getOutput();
+    outPid = -pidYaw.getOutput();
 
     if (abs(outPid) < 60) outPid = 0;
     motorYaw.write(outPid);
-
-    Debug.print("READ ANGLE \t- ");
     Debug.print("YAW REF VALUE ");
     Debug.println(pidYaw.getReferenceValue());
     Debug.print("READ ANGLE ");
