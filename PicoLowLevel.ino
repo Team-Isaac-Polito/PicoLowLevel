@@ -87,8 +87,11 @@ void setup() {
 #endif
 
   Debug.println("BEGIN", Levels::INFO);
+
+#ifdef MODC_YAW    
   encoderYaw.update();
   oldAngle = encoderYaw.readAngle();
+#endif
 }
 
 void loop() {
