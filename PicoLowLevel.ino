@@ -215,20 +215,21 @@ void loop() {
       case DATA_PITCH:
         data = canMsg.data[1] | canMsg.data[2]<<8;
 #ifdef MODC_PITCH
+        data = map(data, 0, 1023, SERVO_MIN, SERVO_MAX);
         motorPitchA.moveSpeed(data, SERVO_SPEED);
-        motorPitchB.moveSpeed(motorPitchB.readPosition() + motorPitchA.readPosition() - data, SERVO_SPEED)
+        motorPitchB.moveSpeed(motorPitchB.readPosition() + motorPitchA.readPosition() - data, SERVO_SPEED);
 #endif
-
         Debug.print("PITCH MOTOR DATA : \t");
         Debug.println(data);
         break;
+
       case DATA_EE_PITCH:
         data = canMsg.data[1] | canMsg.data[2]<<8;
 #ifdef MODC_EE_PITCH
         data = map(data, 0, 1023, SERVO_MIN, SERVO_MAX);
         motorPitch.moveSpeed(data, SERVO_SPEED);
 #endif
-        Debug.print("PITCH MOTOR DATA : \t");
+        Debug.print("PITCH END EFFECTOR MOTOR DATA : \t");
         Debug.println(data);
         break;
       case SEND_STATUS:
