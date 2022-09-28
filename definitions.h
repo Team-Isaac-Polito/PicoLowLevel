@@ -55,4 +55,10 @@
 #define PID_TR_MAX_OUTPUT	1023
 #define PID_TR_EMA_ALPHA	1
 
+// Pico comunication definitions
+#define WIFI_SSID "iswifi"
+#define WIFI_PWD "ciaociao"
+#define WIFI_HOSTBASE "picow-"
+#define WIFI_PORT 4242
+
 #endif
