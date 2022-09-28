@@ -11,7 +11,7 @@
 
 #if defined(MOD_HEAD)
 #define CAN_ID    0x15  // HEAD
-#define MODC_PITCH
+#define MODC_EE_PITCH
 #define SERVO_ID 1
 #define SERVO_MIN 200
 #define SERVO_MAX 800
@@ -25,6 +25,13 @@
 #elif defined(MOD_TAIL)
 #define CAN_ID    0x17  // TAIL
 #define MODC_YAW
+#define MODC_PITCH
+#define SERVO_A_ID 5
+#define SERVO_B_ID 6
+#define SERVO_MIN 200
+#define SERVO_MAX 800
+#define SERVO_SPEED 200
+
 #define ABS_ENC_OFFSET 169 // TODO
 
 #endif
