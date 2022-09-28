@@ -246,4 +246,13 @@ void loop() {
     pidTrLeft.updateReferenceValue(0);
     pidTrRight.updateReferenceValue(0);
   }
+
+  WiFiClient client = server.available();
+  if (client) {
+    while (!client.available()) delay(10);
+    int addr = client.read() | client.read() << 8;
+    int vsx = client.read() | client.read() << 8;
+    int vdx = client.read() | client.read() << 8;
+    int angle = client.read() | client.read() << 8; 
+  }
 }
