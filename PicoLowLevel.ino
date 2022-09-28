@@ -253,6 +253,42 @@ void loop() {
     int addr = client.read() | client.read() << 8;
     int vsx = client.read() | client.read() << 8;
     int vdx = client.read() | client.read() << 8;
-    int angle = client.read() | client.read() << 8; 
+    int angle = client.read() | client.read() << 8;
+
+    if(addr == CAN_ID) {
+      pidTrLeft.updateReferenceValue(vsx);
+      Debug.print("TRACTION LEFT DATA :\t");
+      Debug.println(vsx);
+      pidTrRight.updateReferenceValue(-vdx);
+      Debug.print("TRACTION RIGHT DATA :\t");
+      Debug.println(-vdx);
+#ifdef MODC_YAW  
+      pidYaw.updateReferenceValue(angle);
+#endif
+      Debug.print("YAW DATA :\t");
+      Debug.println(angle);
+    } else {
+      Debug.print("Relaying TCP data to CAN at address: 0x");
+      Debug.println(String(addr,HEX));
+      struct can_frame canMsg;
+      canMsg.can_id  = addr;
+      canMsg.can_dlc = 3;
+
+      canMsg.data[0] = DATA_TRACTION_LEFT;
+      canMsg.data[1] = vsx | 0xFF;
+      canMsg.data[2] = vsx >> 8;
+      mcp2515.sendMessage(&canMsg);
+
+      canMsg.data[0] = DATA_TRACTION_RIGHT;
+      canMsg.data[1] = vdx | 0xFF;
+      canMsg.data[2] = vdx >> 8;
+      mcp2515.sendMessage(&canMsg);
+
+      canMsg.data[0] = DATA_YAW;
+      canMsg.data[1] = angle | 0xFF;
+      canMsg.data[2] = angle >> 8;
+      mcp2515.sendMessage(&canMsg);
+    }
+    
   }
 }
