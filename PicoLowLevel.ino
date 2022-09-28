@@ -1,4 +1,5 @@
 #include <Wire.h>
+#include <WiFi.h>
 #include <SPI.h>
 #include "Motor.h"
 #include "AbsoluteEncoder.h"
@@ -41,11 +42,20 @@ DynamixelMotor motorPitch(SERVO_ID);
 
 Battery battery;
 
+WiFiServer server(WIFI_PORT);
+
 float oldAngle;
 
 
 void setup() {
   Serial.begin(115200);
+
+  // Wifi communication initialization
+  String hostname = WIFI_HOSTBASE+String(CAN_ID);
+  WiFi.mode(WIFI_STA);
+  WiFi.setHostname(hostname.c_str());
+  WiFi.begin(WIFI_SSID, WIFI_PWD);
+  server.begin();
 
   // CAN initialization
   mcp2515.begin();
