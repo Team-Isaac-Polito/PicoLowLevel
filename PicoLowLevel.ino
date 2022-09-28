@@ -114,7 +114,8 @@ void loop() {
     pidTrLeft.calculate();
     
     outPid = pidTrLeft.getOutput();
-    
+    if (abs(outPid) < 60) outPid = 0;
+
     motorTrLeft.write(outPid);
     Debug.print("LEFT MOTOR OUTPUT \t ");
     Debug.println(outPid);
@@ -132,7 +133,8 @@ void loop() {
     pidTrRight.calculate();
     
     outPid = pidTrRight.getOutput();
-    
+    if (abs(outPid) < 60) outPid = 0;
+
     motorTrRight.write(outPid);
     Debug.print("RIGHT MOTOR OUTPUT \t ");
     Debug.println(outPid);
