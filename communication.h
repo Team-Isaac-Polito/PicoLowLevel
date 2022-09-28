@@ -7,6 +7,7 @@
 #define DATA_TRACTION_RIGHT         0x02
 #define DATA_YAW                    0x03
 #define DATA_PITCH                  0x04
+#define DATA_EE_PITCH               0x0B
 
 #define SEND_STATUS                 0x05                
 #define SEND_IMU_DATA               0x06

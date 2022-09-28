@@ -35,9 +35,17 @@ AbsoluteEncoder encoderYaw(ABSOLUTE_ENCODER_ADDRESS);
 PID pidYaw(PID_YAW_KP,PID_YAW_KI,PID_YAW_KD ,PID_YAW_MAX_OUTPUT,PID_YAW_EMA_ALPHA);
 #endif
 
-#ifdef MODC_PITCH
+
+#ifdef MODC_EE_PITCH
 DynamixelMotor motorPitch(SERVO_ID);
 #endif
+
+#ifdef MODC_PITCH
+DynamixelMotor motorPitchA(SERVO_A_ID);
+DynamixelMotor motorPitchB(SERVO_B_ID);
+#endif
+
+
 
 Battery battery;
 
@@ -79,7 +87,7 @@ void setup() {
   pidYaw.updateReferenceValue(0);
 #endif
 
-#ifdef MODC_PITCH
+#if defined MODC_PITCH || defined MODC_EE_PITCH
   Serial1.setRX(1);
   Serial1.setTX(0);
   Dynamixel.setSerial(&Serial1);
@@ -207,6 +215,16 @@ void loop() {
       case DATA_PITCH:
         data = canMsg.data[1] | canMsg.data[2]<<8;
 #ifdef MODC_PITCH
+        motorPitchA.moveSpeed(data, SERVO_SPEED);
+        motorPitchB.moveSpeed(motorPitchB.readPosition() + motorPitchA.readPosition() - data, SERVO_SPEED)
+#endif
+
+        Debug.print("PITCH MOTOR DATA : \t");
+        Debug.println(data);
+        break;
+      case DATA_EE_PITCH:
+        data = canMsg.data[1] | canMsg.data[2]<<8;
+#ifdef MODC_EE_PITCH
         data = map(data, 0, 1023, SERVO_MIN, SERVO_MAX);
         motorPitch.moveSpeed(data, SERVO_SPEED);
 #endif
