@@ -1,5 +1,7 @@
 #include <Wire.h>
 #include <SPI.h>
+#include <Adafruit_GFX.h>
+#include <Adafruit_SH110X.h>
 #include "Motor.h"
 #include "AbsoluteEncoder.h"
 #include "Battery.h"
@@ -11,6 +13,7 @@
 #include "Debug.h"
 #include "mcp2515.h"
 #include "communication.h"
+#include "isaac_logo_bitmap.h"
 
 int time_enc = 0;
 int time_bat = 0;
@@ -48,6 +51,8 @@ DynamixelMotor motorPitchB(SERVO_B_ID);
 
 
 Battery battery;
+
+Adafruit_SH1106G display = Adafruit_SH1106G(DISPLAY_WIDTH, DISPLAY_HEIGHT, &Wire1, -1);
 
 float oldAngle;
 
@@ -100,6 +105,16 @@ void setup() {
   encoderYaw.update();
   oldAngle = encoderYaw.readAngle();
 #endif
+
+  // Display initialization
+  display.begin(DISPLAY_ADDR, true);
+  display.setRotation(2);
+  display.clearDisplay();
+  display.display();
+
+  // Show ISAAC's logo
+  display.drawBitmap(0, 0,  isaac_logo_bitmap, 128, 64, 1);
+  display.display();
 }
 
 void loop() {
