@@ -55,4 +55,9 @@
 #define PID_TR_MAX_OUTPUT	1023
 #define PID_TR_EMA_ALPHA	1
 
+// Display
+#define DISPLAY_ADDR 0x3c
+#define DISPLAY_WIDTH 128
+#define DISPLAY_HEIGHT 64
+
 #endif
