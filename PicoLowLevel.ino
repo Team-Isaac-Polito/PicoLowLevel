@@ -54,6 +54,9 @@ float oldAngle;
 
 void setup() {
   Serial.begin(115200);
+  Wire1.setSDA(I2C_SENS_SDA);
+  Wire1.setSCL(I2C_SENS_SCL);
+  Wire1.begin();
 
   // CAN initialization
   mcp2515.begin();
@@ -78,9 +81,6 @@ void setup() {
   pidTrRight.updateReferenceValue(0);
 
 #ifdef MODC_YAW
-  Wire1.setSDA(I2C_SENS_SDA);
-  Wire1.setSCL(I2C_SENS_SCL);
-  Wire1.begin();
   motorYaw.begin();
   encoderYaw.begin();
 
