@@ -58,6 +58,7 @@ float oldAngle;
 WebManagement wm(CONF_PATH);
 
 void updatePID() {
+  float speed, outPid;
   // LEFT TRACTION PID 
   Debug.println("\n\n\n\n");
   speed = encoderTrLeft.getSpeed();
@@ -186,7 +187,6 @@ void setup() {
 
 void loop() {
   int time_cur = millis();
-  float speed, outPid;
 
   // pid routine, to be executed every DT milliseconds
   if (time_cur - time_enc > DT) { 
