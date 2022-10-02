@@ -2,6 +2,7 @@
 
 void WebManagement::begin(const char* ssid, const char* password, const char* hostname) {
   WiFi.mode(WIFI_STA);
+  WiFi.setHostname(hostname);
   WiFi.begin(ssid, password);
   MDNS.begin(hostname);
 
@@ -43,7 +44,7 @@ void WebManagement::setupServer() {
 
 void WebManagement::setupOTA(const char* hostname) {
   ArduinoOTA.setHostname(hostname);
-  ArduinoOTA.setPasswordHash(OTA_PWDHASH);
+  ArduinoOTA.setPassword(OTA_PWD);
 
   ArduinoOTA.onStart([]() {
     String type;

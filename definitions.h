@@ -56,7 +56,7 @@
 #define PID_TR_EMA_ALPHA	1
 
 // OTA configuration
-#define OTA_PWDHASH "c073e53f2f1bc7fbfd545f77327070be"
+#define OTA_PWD "ciaociao"
 #define WIFI_SSID "iswifi"
 #define WIFI_PWD "ciaociao"
 #define WIFI_HOSTBASE "picow-"
