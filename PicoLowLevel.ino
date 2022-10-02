@@ -57,6 +57,68 @@ float oldAngle;
 
 WebManagement wm(CONF_PATH);
 
+void updatePID() {
+  // LEFT TRACTION PID 
+  Debug.println("\n\n\n\n");
+  speed = encoderTrLeft.getSpeed();
+  Debug.print("LEFT ENCODER \t ");
+  Debug.println(speed);
+  Debug.print("LEFT REF VAL ");
+  Debug.println(pidTrLeft.getReferenceValue());
+
+  pidTrLeft.updateFeedback(speed);
+  pidTrLeft.calculate();
+  
+  outPid = pidTrLeft.getOutput();
+  if (abs(outPid) < 60) outPid = 0;
+
+  motorTrLeft.write(outPid);
+  Debug.print("LEFT MOTOR OUTPUT \t ");
+  Debug.println(outPid);
+
+  Debug.println("--------------------------------------------");
+
+  // RIGHT TRACTION PID
+  speed = encoderTrRight.getSpeed();
+  Debug.print("RIGHT ENCODER \t ");
+  Debug.println(speed);
+  Debug.print("RIGHT REF VAL ");
+  Debug.println(pidTrRight.getReferenceValue());
+
+  pidTrRight.updateFeedback(speed);
+  pidTrRight.calculate();
+  
+  outPid = pidTrRight.getOutput();
+  if (abs(outPid) < 60) outPid = 0;
+
+  motorTrRight.write(outPid);
+  Debug.print("RIGHT MOTOR OUTPUT \t ");
+  Debug.println(outPid);
+
+  // YAW PID
+#ifdef MODC_YAW    
+  // yaw setting
+  encoderYaw.update();
+  float angle = encoderYaw.readAngle();
+  if(angle != ANGLE_READ_ERROR && abs(angle - oldAngle) < 30) {
+    pidYaw.updateFeedback(angle);
+    oldAngle = angle;
+  }
+  pidYaw.calculate();
+  
+  outPid = -pidYaw.getOutput();
+
+  if (abs(outPid) < 60) outPid = 0;
+  motorYaw.write(outPid);
+  Debug.print("YAW REF VALUE ");
+  Debug.println(pidYaw.getReferenceValue());
+  Debug.print("READ ANGLE ");
+  Debug.println(encoderYaw.readAngle());
+  Debug.print("YAW MOTOR ");
+  Debug.println(outPid);
+#endif
+}
+
 void setup() {
   Serial.begin(115200);
   Wire1.setSDA(I2C_SENS_SDA);
@@ -129,66 +191,7 @@ void loop() {
   // pid routine, to be executed every DT milliseconds
   if (time_cur - time_enc > DT) { 
     time_enc = time_cur;
-
-    // LEFT TRACTION PID 
-    Debug.println("\n\n\n\n");
-    speed = encoderTrLeft.getSpeed();
-    Debug.print("LEFT ENCODER \t ");
-    Debug.println(speed);
-    Debug.print("LEFT REF VAL ");
-    Debug.println(pidTrLeft.getReferenceValue());
-
-    pidTrLeft.updateFeedback(speed);
-    pidTrLeft.calculate();
-    
-    outPid = pidTrLeft.getOutput();
-    if (abs(outPid) < 60) outPid = 0;
-
-    motorTrLeft.write(outPid);
-    Debug.print("LEFT MOTOR OUTPUT \t ");
-    Debug.println(outPid);
-
-    Debug.println("--------------------------------------------");
-
-    // RIGHT TRACTION PID
-    speed = encoderTrRight.getSpeed();
-    Debug.print("RIGHT ENCODER \t ");
-    Debug.println(speed);
-    Debug.print("RIGHT REF VAL ");
-    Debug.println(pidTrRight.getReferenceValue());
-
-    pidTrRight.updateFeedback(speed);
-    pidTrRight.calculate();
-    
-    outPid = pidTrRight.getOutput();
-    if (abs(outPid) < 60) outPid = 0;
-
-    motorTrRight.write(outPid);
-    Debug.print("RIGHT MOTOR OUTPUT \t ");
-    Debug.println(outPid);
-
-    // YAW PID
-#ifdef MODC_YAW    
-    // yaw setting
-    encoderYaw.update();
-    float angle = encoderYaw.readAngle();
-    if(angle != ANGLE_READ_ERROR && abs(angle - oldAngle) < 30) {
-      pidYaw.updateFeedback(angle);
-      oldAngle = angle;
-    }
-    pidYaw.calculate();
-    
-    outPid = -pidYaw.getOutput();
-
-    if (abs(outPid) < 60) outPid = 0;
-    motorYaw.write(outPid);
-    Debug.print("YAW REF VALUE ");
-    Debug.println(pidYaw.getReferenceValue());
-    Debug.print("READ ANGLE ");
-    Debug.println(encoderYaw.readAngle());
-    Debug.print("YAW MOTOR ");
-    Debug.println(outPid);
-#endif
+    updatePID();
   }
 
   // read battery voltage every second
@@ -200,11 +203,10 @@ void loop() {
   }
 
   if (mcp2515.readMessage(&canMsg) == MCP2515::ERROR_OK && (canMsg.can_id == CAN_ID)) {
-    Debug.println("RECEIVED CANBUS DATA");
-
-    int16_t data;
-
     time_data = time_cur;
+
+    Debug.println("RECEIVED CANBUS DATA");
+    int16_t data;
 
     switch (canMsg.data[0]) {
       case DATA_TRACTION_LEFT:
@@ -251,24 +253,6 @@ void loop() {
 #endif
         Debug.print("PITCH END EFFECTOR MOTOR DATA : \t");
         Debug.println(data);
-        break;
-      case SEND_STATUS:
-        Debug.print("TODO");
-        break;        
-      case SEND_IMU_DATA:
-        Debug.print("TODO");
-        break;
-      case SEND_YAW_ENCODER:
-        Debug.print("TODO");
-        break;
-      case SEND_TRACTION_LEFT_SPEED:
-        Debug.print("TODO");
-        break;
-      case SEND_TRACTION_RIGHT_SPEED:
-        Debug.print("TODO");
-        break;
-      case SEND_BATTERY_VOLTAGE:
-        Debug.print("TODO");
         break;
     }
     
