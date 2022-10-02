@@ -14,6 +14,7 @@
 #include "mcp2515.h"
 #include "communication.h"
 #include "isaac_logo_bitmap.h"
+#include "WebManagement.h"
 
 int time_enc = 0;
 int time_bat = 0;
@@ -48,20 +49,24 @@ DynamixelMotor motorPitchA(SERVO_A_ID);
 DynamixelMotor motorPitchB(SERVO_B_ID);
 #endif
 
-
-
 Battery battery;
 
 Adafruit_SH1106G display = Adafruit_SH1106G(DISPLAY_WIDTH, DISPLAY_HEIGHT, &Wire1, -1);
 
 float oldAngle;
 
+WebManagement wm(CONF_PATH);
 
 void setup() {
   Serial.begin(115200);
   Wire1.setSDA(I2C_SENS_SDA);
   Wire1.setSCL(I2C_SENS_SCL);
   Wire1.begin();
+  
+  LittleFS.begin();
+
+  String hostname = WIFI_HOSTBASE+String(CAN_ID);
+  wm.begin(WIFI_SSID, WIFI_PWD, hostname.c_str());
 
   // CAN initialization
   mcp2515.begin();
@@ -272,4 +277,6 @@ void loop() {
     pidTrLeft.updateReferenceValue(0);
     pidTrRight.updateReferenceValue(0);
   }
+
+  wm.handle();
 }
