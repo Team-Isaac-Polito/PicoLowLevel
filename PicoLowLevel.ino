@@ -122,6 +122,7 @@ void updatePID() {
 
 void setup() {
   Serial.begin(115200);
+  Debug.setLevel(Levels::INFO); // comment to set debug verbosity to debug
   Wire1.setSDA(I2C_SENS_SDA);
   Wire1.setSCL(I2C_SENS_SCL);
   Wire1.begin();
@@ -258,6 +259,7 @@ void loop() {
     
   } else if (time_cur - time_data > 1000 && time_data != -1) { //if we do not receive data for more than a second stop motors
     time_data = -1;
+    Debug.println("Stopping motors after timeout.", Levels::INFO);
     pidTrLeft.updateReferenceValue(0);
     pidTrRight.updateReferenceValue(0);
   }

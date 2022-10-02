@@ -11,6 +11,8 @@ void WebManagement::begin(const char* ssid, const char* password, const char* ho
   server.begin();
 
   MDNS.addService("http", "tcp", 80);
+
+  Debug.println("WiFi ready with IP: " + WiFi.localIP().toString());
 }
 
 void WebManagement::handle() {
@@ -54,26 +56,26 @@ void WebManagement::setupOTA(const char* hostname) {
       type = "filesystem";
     }
     // NOTE: if updating FS this would be the place to unmount FS using FS.end()
-    Serial.println("Start updating " + type);
+    Debug.println("Start updating " + type);
   });
   ArduinoOTA.onEnd([]() {
-    Serial.println("\nEnd");
+    Debug.println("End");
   });
   ArduinoOTA.onProgress([](unsigned int progress, unsigned int total) {
-    Serial.printf("Progress: %u%%\r", (progress / (total / 100)));
+    Debug.println("Progress: " + String(progress / (total / 100)));
   });
   ArduinoOTA.onError([](ota_error_t error) {
-    Serial.printf("Error[%u]: ", error);
+    Debug.print("Error: ");
     if (error == OTA_AUTH_ERROR) {
-      Serial.println("Auth Failed");
+      Debug.println("Auth Failed");
     } else if (error == OTA_BEGIN_ERROR) {
-      Serial.println("Begin Failed");
+      Debug.println("Begin Failed");
     } else if (error == OTA_CONNECT_ERROR) {
-      Serial.println("Connect Failed");
+      Debug.println("Connect Failed");
     } else if (error == OTA_RECEIVE_ERROR) {
-      Serial.println("Receive Failed");
+      Debug.println("Receive Failed");
     } else if (error == OTA_END_ERROR) {
-      Serial.println("End Failed");
+      Debug.println("End Failed");
     }
   });
 
@@ -84,20 +86,21 @@ void WebManagement::handleUpdate() {
   HTTPUpload& upload = server.upload();
   if (upload.status == UPLOAD_FILE_START) {
     WiFiUDP::stopAll();
-    Serial.printf("Update: %s\n", upload.filename.c_str());
+    Debug.println("Update: " + String(upload.filename.c_str()));
     FSInfo64 i;
     LittleFS.info64(i);
     uint32_t maxSketchSpace = i.totalBytes - i.usedBytes;
     if (!Update.begin(maxSketchSpace)) {  // start with max available size
-      Update.printError(Serial);
+      Update.printError(Serial); // TODO avoid serial without debug
     }
   } else if (upload.status == UPLOAD_FILE_WRITE) {
     if (Update.write(upload.buf, upload.currentSize) != upload.currentSize) {
-      Update.printError(Serial);
+      Update.printError(Serial); // TODO avoid serial without debug
     }
   } else if (upload.status == UPLOAD_FILE_END) {
     if (Update.end(true)) {  // true to set the size to the current progress
-      Serial.printf("Update Success: %u\nRebooting...\n", upload.totalSize);
+      Debug.println("Update Success: " + String(upload.totalSize));
+      Debug.println("Rebooting...");
     } else {
       Update.printError(Serial);
     }
@@ -109,24 +112,24 @@ void WebManagement::handleConfig() {
   if (upload.status == UPLOAD_FILE_START) {
     tempFile = LittleFS.open(confFile, "w");
     if (!tempFile) {
-      Serial.println("Error while opening file.");
+      Debug.println("Error while opening file.");
       return;
     }
-    Serial.println("Upload: START");
+    Debug.println("Upload: START");
   } else if (upload.status == UPLOAD_FILE_WRITE) {
     if (tempFile) {
       size_t bytesWritten = tempFile.write(upload.buf, upload.currentSize);
       if (bytesWritten != upload.currentSize) {
-        Serial.println("WRITE FAILED");
+        Debug.println("WRITE FAILED");
         return;
       }
     }
-    Serial.println(String("Upload: WRITE, Bytes: ") + upload.currentSize);
+    Debug.println(String("Upload: WRITE, Bytes: ") + upload.currentSize);
   } else if (upload.status == UPLOAD_FILE_END) {
     if (tempFile) {
       tempFile.close();
     }
-    Serial.println(String("Upload: END, Size: ") + upload.totalSize);
+    Debug.println(String("Upload: END, Size: ") + upload.totalSize);
   }
 }
 

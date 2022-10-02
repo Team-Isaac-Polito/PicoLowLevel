@@ -7,6 +7,7 @@
 #include <LEAmDNS.h>
 #include <LittleFS.h>
 #include <ArduinoOTA.h>
+#include "Debug.h"
 
 #include "html.h"
 #include "definitions.h"
