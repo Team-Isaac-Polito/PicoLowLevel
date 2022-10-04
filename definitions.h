@@ -5,7 +5,7 @@
 
 // PWM configuration
 #define PWM_MAX_VALUE 512
-#define PWM_FREQUENCY 50000
+#define PWM_FREQUENCY 5000
 
 // I²C configuration
 #define I2C_SENS_SDA   18
