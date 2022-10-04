@@ -40,8 +40,10 @@ PID pidYaw(PID_YAW_KP,PID_YAW_KI,PID_YAW_KD ,PID_YAW_MAX_OUTPUT,PID_YAW_EMA_ALPH
 #endif
 
 
-#ifdef MODC_EE_PITCH
-DynamixelMotor motorPitch(SERVO_ID);
+#ifdef MODC_EE
+DynamixelMotor motorPitch(SERVO_PITCH_ID);
+DynamixelMotor motorPitch2(SERVO_PITCH2_ID);
+DynamixelMotor motorRoll(SERVO_ROLL_ID);
 #endif
 
 #ifdef MODC_PITCH
@@ -161,7 +163,7 @@ void setup() {
   pidYaw.updateReferenceValue(0);
 #endif
 
-#if defined MODC_PITCH || defined MODC_EE_PITCH
+#if defined MODC_PITCH || defined MODC_EE
   Serial1.setRX(1);
   Serial1.setTX(0);
   Dynamixel.setSerial(&Serial1);
@@ -248,11 +250,31 @@ void loop() {
 
       case DATA_EE_PITCH:
         data = canMsg.data[1] | canMsg.data[2]<<8;
-#ifdef MODC_EE_PITCH
+#ifdef MODC_EE
         data = map(data, 0, 1023, SERVO_MIN, SERVO_MAX);
         motorPitch.moveSpeed(data, SERVO_SPEED);
 #endif
         Debug.print("PITCH END EFFECTOR MOTOR DATA : \t");
+        Debug.println(data);
+        break;
+
+      case DATA_EE_PITCH2:
+        data = canMsg.data[1] | canMsg.data[2]<<8;
+#ifdef MODC_EE
+        data = map(data, 0, 1023, SERVO_MIN, SERVO_MAX);
+        motorPitch2.moveSpeed(data, SERVO_SPEED);
+#endif
+        Debug.print("PITCH2 END EFFECTOR MOTOR DATA : \t");
+        Debug.println(data);
+        break;
+
+      case DATA_EE_ROLL:
+        data = canMsg.data[1] | canMsg.data[2]<<8;
+#ifdef MODC_EE
+        data = map(data, 0, 1023, SERVO_MIN, SERVO_MAX);
+        motorRoll.moveSpeed(data, SERVO_SPEED);
+#endif
+        Debug.print("ROLL END EFFECTOR MOTOR DATA : \t");
         Debug.println(data);
         break;
     }
