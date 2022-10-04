@@ -26,6 +26,9 @@ jobs:
         mv bin/mod1/PicoLowLevel.ino.uf2 upload/mod1.uf2
         mv bin/mod2/PicoLowLevel.ino.uf2 upload/mod2.uf2
         mv bin/mod3/PicoLowLevel.ino.uf2 upload/mod3.uf2
+        mv bin/mod1/PicoLowLevel.ino.bin upload/mod1.bin
+        mv bin/mod2/PicoLowLevel.ino.bin upload/mod2.bin
+        mv bin/mod3/PicoLowLevel.ino.bin upload/mod3.bin
     - uses: actions/upload-artifact@v3
       with:
         name: Built files
