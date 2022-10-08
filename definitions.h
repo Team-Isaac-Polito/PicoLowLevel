@@ -15,6 +15,7 @@
 
 // Battery configuration
 #define BAT_LOW 11.1f
+#define BAT_NOM 12.6f
 #define BAT_PIN 28
 #define BAT_R1 10000
 #define BAT_R2 3300

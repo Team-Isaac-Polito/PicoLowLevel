@@ -10,6 +10,15 @@ float Battery::readVoltage() {
 }
 
 /**
+ * Estimates the current battery charge.
+ * @return Battery charge percentage.
+ */
+float Battery::chargePercent() {
+  float charge = (readVoltage()-BAT_LOW) / (BAT_NOM-BAT_LOW);
+  return charge * 100.f;
+}
+
+/**
  * Check the battery charge status.
  * @return true if the battery is still charged.
  */

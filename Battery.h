@@ -12,6 +12,7 @@ class Battery {
   public:
     Battery(byte pin = BAT_PIN, int r1 = BAT_R1, int r2 = BAT_R2) : pin(pin), r1(r1), r2(r2) {}
     float readVoltage();
+    float chargePercent();
     bool charged();
 
   private:
