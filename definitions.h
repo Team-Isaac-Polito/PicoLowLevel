@@ -61,6 +61,13 @@
 #define DISPLAY_WIDTH 128
 #define DISPLAY_HEIGHT 64
 
+// Interface definitions
+#define NMENUS 4
+#define MENUTIMEOUT 30
+#define BTNOK 16
+#define BTNNAV 17
+#define DEBOUNCE 200
+
 // Versioning
 #ifndef VERSION
   #define VERSION "testing"

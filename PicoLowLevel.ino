@@ -13,12 +13,20 @@
 #include "Debug.h"
 #include "mcp2515.h"
 #include "communication.h"
-#include "isaac_logo_bitmap.h"
+#include "bitmap_logos.h"
 #include "WebManagement.h"
 
 int time_enc = 0;
 int time_bat = 0;
 int time_data = 0;
+
+// Menu handling variables
+int ok = 0;
+int lastok = 0;
+int nav = 0;
+int lastnav = 0;
+int menupos = 0;
+int menutime = 0;
 
 struct can_frame canMsg;
 MCP2515 mcp2515(5);
@@ -58,6 +66,79 @@ Adafruit_SH1106G display = Adafruit_SH1106G(DISPLAY_WIDTH, DISPLAY_HEIGHT, &Wire
 float oldAngle;
 
 WebManagement wm(CONF_PATH);
+
+void showLogo() {
+  display.clearDisplay();
+  display.drawBitmap(44, 4,  bitmap_logo_isaac, 41, 58, 1);
+  display.display();
+}
+
+void showWifi() {
+  display.clearDisplay();
+  display.drawBitmap(0, 0,  bitmap_logo_wifi, 26, 21, 1);
+  display.display();
+}
+
+void showBattery() {
+  display.clearDisplay();
+  display.drawBitmap(0, 0,  bitmap_logo_bat, 23, 11, 1);
+  display.setCursor(0, 24);
+  display.printf("Voltage:  %.2fV\n\n", battery.readVoltage());
+  display.printf("Charge:   %.1f%%\n", battery.chargePercent());
+  display.display();
+}
+
+void showVersion() {
+  display.clearDisplay();
+  display.drawBitmap(0, 0,  bitmap_logo_upd, 24, 24, 1);
+  display.display();
+}
+
+void handleGUI() {
+  bool change = false;
+
+  if(nav > 0) {
+    change = true;
+    nav--;
+    menupos++;
+    if (menupos >= NMENUS) menupos = 0;
+    else menutime = millis();
+  } else if(millis() - menutime > (MENUTIMEOUT * 1000)) {
+    change = true;
+    menupos = 0;
+  }
+
+  switch (menupos) {
+    case 0:
+      if(change) showLogo();
+      break;
+    case 1:
+      if (change) showBattery();
+      break;
+    case 2:
+      if(change) showWifi();
+      break;
+    case 3:
+      if (change) showVersion();
+      break;
+  }
+}
+
+void okInterrupt() {
+  int now = millis();
+  if (now - lastok > DEBOUNCE) {
+    ok++;
+    lastok = now;
+  }
+}
+
+void navInterrupt() {
+  int now = millis();
+  if (now - lastnav > DEBOUNCE) {
+    nav++;
+    lastnav = now;
+  }
+}
 
 void updatePID() {
   float speed, outPid;
@@ -180,12 +261,19 @@ void setup() {
   // Display initialization
   display.begin(DISPLAY_ADDR, true);
   display.setRotation(2);
+  display.setTextSize(1);
+  display.setTextColor(SH110X_WHITE);
   display.clearDisplay();
   display.display();
 
+  // Buttons initialization
+  pinMode(BTNOK, INPUT_PULLUP);
+  pinMode(BTNNAV, INPUT_PULLUP);
+  attachInterrupt(digitalPinToInterrupt(BTNOK), okInterrupt, FALLING);
+  attachInterrupt(digitalPinToInterrupt(BTNNAV), navInterrupt, FALLING);
+
   // Show ISAAC's logo
-  display.drawBitmap(0, 0,  isaac_logo_bitmap, 128, 64, 1);
-  display.display();
+  showLogo();
 }
 
 void loop() {
@@ -287,4 +375,5 @@ void loop() {
   }
 
   wm.handle();
+  handleGUI();
 }
