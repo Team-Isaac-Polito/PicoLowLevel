@@ -76,6 +76,8 @@ void showLogo() {
 void showWifi() {
   display.clearDisplay();
   display.drawBitmap(0, 0,  bitmap_logo_wifi, 26, 21, 1);
+  display.setCursor(0, 32);
+  display.printf("IP: %s\n", WiFi.localIP().toString().c_str());
   display.display();
 }
 
@@ -91,6 +93,8 @@ void showBattery() {
 void showVersion() {
   display.clearDisplay();
   display.drawBitmap(0, 0,  bitmap_logo_upd, 24, 24, 1);
+  display.setCursor(0, 32);
+  display.printf("Version: %s\n", VERSION);
   display.display();
 }
 
