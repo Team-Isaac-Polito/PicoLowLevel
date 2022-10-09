@@ -95,6 +95,7 @@ void showVersion() {
   display.drawBitmap(0, 0,  bitmap_logo_upd, 24, 24, 1);
   display.setCursor(0, 32);
   display.printf("Version: %s\n", VERSION);
+  display.printf("Can ID:  %04X\n",CAN_ID);
   display.display();
 }
 
