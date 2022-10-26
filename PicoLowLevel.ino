@@ -154,6 +154,30 @@ int motorCurrent(bool rightSide) {
   return (val-50)/40;
 }
 
+void sendTelemetry() {
+  struct can_frame canMsg;
+  canMsg.can_id = 0x14;
+  canMsg.can_dlc = 5;
+  canMsg.can_dlc = 5;
+
+  float temp = motorTemp.read();
+  canMsg.data[0] = 0x0F;
+  canMsg.data[1] = ((uint8_t*)&temp)[3];
+  canMsg.data[2] = ((uint8_t*)&temp)[2];
+  canMsg.data[3] = ((uint8_t*)&temp)[1];
+  canMsg.data[4] = ((uint8_t*)&temp)[0];
+  mcp2515.sendMessage(&canMsg);
+
+  int currL = motorCurrent(false);
+  int currR = motorCurrent(true);
+  canMsg.data[0] = 0x0E;
+  canMsg.data[1] = currL;
+  canMsg.data[2] = currL>>8;
+  canMsg.data[3] = currR;
+  canMsg.data[4] = currR>>8;
+  mcp2515.sendMessage(&canMsg);
+}
+
 void updatePID() {
   float speed, outPid;
   // LEFT TRACTION PID 
@@ -308,6 +332,8 @@ void loop() {
 
     Debug.print("Battery voltage is: ");
     Debug.println(battery.readVoltage());
+
+    sendTelemetry();
   }
 
   if (mcp2515.readMessage(&canMsg) == MCP2515::ERROR_OK && (canMsg.can_id == CAN_ID)) {
