@@ -15,6 +15,7 @@
 #include "communication.h"
 #include "bitmap_logos.h"
 #include "WebManagement.h"
+#include "Temperature.h"
 
 int time_enc = 0;
 int time_bat = 0;
@@ -33,6 +34,8 @@ MCP2515 mcp2515(5);
 
 Motor motorTrLeft(DRV_TR_LEFT_PWM,DRV_TR_LEFT_DIR);
 Motor motorTrRight(DRV_TR_RIGHT_PWM,DRV_TR_RIGHT_DIR);
+
+Temperature motorTemp(0x5B);
 
 TractionEncoder encoderTrLeft(ENC_TR_LEFT_A,ENC_TR_LEFT_B);
 TractionEncoder encoderTrRight(ENC_TR_RIGHT_A,ENC_TR_RIGHT_B);
