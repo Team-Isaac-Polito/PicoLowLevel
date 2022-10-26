@@ -380,5 +380,5 @@ void loop() {
   }
 
   wm.handle();
-  handleGUI();
+  // handleGUI(); // leads to lag in motor driving, needs improvements
 }
