@@ -155,9 +155,7 @@ int motorCurrent(bool rightSide) {
 }
 
 void sendTelemetry() {
-  struct can_frame canMsg;
   canMsg.can_id = 0x14;
-  canMsg.can_dlc = 5;
   canMsg.can_dlc = 5;
 
   float temp = motorTemp.read();
