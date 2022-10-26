@@ -23,9 +23,11 @@
 // Motors pins
 #define DRV_TR_LEFT_DIR  15
 #define DRV_TR_LEFT_PWM 14
+#define DRV_TR_LEFT_CURR A0
 
 #define DRV_TR_RIGHT_DIR  9
 #define DRV_TR_RIGHT_PWM  8
+#define DRV_TR_RIGHT_CURR A1
 
 #define DRV_YAW_DIR  3
 #define DRV_YAW_PWM  2

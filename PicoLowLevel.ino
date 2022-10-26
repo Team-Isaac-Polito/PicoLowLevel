@@ -145,6 +145,12 @@ void navInterrupt() {
   }
 }
 
+int motorCurrent(bool rightSide) {
+  int val = analogRead(rightSide?DRV_TR_RIGHT_CURR:DRV_TR_LEFT_CURR);
+  val = map(val, 0, 4095, 0, 3300000);
+  return (val-50)/40;
+}
+
 void updatePID() {
   float speed, outPid;
   // LEFT TRACTION PID 
@@ -229,6 +235,9 @@ void setup() {
   // initializing PWM
   //analogWriteFreq(PWM_FREQUENCY); // switching frequency to 50kHz
   analogWriteRange(PWM_MAX_VALUE); // analogWrite range from 0 to 512, default is 255
+
+  // initializing ADC
+  analogReadResolution(12); // set precision to 12 bits, 0-4095 input
 
   // motor initialization
   motorTrLeft.begin();
