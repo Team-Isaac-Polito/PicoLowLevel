@@ -13,7 +13,9 @@
 #define SEND_YAW_ENCODER            0x07    
 #define SEND_TRACTION_LEFT_SPEED    0x08 
 #define SEND_TRACTION_RIGHT_SPEED   0x09            
-#define SEND_BATTERY_VOLTAGE        0x0A        
+#define SEND_BATTERY_VOLTAGE        0x0A
+#define SEND_CURRENT                0x0E
+#define SEND_TEMPERATURE            0x0F
 
 #define DATA_EE_PITCH               0x0B
 #define DATA_EE_ROLL                0x0C

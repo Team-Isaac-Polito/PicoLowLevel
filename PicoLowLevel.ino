@@ -159,7 +159,7 @@ void sendTelemetry() {
   canMsg.can_dlc = 5;
 
   float temp = motorTemp.read();
-  canMsg.data[0] = 0x0F;
+  canMsg.data[0] = SEND_TEMPERATURE;
   canMsg.data[1] = ((uint8_t*)&temp)[3];
   canMsg.data[2] = ((uint8_t*)&temp)[2];
   canMsg.data[3] = ((uint8_t*)&temp)[1];
@@ -168,7 +168,7 @@ void sendTelemetry() {
 
   int currL = motorCurrent(false);
   int currR = motorCurrent(true);
-  canMsg.data[0] = 0x0E;
+  canMsg.data[0] = SEND_CURRENT;
   canMsg.data[1] = currL;
   canMsg.data[2] = currL>>8;
   canMsg.data[3] = currR;
