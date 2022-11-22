@@ -7,7 +7,7 @@ TractionEncoder::TractionEncoder(byte pin_a, byte pin_b) {
     this->pin_a = pin_a;
     this->pin_b = pin_b;
 
-    time = millis();
+    time = micros();
 }
 
 /**
@@ -21,10 +21,10 @@ void TractionEncoder::begin() {
 
 /**
  * Computes and returns the last detected speed.
- * @return The speed in RPMs.
+ * @return The speed in milliRPMs.
  */
-float TractionEncoder::getSpeed() {
-    float rpm;
+int TractionEncoder::getSpeed() {
+    int rpm;
 
     Debug.print("TRACTIONENCODER - Steps Counted  ", Levels::DEBUG);
     Debug.println(countSteps, Levels::DEBUG);
@@ -34,12 +34,13 @@ float TractionEncoder::getSpeed() {
     countSteps = 0;
     interrupts();
 
-    rpm = rpm * 1000 / (1.9*(millis()-time));
-
+    // check definitions.h to understand what the constant is
+    rpm = count * ENC_TR_CONVERSION / (micros()-time);
+  
     Debug.print("TRACTIONENCODER - Calculated RPM  ", Levels::DEBUG);
     Debug.println(rpm, Levels::DEBUG);
 
-    time = millis();
+    time = micros();
 
     return rpm; 
 }

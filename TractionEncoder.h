@@ -13,7 +13,7 @@ class TractionEncoder {
   public:
     TractionEncoder(byte pin_a, byte pin_b);
     void begin();
-    float getSpeed();
+    int getSpeed();
 
   private:
     byte pin_a, pin_b;
