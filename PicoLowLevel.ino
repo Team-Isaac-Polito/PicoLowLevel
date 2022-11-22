@@ -15,7 +15,6 @@
 #include "communication.h"
 #include "bitmap_logos.h"
 #include "WebManagement.h"
-#include "Temperature.h"
 
 int time_enc = 0;
 int time_bat = 0;
@@ -34,8 +33,6 @@ MCP2515 mcp2515(5);
 
 Motor motorTrLeft(DRV_TR_LEFT_PWM,DRV_TR_LEFT_DIR);
 Motor motorTrRight(DRV_TR_RIGHT_PWM,DRV_TR_RIGHT_DIR);
-
-Temperature motorTemp(0x5B);
 
 TractionEncoder encoderTrLeft(ENC_TR_LEFT_A,ENC_TR_LEFT_B);
 TractionEncoder encoderTrRight(ENC_TR_RIGHT_A,ENC_TR_RIGHT_B);
@@ -157,14 +154,6 @@ int motorCurrent(bool rightSide) {
 void sendTelemetry() {
   canMsg.can_id = 0x14;
   canMsg.can_dlc = 5;
-
-  float temp = motorTemp.read();
-  canMsg.data[0] = SEND_TEMPERATURE;
-  canMsg.data[1] = ((uint8_t*)&temp)[3];
-  canMsg.data[2] = ((uint8_t*)&temp)[2];
-  canMsg.data[3] = ((uint8_t*)&temp)[1];
-  canMsg.data[4] = ((uint8_t*)&temp)[0];
-  mcp2515.sendMessage(&canMsg);
 
   int currL = motorCurrent(false);
   int currR = motorCurrent(true);
