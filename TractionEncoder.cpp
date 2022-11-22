@@ -7,7 +7,7 @@ TractionEncoder::TractionEncoder(byte pin_a, byte pin_b) {
     this->pin_a = pin_a;
     this->pin_b = pin_b;
 
-    tempo = millis();
+    time = millis();
 }
 
 /**
@@ -34,12 +34,12 @@ float TractionEncoder::getSpeed() {
     countSteps = 0;
     interrupts();
 
-    rpm = rpm * 1000 / (1.9*(millis()-tempo));
+    rpm = rpm * 1000 / (1.9*(millis()-time));
 
     Debug.print("TRACTIONENCODER - Calculated RPM  ", Levels::DEBUG);
     Debug.println(rpm, Levels::DEBUG);
 
-    tempo = millis();
+    time = millis();
 
     return rpm; 
 }
