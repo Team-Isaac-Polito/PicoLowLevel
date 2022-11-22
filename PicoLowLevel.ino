@@ -18,6 +18,7 @@
 
 int time_enc = 0;
 int time_bat = 0;
+int time_tel = 0;
 int time_data = 0;
 
 // Menu handling variables
@@ -342,7 +343,10 @@ void loop() {
   }
 
   // send telemetry
-  if (time_cur - time_bat > 10) {
+  if (time_cur - time_tel > 10) {
+    time_tel = millis();
+    
+    Debug.print("Sending telemetry.");
     sendTelemetry();
   }
 
