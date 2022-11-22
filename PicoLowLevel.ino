@@ -339,7 +339,10 @@ void loop() {
 
     Debug.print("Battery voltage is: ");
     Debug.println(battery.readVoltage());
+  }
 
+  // send telemetry
+  if (time_cur - time_bat > 10) {
     sendTelemetry();
   }
 
