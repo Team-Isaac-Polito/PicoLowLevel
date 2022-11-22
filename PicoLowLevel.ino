@@ -327,10 +327,11 @@ void loop() {
   int time_cur = millis();
 
   // pid routine, to be executed every DT milliseconds
+  /*DISABLED PIDS
   if (time_cur - time_enc > DT) { 
     time_enc = time_cur;
     updatePID();
-  }
+  }*/
 
   // read battery voltage every second
   if (time_cur - time_bat > 1000) {
@@ -351,8 +352,8 @@ void loop() {
     switch (canMsg.data[0]) {
       case DATA_TRACTION_LEFT:
         data = canMsg.data[1] | canMsg.data[2]<<8;
-        //motorTrLeft.write(data);
-        pidTrLeft.updateReferenceValue(data);
+        motorTrLeft.write(data);
+        // DISABLED PIDS pidTrLeft.updateReferenceValue(data);
 
         Debug.print("TRACTION LEFT DATA :\t");
         Debug.println(data);
@@ -360,8 +361,8 @@ void loop() {
       case DATA_TRACTION_RIGHT:
         data = canMsg.data[1] | canMsg.data[2]<<8;
         data = -data; // one side needs to rotate on the opposite direction
-        // motorTrRight.write(data);
-        pidTrRight.updateReferenceValue(data);
+        motorTrRight.write(data);
+        // DISABLED PIDS pidTrRight.updateReferenceValue(data);
         
         Debug.print("TRACTION RIGHT DATA :\t");
         Debug.println(data);
