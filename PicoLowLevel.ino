@@ -155,6 +155,7 @@ void sendTelemetry() {
   canMsg.can_id = 0x14;
   canMsg.can_dlc = 5;
   
+  // sending right encoder as float
   float speedR = encoderTrRight.getSpeed();
   canMsg.data[0] = SEND_TRACTION_RIGHT_SPEED;
   canMsg.data[1] = ((uint8_t*)&speedR)[3];
@@ -163,6 +164,7 @@ void sendTelemetry() {
   canMsg.data[4] = ((uint8_t*)&speedR)[0];
   mcp2515.sendMessage(&canMsg);
 
+  // sending left encoder as float
   float speedL = encoderTrLeft.getSpeed();
   canMsg.data[0] = SEND_TRACTION_LEFT_SPEED;
   canMsg.data[1] = ((uint8_t*)&speedL)[3];
@@ -171,6 +173,7 @@ void sendTelemetry() {
   canMsg.data[4] = ((uint8_t*)&speedL)[0];
   mcp2515.sendMessage(&canMsg);
 
+  // sending motor currents as two unsigned integers of 16bit
   int currL = motorCurrent(false);
   int currR = motorCurrent(true);
   canMsg.data[0] = SEND_CURRENT;
