@@ -40,9 +40,9 @@
 #define ENC_TR_RIGHT_B  11
 
 // Encoder conversion constant
-// K = 1000          *       10^6        *       60      / (     12   *             74,83   )
-//      milliRPM           microsecToSec        SecToMin       intPerRotation        transmissionRatio
-#define ENC_TR_CONVERSION 67567568
+// K = 1000          *       10^6        *       60      / (     12   *             74,83                    *       2 )
+//      milliRPM           microsecToSec        SecToMin       intPerRotation        transmissionRatio             transmissionRatio2
+#define ENC_TR_CONVERSION 33783784
 
 // YAW MIN/MAX
 #define YAW_MAX_ANGLE 30
