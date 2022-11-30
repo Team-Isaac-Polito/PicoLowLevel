@@ -183,6 +183,18 @@ void sendTelemetry() {
   canMsg.data[3] = currR;
   canMsg.data[4] = currR>>8;
   mcp2515.sendMessage(&canMsg);
+
+  // if we have an absolute encoder connected send it's value as float
+#ifdef MODC_YAW  
+  encoderYaw.update();
+  float angle = encoderYaw.readAngle();
+  canMsg.data[0] = SEND_YAW_ANGLE;
+  canMsg.data[1] = ((uint8_t*)&angle)[3];
+  canMsg.data[2] = ((uint8_t*)&angle)[2];
+  canMsg.data[3] = ((uint8_t*)&angle)[1];
+  canMsg.data[4] = ((uint8_t*)&angle)[0];
+  mcp2515.sendMessage(&canMsg);
+#endif
 }
 
 void updatePID() {
