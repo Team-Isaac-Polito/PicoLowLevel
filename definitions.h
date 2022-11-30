@@ -43,6 +43,10 @@
 // K = 1000          *       10^6        *       60      / (     12   *             74,83                    *       2 )
 //      milliRPM           microsecToSec        SecToMin       intPerRotation        transmissionRatio             transmissionRatio2
 #define ENC_TR_CONVERSION 33783784
+// (milliRPM/1000) : maxRPM = PWM : 1023
+// maxRPM = 130 / 2 (2 = transmissionRatio)
+// PWM = milliRPM * 1023 / (1000 * maxRPM)
+#define RPM_TO_PWM(rpm) rpm*.015738461538
 
 // YAW MIN/MAX
 #define YAW_MAX_ANGLE 30

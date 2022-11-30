@@ -210,7 +210,7 @@ void updatePID() {
   pidTrLeft.updateFeedback(speed);
   pidTrLeft.calculate();
   
-  outPid = pidTrLeft.getOutput();
+  outPid = RPM_TO_PWM(pidTrLeft.getOutput());
   if (abs(outPid) < 120) outPid = 0;
 
   motorTrLeft.write(outPid);
@@ -229,7 +229,7 @@ void updatePID() {
   pidTrRight.updateFeedback(speed);
   pidTrRight.calculate();
   
-  outPid = pidTrRight.getOutput();
+  outPid = RPM_TO_PWM(pidTrRight.getOutput());
   if (abs(outPid) < 120) outPid = 0;
 
   motorTrRight.write(outPid);
