@@ -1,0 +1,5 @@
+<map id="AMS_AS5048B::progRegister" name="AMS_AS5048B::progRegister">
+<area shape="rect" id="node1" title="writes OTP control register" alt="" coords="252,31,459,57"/>
+<area shape="rect" id="node2" href="$classAMS__AS5048B.html#a9acf55772619d8df888be48c8a31eef8" title="Burn values to the slave address OTP register." alt="" coords="20,5,189,32"/>
+<area shape="rect" id="node3" href="$classAMS__AS5048B.html#a69012e91b30cd4182f072a7d2f377305" title="Burn values to the zero position OTP register." alt="" coords="5,56,204,83"/>
+</map>

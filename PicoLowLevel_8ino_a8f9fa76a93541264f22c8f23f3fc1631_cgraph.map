@@ -1,0 +1,8 @@
+<map id="sendTelemetry" name="sendTelemetry">
+<area shape="rect" id="node1" title=" " alt="" coords="5,56,124,83"/>
+<area shape="rect" id="node2" href="$classTractionEncoder.html#a5c92615c77ba1f26be87ff4e4c564d4b" title="Computes and returns the last detected speed." alt="" coords="172,5,367,32"/>
+<area shape="rect" id="node5" href="$PicoLowLevel_8ino.html#a8525066812661764db35342986352875" title=" " alt="" coords="215,56,324,83"/>
+<area shape="rect" id="node6" href="$structMCP2515.html#a20201611f703db6b6c98bae03a3018ee" title=" " alt="" coords="179,107,359,133"/>
+<area shape="rect" id="node3" href="$classSerialDebug.html#a3d01753681fd740869da197b2fa772b0" title="Sends a string to the Serial port with a debug level, only if it is lower than the setted one." alt="" coords="613,5,752,32"/>
+<area shape="rect" id="node4" href="$classSerialDebug.html#a153ed172ea7eefd852292af7561ff961" title="Sends a line to the serial port with a debug level, only if it is lower than the setted one." alt="" coords="415,31,565,57"/>
+</map>

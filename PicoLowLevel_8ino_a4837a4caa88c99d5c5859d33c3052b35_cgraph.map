@@ -1,0 +1,5 @@
+<map id="showBattery" name="showBattery">
+<area shape="rect" id="node1" title=" " alt="" coords="5,31,109,57"/>
+<area shape="rect" id="node2" href="$classBattery.html#a59f7ba6493e12b18935baf93e7f8661c" title="Estimates the current battery charge." alt="" coords="157,5,328,32"/>
+<area shape="rect" id="node3" href="$classBattery.html#a63577a5d458094efc4d24a00f052682b" title="Reads the current battery voltage." alt="" coords="376,31,531,57"/>
+</map>

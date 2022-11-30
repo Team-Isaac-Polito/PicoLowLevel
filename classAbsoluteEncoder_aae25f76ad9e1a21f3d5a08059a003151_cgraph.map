@@ -1,0 +1,5 @@
+<map id="AbsoluteEncoder::update" name="AbsoluteEncoder::update">
+<area shape="rect" id="node1" title="Updates the computations to keep the angle estimation correct." alt="" coords="5,13,189,39"/>
+<area shape="rect" id="node2" href="$classAMS__AS5048B.html#a20a1cab67cc2ec87135366723893b1aa" title="Performs an exponential moving average on the angle. Works on Sine and Cosine of the angle to avoid i..." alt="" coords="237,5,455,47"/>
+<area shape="rect" id="node3" href="$classAMS__AS5048B.html#a23b78448232baf368c4e45f99c139775" title="reads current angle value and converts it into the desired unit" alt="" coords="503,13,672,39"/>
+</map>

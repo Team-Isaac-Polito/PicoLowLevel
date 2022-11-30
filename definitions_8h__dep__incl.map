@@ -1,0 +1,14 @@
+<map id="definitions.h" name="definitions.h">
+<area shape="rect" id="node1" title=" " alt="" coords="358,5,461,32"/>
+<area shape="rect" id="node2" href="$AbsoluteEncoder_8h.html" title=" " alt="" coords="89,80,231,107"/>
+<area shape="rect" id="node4" href="$PicoLowLevel_8ino.html" title=" " alt="" coords="306,155,441,181"/>
+<area shape="rect" id="node5" href="$Battery_8h.html" title=" " alt="" coords="256,80,336,107"/>
+<area shape="rect" id="node7" href="$Motor_8h.html" title=" " alt="" coords="411,80,482,107"/>
+<area shape="rect" id="node9" href="$TractionEncoder_8h.html" title=" " alt="" coords="507,80,643,107"/>
+<area shape="rect" id="node11" href="$WebManagement_8h.html" title=" " alt="" coords="667,80,815,107"/>
+<area shape="rect" id="node3" href="$AbsoluteEncoder_8cpp.html" title=" " alt="" coords="5,155,163,181"/>
+<area shape="rect" id="node6" href="$Battery_8cpp.html" title=" " alt="" coords="187,155,282,181"/>
+<area shape="rect" id="node8" href="$Motor_8cpp.html" title=" " alt="" coords="465,155,551,181"/>
+<area shape="rect" id="node10" href="$TractionEncoder_8cpp.html" title=" " alt="" coords="575,155,726,181"/>
+<area shape="rect" id="node12" href="$WebManagement_8cpp.html" title=" " alt="" coords="751,155,913,181"/>
+</map>

@@ -1,0 +1,6 @@
+<map id="AMS_AS5048B::begin" name="AMS_AS5048B::begin">
+<area shape="rect" id="node1" title="init values and overall behaviors for AS5948B use" alt="" coords="5,64,165,91"/>
+<area shape="rect" id="node2" href="$classAMS__AS5048B.html#a02b3c3054c8cca8c3d8167b835794ff6" title="reads I2C address register value" alt="" coords="213,5,423,32"/>
+<area shape="rect" id="node3" href="$classAMS__AS5048B.html#ac4b8db2e8d36e45d894812aa799cd89e" title=" " alt="" coords="215,57,421,98"/>
+<area shape="rect" id="node4" href="$classAMS__AS5048B.html#a7784bc5f991bb485c2731a7189d277bf" title="reads the 2 bytes Zero position register value" alt="" coords="225,123,411,149"/>
+</map>

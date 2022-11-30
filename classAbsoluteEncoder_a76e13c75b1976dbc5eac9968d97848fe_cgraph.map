@@ -1,0 +1,10 @@
+<map id="AbsoluteEncoder::begin" name="AbsoluteEncoder::begin">
+<area shape="rect" id="node1" title="Start the encoder at zero with the default direction." alt="" coords="5,115,180,141"/>
+<area shape="rect" id="node2" href="$classAMS__AS5048B.html#ab0d51d2f59926a877e73b17c04db59ee" title="init values and overall behaviors for AS5948B use" alt="" coords="254,60,414,87"/>
+<area shape="rect" id="node6" href="$classSerialDebug.html#a153ed172ea7eefd852292af7561ff961" title="Sends a line to the serial port with a debug level, only if it is lower than the setted one." alt="" coords="259,169,409,196"/>
+<area shape="rect" id="node8" href="$classAMS__AS5048B.html#a2e02b46721e5b2f32fcae3eda6b73368" title="Set / unset clock wise counting &#45; sensor counts CCW natively." alt="" coords="228,115,440,141"/>
+<area shape="rect" id="node3" href="$classAMS__AS5048B.html#a02b3c3054c8cca8c3d8167b835794ff6" title="reads I2C address register value" alt="" coords="488,5,697,32"/>
+<area shape="rect" id="node4" href="$classAMS__AS5048B.html#ac4b8db2e8d36e45d894812aa799cd89e" title=" " alt="" coords="490,107,695,149"/>
+<area shape="rect" id="node5" href="$classAMS__AS5048B.html#a7784bc5f991bb485c2731a7189d277bf" title="reads the 2 bytes Zero position register value" alt="" coords="499,56,686,83"/>
+<area shape="rect" id="node7" href="$classSerialDebug.html#a3d01753681fd740869da197b2fa772b0" title="Sends a string to the Serial port with a debug level, only if it is lower than the setted one." alt="" coords="523,173,662,200"/>
+</map>

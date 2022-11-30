@@ -1,0 +1,5 @@
+<map id="AMS_AS5048B::zeroRegR" name="AMS_AS5048B::zeroRegR">
+<area shape="rect" id="node1" title="reads the 2 bytes Zero position register value" alt="" coords="436,5,623,32"/>
+<area shape="rect" id="node2" href="$classAMS__AS5048B.html#ab0d51d2f59926a877e73b17c04db59ee" title="init values and overall behaviors for AS5948B use" alt="" coords="228,5,388,32"/>
+<area shape="rect" id="node3" href="$classAbsoluteEncoder.html#a76e13c75b1976dbc5eac9968d97848fe" title="Start the encoder at zero with the default direction." alt="" coords="5,5,180,32"/>
+</map>

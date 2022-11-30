@@ -1,0 +1,25 @@
+var classAMS__AS5048B =
+[
+    [ "AMS_AS5048B", "classAMS__AS5048B.html#ac46ed9e5bbc07b3360fdb71de014eb59", null ],
+    [ "AMS_AS5048B", "classAMS__AS5048B.html#ae7333926ffb2ae681a34d51a17512a4c", null ],
+    [ "addressRegR", "classAMS__AS5048B.html#a02b3c3054c8cca8c3d8167b835794ff6", null ],
+    [ "addressRegW", "classAMS__AS5048B.html#a8faebc24296fd8ac9464f5b5aab0d1d1", null ],
+    [ "angleR", "classAMS__AS5048B.html#a23b78448232baf368c4e45f99c139775", null ],
+    [ "angleRegR", "classAMS__AS5048B.html#a4b356e895fbcddf68eeffaa020b27420", null ],
+    [ "begin", "classAMS__AS5048B.html#ab0d51d2f59926a877e73b17c04db59ee", null ],
+    [ "diagR", "classAMS__AS5048B.html#a6513ba719d6a2267b74ed56ba078df2a", null ],
+    [ "doProg", "classAMS__AS5048B.html#a9acf55772619d8df888be48c8a31eef8", null ],
+    [ "doProgZero", "classAMS__AS5048B.html#a69012e91b30cd4182f072a7d2f377305", null ],
+    [ "getAutoGain", "classAMS__AS5048B.html#a5be27698e144b1889f9df2f43ad85cc9", null ],
+    [ "getDiagReg", "classAMS__AS5048B.html#ae2ebf1d3b0e9b9cf73fbf5ea22ada636", null ],
+    [ "getMovingAvgExp", "classAMS__AS5048B.html#a5ebbbdaf9712f2e7b23da3086515a34b", null ],
+    [ "magnitudeR", "classAMS__AS5048B.html#acd55346e4eedada7b86e43f42822ae2a", null ],
+    [ "progRegister", "classAMS__AS5048B.html#a6ff8070d7845ce5ef325a6c64ea29c96", null ],
+    [ "resetMovingAvgExp", "classAMS__AS5048B.html#ac4b8db2e8d36e45d894812aa799cd89e", null ],
+    [ "setClockWise", "classAMS__AS5048B.html#a2e02b46721e5b2f32fcae3eda6b73368", null ],
+    [ "setZeroReg", "classAMS__AS5048B.html#ad67ba3de9224a12102a31b35829450e8", null ],
+    [ "toggleDebug", "classAMS__AS5048B.html#ac2485a851c68e9a5b410c47ffc3485ca", null ],
+    [ "updateMovingAvgExp", "classAMS__AS5048B.html#a20a1cab67cc2ec87135366723893b1aa", null ],
+    [ "zeroRegR", "classAMS__AS5048B.html#a7784bc5f991bb485c2731a7189d277bf", null ],
+    [ "zeroRegW", "classAMS__AS5048B.html#a67cbd882f0300705d615ce1e2dff2f47", null ]
+];

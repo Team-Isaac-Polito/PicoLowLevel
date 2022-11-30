@@ -1,0 +1,11 @@
+<map id="updatePID" name="updatePID">
+<area shape="rect" id="node1" title=" " alt="" coords="5,175,95,202"/>
+<area shape="rect" id="node2" href="$classPID.html#a2d1e271496506301a6f22d0418aa0cc0" title=" " alt="" coords="185,48,295,75"/>
+<area shape="rect" id="node3" href="$classSerialDebug.html#a3d01753681fd740869da197b2fa772b0" title="Sends a string to the Serial port with a debug level, only if it is lower than the setted one." alt="" coords="584,150,723,176"/>
+<area shape="rect" id="node4" href="$classSerialDebug.html#a153ed172ea7eefd852292af7561ff961" title="Sends a line to the serial port with a debug level, only if it is lower than the setted one." alt="" coords="385,150,536,176"/>
+<area shape="rect" id="node5" href="$classPID.html#a266f60cce93632141002987d5d67d0cc" title=" " alt="" coords="181,302,299,328"/>
+<area shape="rect" id="node6" href="$classPID.html#a7162d3b89da5a9d4b3d75011b0b57c63" title=" " alt="" coords="153,352,327,379"/>
+<area shape="rect" id="node7" href="$classTractionEncoder.html#a5c92615c77ba1f26be87ff4e4c564d4b" title="Computes and returns the last detected speed." alt="" coords="143,200,337,227"/>
+<area shape="rect" id="node8" href="$classPID.html#a33f657a6cce4f57302f90bec9664d294" title=" " alt="" coords="161,251,319,278"/>
+<area shape="rect" id="node9" href="$classMotor.html#a59dc38671f171be3097b3d84ddf1180e" title="Sets the motor speed." alt="" coords="189,150,291,176"/>
+</map>

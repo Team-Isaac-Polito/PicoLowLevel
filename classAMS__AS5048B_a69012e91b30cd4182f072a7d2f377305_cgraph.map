@@ -1,0 +1,4 @@
+<map id="AMS_AS5048B::doProgZero" name="AMS_AS5048B::doProgZero">
+<area shape="rect" id="node1" title="Burn values to the zero position OTP register." alt="" coords="5,5,204,32"/>
+<area shape="rect" id="node2" href="$classAMS__AS5048B.html#a6ff8070d7845ce5ef325a6c64ea29c96" title="writes OTP control register" alt="" coords="252,5,459,32"/>
+</map>

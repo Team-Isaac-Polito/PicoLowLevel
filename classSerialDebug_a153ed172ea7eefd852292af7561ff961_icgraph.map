@@ -1,0 +1,16 @@
+<map id="SerialDebug::println" name="SerialDebug::println">
+<area shape="rect" id="node1" title="Sends a line to the serial port with a debug level, only if it is lower than the setted one." alt="" coords="517,284,668,311"/>
+<area shape="rect" id="node2" href="$classAbsoluteEncoder.html#a76e13c75b1976dbc5eac9968d97848fe" title="Start the encoder at zero with the default direction." alt="" coords="283,5,457,32"/>
+<area shape="rect" id="node3" href="$classWebManagement.html#a02872e65a699697c243e1dd23a3988c3" title=" " alt="" coords="280,56,460,83"/>
+<area shape="rect" id="node4" href="$PicoLowLevel_8ino.html#a4fc01d736fe50cf5b977f755b675f11d" title=" " alt="" coords="134,107,193,133"/>
+<area shape="rect" id="node5" href="$classPID.html#a2d1e271496506301a6f22d0418aa0cc0" title=" " alt="" coords="315,563,425,589"/>
+<area shape="rect" id="node6" href="$PicoLowLevel_8ino.html#a8b77b83a1d03b08c93bdab6e3917a70b" title=" " alt="" coords="119,385,208,412"/>
+<area shape="rect" id="node7" href="$PicoLowLevel_8ino.html#afe461d27b9c48d5921c00d521181f12f" title=" " alt="" coords="5,233,56,260"/>
+<area shape="rect" id="node8" href="$classTractionEncoder.html#a5c92615c77ba1f26be87ff4e4c564d4b" title="Computes and returns the last detected speed." alt="" coords="273,259,467,285"/>
+<area shape="rect" id="node10" href="$classSerialDebug.html#a12bec7c49d756040fa4f16ce5f1f6cd4" title="Sends a debug line to the serial port, only debug is accepted." alt="" coords="295,360,445,387"/>
+<area shape="rect" id="node11" href="$classAbsoluteEncoder.html#a26b4493f44904d31dab6f5fd3e9c734e" title="Sets the encoder current position to zero." alt="" coords="275,411,465,437"/>
+<area shape="rect" id="node12" href="$classPID.html#a33f657a6cce4f57302f90bec9664d294" title=" " alt="" coords="291,461,449,488"/>
+<area shape="rect" id="node13" href="$classPID.html#ab6c2a366f39cf53149b50216b300bdcd" title=" " alt="" coords="271,157,469,184"/>
+<area shape="rect" id="node14" href="$classMotor.html#a59dc38671f171be3097b3d84ddf1180e" title="Sets the motor speed." alt="" coords="319,512,421,539"/>
+<area shape="rect" id="node9" href="$PicoLowLevel_8ino.html#a8f9fa76a93541264f22c8f23f3fc1631" title=" " alt="" coords="104,259,223,285"/>
+</map>

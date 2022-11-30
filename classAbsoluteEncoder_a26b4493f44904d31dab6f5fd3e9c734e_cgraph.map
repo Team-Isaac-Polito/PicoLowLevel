@@ -1,0 +1,6 @@
+<map id="AbsoluteEncoder::setZero" name="AbsoluteEncoder::setZero">
+<area shape="rect" id="node1" title="Sets the encoder current position to zero." alt="" coords="5,31,195,57"/>
+<area shape="rect" id="node2" href="$classSerialDebug.html#a153ed172ea7eefd852292af7561ff961" title="Sends a line to the serial port with a debug level, only if it is lower than the setted one." alt="" coords="263,5,413,32"/>
+<area shape="rect" id="node4" href="$classAMS__AS5048B.html#a67cbd882f0300705d615ce1e2dff2f47" title="writes the 2 bytes Zero position register value" alt="" coords="243,56,433,83"/>
+<area shape="rect" id="node3" href="$classSerialDebug.html#a3d01753681fd740869da197b2fa772b0" title="Sends a string to the Serial port with a debug level, only if it is lower than the setted one." alt="" coords="481,5,620,32"/>
+</map>

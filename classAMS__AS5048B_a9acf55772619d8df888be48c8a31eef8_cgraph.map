@@ -1,0 +1,4 @@
+<map id="AMS_AS5048B::doProg" name="AMS_AS5048B::doProg">
+<area shape="rect" id="node1" title="Burn values to the slave address OTP register." alt="" coords="5,5,175,32"/>
+<area shape="rect" id="node2" href="$classAMS__AS5048B.html#a6ff8070d7845ce5ef325a6c64ea29c96" title="writes OTP control register" alt="" coords="223,5,429,32"/>
+</map>

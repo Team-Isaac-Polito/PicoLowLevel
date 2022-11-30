@@ -1,0 +1,6 @@
+<map id="AMS_AS5048B::resetMovingAvgExp" name="AMS_AS5048B::resetMovingAvgExp">
+<area shape="rect" id="node1" title=" " alt="" coords="488,23,693,65"/>
+<area shape="rect" id="node2" href="$classAMS__AS5048B.html#ab0d51d2f59926a877e73b17c04db59ee" title="init values and overall behaviors for AS5948B use" alt="" coords="254,5,414,32"/>
+<area shape="rect" id="node4" href="$classAMS__AS5048B.html#a2e02b46721e5b2f32fcae3eda6b73368" title="Set / unset clock wise counting &#45; sensor counts CCW natively." alt="" coords="228,56,440,83"/>
+<area shape="rect" id="node3" href="$classAbsoluteEncoder.html#a76e13c75b1976dbc5eac9968d97848fe" title="Start the encoder at zero with the default direction." alt="" coords="5,31,180,57"/>
+</map>

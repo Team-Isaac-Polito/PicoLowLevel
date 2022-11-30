@@ -1,0 +1,4 @@
+<map id="SerialDebug::print" name="SerialDebug::print">
+<area shape="rect" id="node1" title="Sends a debug string to the serial port, only debug is accepted." alt="" coords="5,5,144,32"/>
+<area shape="rect" id="node2" href="$classSerialDebug.html#a3d01753681fd740869da197b2fa772b0" title="Sends a string to the Serial port with a debug level, only if it is lower than the setted one." alt="" coords="192,5,331,32"/>
+</map>

@@ -1,0 +1,5 @@
+<map id="Battery::chargePercent" name="Battery::chargePercent">
+<area shape="rect" id="node1" title="Estimates the current battery charge." alt="" coords="296,5,467,32"/>
+<area shape="rect" id="node2" href="$PicoLowLevel_8ino.html#a4837a4caa88c99d5c5859d33c3052b35" title=" " alt="" coords="144,5,248,32"/>
+<area shape="rect" id="node3" href="$PicoLowLevel_8ino.html#ab886acb0b2db039e26913c9077ea72e2" title=" " alt="" coords="5,5,96,32"/>
+</map>

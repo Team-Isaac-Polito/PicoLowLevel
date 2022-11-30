@@ -1,0 +1,4 @@
+<map id="AMS_AS5048B::setClockWise" name="AMS_AS5048B::setClockWise">
+<area shape="rect" id="node1" title="Set / unset clock wise counting &#45; sensor counts CCW natively." alt="" coords="228,5,440,32"/>
+<area shape="rect" id="node2" href="$classAbsoluteEncoder.html#a76e13c75b1976dbc5eac9968d97848fe" title="Start the encoder at zero with the default direction." alt="" coords="5,5,180,32"/>
+</map>
