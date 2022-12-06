@@ -11,21 +11,12 @@
 #include "Debug.h"
 #include "mcp2515.h"
 #include "communication.h"
-#include "bitmap_logos.h"
 #include "WebManagement.h"
 #include "Display.h"
 
 int time_enc = 0;
 int time_bat = 0;
 int time_data = 0;
-
-// Menu handling variables
-int ok = 0;
-int lastok = 0;
-int nav = 0;
-int lastnav = 0;
-int menupos = 0;
-int menutime = 0;
 
 struct can_frame canMsg;
 MCP2515 mcp2515(5);
@@ -62,22 +53,14 @@ float oldAngle;
 
 WebManagement wm(CONF_PATH);
 
-Dispaly display;
+Display display;
 
 void okInterrupt() {
-  int now = millis();
-  if (now - lastok > DEBOUNCE) {
-    ok++;
-    lastok = now;
-  }
+  display.okInterrupt();
 }
 
 void navInterrupt() {
-  int now = millis();
-  if (now - lastnav > DEBOUNCE) {
-    nav++;
-    lastnav = now;
-  }
+  display.navInterrupt();
 }
 
 int motorCurrent(bool rightSide) {
@@ -240,15 +223,8 @@ void setup() {
   oldAngle = encoderYaw.readAngle();
 #endif
 
-
-  //display dati 
   // Display initialization
-  display.begin(DISPLAY_ADDR, true);
-  display.setRotation(2);
-  display.setTextSize(1);
-  display.setTextColor(SH110X_WHITE);
-  display.clearDisplay();
-  display.display();
+  display.begin();
 
   // Buttons initialization
   pinMode(BTNOK, INPUT_PULLUP);
@@ -256,8 +232,6 @@ void setup() {
   attachInterrupt(digitalPinToInterrupt(BTNOK), okInterrupt, FALLING);
   attachInterrupt(digitalPinToInterrupt(BTNNAV), navInterrupt, FALLING);
 
-  // Show ISAAC's logo
-  showLogo();
 }
 
 void loop() {
@@ -361,5 +335,5 @@ void loop() {
   }
 
   wm.handle();
-  // handleGUI(); // leads to lag in motor driving, needs improvements
+  // display.handleGUI(); // leads to lag in motor driving, needs improvements
 }

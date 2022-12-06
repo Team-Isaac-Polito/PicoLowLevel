@@ -1,31 +1,40 @@
 #ifndef Display_h
 #define Display_h
 
-
+#include <Wire.h>
 #include <Adafruit_GFX.h>
 #include <Adafruit_SH110X.h>
+#include <WiFi.h>
 
 #include "definitions.h"
-
-Adafruit_SH1106G display = Adafruit_SH1106G(DISPLAY_WIDTH, DISPLAY_HEIGHT, &Wire1, -1);
+#include "bitmap_logos.h"
+#include "mod_config.h"
+#include "Battery.h"
 
 class Display {
 public:
-  Display(String configFile) : confFile(configFile), server(80) {}
-  void begin(const char* ssid, const char* password, const char* hostname);
-  void handle();
+  Display();
+  void begin();
+
+  void okInterrupt();
+  void navInterrupt();
+
 private:
-  void setupServer();
-  void setupOTA(const char* hostname);
+  void showLogo();
+  void showWifi();
+  void showBattery();
+  void showVersion();
+  void handleGUI();
 
-  void handleUpdate();
-  void handleConfig();
+  Adafruit_SH1106G display = Adafruit_SH1106G(DISPLAY_WIDTH, DISPLAY_HEIGHT, &Wire1, -1);
 
-  String readFile(String path);
-
-  String confFile;
-  File tempFile;
-  WebServer server;
+  //menu handling variables
+  int ok = 0;
+  int lastok = 0;
+  int nav = 0;
+  int lastnav = 0;
+  int menupos = 0;
+  int menutime = 0;
 };
 
 #endif

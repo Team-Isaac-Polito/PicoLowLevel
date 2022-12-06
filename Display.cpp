@@ -1,12 +1,30 @@
 #include "Display.h"
 
-void showLogo() {
+Display::Display() {
+  
+}
+
+/*
+* Initialization of the display
+*/
+void Display::begin() {
+  //funzioni di display Adafruit
+  display.begin(DISPLAY_ADDR, true);
+  display.setRotation(2);
+  display.setTextSize(1);
+  display.setTextColor(SH110X_WHITE);
+  display.clearDisplay();
+  display.display();
+  showLogo();
+}
+
+void Display::showLogo() {
   display.clearDisplay();
   display.drawBitmap(44, 4,  bitmap_logo_isaac, 41, 58, 1);
   display.display();
 }
 
-void showWifi() {
+void Display::showWifi() {
   display.clearDisplay();
   display.drawBitmap(0, 0,  bitmap_logo_wifi, 26, 21, 1);
   display.setCursor(0, 32);
@@ -14,7 +32,7 @@ void showWifi() {
   display.display();
 }
 
-void showBattery() {
+void Display::showBattery() {
   display.clearDisplay();
   display.drawBitmap(0, 0,  bitmap_logo_bat, 23, 11, 1);
   display.setCursor(0, 24);
@@ -23,7 +41,7 @@ void showBattery() {
   display.display();
 }
 
-void showVersion() {
+void Display::showVersion() {
   display.clearDisplay();
   display.drawBitmap(0, 0,  bitmap_logo_upd, 24, 24, 1);
   display.setCursor(0, 32);
@@ -32,8 +50,10 @@ void showVersion() {
   display.display();
 }
 
-
-void handleGUI() {
+/*
+* Change page of the display
+*/
+void Display::handleGUI() {
   bool change = false;
 
   if(nav > 0) {
@@ -63,14 +83,25 @@ void handleGUI() {
   }
 }
 
-
-  // Display initialization
-  void begin() {
-    
-  display.begin(DISPLAY_ADDR, true);
-  display.setRotation(2);
-  display.setTextSize(1);
-  display.setTextColor(SH110X_WHITE);
-  display.clearDisplay();
-  display.display();
+/**
+* Change value of the nav button
+*/
+void Display::navInterrupt() {
+  int now = millis();
+  if (now - lastnav > DEBOUNCE) {
+    nav++;
+    lastnav = now;
   }
+}
+
+
+/**
+* Change value of the ok button
+*/
+void Display::okInterrupt() {
+  int now = millis();
+  if (now - lastok > DEBOUNCE) {
+    ok++;
+    lastok = now;
+  }
+}
