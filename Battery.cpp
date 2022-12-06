@@ -25,3 +25,5 @@ float Battery::chargePercent() {
 bool Battery::charged() {
   return readVoltage() > BAT_LOW;
 }
+
+Battery battery;

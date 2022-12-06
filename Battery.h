@@ -20,4 +20,6 @@ class Battery {
     int r1, r2;
 };
 
+extern Battery battery;
+
 #endif

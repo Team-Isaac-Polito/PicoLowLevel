@@ -58,8 +58,6 @@ DynamixelMotor motorPitchA(SERVO_A_ID);
 DynamixelMotor motorPitchB(SERVO_B_ID);
 #endif
 
-Battery battery;
-
 float oldAngle;
 
 WebManagement wm(CONF_PATH);
