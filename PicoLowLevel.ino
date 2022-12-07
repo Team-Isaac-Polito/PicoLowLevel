@@ -157,7 +157,7 @@ void sendTelemetry() {
   canMsg.can_dlc = 5;
   
   // sending right encoder as float
-  float speedR = encoderTrRight.getSpeed();
+  float speedR = - encoderTrRight.getSpeed(); // invert
   canMsg.data[0] = SEND_TRACTION_RIGHT_SPEED;
   canMsg.data[1] = ((uint8_t*)&speedR)[3];
   canMsg.data[2] = ((uint8_t*)&speedR)[2];
