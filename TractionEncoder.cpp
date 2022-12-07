@@ -24,7 +24,7 @@ void TractionEncoder::begin() {
  * @return The speed in milliRPMs.
  */
 int TractionEncoder::getSpeed() {
-    int rpm;
+    long rpm;
 
     Debug.print("TRACTIONENCODER - Steps Counted  ", Levels::DEBUG);
     Debug.println(countSteps, Levels::DEBUG);
@@ -35,7 +35,7 @@ int TractionEncoder::getSpeed() {
     interrupts();
 
     // check definitions.h to understand what the constant is
-    rpm = rpm * ENC_TR_CONVERSION / (micros()-time);
+    rpm = rpm * ENC_TR_CONVERSION / (long)(micros()-time);
   
     Debug.print("TRACTIONENCODER - Calculated RPM  ", Levels::DEBUG);
     Debug.println(rpm, Levels::DEBUG);

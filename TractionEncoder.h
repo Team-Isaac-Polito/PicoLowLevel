@@ -17,7 +17,8 @@ class TractionEncoder {
 
   private:
     byte pin_a, pin_b;
-    unsigned long countSteps, time;
+    long countSteps;
+    unsigned long time;
 
     void ISR();
     static void ISR_wrapper(TractionEncoder* te);
