@@ -262,7 +262,7 @@ void setup() {
   // CAN initialization
   mcp2515.begin();
   mcp2515.reset();
-  mcp2515.setBitrate(CAN_125KBPS);
+  mcp2515.setBitrate(CAN_1000KBPS, MCP_8MHZ);
   mcp2515.setNormalMode();
 
   // initializing PWM
