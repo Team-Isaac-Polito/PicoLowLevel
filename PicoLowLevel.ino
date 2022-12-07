@@ -188,7 +188,7 @@ void sendTelemetry() {
 #ifdef MODC_YAW  
   encoderYaw.update();
   float angle = encoderYaw.readAngle();
-  canMsg.data[0] = SEND_YAW_ANGLE;
+  canMsg.data[0] = SEND_YAW_ENCODER;
   canMsg.data[1] = ((uint8_t*)&angle)[3];
   canMsg.data[2] = ((uint8_t*)&angle)[2];
   canMsg.data[3] = ((uint8_t*)&angle)[1];
