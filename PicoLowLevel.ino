@@ -266,7 +266,7 @@ void setup() {
   mcp2515.setNormalMode();
 
   // initializing PWM
-  //analogWriteFreq(PWM_FREQUENCY); // switching frequency to 50kHz
+  analogWriteFreq(PWM_FREQUENCY); // switching frequency to 15kHz
   analogWriteRange(PWM_MAX_VALUE); // analogWrite range from 0 to 512, default is 255
 
   // initializing ADC
