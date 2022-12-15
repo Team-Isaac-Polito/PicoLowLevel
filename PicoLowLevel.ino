@@ -340,13 +340,13 @@ void loop() {
   int time_cur = millis();
 
   // pid routine, to be executed every DT milliseconds
-  if (time_cur - time_enc > DT) { 
+  if (time_cur - time_enc >= DT) { 
     time_enc = time_cur;
     updatePID();
   }
 
   // read battery voltage every second
-  if (time_cur - time_bat > 1000) {
+  if (time_cur - time_bat >= 1000) {
     time_bat = time_cur;
 
     Debug.print("Battery voltage is: ");
@@ -354,7 +354,7 @@ void loop() {
   }
 
   // send telemetry
-  if (time_cur - time_tel > 10) {
+  if (time_cur - time_tel >= 10) {
     time_tel = time_cur;
     
     Debug.print("Sending telemetry.");
