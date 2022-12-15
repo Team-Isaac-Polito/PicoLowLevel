@@ -46,7 +46,7 @@
 // (milliRPM/1000) : maxRPM = PWM : 1023
 // maxRPM = 130 / 2 (2 = transmissionRatio)
 // PWM = milliRPM * 1023 / (1000 * maxRPM)
-#define RPM_TO_PWM(rpm) rpm*.015738461538
+#define RPM_TO_PWM .015738461538
 
 // YAW MIN/MAX
 #define YAW_MAX_ANGLE 30
