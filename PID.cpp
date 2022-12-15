@@ -56,7 +56,7 @@ void PID::calculate() {
 
   // PID formula:
   // u[k] = Kp e[k] + Ki e_i[k] + Kd e_d[k], control signal
-  output = kp * error + ki * integral + kd * derivative;
+  output = referenceValue + kp * error + ki * integral + kd * derivative;
 
   // Clamp the output
   if (output > max_output)
