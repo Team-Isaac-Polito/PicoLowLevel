@@ -46,7 +46,7 @@
 // (milliRPM/1000) : maxRPM = PWM : 1023
 // maxRPM = 130 / 2 (2 = transmissionRatio)
 // PWM = milliRPM * 1023 / (1000 * maxRPM)
-#define RPM_TO_PWM .015738461538
+#define RPM_TO_PWM .15738461538
 
 // YAW MIN/MAX
 #define YAW_MAX_ANGLE 30
@@ -63,7 +63,7 @@
 #define PID_TR_KP			0.1
 #define PID_TR_KI			.0005
 #define PID_TR_KD			0.0
-#define PID_TR_MAX_OUTPUT	65000
+#define PID_TR_MAX_OUTPUT	6500
 #define PID_TR_EMA_ALPHA	1
 
 // Display
