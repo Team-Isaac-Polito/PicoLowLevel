@@ -347,7 +347,7 @@ void loop() {
 
   // read battery voltage every second
   if (time_cur - time_bat > 1000) {
-    time_bat = millis();
+    time_bat = time_cur;
 
     Debug.print("Battery voltage is: ");
     Debug.println(battery.readVoltage());
@@ -355,7 +355,7 @@ void loop() {
 
   // send telemetry
   if (time_cur - time_tel > 10) {
-    time_tel = millis();
+    time_tel = time_cur;
     
     Debug.print("Sending telemetry.");
     sendTelemetry();
