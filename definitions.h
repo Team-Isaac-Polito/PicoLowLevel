@@ -63,7 +63,7 @@
 #define PID_TR_KP			0.1
 #define PID_TR_KI			.0005
 #define PID_TR_KD			0.0
-#define PID_TR_MAX_OUTPUT	1023
+#define PID_TR_MAX_OUTPUT	65000
 #define PID_TR_EMA_ALPHA	1
 
 // Display
