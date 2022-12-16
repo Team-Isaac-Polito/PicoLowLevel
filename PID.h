@@ -2,7 +2,6 @@
 #define PID_H
 
 #include <Arduino.h>
-#include "Debug.h"
 
 class PID {
   public:
