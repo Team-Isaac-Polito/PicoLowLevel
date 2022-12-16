@@ -1,7 +1,7 @@
 #ifndef definitions_h
 #define definitions_h
 
-#define DT 100
+#define DT 20
 
 // PWM configuration
 #define PWM_MAX_VALUE 1023
