@@ -351,6 +351,8 @@ void loop() {
 
     Debug.print("Battery voltage is: ");
     Debug.println(battery.readVoltage());
+
+    if(!battery.charged()) Debug.println("Battery voltage low!", Levels::WARN);
   }
 
   // send telemetry
