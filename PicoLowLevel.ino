@@ -341,6 +341,7 @@ void loop() {
 
   // pid routine, to be executed every DT milliseconds
   if (time_cur - time_enc >= DT) { 
+    if (time_cur - time_enc > DT) Debug.println("PID routine running below set frequency!", Levels::WARN);
     time_enc = time_cur;
     updatePID();
   }
@@ -357,6 +358,7 @@ void loop() {
 
   // send telemetry
   if (time_cur - time_tel >= 10) {
+    if (time_cur - time_enc > 10) Debug.println("Telemetry routine running below set frequency!", Levels::WARN);
     time_tel = time_cur;
     
     Debug.print("Sending telemetry.");
