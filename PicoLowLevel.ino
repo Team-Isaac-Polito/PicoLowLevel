@@ -370,6 +370,7 @@ void loop() {
 
     Debug.println("RECEIVED CANBUS DATA");
     int16_t data;
+    byte buf[4];
 
     switch (canMsg.data[0]) {
       case DATA_TRACTION_LEFT:
@@ -439,7 +440,6 @@ void loop() {
         break;
 
       case DATA_PID_KP:
-        byte buf[4];
         for (int i = 0; i<4; i++) buf[i] = canMsg.data[i+1];
         float kp;
         memcpy(&kp, &buf, sizeof(kp));
@@ -447,7 +447,6 @@ void loop() {
         pidTrRight.setKp(kp);
         break;
       case DATA_PID_KD:
-        byte buf[4];
         for (int i = 0; i<4; i++) buf[i] = canMsg.data[i+1];
         float kd;
         memcpy(&kd, &buf, sizeof(kd));
@@ -455,7 +454,6 @@ void loop() {
         pidTrRight.setKd(kp);
         break;
       case DATA_PID_KI:
-        byte buf[4];
         for (int i = 0; i<4; i++) buf[i] = canMsg.data[i+1];
         float ki;
         memcpy(&ki, &buf, sizeof(ki));
