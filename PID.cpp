@@ -63,11 +63,11 @@ void PID::calculate() {
 
   // Clamp the output
   if (output > max_output)
-      output = max_output;
+    output = max_output;
   else if (output < -max_output)
-      output = -max_output;
+    output = -max_output;
   else // Anti-windup
-      old_integral = integral;
+    old_integral = integral;
 
   // store the state for the next iteration
   old_fe = fe;
