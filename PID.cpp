@@ -26,12 +26,23 @@ void PID::updateFeedback(float fb) {
   feedback = fb;
 }
 
+void PID::setConstants(float kp, float ki, float kd) {
+  this->kp = kp;
+  this->ki = ki;
+  this->kd = kd;
+}
+
 float PID::getOutput() {
   return output;
 }
 
 float PID::getReferenceValue() {
   return referenceValue;
+}
+
+void PID::resetState() {
+  old_fe = 0.f;
+  old_integral = 0.f;
 }
 
 void PID::calculate() {
