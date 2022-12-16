@@ -14,8 +14,11 @@ class PID {
     void updateFeedback(float fb);
 
   private:
-    float kp,ki,kd, referenceValue, output, max_output, feedback, old_ef, integral,alpha;
-    int tempo;
+    float kp, ki, kd; // gains
+    float max_output, alpha; // constants
+    float referenceValue, output, feedback; // variables
+    float old_fe, old_integral; // state
+    unsigned long tempo;
 };
 
 
