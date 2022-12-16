@@ -7,7 +7,9 @@ class PID {
   public:
     PID(float kp, float ki, float kd, float max_output, float alpha);
     void updateReferenceValue(float ref);
-    void setConstants(float kp, float ki, float kd);
+    void setKp(float kp);
+    void setKi(float ki);
+    void setKd(float kd);
     float getOutput();
     float getReferenceValue();
     void calculate();

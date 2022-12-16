@@ -20,9 +20,15 @@ void PID::updateFeedback(float fb) {
   feedback = fb;
 }
 
-void PID::setConstants(float kp, float ki, float kd) {
+void PID::setKp(float kp) {
   this->kp = kp;
+}
+
+void PID::setKi(float ki) {
   this->ki = ki;
+}
+
+void PID::setKd(float kd) {
   this->kd = kd;
 }
 
