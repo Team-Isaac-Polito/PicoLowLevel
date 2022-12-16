@@ -437,6 +437,31 @@ void loop() {
         Debug.print("ROLL END EFFECTOR MOTOR DATA : \t");
         Debug.println(data);
         break;
+
+      case DATA_PID_KP:
+        byte buf[4];
+        for (int i = 0; i<4; i++) buf[i] = canMsg.data[i+1];
+        float kp;
+        memcpy(&kp, &buf, sizeof(kp));
+        pidTrLeft.setKp(kp);
+        pidTrRight.setKp(kp);
+        break;
+      case DATA_PID_KD:
+        byte buf[4];
+        for (int i = 0; i<4; i++) buf[i] = canMsg.data[i+1];
+        float kd;
+        memcpy(&kd, &buf, sizeof(kd));
+        pidTrLeft.setKd(kp);
+        pidTrRight.setKd(kp);
+        break;
+      case DATA_PID_KI:
+        byte buf[4];
+        for (int i = 0; i<4; i++) buf[i] = canMsg.data[i+1];
+        float ki;
+        memcpy(&ki, &buf, sizeof(ki));
+        pidTrLeft.setKi(ki);
+        pidTrRight.setKi(ki);
+        break;
     }
     
   } else if (time_cur - time_data > 1000 && time_data != -1) { //if we do not receive data for more than a second stop motors
