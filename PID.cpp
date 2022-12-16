@@ -26,11 +26,9 @@ void PID::updateFeedback(float fb) {
   feedback = fb;
 }
 
-
 float PID::getOutput() {
   return output;
 }
-
 
 float PID::getReferenceValue() {
   return referenceValue;
