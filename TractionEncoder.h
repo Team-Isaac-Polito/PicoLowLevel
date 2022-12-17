@@ -17,6 +17,7 @@ class TractionEncoder {
 
   private:
     byte pin_a, pin_b;
+    bool old_a;
     long countSteps;
     unsigned long time;
 
