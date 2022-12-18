@@ -7,7 +7,7 @@ TractionEncoder::TractionEncoder(byte pin_a, byte pin_b) {
     this->pin_a = pin_a;
     this->pin_b = pin_b;
 
-    time = millis();
+    time = micros();
 }
 
 /**
@@ -16,15 +16,16 @@ TractionEncoder::TractionEncoder(byte pin_a, byte pin_b) {
 void TractionEncoder::begin() {
     pinMode(pin_a,INPUT);
     pinMode(pin_b,INPUT);
-    attachInterrupt(digitalPinToInterrupt(pin_a), &ISR_wrapper, RISING, this);
+    attachInterrupt(digitalPinToInterrupt(pin_a), &ISR_wrapper, CHANGE, this);
+    attachInterrupt(digitalPinToInterrupt(pin_b), &ISR_wrapper, CHANGE, this);
 }
 
 /**
  * Computes and returns the last detected speed.
- * @return The speed in RPMs.
+ * @return The speed in milliRPMs.
  */
-float TractionEncoder::getSpeed() {
-    float rpm;
+int TractionEncoder::getSpeed() {
+    long rpm;
 
     Debug.print("TRACTIONENCODER - Steps Counted  ", Levels::DEBUG);
     Debug.println(countSteps, Levels::DEBUG);
@@ -34,12 +35,13 @@ float TractionEncoder::getSpeed() {
     countSteps = 0;
     interrupts();
 
-    rpm = rpm * 1000 / (1.9*(millis()-time));
-
+    // check definitions.h to understand what the constant is
+    rpm = rpm * ENC_TR_CONVERSION / (long)(micros()-time);
+  
     Debug.print("TRACTIONENCODER - Calculated RPM  ", Levels::DEBUG);
     Debug.println(rpm, Levels::DEBUG);
 
-    time = millis();
+    time = micros();
 
     return rpm; 
 }
@@ -48,8 +50,16 @@ float TractionEncoder::getSpeed() {
  * Interrupt Service Routing for the encoder.
  * This registers a new rotation has happened every time it's called. 
  */
-void TractionEncoder::ISR() {   
-    countSteps += digitalRead(pin_b) == HIGH ? 1 : -1; // aggiungo o tolgo un passo in base al segnale del pin direzione
+void TractionEncoder::ISR() {  
+    // saving state of pin_a for next iteration
+    old_a = digitalRead(pin_a);
+    bool val_b = digitalRead(pin_b);
+
+    // direction detection can be simplified to a XOR between current state of pin b and old state of pin a
+    bool ccw = val_b ^ old_a;
+    
+    // increase steps for ccw, decrease for cw
+    countSteps += ccw ? +1 : -1;
 }
 
 /**

@@ -14,6 +14,7 @@ class Battery {
     float readVoltage();
     float chargePercent();
     bool charged();
+    bool USB();
 
   private:
     byte pin;

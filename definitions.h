@@ -1,10 +1,13 @@
 #ifndef definitions_h
 #define definitions_h
 
-#define DT 100
+// Main loop timings
+#define DT_BAT 1000   // 1000ms / 1000 = 1 Hz
+#define DT_PID 20     // 1000ms / 20   = 50 Hz
+#define DT_TEL 10     // 1000ms / 10   = 100 Hz
 
 // PWM configuration
-#define PWM_MAX_VALUE 512
+#define PWM_MAX_VALUE 1023
 #define PWM_FREQUENCY 15000
 
 // I²C configuration
@@ -39,6 +42,14 @@
 #define ENC_TR_RIGHT_A  10
 #define ENC_TR_RIGHT_B  11
 
+// Encoder conversion constant
+// K = 100          *       10^6        *       60      / (     48   *             74,83                    *       2 )
+//      centiRPM           microsecToSec        SecToMin       intPerRotation        transmissionRatio             transmissionRatio2
+#define ENC_TR_CONVERSION 835226
+// (centiRPM/100) : maxRPM = PWM : 1023
+// maxRPM = 130 / 2 (2 = transmissionRatio)
+// PWM = centiRPM * 1023 / (100 * maxRPM)
+#define RPM_TO_PWM .15738461538
 
 // YAW MIN/MAX
 #define YAW_MAX_ANGLE 30
@@ -55,7 +66,7 @@
 #define PID_TR_KP			0.1
 #define PID_TR_KI			.0005
 #define PID_TR_KD			0.0
-#define PID_TR_MAX_OUTPUT	1023
+#define PID_TR_MAX_OUTPUT	6500
 #define PID_TR_EMA_ALPHA	1
 
 // Display

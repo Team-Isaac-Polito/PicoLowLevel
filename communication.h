@@ -21,4 +21,8 @@
 #define DATA_EE_ROLL                0x0C
 #define DATA_EE_PITCH2              0x0D
 
+#define DATA_PID_KP                 0x10
+#define DATA_PID_KI                 0x11
+#define DATA_PID_KD                 0x12
+
 #endif
