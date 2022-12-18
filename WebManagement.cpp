@@ -17,7 +17,7 @@ void WebManagement::begin(const char* ssid, const char* password, const char* ho
 
 void WebManagement::handle() {
   server.handleClient();
-  ArduinoOTA.handle();
+  //ArduinoOTA.handle();
   MDNS.update();
 }
 

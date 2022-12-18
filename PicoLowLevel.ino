@@ -18,7 +18,10 @@
 
 int time_enc = 0;
 int time_bat = 0;
+int time_tel = 0;
 int time_data = 0;
+int time_enc_avg = DT_PID;
+int time_tel_avg = DT_TEL;
 
 // Menu handling variables
 int ok = 0;
@@ -156,7 +159,7 @@ void sendTelemetry() {
   canMsg.can_dlc = 5;
   
   // sending right encoder as float
-  float speedR = encoderTrRight.getSpeed();
+  float speedR = - encoderTrRight.getSpeed(); // invert
   canMsg.data[0] = SEND_TRACTION_RIGHT_SPEED;
   canMsg.data[1] = ((uint8_t*)&speedR)[3];
   canMsg.data[2] = ((uint8_t*)&speedR)[2];
@@ -182,6 +185,18 @@ void sendTelemetry() {
   canMsg.data[3] = currR;
   canMsg.data[4] = currR>>8;
   mcp2515.sendMessage(&canMsg);
+
+  // if we have an absolute encoder connected send it's value as float
+#ifdef MODC_YAW  
+  encoderYaw.update();
+  float angle = encoderYaw.readAngle();
+  canMsg.data[0] = SEND_YAW_ENCODER;
+  canMsg.data[1] = ((uint8_t*)&angle)[3];
+  canMsg.data[2] = ((uint8_t*)&angle)[2];
+  canMsg.data[3] = ((uint8_t*)&angle)[1];
+  canMsg.data[4] = ((uint8_t*)&angle)[0];
+  mcp2515.sendMessage(&canMsg);
+#endif
 }
 
 void updatePID() {
@@ -197,8 +212,8 @@ void updatePID() {
   pidTrLeft.updateFeedback(speed);
   pidTrLeft.calculate();
   
-  outPid = pidTrLeft.getOutput();
-  if (abs(outPid) < 120) outPid = 0;
+  outPid = pidTrLeft.getOutput() * RPM_TO_PWM;
+  //if (abs(outPid) < 120) outPid = 0;
 
   motorTrLeft.write(outPid);
   Debug.print("LEFT MOTOR OUTPUT \t ");
@@ -216,8 +231,8 @@ void updatePID() {
   pidTrRight.updateFeedback(speed);
   pidTrRight.calculate();
   
-  outPid = pidTrRight.getOutput();
-  if (abs(outPid) < 120) outPid = 0;
+  outPid = pidTrRight.getOutput() * RPM_TO_PWM;
+  //if (abs(outPid) < 120) outPid = 0;
 
   motorTrRight.write(outPid);
   Debug.print("RIGHT MOTOR OUTPUT \t ");
@@ -327,18 +342,28 @@ void loop() {
   int time_cur = millis();
 
   // pid routine, to be executed every DT milliseconds
-  if (time_cur - time_enc > DT) { 
+  if (time_cur - time_enc >= DT_PID) { 
+    time_enc_avg = (time_enc_avg + (time_cur - time_enc)) / 2;
     time_enc = time_cur;
     updatePID();
   }
 
   // read battery voltage every second
-  if (time_cur - time_bat > 1000) {
-    time_bat = millis();
+  if (time_cur - time_bat >= DT_BAT) {
+    time_bat = time_cur;
 
-    Debug.print("Battery voltage is: ");
-    Debug.println(battery.readVoltage());
+    if (time_tel_avg > DT_TEL) Debug.println("Telemetry frequency below required: " + String(1000/time_tel_avg) + " Hz", Levels::WARN);
+    if (time_tel_avg > DT_PID) Debug.println("Average PID frequency below required: " + String(1000/time_enc_avg) + " Hz", Levels::WARN);
 
+    if(!battery.charged()) Debug.println("Battery voltage low! " + String(battery.readVoltage()) + "v", Levels::WARN);
+  }
+
+  // send telemetry
+  if (time_cur - time_tel >= DT_TEL) {
+    time_tel_avg = (time_tel_avg + (time_cur - time_tel)) / 2;
+    time_tel = time_cur;
+    
+    Debug.print("Sending telemetry.");
     sendTelemetry();
   }
 
@@ -347,11 +372,12 @@ void loop() {
 
     Debug.println("RECEIVED CANBUS DATA");
     int16_t data;
+    byte buf[4];
 
     switch (canMsg.data[0]) {
       case DATA_TRACTION_LEFT:
         data = canMsg.data[1] | canMsg.data[2]<<8;
-        //motorTrLeft.write(data);
+        // motorTrLeft.write(data);
         pidTrLeft.updateReferenceValue(data);
 
         Debug.print("TRACTION LEFT DATA :\t");
@@ -413,6 +439,28 @@ void loop() {
 #endif
         Debug.print("ROLL END EFFECTOR MOTOR DATA : \t");
         Debug.println(data);
+        break;
+
+      case DATA_PID_KP:
+        for (int i = 0; i<4; i++) buf[i] = canMsg.data[i+1];
+        float kp;
+        memcpy(&kp, &buf, sizeof(kp));
+        pidTrLeft.setKp(kp);
+        pidTrRight.setKp(kp);
+        break;
+      case DATA_PID_KD:
+        for (int i = 0; i<4; i++) buf[i] = canMsg.data[i+1];
+        float kd;
+        memcpy(&kd, &buf, sizeof(kd));
+        pidTrLeft.setKd(kp);
+        pidTrRight.setKd(kp);
+        break;
+      case DATA_PID_KI:
+        for (int i = 0; i<4; i++) buf[i] = canMsg.data[i+1];
+        float ki;
+        memcpy(&ki, &buf, sizeof(ki));
+        pidTrLeft.setKi(ki);
+        pidTrRight.setKi(ki);
         break;
     }
     
