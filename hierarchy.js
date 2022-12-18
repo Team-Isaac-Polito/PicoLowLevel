@@ -5,6 +5,7 @@ var hierarchy =
     ] ],
     [ "Battery", "classBattery.html", null ],
     [ "can_frame", "structcan__frame.html", null ],
+    [ "Display", "classDisplay.html", null ],
     [ "DynamixelInterface", "classDynamixelInterface.html", null ],
     [ "DynamixelMotor", "classDynamixelMotor.html", null ],
     [ "Motor", "classMotor.html", null ],

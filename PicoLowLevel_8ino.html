@@ -90,8 +90,6 @@ $(document).ready(function(){initNavTree('PicoLowLevel_8ino.html',''); initResiz
 <div class="contents">
 <div class="textblock"><code>#include &lt;Wire.h&gt;</code><br />
 <code>#include &lt;SPI.h&gt;</code><br />
-<code>#include &lt;Adafruit_GFX.h&gt;</code><br />
-<code>#include &lt;Adafruit_SH110X.h&gt;</code><br />
 <code>#include &quot;<a class="el" href="Motor_8h_source.html">Motor.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="AbsoluteEncoder_8h_source.html">AbsoluteEncoder.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="Battery_8h_source.html">Battery.h</a>&quot;</code><br />
@@ -103,61 +101,52 @@ $(document).ready(function(){initNavTree('PicoLowLevel_8ino.html',''); initResiz
 <code>#include &quot;<a class="el" href="Debug_8h_source.html">Debug.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="mcp2515_8h_source.html">mcp2515.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="communication_8h_source.html">communication.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="bitmap__logos_8h_source.html">bitmap_logos.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="WebManagement_8h_source.html">WebManagement.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="Display_8h_source.html">Display.h</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for PicoLowLevel.ino:</div>
 <div class="dyncontent">
 <div class="center"><img src="PicoLowLevel_8ino__incl.png" border="0" usemap="#aPicoLowLevel_8ino" alt=""/></div>
 <map name="aPicoLowLevel_8ino" id="aPicoLowLevel_8ino">
-<area shape="rect" title=" " alt="" coords="947,5,1082,32"/>
-<area shape="rect" title=" " alt="" coords="1672,229,1736,256"/>
-<area shape="rect" title=" " alt="" coords="1386,155,1441,181"/>
-<area shape="rect" title=" " alt="" coords="1459,80,1579,107"/>
-<area shape="rect" title=" " alt="" coords="1603,80,1747,107"/>
-<area shape="rect" href="Motor_8h.html" title=" " alt="" coords="267,155,338,181"/>
-<area shape="rect" href="Debug_8h.html" title=" " alt="" coords="485,229,561,256"/>
-<area shape="rect" href="definitions_8h.html" title=" " alt="" coords="255,229,358,256"/>
-<area shape="rect" href="AbsoluteEncoder_8h.html" title=" " alt="" coords="943,80,1086,107"/>
-<area shape="rect" href="mod__config_8h.html" title=" " alt="" coords="1201,155,1311,181"/>
-<area shape="rect" href="Battery_8h.html" title=" " alt="" coords="623,155,703,181"/>
-<area shape="rect" href="TractionEncoder_8h.html" title=" " alt="" coords="56,155,192,181"/>
-<area shape="rect" href="DynamixelSerial_8h.html" title=" " alt="" coords="511,80,652,107"/>
+<area shape="rect" title=" " alt="" coords="1198,5,1333,32"/>
+<area shape="rect" title=" " alt="" coords="71,229,135,256"/>
+<area shape="rect" title=" " alt="" coords="2697,155,2751,181"/>
+<area shape="rect" href="Motor_8h.html" title=" " alt="" coords="335,155,406,181"/>
+<area shape="rect" href="Debug_8h.html" title=" " alt="" coords="430,229,506,256"/>
+<area shape="rect" href="definitions_8h.html" title=" " alt="" coords="1291,229,1394,256"/>
+<area shape="rect" href="AbsoluteEncoder_8h.html" title=" " alt="" coords="494,80,637,107"/>
+<area shape="rect" href="mod__config_8h.html" title=" " alt="" coords="633,155,743,181"/>
+<area shape="rect" href="Battery_8h.html" title=" " alt="" coords="1225,155,1305,181"/>
+<area shape="rect" href="TractionEncoder_8h.html" title=" " alt="" coords="2536,155,2672,181"/>
+<area shape="rect" href="DynamixelSerial_8h.html" title=" " alt="" coords="2323,80,2464,107"/>
 <area shape="rect" href="PID_8h.html" title=" " alt="" coords="5,80,61,107"/>
-<area shape="rect" href="mcp2515_8h.html" title=" " alt="" coords="1339,80,1434,107"/>
-<area shape="rect" href="communication_8h.html" title=" " alt="" coords="1771,80,1906,107"/>
-<area shape="rect" href="bitmap__logos_8h.html" title=" " alt="" coords="1931,80,2053,107"/>
-<area shape="rect" href="WebManagement_8h.html" title=" " alt="" coords="829,155,977,181"/>
-<area shape="rect" title=" " alt="" coords="354,304,438,331"/>
-<area shape="rect" href="ams__as5048b_8h.html" title=" " alt="" coords="1053,155,1177,181"/>
-<area shape="rect" title=" " alt="" coords="1453,229,1555,256"/>
-<area shape="rect" title=" " alt="" coords="1579,229,1647,256"/>
-<area shape="rect" title=" " alt="" coords="42,229,129,256"/>
-<area shape="rect" title=" " alt="" coords="362,155,497,181"/>
-<area shape="rect" href="can_8h.html" title=" " alt="" coords="1617,155,1674,181"/>
-<area shape="rect" title=" " alt="" coords="1761,229,1831,256"/>
-<area shape="rect" title=" " alt="" coords="1190,229,1253,256"/>
-<area shape="rect" title=" " alt="" coords="1277,229,1377,256"/>
-<area shape="rect" title=" " alt="" coords="609,229,711,256"/>
-<area shape="rect" title=" " alt="" coords="736,229,835,256"/>
-<area shape="rect" title=" " alt="" coords="859,229,941,256"/>
-<area shape="rect" title=" " alt="" coords="966,229,1077,256"/>
-<area shape="rect" href="html_8h.html" title=" " alt="" coords="1101,229,1165,256"/>
+<area shape="rect" href="mcp2515_8h.html" title=" " alt="" coords="2665,80,2759,107"/>
+<area shape="rect" href="communication_8h.html" title=" " alt="" coords="2783,80,2918,107"/>
+<area shape="rect" href="WebManagement_8h.html" title=" " alt="" coords="1719,80,1867,107"/>
+<area shape="rect" href="Display_8h.html" title=" " alt="" coords="1099,80,1181,107"/>
+<area shape="rect" title=" " alt="" coords="526,304,610,331"/>
+<area shape="rect" href="ams__as5048b_8h.html" title=" " alt="" coords="187,155,311,181"/>
+<area shape="rect" title=" " alt="" coords="159,229,262,256"/>
+<area shape="rect" title=" " alt="" coords="286,229,354,256"/>
+<area shape="rect" title=" " alt="" coords="2537,229,2623,256"/>
+<area shape="rect" title=" " alt="" coords="2326,155,2461,181"/>
+<area shape="rect" href="can_8h.html" title=" " alt="" coords="2775,155,2833,181"/>
+<area shape="rect" title=" " alt="" coords="2769,229,2839,256"/>
+<area shape="rect" title=" " alt="" coords="1381,155,1443,181"/>
+<area shape="rect" title=" " alt="" coords="2023,155,2123,181"/>
+<area shape="rect" title=" " alt="" coords="2147,155,2250,181"/>
+<area shape="rect" title=" " alt="" coords="1569,155,1668,181"/>
+<area shape="rect" title=" " alt="" coords="1692,155,1775,181"/>
+<area shape="rect" title=" " alt="" coords="1799,155,1910,181"/>
+<area shape="rect" href="html_8h.html" title=" " alt="" coords="1935,155,1999,181"/>
+<area shape="rect" title=" " alt="" coords="767,155,887,181"/>
+<area shape="rect" title=" " alt="" coords="911,155,1055,181"/>
+<area shape="rect" href="bitmap__logos_8h.html" title=" " alt="" coords="1079,155,1201,181"/>
 </map>
 </div>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:aeb030c31dad037380fe45ad4194db9ba"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="PicoLowLevel_8ino.html#aeb030c31dad037380fe45ad4194db9ba">showLogo</a> ()</td></tr>
-<tr class="separator:aeb030c31dad037380fe45ad4194db9ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aebb894ec78a9d50bc9fb0c7dd20f1e2d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="PicoLowLevel_8ino.html#aebb894ec78a9d50bc9fb0c7dd20f1e2d">showWifi</a> ()</td></tr>
-<tr class="separator:aebb894ec78a9d50bc9fb0c7dd20f1e2d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4837a4caa88c99d5c5859d33c3052b35"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="PicoLowLevel_8ino.html#a4837a4caa88c99d5c5859d33c3052b35">showBattery</a> ()</td></tr>
-<tr class="separator:a4837a4caa88c99d5c5859d33c3052b35"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2de507730a8ffeaa8ef728c753eecbfb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="PicoLowLevel_8ino.html#a2de507730a8ffeaa8ef728c753eecbfb">showVersion</a> ()</td></tr>
-<tr class="separator:a2de507730a8ffeaa8ef728c753eecbfb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab886acb0b2db039e26913c9077ea72e2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="PicoLowLevel_8ino.html#ab886acb0b2db039e26913c9077ea72e2">handleGUI</a> ()</td></tr>
-<tr class="separator:ab886acb0b2db039e26913c9077ea72e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7e5bd9686428496c0be42f11e557bd2b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="PicoLowLevel_8ino.html#a7e5bd9686428496c0be42f11e557bd2b">okInterrupt</a> ()</td></tr>
 <tr class="separator:a7e5bd9686428496c0be42f11e557bd2b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a463bd5e2d6006d3d57e5569bd7c8cea4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="PicoLowLevel_8ino.html#a463bd5e2d6006d3d57e5569bd7c8cea4">navInterrupt</a> ()</td></tr>
@@ -187,18 +176,6 @@ Variables</h2></td></tr>
 <tr class="separator:acddc464b6475ba7cd70ea352a887b8e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aaa722e883eaa5b32796aa17a38a9616b"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="PicoLowLevel_8ino.html#aaa722e883eaa5b32796aa17a38a9616b">time_tel_avg</a> = <a class="el" href="definitions_8h.html#a026d8cbe0fadeab497a924a902dfb38a">DT_TEL</a></td></tr>
 <tr class="separator:aaa722e883eaa5b32796aa17a38a9616b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a047ea0d874e6802b9b6d08f6b50248e5"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="PicoLowLevel_8ino.html#a047ea0d874e6802b9b6d08f6b50248e5">ok</a> = 0</td></tr>
-<tr class="separator:a047ea0d874e6802b9b6d08f6b50248e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa3db8dc0d71782a0d0f43ce1f4f16a7a"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="PicoLowLevel_8ino.html#aa3db8dc0d71782a0d0f43ce1f4f16a7a">lastok</a> = 0</td></tr>
-<tr class="separator:aa3db8dc0d71782a0d0f43ce1f4f16a7a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a79fb8c3ea53bd0ddff73e53dbbfc1dc5"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="PicoLowLevel_8ino.html#a79fb8c3ea53bd0ddff73e53dbbfc1dc5">nav</a> = 0</td></tr>
-<tr class="separator:a79fb8c3ea53bd0ddff73e53dbbfc1dc5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4df86b6eba22f86dfb15ff21b25af50d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="PicoLowLevel_8ino.html#a4df86b6eba22f86dfb15ff21b25af50d">lastnav</a> = 0</td></tr>
-<tr class="separator:a4df86b6eba22f86dfb15ff21b25af50d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2bd654ff2836903cdeb8243e2e368804"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="PicoLowLevel_8ino.html#a2bd654ff2836903cdeb8243e2e368804">menupos</a> = 0</td></tr>
-<tr class="separator:a2bd654ff2836903cdeb8243e2e368804"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5b0a16cacf703858c498820e2f91ade7"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="PicoLowLevel_8ino.html#a5b0a16cacf703858c498820e2f91ade7">menutime</a> = 0</td></tr>
-<tr class="separator:a5b0a16cacf703858c498820e2f91ade7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a48f09105460ef86504c1aa704071773f"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="structcan__frame.html">can_frame</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="PicoLowLevel_8ino.html#a48f09105460ef86504c1aa704071773f">canMsg</a></td></tr>
 <tr class="separator:a48f09105460ef86504c1aa704071773f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a46fdf4638c6477530e06540445669901"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structMCP2515.html">MCP2515</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="PicoLowLevel_8ino.html#a46fdf4638c6477530e06540445669901">mcp2515</a> (5)</td></tr>
@@ -215,47 +192,14 @@ Variables</h2></td></tr>
 <tr class="separator:a38308b86a3aa53b89c5c6c861e5aebe2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a30b4803eb13744e75e38327f0fdc0a53"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classPID.html">PID</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="PicoLowLevel_8ino.html#a30b4803eb13744e75e38327f0fdc0a53">pidTrRight</a> (<a class="el" href="definitions_8h.html#a97c92aad60194d5be48266a7342d405a">PID_TR_KP</a>, <a class="el" href="definitions_8h.html#ac96ccd4f5010ccf20ba6e61ba9b6f75e">PID_TR_KI</a>, <a class="el" href="definitions_8h.html#accae2c467ae047adc09dfccae1d0f69a">PID_TR_KD</a>, <a class="el" href="definitions_8h.html#af2e04ff2e58c0917c6e543a277e26ddc">PID_TR_MAX_OUTPUT</a>, <a class="el" href="definitions_8h.html#a0a4f9abdeddf6d66c5aee909650fb4ad">PID_TR_EMA_ALPHA</a>)</td></tr>
 <tr class="separator:a30b4803eb13744e75e38327f0fdc0a53"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a53448d1553b235920b7e5a6c0b2975b0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classBattery.html">Battery</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="PicoLowLevel_8ino.html#a53448d1553b235920b7e5a6c0b2975b0">battery</a></td></tr>
-<tr class="separator:a53448d1553b235920b7e5a6c0b2975b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a46d4b4baca9c3f09afb44d483cd1b398"><td class="memItemLeft" align="right" valign="top">Adafruit_SH1106G&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="PicoLowLevel_8ino.html#a46d4b4baca9c3f09afb44d483cd1b398">display</a> = Adafruit_SH1106G(<a class="el" href="definitions_8h.html#a46d67d48a7faab308f2e058dc35da83a">DISPLAY_WIDTH</a>, <a class="el" href="definitions_8h.html#a43b7b2061f733ea1dc0a5a6028e131ff">DISPLAY_HEIGHT</a>, &amp;Wire1, -1)</td></tr>
-<tr class="separator:a46d4b4baca9c3f09afb44d483cd1b398"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acc50c1424cde2d478085d4006d6d3ae1"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="PicoLowLevel_8ino.html#acc50c1424cde2d478085d4006d6d3ae1">oldAngle</a></td></tr>
 <tr class="separator:acc50c1424cde2d478085d4006d6d3ae1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab59f34ca642eafe4c57b5a58d5e1ee4d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classWebManagement.html">WebManagement</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="PicoLowLevel_8ino.html#ab59f34ca642eafe4c57b5a58d5e1ee4d">wm</a> (<a class="el" href="definitions_8h.html#ab554e60c60569e439b8e0e1901d5754c">CONF_PATH</a>)</td></tr>
 <tr class="separator:ab59f34ca642eafe4c57b5a58d5e1ee4d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa5083e8fab8ddaf62944949e251663bb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classDisplay.html">Display</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="PicoLowLevel_8ino.html#aa5083e8fab8ddaf62944949e251663bb">display</a></td></tr>
+<tr class="separator:aa5083e8fab8ddaf62944949e251663bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="ab886acb0b2db039e26913c9077ea72e2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab886acb0b2db039e26913c9077ea72e2">&#9670;&nbsp;</a></span>handleGUI()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void handleGUI </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="PicoLowLevel_8ino_ab886acb0b2db039e26913c9077ea72e2_cgraph.png" border="0" usemap="#aPicoLowLevel_8ino_ab886acb0b2db039e26913c9077ea72e2_cgraph" alt=""/></div>
-<map name="aPicoLowLevel_8ino_ab886acb0b2db039e26913c9077ea72e2_cgraph" id="aPicoLowLevel_8ino_ab886acb0b2db039e26913c9077ea72e2_cgraph">
-<area shape="rect" title=" " alt="" coords="5,107,96,133"/>
-<area shape="rect" href="PicoLowLevel_8ino.html#a4837a4caa88c99d5c5859d33c3052b35" title=" " alt="" coords="144,31,248,57"/>
-<area shape="rect" href="PicoLowLevel_8ino.html#aeb030c31dad037380fe45ad4194db9ba" title=" " alt="" coords="153,81,239,108"/>
-<area shape="rect" href="PicoLowLevel_8ino.html#a2de507730a8ffeaa8ef728c753eecbfb" title=" " alt="" coords="144,132,248,159"/>
-<area shape="rect" href="PicoLowLevel_8ino.html#aebb894ec78a9d50bc9fb0c7dd20f1e2d" title=" " alt="" coords="155,183,237,209"/>
-<area shape="rect" href="classBattery.html#a59f7ba6493e12b18935baf93e7f8661c" title="Estimates the current battery charge." alt="" coords="296,5,467,32"/>
-<area shape="rect" href="classBattery.html#a63577a5d458094efc4d24a00f052682b" title="Reads the current battery voltage." alt="" coords="515,31,669,57"/>
-</map>
-</div>
-
-</div>
-</div>
 <a id="afe461d27b9c48d5921c00d521181f12f"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#afe461d27b9c48d5921c00d521181f12f">&#9670;&nbsp;</a></span>loop()</h2>
 
@@ -275,27 +219,28 @@ Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="PicoLowLevel_8ino_afe461d27b9c48d5921c00d521181f12f_cgraph.png" border="0" usemap="#aPicoLowLevel_8ino_afe461d27b9c48d5921c00d521181f12f_cgraph" alt=""/></div>
 <map name="aPicoLowLevel_8ino_afe461d27b9c48d5921c00d521181f12f_cgraph" id="aPicoLowLevel_8ino_afe461d27b9c48d5921c00d521181f12f_cgraph">
-<area shape="rect" title=" " alt="" coords="5,430,56,456"/>
-<area shape="rect" href="classBattery.html#ab738945fc3d54086b6afa6e8ba21c513" title="Check the battery charge status." alt="" coords="139,63,268,90"/>
-<area shape="rect" href="classBattery.html#a63577a5d458094efc4d24a00f052682b" title="Reads the current battery voltage." alt="" coords="371,31,525,58"/>
-<area shape="rect" href="classWebManagement.html#a48b2f695f7445b7628119b630447123e" title=" " alt="" coords="109,114,297,140"/>
-<area shape="rect" href="classSerialDebug.html#a3d01753681fd740869da197b2fa772b0" title="Sends a string to the Serial port with a debug level, only if it is lower than the setted one." alt="" coords="792,278,931,304"/>
-<area shape="rect" href="classSerialDebug.html#a153ed172ea7eefd852292af7561ff961" title="Sends a line to the serial port with a debug level, only if it is lower than the setted one." alt="" coords="593,303,744,330"/>
-<area shape="rect" href="structMCP2515.html#a5cba1b20e3055c7ff9aa7510d035302b" title=" " alt="" coords="114,506,293,532"/>
-<area shape="rect" href="PicoLowLevel_8ino.html#a8f9fa76a93541264f22c8f23f3fc1631" title=" " alt="" coords="144,227,263,254"/>
-<area shape="rect" href="classPID.html#a21a14d1fef2157417124a9445cdbe58e" title=" " alt="" coords="159,556,248,583"/>
-<area shape="rect" href="classPID.html#a51fdda77a492d1a303fbb3ac44bd7e54" title=" " alt="" coords="161,607,246,634"/>
-<area shape="rect" href="classPID.html#a96b79772d13f60d161149be254ab6ff5" title=" " alt="" coords="159,658,248,684"/>
-<area shape="rect" href="PicoLowLevel_8ino.html#a8b77b83a1d03b08c93bdab6e3917a70b" title=" " alt="" coords="159,404,248,431"/>
-<area shape="rect" href="classPID.html#ab6c2a366f39cf53149b50216b300bdcd" title=" " alt="" coords="104,708,303,735"/>
-<area shape="rect" href="classTractionEncoder.html#a2c414262e6a923fe180d51197fc9bf5b" title="Computes and returns the last detected speed." alt="" coords="351,252,545,279"/>
-<area shape="rect" href="PicoLowLevel_8ino.html#a8525066812661764db35342986352875" title=" " alt="" coords="393,202,503,228"/>
-<area shape="rect" href="structMCP2515.html#a20201611f703db6b6c98bae03a3018ee" title=" " alt="" coords="358,151,538,178"/>
-<area shape="rect" href="classPID.html#a2d1e271496506301a6f22d0418aa0cc0" title=" " alt="" coords="393,354,503,380"/>
-<area shape="rect" href="classPID.html#a266f60cce93632141002987d5d67d0cc" title=" " alt="" coords="389,404,507,431"/>
-<area shape="rect" href="classPID.html#a7162d3b89da5a9d4b3d75011b0b57c63" title=" " alt="" coords="361,455,535,482"/>
-<area shape="rect" href="classPID.html#a33f657a6cce4f57302f90bec9664d294" title=" " alt="" coords="369,506,527,532"/>
-<area shape="rect" href="classMotor.html#a59dc38671f171be3097b3d84ddf1180e" title="Sets the motor speed." alt="" coords="397,556,499,583"/>
+<area shape="rect" title=" " alt="" coords="5,385,56,412"/>
+<area shape="rect" href="classBattery.html#ab738945fc3d54086b6afa6e8ba21c513" title="Check the battery charge status." alt="" coords="139,5,268,32"/>
+<area shape="rect" href="classBattery.html#a63577a5d458094efc4d24a00f052682b" title="Reads the current battery voltage." alt="" coords="371,31,525,57"/>
+<area shape="rect" href="classWebManagement.html#a48b2f695f7445b7628119b630447123e" title=" " alt="" coords="109,107,297,133"/>
+<area shape="rect" href="classDisplay.html#a3fa755683f0e28cfc689f35e7f8257b8" title=" " alt="" coords="130,157,277,184"/>
+<area shape="rect" href="classSerialDebug.html#a3d01753681fd740869da197b2fa772b0" title="Sends a string to the Serial port with a debug level, only if it is lower than the setted one." alt="" coords="792,284,931,311"/>
+<area shape="rect" href="classSerialDebug.html#a153ed172ea7eefd852292af7561ff961" title="Sends a line to the serial port with a debug level, only if it is lower than the setted one." alt="" coords="593,309,744,336"/>
+<area shape="rect" href="structMCP2515.html#a5cba1b20e3055c7ff9aa7510d035302b" title=" " alt="" coords="114,487,293,513"/>
+<area shape="rect" href="PicoLowLevel_8ino.html#a8f9fa76a93541264f22c8f23f3fc1631" title=" " alt="" coords="144,259,263,285"/>
+<area shape="rect" href="classPID.html#a21a14d1fef2157417124a9445cdbe58e" title=" " alt="" coords="159,537,248,564"/>
+<area shape="rect" href="classPID.html#a51fdda77a492d1a303fbb3ac44bd7e54" title=" " alt="" coords="161,588,246,615"/>
+<area shape="rect" href="classPID.html#a96b79772d13f60d161149be254ab6ff5" title=" " alt="" coords="159,639,248,665"/>
+<area shape="rect" href="PicoLowLevel_8ino.html#a8b77b83a1d03b08c93bdab6e3917a70b" title=" " alt="" coords="159,385,248,412"/>
+<area shape="rect" href="classPID.html#ab6c2a366f39cf53149b50216b300bdcd" title=" " alt="" coords="104,689,303,716"/>
+<area shape="rect" href="classTractionEncoder.html#a2c414262e6a923fe180d51197fc9bf5b" title="Computes and returns the last detected speed." alt="" coords="351,259,545,285"/>
+<area shape="rect" href="PicoLowLevel_8ino.html#a8525066812661764db35342986352875" title=" " alt="" coords="393,208,503,235"/>
+<area shape="rect" href="structMCP2515.html#a20201611f703db6b6c98bae03a3018ee" title=" " alt="" coords="358,157,538,184"/>
+<area shape="rect" href="classPID.html#a2d1e271496506301a6f22d0418aa0cc0" title=" " alt="" coords="393,360,503,387"/>
+<area shape="rect" href="classPID.html#a266f60cce93632141002987d5d67d0cc" title=" " alt="" coords="389,411,507,437"/>
+<area shape="rect" href="classPID.html#a7162d3b89da5a9d4b3d75011b0b57c63" title=" " alt="" coords="361,461,535,488"/>
+<area shape="rect" href="classPID.html#a33f657a6cce4f57302f90bec9664d294" title=" " alt="" coords="369,512,527,539"/>
+<area shape="rect" href="classMotor.html#a59dc38671f171be3097b3d84ddf1180e" title="Sets the motor speed." alt="" coords="397,563,499,589"/>
 </map>
 </div>
 
@@ -344,6 +289,15 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 <div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="PicoLowLevel_8ino_a463bd5e2d6006d3d57e5569bd7c8cea4_cgraph.png" border="0" usemap="#aPicoLowLevel_8ino_a463bd5e2d6006d3d57e5569bd7c8cea4_cgraph" alt=""/></div>
+<map name="aPicoLowLevel_8ino_a463bd5e2d6006d3d57e5569bd7c8cea4_cgraph" id="aPicoLowLevel_8ino_a463bd5e2d6006d3d57e5569bd7c8cea4_cgraph">
+<area shape="rect" title=" " alt="" coords="5,5,108,32"/>
+<area shape="rect" href="classDisplay.html#a5c28101c672878132e2ce5772ed93588" title="Change value of the nav button." alt="" coords="156,5,315,32"/>
+</map>
+</div>
+<div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="PicoLowLevel_8ino_a463bd5e2d6006d3d57e5569bd7c8cea4_icgraph.png" border="0" usemap="#aPicoLowLevel_8ino_a463bd5e2d6006d3d57e5569bd7c8cea4_icgraph" alt=""/></div>
@@ -369,6 +323,15 @@ Here is the caller graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="PicoLowLevel_8ino_a7e5bd9686428496c0be42f11e557bd2b_cgraph.png" border="0" usemap="#aPicoLowLevel_8ino_a7e5bd9686428496c0be42f11e557bd2b_cgraph" alt=""/></div>
+<map name="aPicoLowLevel_8ino_a7e5bd9686428496c0be42f11e557bd2b_cgraph" id="aPicoLowLevel_8ino_a7e5bd9686428496c0be42f11e557bd2b_cgraph">
+<area shape="rect" title=" " alt="" coords="5,5,100,32"/>
+<area shape="rect" href="classDisplay.html#aa9a7e82a5611d737c618a2f1cab7812a" title="Change value of the ok button." alt="" coords="148,5,299,32"/>
+</map>
+</div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -440,140 +403,27 @@ Here is the call graph for this function:</div>
 <div class="center"><img src="PicoLowLevel_8ino_a4fc01d736fe50cf5b977f755b675f11d_cgraph.png" border="0" usemap="#aPicoLowLevel_8ino_a4fc01d736fe50cf5b977f755b675f11d_cgraph" alt=""/></div>
 <map name="aPicoLowLevel_8ino_a4fc01d736fe50cf5b977f755b675f11d_cgraph" id="aPicoLowLevel_8ino_a4fc01d736fe50cf5b977f755b675f11d_cgraph">
 <area shape="rect" title=" " alt="" coords="5,376,64,403"/>
-<area shape="rect" href="structMCP2515.html#ac3e7e19c0fe33229eac91cba70b31b83" title=" " alt="" coords="148,5,275,32"/>
-<area shape="rect" href="classMotor.html#a8949ad244c546ecde601ec3d03403ed9" title="Initialize motors." alt="" coords="159,56,263,83"/>
-<area shape="rect" href="classTractionEncoder.html#a3b38935e97776ddcebdeb2c394f6d48d" title="Sets the encoder&#39;s pins and attach the interrupt." alt="" coords="127,107,296,133"/>
-<area shape="rect" href="classWebManagement.html#a02872e65a699697c243e1dd23a3988c3" title=" " alt="" coords="121,157,301,184"/>
-<area shape="rect" href="classSerialDebug.html#a153ed172ea7eefd852292af7561ff961" title="Sends a line to the serial port with a debug level, only if it is lower than the setted one." alt="" coords="373,183,523,209"/>
-<area shape="rect" href="classDynamixelInterface.html#a3e4e3332de3d8d675d94a7cd1f6c647c" title=" " alt="" coords="136,259,287,301"/>
-<area shape="rect" href="PicoLowLevel_8ino.html#a463bd5e2d6006d3d57e5569bd7c8cea4" title=" " alt="" coords="160,325,263,352"/>
-<area shape="rect" href="PicoLowLevel_8ino.html#a7e5bd9686428496c0be42f11e557bd2b" title=" " alt="" coords="164,376,259,403"/>
-<area shape="rect" href="structMCP2515.html#acc117f5538fcd2b00a18edf11382175a" title=" " alt="" coords="149,427,273,453"/>
-<area shape="rect" href="structMCP2515.html#a18653c6d11e5bba734a1bd3b39268bb2" title=" " alt="" coords="134,477,289,504"/>
-<area shape="rect" href="classSerialDebug.html#ad55ccd7caae91b050455920991e512e4" title="Sets the level to be used for the debug." alt="" coords="129,528,293,555"/>
-<area shape="rect" href="structMCP2515.html#ac105b61f8336554451a8cb83d7f63548" title=" " alt="" coords="114,579,309,605"/>
-<area shape="rect" href="classDynamixelInterface.html#a092dd633e40a07b3ae4f06a4617ec0a3" title=" " alt="" coords="136,630,287,671"/>
-<area shape="rect" href="PicoLowLevel_8ino.html#aeb030c31dad037380fe45ad4194db9ba" title=" " alt="" coords="168,696,255,723"/>
+<area shape="rect" href="classDisplay.html#ab569d31751d87ab3bd70744532d33605" title=" " alt="" coords="154,5,269,32"/>
+<area shape="rect" href="structMCP2515.html#ac3e7e19c0fe33229eac91cba70b31b83" title=" " alt="" coords="148,56,275,83"/>
+<area shape="rect" href="classMotor.html#a8949ad244c546ecde601ec3d03403ed9" title="Initialize motors." alt="" coords="159,107,263,133"/>
+<area shape="rect" href="classTractionEncoder.html#a3b38935e97776ddcebdeb2c394f6d48d" title="Sets the encoder&#39;s pins and attach the interrupt." alt="" coords="127,157,296,184"/>
+<area shape="rect" href="classWebManagement.html#a02872e65a699697c243e1dd23a3988c3" title=" " alt="" coords="121,208,301,235"/>
+<area shape="rect" href="classSerialDebug.html#a153ed172ea7eefd852292af7561ff961" title="Sends a line to the serial port with a debug level, only if it is lower than the setted one." alt="" coords="373,233,523,260"/>
+<area shape="rect" href="classDynamixelInterface.html#a3e4e3332de3d8d675d94a7cd1f6c647c" title=" " alt="" coords="136,310,287,351"/>
+<area shape="rect" href="PicoLowLevel_8ino.html#a463bd5e2d6006d3d57e5569bd7c8cea4" title=" " alt="" coords="160,376,263,403"/>
+<area shape="rect" href="PicoLowLevel_8ino.html#a7e5bd9686428496c0be42f11e557bd2b" title=" " alt="" coords="164,427,259,453"/>
+<area shape="rect" href="structMCP2515.html#acc117f5538fcd2b00a18edf11382175a" title=" " alt="" coords="149,477,273,504"/>
+<area shape="rect" href="structMCP2515.html#a18653c6d11e5bba734a1bd3b39268bb2" title=" " alt="" coords="134,528,289,555"/>
+<area shape="rect" href="classSerialDebug.html#ad55ccd7caae91b050455920991e512e4" title="Sets the level to be used for the debug." alt="" coords="129,579,293,605"/>
+<area shape="rect" href="structMCP2515.html#ac105b61f8336554451a8cb83d7f63548" title=" " alt="" coords="114,629,309,656"/>
+<area shape="rect" href="classDynamixelInterface.html#a092dd633e40a07b3ae4f06a4617ec0a3" title=" " alt="" coords="136,681,287,722"/>
 <area shape="rect" href="classPID.html#ab6c2a366f39cf53149b50216b300bdcd" title=" " alt="" coords="112,747,311,773"/>
-<area shape="rect" href="classSerialDebug.html#a3d01753681fd740869da197b2fa772b0" title="Sends a string to the Serial port with a debug level, only if it is lower than the setted one." alt="" coords="610,183,749,209"/>
-<area shape="rect" href="structMCP2515.html#aac89e9e84bb70719f3af943584efbe0e" title=" " alt="" coords="376,401,520,428"/>
-<area shape="rect" href="structMCP2515.html#a4ecb1f510ead2fee02dcf368fdf18dfd" title=" " alt="" coords="359,452,537,479"/>
-<area shape="rect" href="structMCP2515.html#ab79662c2b46e623158f5f4119d340d69" title=" " alt="" coords="585,427,773,453"/>
-</map>
-</div>
-
-</div>
-</div>
-<a id="a4837a4caa88c99d5c5859d33c3052b35"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4837a4caa88c99d5c5859d33c3052b35">&#9670;&nbsp;</a></span>showBattery()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void showBattery </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="PicoLowLevel_8ino_a4837a4caa88c99d5c5859d33c3052b35_cgraph.png" border="0" usemap="#aPicoLowLevel_8ino_a4837a4caa88c99d5c5859d33c3052b35_cgraph" alt=""/></div>
-<map name="aPicoLowLevel_8ino_a4837a4caa88c99d5c5859d33c3052b35_cgraph" id="aPicoLowLevel_8ino_a4837a4caa88c99d5c5859d33c3052b35_cgraph">
-<area shape="rect" title=" " alt="" coords="5,31,109,57"/>
-<area shape="rect" href="classBattery.html#a59f7ba6493e12b18935baf93e7f8661c" title="Estimates the current battery charge." alt="" coords="157,5,328,32"/>
-<area shape="rect" href="classBattery.html#a63577a5d458094efc4d24a00f052682b" title="Reads the current battery voltage." alt="" coords="376,31,531,57"/>
-</map>
-</div>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="PicoLowLevel_8ino_a4837a4caa88c99d5c5859d33c3052b35_icgraph.png" border="0" usemap="#aPicoLowLevel_8ino_a4837a4caa88c99d5c5859d33c3052b35_icgraph" alt=""/></div>
-<map name="aPicoLowLevel_8ino_a4837a4caa88c99d5c5859d33c3052b35_icgraph" id="aPicoLowLevel_8ino_a4837a4caa88c99d5c5859d33c3052b35_icgraph">
-<area shape="rect" title=" " alt="" coords="144,5,248,32"/>
-<area shape="rect" href="PicoLowLevel_8ino.html#ab886acb0b2db039e26913c9077ea72e2" title=" " alt="" coords="5,5,96,32"/>
-</map>
-</div>
-
-</div>
-</div>
-<a id="aeb030c31dad037380fe45ad4194db9ba"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aeb030c31dad037380fe45ad4194db9ba">&#9670;&nbsp;</a></span>showLogo()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void showLogo </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="PicoLowLevel_8ino_aeb030c31dad037380fe45ad4194db9ba_icgraph.png" border="0" usemap="#aPicoLowLevel_8ino_aeb030c31dad037380fe45ad4194db9ba_icgraph" alt=""/></div>
-<map name="aPicoLowLevel_8ino_aeb030c31dad037380fe45ad4194db9ba_icgraph" id="aPicoLowLevel_8ino_aeb030c31dad037380fe45ad4194db9ba_icgraph">
-<area shape="rect" title=" " alt="" coords="144,31,231,57"/>
-<area shape="rect" href="PicoLowLevel_8ino.html#ab886acb0b2db039e26913c9077ea72e2" title=" " alt="" coords="5,5,96,32"/>
-<area shape="rect" href="PicoLowLevel_8ino.html#a4fc01d736fe50cf5b977f755b675f11d" title=" " alt="" coords="21,56,80,83"/>
-</map>
-</div>
-
-</div>
-</div>
-<a id="a2de507730a8ffeaa8ef728c753eecbfb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2de507730a8ffeaa8ef728c753eecbfb">&#9670;&nbsp;</a></span>showVersion()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void showVersion </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="PicoLowLevel_8ino_a2de507730a8ffeaa8ef728c753eecbfb_icgraph.png" border="0" usemap="#aPicoLowLevel_8ino_a2de507730a8ffeaa8ef728c753eecbfb_icgraph" alt=""/></div>
-<map name="aPicoLowLevel_8ino_a2de507730a8ffeaa8ef728c753eecbfb_icgraph" id="aPicoLowLevel_8ino_a2de507730a8ffeaa8ef728c753eecbfb_icgraph">
-<area shape="rect" title=" " alt="" coords="144,5,248,32"/>
-<area shape="rect" href="PicoLowLevel_8ino.html#ab886acb0b2db039e26913c9077ea72e2" title=" " alt="" coords="5,5,96,32"/>
-</map>
-</div>
-
-</div>
-</div>
-<a id="aebb894ec78a9d50bc9fb0c7dd20f1e2d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aebb894ec78a9d50bc9fb0c7dd20f1e2d">&#9670;&nbsp;</a></span>showWifi()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void showWifi </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="PicoLowLevel_8ino_aebb894ec78a9d50bc9fb0c7dd20f1e2d_icgraph.png" border="0" usemap="#aPicoLowLevel_8ino_aebb894ec78a9d50bc9fb0c7dd20f1e2d_icgraph" alt=""/></div>
-<map name="aPicoLowLevel_8ino_aebb894ec78a9d50bc9fb0c7dd20f1e2d_icgraph" id="aPicoLowLevel_8ino_aebb894ec78a9d50bc9fb0c7dd20f1e2d_icgraph">
-<area shape="rect" title=" " alt="" coords="144,5,225,32"/>
-<area shape="rect" href="PicoLowLevel_8ino.html#ab886acb0b2db039e26913c9077ea72e2" title=" " alt="" coords="5,5,96,32"/>
+<area shape="rect" href="classSerialDebug.html#a3d01753681fd740869da197b2fa772b0" title="Sends a string to the Serial port with a debug level, only if it is lower than the setted one." alt="" coords="610,233,749,260"/>
+<area shape="rect" href="classDisplay.html#a5c28101c672878132e2ce5772ed93588" title="Change value of the nav button." alt="" coords="369,376,527,403"/>
+<area shape="rect" href="classDisplay.html#aa9a7e82a5611d737c618a2f1cab7812a" title="Change value of the ok button." alt="" coords="373,427,523,453"/>
+<area shape="rect" href="structMCP2515.html#aac89e9e84bb70719f3af943584efbe0e" title=" " alt="" coords="376,477,520,504"/>
+<area shape="rect" href="structMCP2515.html#a4ecb1f510ead2fee02dcf368fdf18dfd" title=" " alt="" coords="359,528,537,555"/>
+<area shape="rect" href="structMCP2515.html#ab79662c2b46e623158f5f4119d340d69" title=" " alt="" coords="585,503,773,529"/>
 </map>
 </div>
 
@@ -622,20 +472,6 @@ Here is the caller graph for this function:</div>
 </div>
 </div>
 <h2 class="groupheader">Variable Documentation</h2>
-<a id="a53448d1553b235920b7e5a6c0b2975b0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a53448d1553b235920b7e5a6c0b2975b0">&#9670;&nbsp;</a></span>battery</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classBattery.html">Battery</a> battery</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
 <a id="a48f09105460ef86504c1aa704071773f"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a48f09105460ef86504c1aa704071773f">&#9670;&nbsp;</a></span>canMsg</h2>
 
@@ -650,14 +486,14 @@ Here is the caller graph for this function:</div>
 
 </div>
 </div>
-<a id="a46d4b4baca9c3f09afb44d483cd1b398"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a46d4b4baca9c3f09afb44d483cd1b398">&#9670;&nbsp;</a></span>display</h2>
+<a id="aa5083e8fab8ddaf62944949e251663bb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa5083e8fab8ddaf62944949e251663bb">&#9670;&nbsp;</a></span>display</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">Adafruit_SH1106G display = Adafruit_SH1106G(<a class="el" href="definitions_8h.html#a46d67d48a7faab308f2e058dc35da83a">DISPLAY_WIDTH</a>, <a class="el" href="definitions_8h.html#a43b7b2061f733ea1dc0a5a6028e131ff">DISPLAY_HEIGHT</a>, &amp;Wire1, -1)</td>
+          <td class="memname"><a class="el" href="classDisplay.html">Display</a> display</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -720,34 +556,6 @@ Here is the caller graph for this function:</div>
 
 </div>
 </div>
-<a id="a4df86b6eba22f86dfb15ff21b25af50d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4df86b6eba22f86dfb15ff21b25af50d">&#9670;&nbsp;</a></span>lastnav</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int lastnav = 0</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="aa3db8dc0d71782a0d0f43ce1f4f16a7a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa3db8dc0d71782a0d0f43ce1f4f16a7a">&#9670;&nbsp;</a></span>lastok</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int lastok = 0</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
 <a id="a46fdf4638c6477530e06540445669901"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a46fdf4638c6477530e06540445669901">&#9670;&nbsp;</a></span>mcp2515</h2>
 
@@ -760,34 +568,6 @@ Here is the caller graph for this function:</div>
           <td class="paramtype">5&#160;</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a2bd654ff2836903cdeb8243e2e368804"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2bd654ff2836903cdeb8243e2e368804">&#9670;&nbsp;</a></span>menupos</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int menupos = 0</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a5b0a16cacf703858c498820e2f91ade7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5b0a16cacf703858c498820e2f91ade7">&#9670;&nbsp;</a></span>menutime</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int menutime = 0</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -844,34 +624,6 @@ Here is the caller graph for this function:</div>
           <td></td>
           <td>)</td>
           <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a79fb8c3ea53bd0ddff73e53dbbfc1dc5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a79fb8c3ea53bd0ddff73e53dbbfc1dc5">&#9670;&nbsp;</a></span>nav</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int nav = 0</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a047ea0d874e6802b9b6d08f6b50248e5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a047ea0d874e6802b9b6d08f6b50248e5">&#9670;&nbsp;</a></span>ok</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int ok = 0</td>
         </tr>
       </table>
 </div><div class="memdoc">

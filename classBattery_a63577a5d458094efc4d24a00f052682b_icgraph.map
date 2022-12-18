@@ -1,8 +1,6 @@
 <map id="Battery::readVoltage" name="Battery::readVoltage">
-<area shape="rect" id="node1" title="Reads the current battery voltage." alt="" coords="515,81,669,108"/>
-<area shape="rect" id="node2" href="$classBattery.html#ab738945fc3d54086b6afa6e8ba21c513" title="Check the battery charge status." alt="" coords="317,5,446,32"/>
-<area shape="rect" id="node3" href="$PicoLowLevel_8ino.html#afe461d27b9c48d5921c00d521181f12f" title=" " alt="" coords="171,44,221,71"/>
-<area shape="rect" id="node4" href="$classBattery.html#a59f7ba6493e12b18935baf93e7f8661c" title="Estimates the current battery charge." alt="" coords="296,107,467,133"/>
-<area shape="rect" id="node5" href="$PicoLowLevel_8ino.html#a4837a4caa88c99d5c5859d33c3052b35" title=" " alt="" coords="144,120,248,147"/>
-<area shape="rect" id="node6" href="$PicoLowLevel_8ino.html#ab886acb0b2db039e26913c9077ea72e2" title=" " alt="" coords="5,120,96,147"/>
+<area shape="rect" id="node1" title="Reads the current battery voltage." alt="" coords="323,56,477,83"/>
+<area shape="rect" id="node2" href="$classBattery.html#ab738945fc3d54086b6afa6e8ba21c513" title="Check the battery charge status." alt="" coords="125,5,254,32"/>
+<area shape="rect" id="node3" href="$PicoLowLevel_8ino.html#afe461d27b9c48d5921c00d521181f12f" title=" " alt="" coords="5,31,56,57"/>
+<area shape="rect" id="node4" href="$classBattery.html#a59f7ba6493e12b18935baf93e7f8661c" title="Estimates the current battery charge." alt="" coords="104,107,275,133"/>
 </map>

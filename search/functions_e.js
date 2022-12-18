@@ -34,9 +34,5 @@ var searchData=
   ['setup_668',['setup',['../PicoLowLevel_8ino.html#a4fc01d736fe50cf5b977f755b675f11d',1,'PicoLowLevel.ino']]],
   ['setvoltagelimit_669',['setVoltageLimit',['../classDynamixelMotor.html#a967ad51f51edc6a016434e722dd207a3',1,'DynamixelMotor']]],
   ['setzero_670',['setZero',['../classAbsoluteEncoder.html#a26b4493f44904d31dab6f5fd3e9c734e',1,'AbsoluteEncoder']]],
-  ['setzeroreg_671',['setZeroReg',['../classAMS__AS5048B.html#ad67ba3de9224a12102a31b35829450e8',1,'AMS_AS5048B']]],
-  ['showbattery_672',['showBattery',['../PicoLowLevel_8ino.html#a4837a4caa88c99d5c5859d33c3052b35',1,'PicoLowLevel.ino']]],
-  ['showlogo_673',['showLogo',['../PicoLowLevel_8ino.html#aeb030c31dad037380fe45ad4194db9ba',1,'PicoLowLevel.ino']]],
-  ['showversion_674',['showVersion',['../PicoLowLevel_8ino.html#a2de507730a8ffeaa8ef728c753eecbfb',1,'PicoLowLevel.ino']]],
-  ['showwifi_675',['showWifi',['../PicoLowLevel_8ino.html#aebb894ec78a9d50bc9fb0c7dd20f1e2d',1,'PicoLowLevel.ino']]]
+  ['setzeroreg_671',['setZeroReg',['../classAMS__AS5048B.html#ad67ba3de9224a12102a31b35829450e8',1,'AMS_AS5048B']]]
 ];

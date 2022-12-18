@@ -6,16 +6,18 @@ var files_dup =
     ] ],
     [ "ams_as5048b.cpp", "ams__as5048b_8cpp.html", null ],
     [ "ams_as5048b.h", "ams__as5048b_8h.html", "ams__as5048b_8h" ],
-    [ "Battery.cpp", "Battery_8cpp.html", null ],
-    [ "Battery.h", "Battery_8h.html", [
-      [ "Battery", "classBattery.html", "classBattery" ]
-    ] ],
+    [ "Battery.cpp", "Battery_8cpp.html", "Battery_8cpp" ],
+    [ "Battery.h", "Battery_8h.html", "Battery_8h" ],
     [ "bitmap_logos.h", "bitmap__logos_8h.html", "bitmap__logos_8h" ],
     [ "can.h", "can_8h.html", "can_8h" ],
     [ "communication.h", "communication_8h.html", "communication_8h" ],
     [ "Debug.cpp", "Debug_8cpp.html", "Debug_8cpp" ],
     [ "Debug.h", "Debug_8h.html", "Debug_8h" ],
     [ "definitions.h", "definitions_8h.html", "definitions_8h" ],
+    [ "Display.cpp", "Display_8cpp.html", null ],
+    [ "Display.h", "Display_8h.html", [
+      [ "Display", "classDisplay.html", "classDisplay" ]
+    ] ],
     [ "DynamixelSerial.cpp", "DynamixelSerial_8cpp.html", "DynamixelSerial_8cpp" ],
     [ "DynamixelSerial.h", "DynamixelSerial_8h.html", "DynamixelSerial_8h" ],
     [ "html.h", "html_8h.html", "html_8h" ],

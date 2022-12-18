@@ -10,7 +10,7 @@ var searchData=
   ['send_5fyaw_5fencoder_438',['SEND_YAW_ENCODER',['../communication_8h.html#a33ed98285c68b920fa0f5cb77d49edff',1,'communication.h']]],
   ['sendmessage_439',['sendMessage',['../structMCP2515.html#a20201611f703db6b6c98bae03a3018ee',1,'MCP2515::sendMessage(const TXBn txbn, const struct can_frame *frame)'],['../structMCP2515.html#a077ee25001aa82309f2c1b7b7303b4c4',1,'MCP2515::sendMessage(const struct can_frame *frame)']]],
   ['sendtelemetry_440',['sendTelemetry',['../PicoLowLevel_8ino.html#a8f9fa76a93541264f22c8f23f3fc1631',1,'PicoLowLevel.ino']]],
-  ['serialdebug_441',['SerialDebug',['../classSerialDebug.html',1,'SerialDebug'],['../classSerialDebug.html#ae3855dcae6770bb1928ed34eb799d2f7',1,'SerialDebug::SerialDebug()']]],
+  ['serialdebug_441',['SerialDebug',['../classSerialDebug.html#ae3855dcae6770bb1928ed34eb799d2f7',1,'SerialDebug::SerialDebug()'],['../classSerialDebug.html',1,'SerialDebug']]],
   ['setanglelimit_442',['setAngleLimit',['../classDynamixelMotor.html#ab2a030d503705b820383bdccd5cfd7b8',1,'DynamixelMotor']]],
   ['setbd_443',['setBD',['../classDynamixelMotor.html#af948e3e04fad44d665292f416b9cc99b',1,'DynamixelMotor']]],
   ['setbitrate_444',['setBitrate',['../structMCP2515.html#a18653c6d11e5bba734a1bd3b39268bb2',1,'MCP2515::setBitrate(const CAN_SPEED canSpeed)'],['../structMCP2515.html#a241625bd7b3ff5bc3deff7688b095d35',1,'MCP2515::setBitrate(const CAN_SPEED canSpeed, const CAN_CLOCK canClock)']]],
@@ -42,9 +42,5 @@ var searchData=
   ['setup_470',['setup',['../PicoLowLevel_8ino.html#a4fc01d736fe50cf5b977f755b675f11d',1,'PicoLowLevel.ino']]],
   ['setvoltagelimit_471',['setVoltageLimit',['../classDynamixelMotor.html#a967ad51f51edc6a016434e722dd207a3',1,'DynamixelMotor']]],
   ['setzero_472',['setZero',['../classAbsoluteEncoder.html#a26b4493f44904d31dab6f5fd3e9c734e',1,'AbsoluteEncoder']]],
-  ['setzeroreg_473',['setZeroReg',['../classAMS__AS5048B.html#ad67ba3de9224a12102a31b35829450e8',1,'AMS_AS5048B']]],
-  ['showbattery_474',['showBattery',['../PicoLowLevel_8ino.html#a4837a4caa88c99d5c5859d33c3052b35',1,'PicoLowLevel.ino']]],
-  ['showlogo_475',['showLogo',['../PicoLowLevel_8ino.html#aeb030c31dad037380fe45ad4194db9ba',1,'PicoLowLevel.ino']]],
-  ['showversion_476',['showVersion',['../PicoLowLevel_8ino.html#a2de507730a8ffeaa8ef728c753eecbfb',1,'PicoLowLevel.ino']]],
-  ['showwifi_477',['showWifi',['../PicoLowLevel_8ino.html#aebb894ec78a9d50bc9fb0c7dd20f1e2d',1,'PicoLowLevel.ino']]]
+  ['setzeroreg_473',['setZeroReg',['../classAMS__AS5048B.html#ad67ba3de9224a12102a31b35829450e8',1,'AMS_AS5048B']]]
 ];

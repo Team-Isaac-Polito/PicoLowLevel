@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['dynamixelinterface_528',['DynamixelInterface',['../classDynamixelInterface.html',1,'']]],
-  ['dynamixelmotor_529',['DynamixelMotor',['../classDynamixelMotor.html',1,'']]]
+  ['display_524',['Display',['../classDisplay.html',1,'']]],
+  ['dynamixelinterface_525',['DynamixelInterface',['../classDynamixelInterface.html',1,'']]],
+  ['dynamixelmotor_526',['DynamixelMotor',['../classDynamixelMotor.html',1,'']]]
 ];

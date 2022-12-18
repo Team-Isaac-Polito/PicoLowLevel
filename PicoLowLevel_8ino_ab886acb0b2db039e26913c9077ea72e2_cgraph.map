@@ -1,9 +1,0 @@
-<map id="handleGUI" name="handleGUI">
-<area shape="rect" id="node1" title=" " alt="" coords="5,107,96,133"/>
-<area shape="rect" id="node2" href="$PicoLowLevel_8ino.html#a4837a4caa88c99d5c5859d33c3052b35" title=" " alt="" coords="144,31,248,57"/>
-<area shape="rect" id="node5" href="$PicoLowLevel_8ino.html#aeb030c31dad037380fe45ad4194db9ba" title=" " alt="" coords="153,81,239,108"/>
-<area shape="rect" id="node6" href="$PicoLowLevel_8ino.html#a2de507730a8ffeaa8ef728c753eecbfb" title=" " alt="" coords="144,132,248,159"/>
-<area shape="rect" id="node7" href="$PicoLowLevel_8ino.html#aebb894ec78a9d50bc9fb0c7dd20f1e2d" title=" " alt="" coords="155,183,237,209"/>
-<area shape="rect" id="node3" href="$classBattery.html#a59f7ba6493e12b18935baf93e7f8661c" title="Estimates the current battery charge." alt="" coords="296,5,467,32"/>
-<area shape="rect" id="node4" href="$classBattery.html#a63577a5d458094efc4d24a00f052682b" title="Reads the current battery voltage." alt="" coords="515,31,669,57"/>
-</map>
