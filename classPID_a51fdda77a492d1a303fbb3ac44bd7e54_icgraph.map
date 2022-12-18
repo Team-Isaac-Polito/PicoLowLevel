@@ -1,4 +1,4 @@
 <map id="PID::setKi" name="PID::setKi">
-<area shape="rect" id="node1" title=" " alt="" coords="104,5,189,32"/>
+<area shape="rect" id="node1" title="Sets the integrative gain." alt="" coords="104,5,189,32"/>
 <area shape="rect" id="node2" href="$PicoLowLevel_8ino.html#afe461d27b9c48d5921c00d521181f12f" title=" " alt="" coords="5,5,56,32"/>
 </map>

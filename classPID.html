@@ -89,32 +89,47 @@ $(document).ready(function(){initNavTree('classPID.html',''); initResizable(); }
 </div><!--header-->
 <div class="contents">
 
+<p><a class="el" href="classPID.html" title="PID controller library.">PID</a> controller library.  
+ <a href="classPID.html#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="PID_8h_source.html">PID.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:afc791524c076933bd58ef7f9fe999542"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPID.html#afc791524c076933bd58ef7f9fe999542">PID</a> (float kp, float ki, float kd, float max_output, float alpha)</td></tr>
+<tr class="memdesc:afc791524c076933bd58ef7f9fe999542"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the <a class="el" href="classPID.html" title="PID controller library.">PID</a> class with necessary parameters.  <a href="classPID.html#afc791524c076933bd58ef7f9fe999542">More...</a><br /></td></tr>
 <tr class="separator:afc791524c076933bd58ef7f9fe999542"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab6c2a366f39cf53149b50216b300bdcd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPID.html#ab6c2a366f39cf53149b50216b300bdcd">updateReferenceValue</a> (float ref)</td></tr>
+<tr class="memdesc:ab6c2a366f39cf53149b50216b300bdcd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the reference value.  <a href="classPID.html#ab6c2a366f39cf53149b50216b300bdcd">More...</a><br /></td></tr>
 <tr class="separator:ab6c2a366f39cf53149b50216b300bdcd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a96b79772d13f60d161149be254ab6ff5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPID.html#a96b79772d13f60d161149be254ab6ff5">setKp</a> (float kp)</td></tr>
+<tr class="memdesc:a96b79772d13f60d161149be254ab6ff5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the proportional gain.  <a href="classPID.html#a96b79772d13f60d161149be254ab6ff5">More...</a><br /></td></tr>
 <tr class="separator:a96b79772d13f60d161149be254ab6ff5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a51fdda77a492d1a303fbb3ac44bd7e54"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPID.html#a51fdda77a492d1a303fbb3ac44bd7e54">setKi</a> (float ki)</td></tr>
+<tr class="memdesc:a51fdda77a492d1a303fbb3ac44bd7e54"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the integrative gain.  <a href="classPID.html#a51fdda77a492d1a303fbb3ac44bd7e54">More...</a><br /></td></tr>
 <tr class="separator:a51fdda77a492d1a303fbb3ac44bd7e54"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a21a14d1fef2157417124a9445cdbe58e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPID.html#a21a14d1fef2157417124a9445cdbe58e">setKd</a> (float kd)</td></tr>
+<tr class="memdesc:a21a14d1fef2157417124a9445cdbe58e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the derivative gain.  <a href="classPID.html#a21a14d1fef2157417124a9445cdbe58e">More...</a><br /></td></tr>
 <tr class="separator:a21a14d1fef2157417124a9445cdbe58e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a266f60cce93632141002987d5d67d0cc"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPID.html#a266f60cce93632141002987d5d67d0cc">getOutput</a> ()</td></tr>
+<tr class="memdesc:a266f60cce93632141002987d5d67d0cc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets output computed from the last iteration of <a class="el" href="classPID.html#a2d1e271496506301a6f22d0418aa0cc0" title="Main PID routine.">calculate()</a>  <a href="classPID.html#a266f60cce93632141002987d5d67d0cc">More...</a><br /></td></tr>
 <tr class="separator:a266f60cce93632141002987d5d67d0cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7162d3b89da5a9d4b3d75011b0b57c63"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPID.html#a7162d3b89da5a9d4b3d75011b0b57c63">getReferenceValue</a> ()</td></tr>
+<tr class="memdesc:a7162d3b89da5a9d4b3d75011b0b57c63"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the currently used reference value.  <a href="classPID.html#a7162d3b89da5a9d4b3d75011b0b57c63">More...</a><br /></td></tr>
 <tr class="separator:a7162d3b89da5a9d4b3d75011b0b57c63"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2d1e271496506301a6f22d0418aa0cc0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPID.html#a2d1e271496506301a6f22d0418aa0cc0">calculate</a> ()</td></tr>
+<tr class="memdesc:a2d1e271496506301a6f22d0418aa0cc0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Main <a class="el" href="classPID.html" title="PID controller library.">PID</a> routine.  <a href="classPID.html#a2d1e271496506301a6f22d0418aa0cc0">More...</a><br /></td></tr>
 <tr class="separator:a2d1e271496506301a6f22d0418aa0cc0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a33f657a6cce4f57302f90bec9664d294"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPID.html#a33f657a6cce4f57302f90bec9664d294">updateFeedback</a> (float fb)</td></tr>
+<tr class="memdesc:a33f657a6cce4f57302f90bec9664d294"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates the feedback for <a class="el" href="classPID.html" title="PID controller library.">PID</a> computation.  <a href="classPID.html#a33f657a6cce4f57302f90bec9664d294">More...</a><br /></td></tr>
 <tr class="separator:a33f657a6cce4f57302f90bec9664d294"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a51c567347f9ca1a4572e5040b5296e30"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPID.html#a51c567347f9ca1a4572e5040b5296e30">resetState</a> ()</td></tr>
+<tr class="memdesc:a51c567347f9ca1a4572e5040b5296e30"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resets the <a class="el" href="classPID.html" title="PID controller library.">PID</a> state, as if it was the first iteration.  <a href="classPID.html#a51c567347f9ca1a4572e5040b5296e30">More...</a><br /></td></tr>
 <tr class="separator:a51c567347f9ca1a4572e5040b5296e30"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p><a class="el" href="classPID.html" title="PID controller library.">PID</a> controller library. </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="afc791524c076933bd58ef7f9fe999542"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#afc791524c076933bd58ef7f9fe999542">&#9670;&nbsp;</a></span>PID()</h2>
 
@@ -159,6 +174,18 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Initializes the <a class="el" href="classPID.html" title="PID controller library.">PID</a> class with necessary parameters. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">kp</td><td>Proportional gain. </td></tr>
+    <tr><td class="paramname">ki</td><td>Integrative gain. </td></tr>
+    <tr><td class="paramname">kd</td><td>Derivative gain. </td></tr>
+    <tr><td class="paramname">max_output</td><td>To define the range of the output, from -max_output to max_output. </td></tr>
+    <tr><td class="paramname">alpha</td><td>Error filte, 1 to disable filtering. </td></tr>
+  </table>
+  </dd>
+</dl>
+
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
@@ -176,12 +203,15 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Main <a class="el" href="classPID.html" title="PID controller library.">PID</a> routine. </p>
+<p>Should be executed at a fixed frequency, which will influence the behaviour for a given set of gains. </p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classPID_a2d1e271496506301a6f22d0418aa0cc0_icgraph.png" border="0" usemap="#aclassPID_a2d1e271496506301a6f22d0418aa0cc0_icgraph" alt=""/></div>
 <map name="aclassPID_a2d1e271496506301a6f22d0418aa0cc0_icgraph" id="aclassPID_a2d1e271496506301a6f22d0418aa0cc0_icgraph">
-<area shape="rect" title=" " alt="" coords="241,5,352,32"/>
+<area shape="rect" title="Main PID routine." alt="" coords="241,5,352,32"/>
 <area shape="rect" href="PicoLowLevel_8ino.html#a8b77b83a1d03b08c93bdab6e3917a70b" title=" " alt="" coords="104,5,193,32"/>
 <area shape="rect" href="PicoLowLevel_8ino.html#afe461d27b9c48d5921c00d521181f12f" title=" " alt="" coords="5,5,56,32"/>
 </map>
@@ -203,12 +233,15 @@ Here is the caller graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Gets output computed from the last iteration of <a class="el" href="classPID.html#a2d1e271496506301a6f22d0418aa0cc0" title="Main PID routine.">calculate()</a> </p>
+<dl class="section return"><dt>Returns</dt><dd>float Output value of the <a class="el" href="classPID.html" title="PID controller library.">PID</a> controller. </dd></dl>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classPID_a266f60cce93632141002987d5d67d0cc_icgraph.png" border="0" usemap="#aclassPID_a266f60cce93632141002987d5d67d0cc_icgraph" alt=""/></div>
 <map name="aclassPID_a266f60cce93632141002987d5d67d0cc_icgraph" id="aclassPID_a266f60cce93632141002987d5d67d0cc_icgraph">
-<area shape="rect" title=" " alt="" coords="241,5,359,32"/>
+<area shape="rect" title="Gets output computed from the last iteration of calculate()" alt="" coords="241,5,359,32"/>
 <area shape="rect" href="PicoLowLevel_8ino.html#a8b77b83a1d03b08c93bdab6e3917a70b" title=" " alt="" coords="104,5,193,32"/>
 <area shape="rect" href="PicoLowLevel_8ino.html#afe461d27b9c48d5921c00d521181f12f" title=" " alt="" coords="5,5,56,32"/>
 </map>
@@ -230,12 +263,15 @@ Here is the caller graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Gets the currently used reference value. </p>
+<dl class="section return"><dt>Returns</dt><dd>float The currently set reference value. </dd></dl>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classPID_a7162d3b89da5a9d4b3d75011b0b57c63_icgraph.png" border="0" usemap="#aclassPID_a7162d3b89da5a9d4b3d75011b0b57c63_icgraph" alt=""/></div>
 <map name="aclassPID_a7162d3b89da5a9d4b3d75011b0b57c63_icgraph" id="aclassPID_a7162d3b89da5a9d4b3d75011b0b57c63_icgraph">
-<area shape="rect" title=" " alt="" coords="241,5,416,32"/>
+<area shape="rect" title="Gets the currently used reference value." alt="" coords="241,5,416,32"/>
 <area shape="rect" href="PicoLowLevel_8ino.html#a8b77b83a1d03b08c93bdab6e3917a70b" title=" " alt="" coords="104,5,193,32"/>
 <area shape="rect" href="PicoLowLevel_8ino.html#afe461d27b9c48d5921c00d521181f12f" title=" " alt="" coords="5,5,56,32"/>
 </map>
@@ -258,6 +294,8 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
+<p>Resets the <a class="el" href="classPID.html" title="PID controller library.">PID</a> state, as if it was the first iteration. </p>
+
 </div>
 </div>
 <a id="a21a14d1fef2157417124a9445cdbe58e"></a>
@@ -275,12 +313,20 @@ Here is the caller graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Sets the derivative gain. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">kd</td><td>Value of the derivative gain. </td></tr>
+  </table>
+  </dd>
+</dl>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classPID_a21a14d1fef2157417124a9445cdbe58e_icgraph.png" border="0" usemap="#aclassPID_a21a14d1fef2157417124a9445cdbe58e_icgraph" alt=""/></div>
 <map name="aclassPID_a21a14d1fef2157417124a9445cdbe58e_icgraph" id="aclassPID_a21a14d1fef2157417124a9445cdbe58e_icgraph">
-<area shape="rect" title=" " alt="" coords="104,5,193,32"/>
+<area shape="rect" title="Sets the derivative gain." alt="" coords="104,5,193,32"/>
 <area shape="rect" href="PicoLowLevel_8ino.html#afe461d27b9c48d5921c00d521181f12f" title=" " alt="" coords="5,5,56,32"/>
 </map>
 </div>
@@ -302,12 +348,20 @@ Here is the caller graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Sets the integrative gain. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ki</td><td>Value of the integrative gain. </td></tr>
+  </table>
+  </dd>
+</dl>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classPID_a51fdda77a492d1a303fbb3ac44bd7e54_icgraph.png" border="0" usemap="#aclassPID_a51fdda77a492d1a303fbb3ac44bd7e54_icgraph" alt=""/></div>
 <map name="aclassPID_a51fdda77a492d1a303fbb3ac44bd7e54_icgraph" id="aclassPID_a51fdda77a492d1a303fbb3ac44bd7e54_icgraph">
-<area shape="rect" title=" " alt="" coords="104,5,189,32"/>
+<area shape="rect" title="Sets the integrative gain." alt="" coords="104,5,189,32"/>
 <area shape="rect" href="PicoLowLevel_8ino.html#afe461d27b9c48d5921c00d521181f12f" title=" " alt="" coords="5,5,56,32"/>
 </map>
 </div>
@@ -329,12 +383,20 @@ Here is the caller graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Sets the proportional gain. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">kp</td><td>Value of the proportional gain. </td></tr>
+  </table>
+  </dd>
+</dl>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classPID_a96b79772d13f60d161149be254ab6ff5_icgraph.png" border="0" usemap="#aclassPID_a96b79772d13f60d161149be254ab6ff5_icgraph" alt=""/></div>
 <map name="aclassPID_a96b79772d13f60d161149be254ab6ff5_icgraph" id="aclassPID_a96b79772d13f60d161149be254ab6ff5_icgraph">
-<area shape="rect" title=" " alt="" coords="104,5,193,32"/>
+<area shape="rect" title="Sets the proportional gain." alt="" coords="104,5,193,32"/>
 <area shape="rect" href="PicoLowLevel_8ino.html#afe461d27b9c48d5921c00d521181f12f" title=" " alt="" coords="5,5,56,32"/>
 </map>
 </div>
@@ -356,12 +418,20 @@ Here is the caller graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Updates the feedback for <a class="el" href="classPID.html" title="PID controller library.">PID</a> computation. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">fb</td><td>Feedback value. </td></tr>
+  </table>
+  </dd>
+</dl>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classPID_a33f657a6cce4f57302f90bec9664d294_icgraph.png" border="0" usemap="#aclassPID_a33f657a6cce4f57302f90bec9664d294_icgraph" alt=""/></div>
 <map name="aclassPID_a33f657a6cce4f57302f90bec9664d294_icgraph" id="aclassPID_a33f657a6cce4f57302f90bec9664d294_icgraph">
-<area shape="rect" title=" " alt="" coords="241,5,400,32"/>
+<area shape="rect" title="Updates the feedback for PID computation." alt="" coords="241,5,400,32"/>
 <area shape="rect" href="PicoLowLevel_8ino.html#a8b77b83a1d03b08c93bdab6e3917a70b" title=" " alt="" coords="104,5,193,32"/>
 <area shape="rect" href="PicoLowLevel_8ino.html#afe461d27b9c48d5921c00d521181f12f" title=" " alt="" coords="5,5,56,32"/>
 </map>
@@ -384,12 +454,20 @@ Here is the caller graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Sets the reference value. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ref</td><td>Reference value for the <a class="el" href="classPID.html" title="PID controller library.">PID</a>. </td></tr>
+  </table>
+  </dd>
+</dl>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classPID_ab6c2a366f39cf53149b50216b300bdcd_icgraph.png" border="0" usemap="#aclassPID_ab6c2a366f39cf53149b50216b300bdcd_icgraph" alt=""/></div>
 <map name="aclassPID_ab6c2a366f39cf53149b50216b300bdcd_icgraph" id="aclassPID_ab6c2a366f39cf53149b50216b300bdcd_icgraph">
-<area shape="rect" title=" " alt="" coords="112,31,311,57"/>
+<area shape="rect" title="Sets the reference value." alt="" coords="112,31,311,57"/>
 <area shape="rect" href="PicoLowLevel_8ino.html#afe461d27b9c48d5921c00d521181f12f" title=" " alt="" coords="9,5,60,32"/>
 <area shape="rect" href="PicoLowLevel_8ino.html#a4fc01d736fe50cf5b977f755b675f11d" title=" " alt="" coords="5,56,64,83"/>
 </map>

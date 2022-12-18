@@ -98,40 +98,40 @@ $(document).ready(function(){initNavTree('Display_8h_source.html',''); initResiz
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="mod__config_8h.html">mod_config.h</a>&quot;</span></div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="Battery_8h.html">Battery.h</a>&quot;</span></div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
-<div class="line"><a name="l00014"></a><span class="lineno"><a class="line" href="classDisplay.html">   14</a></span>&#160;<span class="keyword">class </span><a class="code" href="classDisplay.html">Display</a> {</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;  <a class="code" href="classDisplay.html#ae972fffea6f7ca1d627ef48c3d841bb3">Display</a>();</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classDisplay.html#ab569d31751d87ab3bd70744532d33605">begin</a>();</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classDisplay.html#a3fa755683f0e28cfc689f35e7f8257b8">handleGUI</a>();</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classDisplay.html#aa9a7e82a5611d737c618a2f1cab7812a">okInterrupt</a>();</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classDisplay.html#a5c28101c672878132e2ce5772ed93588">navInterrupt</a>();</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;  <span class="keywordtype">void</span> showLogo();</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;  <span class="keywordtype">void</span> showWifi();</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;  <span class="keywordtype">void</span> showBattery();</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;  <span class="keywordtype">void</span> showVersion();</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;  Adafruit_SH1106G display = Adafruit_SH1106G(<a class="code" href="definitions_8h.html#a46d67d48a7faab308f2e058dc35da83a">DISPLAY_WIDTH</a>, <a class="code" href="definitions_8h.html#a43b7b2061f733ea1dc0a5a6028e131ff">DISPLAY_HEIGHT</a>, &amp;Wire1, -1);</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;  <span class="comment">//menu handling variables</span></div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;  <span class="keywordtype">int</span> ok = 0;</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;  <span class="keywordtype">int</span> lastok = 0;</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;  <span class="keywordtype">int</span> nav = 0;</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;  <span class="keywordtype">int</span> lastnav = 0;</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;  <span class="keywordtype">int</span> menupos = 0;</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;  <span class="keywordtype">int</span> menutime = 0;</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;};</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="classDisplay.html">   17</a></span>&#160;<span class="keyword">class </span><a class="code" href="classDisplay.html">Display</a> {</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;  <a class="code" href="classDisplay.html#ae972fffea6f7ca1d627ef48c3d841bb3">Display</a>();</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classDisplay.html#ab569d31751d87ab3bd70744532d33605">begin</a>();</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classDisplay.html#a3fa755683f0e28cfc689f35e7f8257b8">handleGUI</a>();</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classDisplay.html#aa9a7e82a5611d737c618a2f1cab7812a">okInterrupt</a>();</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classDisplay.html#a5c28101c672878132e2ce5772ed93588">navInterrupt</a>();</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;  <span class="keywordtype">void</span> showLogo();</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;  <span class="keywordtype">void</span> showWifi();</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;  <span class="keywordtype">void</span> showBattery();</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;  <span class="keywordtype">void</span> showVersion();</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;  Adafruit_SH1106G display = Adafruit_SH1106G(<a class="code" href="definitions_8h.html#a46d67d48a7faab308f2e058dc35da83a">DISPLAY_WIDTH</a>, <a class="code" href="definitions_8h.html#a43b7b2061f733ea1dc0a5a6028e131ff">DISPLAY_HEIGHT</a>, &amp;Wire1, -1);</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;  <span class="comment">//menu handling variables</span></div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;  <span class="keywordtype">int</span> ok = 0;</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;  <span class="keywordtype">int</span> lastok = 0;</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;  <span class="keywordtype">int</span> nav = 0;</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;  <span class="keywordtype">int</span> lastnav = 0;</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;  <span class="keywordtype">int</span> menupos = 0;</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;  <span class="keywordtype">int</span> menutime = 0;</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;};</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="ttc" id="aBattery_8h_html"><div class="ttname"><a href="Battery_8h.html">Battery.h</a></div></div>
 <div class="ttc" id="abitmap__logos_8h_html"><div class="ttname"><a href="bitmap__logos_8h.html">bitmap_logos.h</a></div></div>
-<div class="ttc" id="aclassDisplay_html"><div class="ttname"><a href="classDisplay.html">Display</a></div><div class="ttdef"><b>Definition:</b> Display.h:14</div></div>
-<div class="ttc" id="aclassDisplay_html_a3fa755683f0e28cfc689f35e7f8257b8"><div class="ttname"><a href="classDisplay.html#a3fa755683f0e28cfc689f35e7f8257b8">Display::handleGUI</a></div><div class="ttdeci">void handleGUI()</div><div class="ttdef"><b>Definition:</b> Display.cpp:56</div></div>
-<div class="ttc" id="aclassDisplay_html_a5c28101c672878132e2ce5772ed93588"><div class="ttname"><a href="classDisplay.html#a5c28101c672878132e2ce5772ed93588">Display::navInterrupt</a></div><div class="ttdeci">void navInterrupt()</div><div class="ttdoc">Change value of the nav button.</div><div class="ttdef"><b>Definition:</b> Display.cpp:89</div></div>
-<div class="ttc" id="aclassDisplay_html_aa9a7e82a5611d737c618a2f1cab7812a"><div class="ttname"><a href="classDisplay.html#aa9a7e82a5611d737c618a2f1cab7812a">Display::okInterrupt</a></div><div class="ttdeci">void okInterrupt()</div><div class="ttdoc">Change value of the ok button.</div><div class="ttdef"><b>Definition:</b> Display.cpp:101</div></div>
-<div class="ttc" id="aclassDisplay_html_ab569d31751d87ab3bd70744532d33605"><div class="ttname"><a href="classDisplay.html#ab569d31751d87ab3bd70744532d33605">Display::begin</a></div><div class="ttdeci">void begin()</div><div class="ttdef"><b>Definition:</b> Display.cpp:10</div></div>
+<div class="ttc" id="aclassDisplay_html"><div class="ttname"><a href="classDisplay.html">Display</a></div><div class="ttdoc">Display class, handles display itself and GUI.</div><div class="ttdef"><b>Definition:</b> Display.h:17</div></div>
+<div class="ttc" id="aclassDisplay_html_a3fa755683f0e28cfc689f35e7f8257b8"><div class="ttname"><a href="classDisplay.html#a3fa755683f0e28cfc689f35e7f8257b8">Display::handleGUI</a></div><div class="ttdeci">void handleGUI()</div><div class="ttdoc">Handles display via recorded interrupts.</div><div class="ttdef"><b>Definition:</b> Display.cpp:70</div></div>
+<div class="ttc" id="aclassDisplay_html_a5c28101c672878132e2ce5772ed93588"><div class="ttname"><a href="classDisplay.html#a5c28101c672878132e2ce5772ed93588">Display::navInterrupt</a></div><div class="ttdeci">void navInterrupt()</div><div class="ttdoc">NAV button ISR.</div><div class="ttdef"><b>Definition:</b> Display.cpp:103</div></div>
+<div class="ttc" id="aclassDisplay_html_aa9a7e82a5611d737c618a2f1cab7812a"><div class="ttname"><a href="classDisplay.html#aa9a7e82a5611d737c618a2f1cab7812a">Display::okInterrupt</a></div><div class="ttdeci">void okInterrupt()</div><div class="ttdoc">OK button ISR.</div><div class="ttdef"><b>Definition:</b> Display.cpp:115</div></div>
+<div class="ttc" id="aclassDisplay_html_ab569d31751d87ab3bd70744532d33605"><div class="ttname"><a href="classDisplay.html#ab569d31751d87ab3bd70744532d33605">Display::begin</a></div><div class="ttdeci">void begin()</div><div class="ttdef"><b>Definition:</b> Display.cpp:11</div></div>
 <div class="ttc" id="aclassDisplay_html_ae972fffea6f7ca1d627ef48c3d841bb3"><div class="ttname"><a href="classDisplay.html#ae972fffea6f7ca1d627ef48c3d841bb3">Display::Display</a></div><div class="ttdeci">Display()</div><div class="ttdef"><b>Definition:</b> Display.cpp:3</div></div>
 <div class="ttc" id="adefinitions_8h_html"><div class="ttname"><a href="definitions_8h.html">definitions.h</a></div></div>
 <div class="ttc" id="adefinitions_8h_html_a43b7b2061f733ea1dc0a5a6028e131ff"><div class="ttname"><a href="definitions_8h.html#a43b7b2061f733ea1dc0a5a6028e131ff">DISPLAY_HEIGHT</a></div><div class="ttdeci">#define DISPLAY_HEIGHT</div><div class="ttdef"><b>Definition:</b> definitions.h:75</div></div>

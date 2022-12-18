@@ -14,10 +14,10 @@
 <area shape="rect" id="node19" href="$classSerialDebug.html#ad55ccd7caae91b050455920991e512e4" title="Sets the level to be used for the debug." alt="" coords="129,579,293,605"/>
 <area shape="rect" id="node20" href="$structMCP2515.html#ac105b61f8336554451a8cb83d7f63548" title=" " alt="" coords="114,629,309,656"/>
 <area shape="rect" id="node21" href="$classDynamixelInterface.html#a092dd633e40a07b3ae4f06a4617ec0a3" title=" " alt="" coords="136,681,287,722"/>
-<area shape="rect" id="node22" href="$classPID.html#ab6c2a366f39cf53149b50216b300bdcd" title=" " alt="" coords="112,747,311,773"/>
+<area shape="rect" id="node22" href="$classPID.html#ab6c2a366f39cf53149b50216b300bdcd" title="Sets the reference value." alt="" coords="112,747,311,773"/>
 <area shape="rect" id="node8" href="$classSerialDebug.html#a3d01753681fd740869da197b2fa772b0" title="Sends a string to the Serial port with a debug level, only if it is lower than the setted one." alt="" coords="610,233,749,260"/>
-<area shape="rect" id="node11" href="$classDisplay.html#a5c28101c672878132e2ce5772ed93588" title="Change value of the nav button." alt="" coords="369,376,527,403"/>
-<area shape="rect" id="node13" href="$classDisplay.html#aa9a7e82a5611d737c618a2f1cab7812a" title="Change value of the ok button." alt="" coords="373,427,523,453"/>
+<area shape="rect" id="node11" href="$classDisplay.html#a5c28101c672878132e2ce5772ed93588" title="NAV button ISR." alt="" coords="369,376,527,403"/>
+<area shape="rect" id="node13" href="$classDisplay.html#aa9a7e82a5611d737c618a2f1cab7812a" title="OK button ISR." alt="" coords="373,427,523,453"/>
 <area shape="rect" id="node15" href="$structMCP2515.html#aac89e9e84bb70719f3af943584efbe0e" title=" " alt="" coords="376,477,520,504"/>
 <area shape="rect" id="node17" href="$structMCP2515.html#a4ecb1f510ead2fee02dcf368fdf18dfd" title=" " alt="" coords="359,528,537,555"/>
 <area shape="rect" id="node16" href="$structMCP2515.html#ab79662c2b46e623158f5f4119d340d69" title=" " alt="" coords="585,503,773,529"/>

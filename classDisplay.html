@@ -89,6 +89,9 @@ $(document).ready(function(){initNavTree('classDisplay.html',''); initResizable(
 </div><!--header-->
 <div class="contents">
 
+<p><a class="el" href="classDisplay.html" title="Display class, handles display itself and GUI.">Display</a> class, handles display itself and GUI.  
+ <a href="classDisplay.html#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="Display_8h_source.html">Display.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
@@ -98,15 +101,18 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ab569d31751d87ab3bd70744532d33605"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDisplay.html#ab569d31751d87ab3bd70744532d33605">begin</a> ()</td></tr>
 <tr class="separator:ab569d31751d87ab3bd70744532d33605"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3fa755683f0e28cfc689f35e7f8257b8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDisplay.html#a3fa755683f0e28cfc689f35e7f8257b8">handleGUI</a> ()</td></tr>
+<tr class="memdesc:a3fa755683f0e28cfc689f35e7f8257b8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handles display via recorded interrupts.  <a href="classDisplay.html#a3fa755683f0e28cfc689f35e7f8257b8">More...</a><br /></td></tr>
 <tr class="separator:a3fa755683f0e28cfc689f35e7f8257b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa9a7e82a5611d737c618a2f1cab7812a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDisplay.html#aa9a7e82a5611d737c618a2f1cab7812a">okInterrupt</a> ()</td></tr>
-<tr class="memdesc:aa9a7e82a5611d737c618a2f1cab7812a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Change value of the ok button.  <a href="classDisplay.html#aa9a7e82a5611d737c618a2f1cab7812a">More...</a><br /></td></tr>
+<tr class="memdesc:aa9a7e82a5611d737c618a2f1cab7812a"><td class="mdescLeft">&#160;</td><td class="mdescRight">OK button ISR.  <a href="classDisplay.html#aa9a7e82a5611d737c618a2f1cab7812a">More...</a><br /></td></tr>
 <tr class="separator:aa9a7e82a5611d737c618a2f1cab7812a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5c28101c672878132e2ce5772ed93588"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDisplay.html#a5c28101c672878132e2ce5772ed93588">navInterrupt</a> ()</td></tr>
-<tr class="memdesc:a5c28101c672878132e2ce5772ed93588"><td class="mdescLeft">&#160;</td><td class="mdescRight">Change value of the nav button.  <a href="classDisplay.html#a5c28101c672878132e2ce5772ed93588">More...</a><br /></td></tr>
+<tr class="memdesc:a5c28101c672878132e2ce5772ed93588"><td class="mdescLeft">&#160;</td><td class="mdescRight">NAV button ISR.  <a href="classDisplay.html#a5c28101c672878132e2ce5772ed93588">More...</a><br /></td></tr>
 <tr class="separator:a5c28101c672878132e2ce5772ed93588"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p><a class="el" href="classDisplay.html" title="Display class, handles display itself and GUI.">Display</a> class, handles display itself and GUI. </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="ae972fffea6f7ca1d627ef48c3d841bb3"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ae972fffea6f7ca1d627ef48c3d841bb3">&#9670;&nbsp;</a></span>Display()</h2>
 
@@ -166,12 +172,15 @@ Here is the caller graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Handles display via recorded interrupts. </p>
+<p>This function needs to be called as often as possible. If no button is pressed for more than <a class="el" href="definitions_8h.html#a99d5f79ba2e5b9aa3b7e1f5929618469">MENUTIMEOUT</a> automatically returns to the logo. </p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classDisplay_a3fa755683f0e28cfc689f35e7f8257b8_icgraph.png" border="0" usemap="#aclassDisplay_a3fa755683f0e28cfc689f35e7f8257b8_icgraph" alt=""/></div>
 <map name="aclassDisplay_a3fa755683f0e28cfc689f35e7f8257b8_icgraph" id="aclassDisplay_a3fa755683f0e28cfc689f35e7f8257b8_icgraph">
-<area shape="rect" title=" " alt="" coords="104,5,251,32"/>
+<area shape="rect" title="Handles display via recorded interrupts." alt="" coords="104,5,251,32"/>
 <area shape="rect" href="PicoLowLevel_8ino.html#afe461d27b9c48d5921c00d521181f12f" title=" " alt="" coords="5,5,56,32"/>
 </map>
 </div>
@@ -193,13 +202,13 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p>Change value of the nav button. </p>
+<p>NAV button ISR. </p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classDisplay_a5c28101c672878132e2ce5772ed93588_icgraph.png" border="0" usemap="#aclassDisplay_a5c28101c672878132e2ce5772ed93588_icgraph" alt=""/></div>
 <map name="aclassDisplay_a5c28101c672878132e2ce5772ed93588_icgraph" id="aclassDisplay_a5c28101c672878132e2ce5772ed93588_icgraph">
-<area shape="rect" title="Change value of the nav button." alt="" coords="263,5,421,32"/>
+<area shape="rect" title="NAV button ISR." alt="" coords="263,5,421,32"/>
 <area shape="rect" href="PicoLowLevel_8ino.html#a463bd5e2d6006d3d57e5569bd7c8cea4" title=" " alt="" coords="112,5,215,32"/>
 <area shape="rect" href="PicoLowLevel_8ino.html#a4fc01d736fe50cf5b977f755b675f11d" title=" " alt="" coords="5,5,64,32"/>
 </map>
@@ -222,13 +231,13 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p>Change value of the ok button. </p>
+<p>OK button ISR. </p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classDisplay_aa9a7e82a5611d737c618a2f1cab7812a_icgraph.png" border="0" usemap="#aclassDisplay_aa9a7e82a5611d737c618a2f1cab7812a_icgraph" alt=""/></div>
 <map name="aclassDisplay_aa9a7e82a5611d737c618a2f1cab7812a_icgraph" id="aclassDisplay_aa9a7e82a5611d737c618a2f1cab7812a_icgraph">
-<area shape="rect" title="Change value of the ok button." alt="" coords="255,5,405,32"/>
+<area shape="rect" title="OK button ISR." alt="" coords="255,5,405,32"/>
 <area shape="rect" href="PicoLowLevel_8ino.html#a7e5bd9686428496c0be42f11e557bd2b" title=" " alt="" coords="112,5,207,32"/>
 <area shape="rect" href="PicoLowLevel_8ino.html#a4fc01d736fe50cf5b977f755b675f11d" title=" " alt="" coords="5,5,64,32"/>
 </map>
