@@ -22,7 +22,7 @@ void TractionEncoder::begin() {
 
 /**
  * Computes and returns the last detected speed.
- * @return The speed in milliRPMs.
+ * @return The speed in centiRPMs.
  */
 int TractionEncoder::getSpeed() {
     long rpm;

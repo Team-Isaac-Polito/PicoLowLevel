@@ -5,10 +5,10 @@ Display::Display() {
 }
 
 /*
-* Initialization of the display
-*/
+ * Initialization of the display.
+ * Sets basic graphic settings and shows the team's logo.
+ */
 void Display::begin() {
-  //funzioni di display Adafruit
   display.begin(DISPLAY_ADDR, true);
   display.setRotation(2);
   display.setTextSize(1);
@@ -18,12 +18,18 @@ void Display::begin() {
   showLogo();
 }
 
+/**
+ * Displays the team's logo.
+ */
 void Display::showLogo() {
   display.clearDisplay();
   display.drawBitmap(44, 4,  bitmap_logo_isaac, 41, 58, 1);
   display.display();
 }
 
+/**
+ * Displays WiFi status and properties.
+ */
 void Display::showWifi() {
   display.clearDisplay();
   display.drawBitmap(0, 0,  bitmap_logo_wifi, 26, 21, 1);
@@ -32,6 +38,9 @@ void Display::showWifi() {
   display.display();
 }
 
+/**
+ * Displays battery status.
+ */
 void Display::showBattery() {
   display.clearDisplay();
   display.drawBitmap(0, 0,  bitmap_logo_bat, 23, 11, 1);
@@ -41,6 +50,9 @@ void Display::showBattery() {
   display.display();
 }
 
+/**
+ * Display software version, and module address.
+ */
 void Display::showVersion() {
   display.clearDisplay();
   display.drawBitmap(0, 0,  bitmap_logo_upd, 24, 24, 1);
@@ -50,9 +62,11 @@ void Display::showVersion() {
   display.display();
 }
 
-/*
-* Change page of the display
-*/
+/**
+ * Handles display via recorded interrupts. 
+ * This function needs to be called as often as possible.
+ * If no button is pressed for more than #MENUTIMEOUT automatically returns to the logo.
+ */
 void Display::handleGUI() {
   bool change = false;
 
@@ -84,8 +98,8 @@ void Display::handleGUI() {
 }
 
 /**
-* Change value of the nav button
-*/
+ * NAV button ISR.
+ */
 void Display::navInterrupt() {
   int now = millis();
   if (now - lastnav > DEBOUNCE) {
@@ -96,8 +110,8 @@ void Display::navInterrupt() {
 
 
 /**
-* Change value of the ok button
-*/
+ * OK button ISR.
+ */
 void Display::okInterrupt() {
   int now = millis();
   if (now - lastok > DEBOUNCE) {

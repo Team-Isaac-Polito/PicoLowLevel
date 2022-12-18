@@ -11,6 +11,9 @@
 #include "mod_config.h"
 #include "Battery.h"
 
+/**
+ * Display class, handles display itself and GUI.
+ */
 class Display {
 public:
   Display();

@@ -3,6 +3,9 @@
 
 #include <Arduino.h>
 
+/**
+ * PID controller library.
+ */
 class PID {
   public:
     PID(float kp, float ki, float kd, float max_output, float alpha);
