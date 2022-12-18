@@ -25,3 +25,11 @@ float Battery::chargePercent() {
 bool Battery::charged() {
   return readVoltage() > BAT_LOW;
 }
+
+/** 
+ * Check if the Pico is being powered from the USB port.
+ * @return true if USB is providing power
+ */
+bool Battery::USB() {
+  return digitalRead(34);
+}
