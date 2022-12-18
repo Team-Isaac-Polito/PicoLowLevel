@@ -20,6 +20,8 @@ int time_enc = 0;
 int time_bat = 0;
 int time_tel = 0;
 int time_data = 0;
+int time_enc_avg = DT_PID;
+int time_tel_avg = DT_TEL;
 
 // Menu handling variables
 int ok = 0;
@@ -341,7 +343,7 @@ void loop() {
 
   // pid routine, to be executed every DT milliseconds
   if (time_cur - time_enc >= DT_PID) { 
-    if (time_cur - time_enc > DT_PID) Debug.println("PID routine running below set frequency!", Levels::WARN);
+    time_enc_avg = (time_enc_avg + (time_cur - time_enc)) / 2;
     time_enc = time_cur;
     updatePID();
   }
@@ -353,12 +355,15 @@ void loop() {
     Debug.print("Battery voltage is: ");
     Debug.println(battery.readVoltage());
 
+    if (time_tel_avg > DT_TEL) Debug.println("Telemetry frequency below required: " + String(1000/time_tel_avg) + " Hz", Levels::WARN);
+    if (time_tel_avg > DT_PID) Debug.println("Average PID frequency below required: " + String(1000/time_enc_avg) + " Hz", Levels::WARN);
+
     if(!battery.charged()) Debug.println("Battery voltage low!", Levels::WARN);
   }
 
   // send telemetry
   if (time_cur - time_tel >= DT_TEL) {
-    if (time_cur - time_enc > DT_TEL) Debug.println("Telemetry routine running below set frequency!", Levels::WARN);
+    time_tel_avg = (time_tel_avg + (time_cur - time_tel)) / 2;
     time_tel = time_cur;
     
     Debug.print("Sending telemetry.");
