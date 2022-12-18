@@ -88,88 +88,99 @@ $(document).ready(function(){initNavTree('definitions_8h_source.html',''); initR
 <a href="definitions_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef definitions_h</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define definitions_h</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno"><a class="line" href="definitions_8h.html#a943f07034774ef1261d62cd0d3d1fec9">    4</a></span>&#160;<span class="preprocessor">#define DT 100</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment">// PWM configuration</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno"><a class="line" href="definitions_8h.html#aafe0521fa22763b7afc50e12d31b450d">    7</a></span>&#160;<span class="preprocessor">#define PWM_MAX_VALUE 1023</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno"><a class="line" href="definitions_8h.html#a6177eb86ee16a1956c81749e4e332cf0">    8</a></span>&#160;<span class="preprocessor">#define PWM_FREQUENCY 15000</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160; </div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment">// I²C configuration</span></div>
-<div class="line"><a name="l00011"></a><span class="lineno"><a class="line" href="definitions_8h.html#a086a3d10779b3af61041e6aed262ab2f">   11</a></span>&#160;<span class="preprocessor">#define I2C_SENS_SDA   18</span></div>
-<div class="line"><a name="l00012"></a><span class="lineno"><a class="line" href="definitions_8h.html#a3f2df152c5e497460f3d1a1a47bf2a0b">   12</a></span>&#160;<span class="preprocessor">#define I2C_SENS_SCL   19</span></div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
-<div class="line"><a name="l00014"></a><span class="lineno"><a class="line" href="definitions_8h.html#af02be7503ea799bfe976919d0f512f71">   14</a></span>&#160;<span class="preprocessor">#define ABSOLUTE_ENCODER_ADDRESS 0x40 </span><span class="comment">// ToDo check, maybe 0x44</span></div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment">// Battery configuration</span></div>
-<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="definitions_8h.html#ad220295c888ba951a1a74c50b5bc5282">   17</a></span>&#160;<span class="preprocessor">#define BAT_LOW 11.1f</span></div>
-<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="definitions_8h.html#a227c8679474baec45a700fc8e0181f81">   18</a></span>&#160;<span class="preprocessor">#define BAT_NOM 12.6f</span></div>
-<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="definitions_8h.html#a97cbb70550e3db2602f3284eb4641c04">   19</a></span>&#160;<span class="preprocessor">#define BAT_PIN 28</span></div>
-<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="definitions_8h.html#a4b3ebf31b61ea7a58d1ddc040671ff75">   20</a></span>&#160;<span class="preprocessor">#define BAT_R1 10000</span></div>
-<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="definitions_8h.html#a20b253193d688ee7dd45d76b238da77d">   21</a></span>&#160;<span class="preprocessor">#define BAT_R2 3300</span></div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment">// Motors pins</span></div>
-<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="definitions_8h.html#a8dbf39c1e920a51756af511614b969cb">   24</a></span>&#160;<span class="preprocessor">#define DRV_TR_LEFT_DIR  15</span></div>
-<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="definitions_8h.html#a3c87411ac09e79dc27923bb09f93e01b">   25</a></span>&#160;<span class="preprocessor">#define DRV_TR_LEFT_PWM 14</span></div>
-<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="definitions_8h.html#ae0149ad26064b19ffaa828a734a24b99">   26</a></span>&#160;<span class="preprocessor">#define DRV_TR_LEFT_CURR A0</span></div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
-<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="definitions_8h.html#a615e14d6653fd2648241d5b541fe185c">   28</a></span>&#160;<span class="preprocessor">#define DRV_TR_RIGHT_DIR  9</span></div>
-<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="definitions_8h.html#a349704dcb46a2ab119ad824e2b976f49">   29</a></span>&#160;<span class="preprocessor">#define DRV_TR_RIGHT_PWM  8</span></div>
-<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="definitions_8h.html#a4ecd2f992f2a096fc55227a4917336d8">   30</a></span>&#160;<span class="preprocessor">#define DRV_TR_RIGHT_CURR A1</span></div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
-<div class="line"><a name="l00032"></a><span class="lineno"><a class="line" href="definitions_8h.html#aad0b3e0c09b139f4c378a826d2a6980e">   32</a></span>&#160;<span class="preprocessor">#define DRV_YAW_DIR  3</span></div>
-<div class="line"><a name="l00033"></a><span class="lineno"><a class="line" href="definitions_8h.html#afe165eb2f8497769312ae454b8e82df5">   33</a></span>&#160;<span class="preprocessor">#define DRV_YAW_PWM  2</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment">// Main loop timings</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno"><a class="line" href="definitions_8h.html#a14ecb7bd497a342b8949427c46c0fa63">    5</a></span>&#160;<span class="preprocessor">#define DT_BAT 1000   </span><span class="comment">// 1000ms / 1000 = 1 Hz</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno"><a class="line" href="definitions_8h.html#aac0da386ac4ac42189aee8271d1df9ec">    6</a></span>&#160;<span class="preprocessor">#define DT_PID 20     </span><span class="comment">// 1000ms / 20   = 50 Hz</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno"><a class="line" href="definitions_8h.html#a026d8cbe0fadeab497a924a902dfb38a">    7</a></span>&#160;<span class="preprocessor">#define DT_TEL 10     </span><span class="comment">// 1000ms / 10   = 100 Hz</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment">// PWM configuration</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno"><a class="line" href="definitions_8h.html#aafe0521fa22763b7afc50e12d31b450d">   10</a></span>&#160;<span class="preprocessor">#define PWM_MAX_VALUE 1023</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno"><a class="line" href="definitions_8h.html#a6177eb86ee16a1956c81749e4e332cf0">   11</a></span>&#160;<span class="preprocessor">#define PWM_FREQUENCY 15000</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment">// I²C configuration</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno"><a class="line" href="definitions_8h.html#a086a3d10779b3af61041e6aed262ab2f">   14</a></span>&#160;<span class="preprocessor">#define I2C_SENS_SDA   18</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno"><a class="line" href="definitions_8h.html#a3f2df152c5e497460f3d1a1a47bf2a0b">   15</a></span>&#160;<span class="preprocessor">#define I2C_SENS_SCL   19</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
+<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="definitions_8h.html#af02be7503ea799bfe976919d0f512f71">   17</a></span>&#160;<span class="preprocessor">#define ABSOLUTE_ENCODER_ADDRESS 0x40 </span><span class="comment">// ToDo check, maybe 0x44</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment">// Battery configuration</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="definitions_8h.html#ad220295c888ba951a1a74c50b5bc5282">   20</a></span>&#160;<span class="preprocessor">#define BAT_LOW 11.1f</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="definitions_8h.html#a227c8679474baec45a700fc8e0181f81">   21</a></span>&#160;<span class="preprocessor">#define BAT_NOM 12.6f</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="definitions_8h.html#a97cbb70550e3db2602f3284eb4641c04">   22</a></span>&#160;<span class="preprocessor">#define BAT_PIN 28</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="definitions_8h.html#a4b3ebf31b61ea7a58d1ddc040671ff75">   23</a></span>&#160;<span class="preprocessor">#define BAT_R1 10000</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="definitions_8h.html#a20b253193d688ee7dd45d76b238da77d">   24</a></span>&#160;<span class="preprocessor">#define BAT_R2 3300</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="comment">// Motors pins</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="definitions_8h.html#a8dbf39c1e920a51756af511614b969cb">   27</a></span>&#160;<span class="preprocessor">#define DRV_TR_LEFT_DIR  15</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="definitions_8h.html#a3c87411ac09e79dc27923bb09f93e01b">   28</a></span>&#160;<span class="preprocessor">#define DRV_TR_LEFT_PWM 14</span></div>
+<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="definitions_8h.html#ae0149ad26064b19ffaa828a734a24b99">   29</a></span>&#160;<span class="preprocessor">#define DRV_TR_LEFT_CURR A0</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
+<div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="definitions_8h.html#a615e14d6653fd2648241d5b541fe185c">   31</a></span>&#160;<span class="preprocessor">#define DRV_TR_RIGHT_DIR  9</span></div>
+<div class="line"><a name="l00032"></a><span class="lineno"><a class="line" href="definitions_8h.html#a349704dcb46a2ab119ad824e2b976f49">   32</a></span>&#160;<span class="preprocessor">#define DRV_TR_RIGHT_PWM  8</span></div>
+<div class="line"><a name="l00033"></a><span class="lineno"><a class="line" href="definitions_8h.html#a4ecd2f992f2a096fc55227a4917336d8">   33</a></span>&#160;<span class="preprocessor">#define DRV_TR_RIGHT_CURR A1</span></div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="comment">// Encoder pins</span></div>
-<div class="line"><a name="l00036"></a><span class="lineno"><a class="line" href="definitions_8h.html#a490edeb188ba039c64401279469c94b6">   36</a></span>&#160;<span class="preprocessor">#define ENC_TR_LEFT_A   12</span></div>
-<div class="line"><a name="l00037"></a><span class="lineno"><a class="line" href="definitions_8h.html#aecfecdffcd96ec00ef8e03611814d7cc">   37</a></span>&#160;<span class="preprocessor">#define ENC_TR_LEFT_B   13</span></div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
-<div class="line"><a name="l00039"></a><span class="lineno"><a class="line" href="definitions_8h.html#a2ada7078fc0575d93eaa74cc49e46407">   39</a></span>&#160;<span class="preprocessor">#define ENC_TR_RIGHT_A  10</span></div>
-<div class="line"><a name="l00040"></a><span class="lineno"><a class="line" href="definitions_8h.html#a1cc8812a084c15431363c7e560d152a3">   40</a></span>&#160;<span class="preprocessor">#define ENC_TR_RIGHT_B  11</span></div>
+<div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="definitions_8h.html#aad0b3e0c09b139f4c378a826d2a6980e">   35</a></span>&#160;<span class="preprocessor">#define DRV_YAW_DIR  3</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno"><a class="line" href="definitions_8h.html#afe165eb2f8497769312ae454b8e82df5">   36</a></span>&#160;<span class="preprocessor">#define DRV_YAW_PWM  2</span></div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="comment">// Encoder pins</span></div>
+<div class="line"><a name="l00039"></a><span class="lineno"><a class="line" href="definitions_8h.html#a490edeb188ba039c64401279469c94b6">   39</a></span>&#160;<span class="preprocessor">#define ENC_TR_LEFT_A   12</span></div>
+<div class="line"><a name="l00040"></a><span class="lineno"><a class="line" href="definitions_8h.html#aecfecdffcd96ec00ef8e03611814d7cc">   40</a></span>&#160;<span class="preprocessor">#define ENC_TR_LEFT_B   13</span></div>
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="comment">// YAW MIN/MAX</span></div>
-<div class="line"><a name="l00044"></a><span class="lineno"><a class="line" href="definitions_8h.html#af0c82f6c59297b43dbe4304eb58aa635">   44</a></span>&#160;<span class="preprocessor">#define YAW_MAX_ANGLE 30</span></div>
-<div class="line"><a name="l00045"></a><span class="lineno"><a class="line" href="definitions_8h.html#a70c03bb0e96cbcd00bf1704d9b57df18">   45</a></span>&#160;<span class="preprocessor">#define YAW_MIN_ANGLE -YAW_MAX_ANGLE</span></div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="comment">// PID configuration</span></div>
-<div class="line"><a name="l00049"></a><span class="lineno"><a class="line" href="definitions_8h.html#a0e2a6a57554d5fd056ed49e256efa8ee">   49</a></span>&#160;<span class="preprocessor">#define PID_YAW_KP          13</span></div>
-<div class="line"><a name="l00050"></a><span class="lineno"><a class="line" href="definitions_8h.html#a3d72a78ffca149ed3f498a565de20b62">   50</a></span>&#160;<span class="preprocessor">#define PID_YAW_KI          .005</span></div>
-<div class="line"><a name="l00051"></a><span class="lineno"><a class="line" href="definitions_8h.html#a9cf5d5da2be210c8398fdc8eefdb9594">   51</a></span>&#160;<span class="preprocessor">#define PID_YAW_KD          1000</span></div>
-<div class="line"><a name="l00052"></a><span class="lineno"><a class="line" href="definitions_8h.html#ae3d9411ee05bb7d41cc8690863217d63">   52</a></span>&#160;<span class="preprocessor">#define PID_YAW_MAX_OUTPUT  1023</span></div>
-<div class="line"><a name="l00053"></a><span class="lineno"><a class="line" href="definitions_8h.html#ac965a656d63a0b2b234e0a8e7f4095a2">   53</a></span>&#160;<span class="preprocessor">#define PID_YAW_EMA_ALPHA   .5</span></div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
-<div class="line"><a name="l00055"></a><span class="lineno"><a class="line" href="definitions_8h.html#a97c92aad60194d5be48266a7342d405a">   55</a></span>&#160;<span class="preprocessor">#define PID_TR_KP           0.1</span></div>
-<div class="line"><a name="l00056"></a><span class="lineno"><a class="line" href="definitions_8h.html#ac96ccd4f5010ccf20ba6e61ba9b6f75e">   56</a></span>&#160;<span class="preprocessor">#define PID_TR_KI           .0005</span></div>
-<div class="line"><a name="l00057"></a><span class="lineno"><a class="line" href="definitions_8h.html#accae2c467ae047adc09dfccae1d0f69a">   57</a></span>&#160;<span class="preprocessor">#define PID_TR_KD           0.0</span></div>
-<div class="line"><a name="l00058"></a><span class="lineno"><a class="line" href="definitions_8h.html#af2e04ff2e58c0917c6e543a277e26ddc">   58</a></span>&#160;<span class="preprocessor">#define PID_TR_MAX_OUTPUT   1023</span></div>
-<div class="line"><a name="l00059"></a><span class="lineno"><a class="line" href="definitions_8h.html#a0a4f9abdeddf6d66c5aee909650fb4ad">   59</a></span>&#160;<span class="preprocessor">#define PID_TR_EMA_ALPHA    1</span></div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;<span class="comment">// Display</span></div>
-<div class="line"><a name="l00062"></a><span class="lineno"><a class="line" href="definitions_8h.html#a6e6d94e18edcf2cac8cb2b110a5dfed8">   62</a></span>&#160;<span class="preprocessor">#define DISPLAY_ADDR 0x3c</span></div>
-<div class="line"><a name="l00063"></a><span class="lineno"><a class="line" href="definitions_8h.html#a46d67d48a7faab308f2e058dc35da83a">   63</a></span>&#160;<span class="preprocessor">#define DISPLAY_WIDTH 128</span></div>
-<div class="line"><a name="l00064"></a><span class="lineno"><a class="line" href="definitions_8h.html#a43b7b2061f733ea1dc0a5a6028e131ff">   64</a></span>&#160;<span class="preprocessor">#define DISPLAY_HEIGHT 64</span></div>
+<div class="line"><a name="l00042"></a><span class="lineno"><a class="line" href="definitions_8h.html#a2ada7078fc0575d93eaa74cc49e46407">   42</a></span>&#160;<span class="preprocessor">#define ENC_TR_RIGHT_A  10</span></div>
+<div class="line"><a name="l00043"></a><span class="lineno"><a class="line" href="definitions_8h.html#a1cc8812a084c15431363c7e560d152a3">   43</a></span>&#160;<span class="preprocessor">#define ENC_TR_RIGHT_B  11</span></div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="comment">// Encoder conversion constant</span></div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="comment">// K = 100          *       10^6        *       60      / (     48   *             74,83                    *       2 )</span></div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="comment">//      centiRPM           microsecToSec        SecToMin       intPerRotation        transmissionRatio             transmissionRatio2</span></div>
+<div class="line"><a name="l00048"></a><span class="lineno"><a class="line" href="definitions_8h.html#a589af76c46d65dc478da492d8b6326b8">   48</a></span>&#160;<span class="preprocessor">#define ENC_TR_CONVERSION 835226</span></div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="comment">// (centiRPM/100) : maxRPM = PWM : 1023</span></div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="comment">// maxRPM = 130 / 2 (2 = transmissionRatio)</span></div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="comment">// PWM = centiRPM * 1023 / (100 * maxRPM)</span></div>
+<div class="line"><a name="l00052"></a><span class="lineno"><a class="line" href="definitions_8h.html#a9ff9089eb2566087c64bdec5c83b47cb">   52</a></span>&#160;<span class="preprocessor">#define RPM_TO_PWM .15738461538</span></div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="comment">// YAW MIN/MAX</span></div>
+<div class="line"><a name="l00055"></a><span class="lineno"><a class="line" href="definitions_8h.html#af0c82f6c59297b43dbe4304eb58aa635">   55</a></span>&#160;<span class="preprocessor">#define YAW_MAX_ANGLE 30</span></div>
+<div class="line"><a name="l00056"></a><span class="lineno"><a class="line" href="definitions_8h.html#a70c03bb0e96cbcd00bf1704d9b57df18">   56</a></span>&#160;<span class="preprocessor">#define YAW_MIN_ANGLE -YAW_MAX_ANGLE</span></div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<span class="comment">// PID configuration</span></div>
+<div class="line"><a name="l00060"></a><span class="lineno"><a class="line" href="definitions_8h.html#a0e2a6a57554d5fd056ed49e256efa8ee">   60</a></span>&#160;<span class="preprocessor">#define PID_YAW_KP          13</span></div>
+<div class="line"><a name="l00061"></a><span class="lineno"><a class="line" href="definitions_8h.html#a3d72a78ffca149ed3f498a565de20b62">   61</a></span>&#160;<span class="preprocessor">#define PID_YAW_KI          .005</span></div>
+<div class="line"><a name="l00062"></a><span class="lineno"><a class="line" href="definitions_8h.html#a9cf5d5da2be210c8398fdc8eefdb9594">   62</a></span>&#160;<span class="preprocessor">#define PID_YAW_KD          1000</span></div>
+<div class="line"><a name="l00063"></a><span class="lineno"><a class="line" href="definitions_8h.html#ae3d9411ee05bb7d41cc8690863217d63">   63</a></span>&#160;<span class="preprocessor">#define PID_YAW_MAX_OUTPUT  1023</span></div>
+<div class="line"><a name="l00064"></a><span class="lineno"><a class="line" href="definitions_8h.html#ac965a656d63a0b2b234e0a8e7f4095a2">   64</a></span>&#160;<span class="preprocessor">#define PID_YAW_EMA_ALPHA   .5</span></div>
 <div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;<span class="comment">// Interface definitions</span></div>
-<div class="line"><a name="l00067"></a><span class="lineno"><a class="line" href="definitions_8h.html#a1cdc7ad3ab2f4274826bf78195a9725f">   67</a></span>&#160;<span class="preprocessor">#define NMENUS 4</span></div>
-<div class="line"><a name="l00068"></a><span class="lineno"><a class="line" href="definitions_8h.html#a99d5f79ba2e5b9aa3b7e1f5929618469">   68</a></span>&#160;<span class="preprocessor">#define MENUTIMEOUT 18</span></div>
-<div class="line"><a name="l00069"></a><span class="lineno"><a class="line" href="definitions_8h.html#a22418126363f1ddcc0322b0748f1dd6e">   69</a></span>&#160;<span class="preprocessor">#define BTNOK 16</span></div>
-<div class="line"><a name="l00070"></a><span class="lineno"><a class="line" href="definitions_8h.html#ad5ee19d412e181a4569f1697d399ca24">   70</a></span>&#160;<span class="preprocessor">#define BTNNAV 17</span></div>
-<div class="line"><a name="l00071"></a><span class="lineno"><a class="line" href="definitions_8h.html#a171ef18ea7b584f85234640a918da857">   71</a></span>&#160;<span class="preprocessor">#define DEBOUNCE 300</span></div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160; </div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;<span class="comment">// Versioning</span></div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;<span class="preprocessor">#ifndef VERSION</span></div>
-<div class="line"><a name="l00075"></a><span class="lineno"><a class="line" href="definitions_8h.html#a1c6d5de492ac61ad29aec7aa9a436bbf">   75</a></span>&#160;<span class="preprocessor">  #define VERSION &quot;testing&quot;</span></div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160; </div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;<span class="comment">// OTA configuration</span></div>
-<div class="line"><a name="l00079"></a><span class="lineno"><a class="line" href="definitions_8h.html#a312c3a9fb6e3210f9fee8191bc6884b7">   79</a></span>&#160;<span class="preprocessor">#define OTA_PWD &quot;ciaociao&quot;</span></div>
-<div class="line"><a name="l00080"></a><span class="lineno"><a class="line" href="definitions_8h.html#a586542b79d00e4db7e1d5a667ae83a2b">   80</a></span>&#160;<span class="preprocessor">#define WIFI_SSID &quot;iswifi&quot;</span></div>
-<div class="line"><a name="l00081"></a><span class="lineno"><a class="line" href="definitions_8h.html#aff86f7b4e1a646c5e052d287a5a5a7b7">   81</a></span>&#160;<span class="preprocessor">#define WIFI_PWD &quot;ciaociao&quot;</span></div>
-<div class="line"><a name="l00082"></a><span class="lineno"><a class="line" href="definitions_8h.html#a3f04e4ab276f2a7ca2f698e53f89879d">   82</a></span>&#160;<span class="preprocessor">#define WIFI_HOSTBASE &quot;picow-&quot;</span></div>
-<div class="line"><a name="l00083"></a><span class="lineno"><a class="line" href="definitions_8h.html#ab554e60c60569e439b8e0e1901d5754c">   83</a></span>&#160;<span class="preprocessor">#define CONF_PATH &quot;/config.txt&quot;</span></div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160; </div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00066"></a><span class="lineno"><a class="line" href="definitions_8h.html#a97c92aad60194d5be48266a7342d405a">   66</a></span>&#160;<span class="preprocessor">#define PID_TR_KP           0.1</span></div>
+<div class="line"><a name="l00067"></a><span class="lineno"><a class="line" href="definitions_8h.html#ac96ccd4f5010ccf20ba6e61ba9b6f75e">   67</a></span>&#160;<span class="preprocessor">#define PID_TR_KI           .0005</span></div>
+<div class="line"><a name="l00068"></a><span class="lineno"><a class="line" href="definitions_8h.html#accae2c467ae047adc09dfccae1d0f69a">   68</a></span>&#160;<span class="preprocessor">#define PID_TR_KD           0.0</span></div>
+<div class="line"><a name="l00069"></a><span class="lineno"><a class="line" href="definitions_8h.html#af2e04ff2e58c0917c6e543a277e26ddc">   69</a></span>&#160;<span class="preprocessor">#define PID_TR_MAX_OUTPUT   6500</span></div>
+<div class="line"><a name="l00070"></a><span class="lineno"><a class="line" href="definitions_8h.html#a0a4f9abdeddf6d66c5aee909650fb4ad">   70</a></span>&#160;<span class="preprocessor">#define PID_TR_EMA_ALPHA    1</span></div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160; </div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;<span class="comment">// Display</span></div>
+<div class="line"><a name="l00073"></a><span class="lineno"><a class="line" href="definitions_8h.html#a6e6d94e18edcf2cac8cb2b110a5dfed8">   73</a></span>&#160;<span class="preprocessor">#define DISPLAY_ADDR 0x3c</span></div>
+<div class="line"><a name="l00074"></a><span class="lineno"><a class="line" href="definitions_8h.html#a46d67d48a7faab308f2e058dc35da83a">   74</a></span>&#160;<span class="preprocessor">#define DISPLAY_WIDTH 128</span></div>
+<div class="line"><a name="l00075"></a><span class="lineno"><a class="line" href="definitions_8h.html#a43b7b2061f733ea1dc0a5a6028e131ff">   75</a></span>&#160;<span class="preprocessor">#define DISPLAY_HEIGHT 64</span></div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160; </div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;<span class="comment">// Interface definitions</span></div>
+<div class="line"><a name="l00078"></a><span class="lineno"><a class="line" href="definitions_8h.html#a1cdc7ad3ab2f4274826bf78195a9725f">   78</a></span>&#160;<span class="preprocessor">#define NMENUS 4</span></div>
+<div class="line"><a name="l00079"></a><span class="lineno"><a class="line" href="definitions_8h.html#a99d5f79ba2e5b9aa3b7e1f5929618469">   79</a></span>&#160;<span class="preprocessor">#define MENUTIMEOUT 18</span></div>
+<div class="line"><a name="l00080"></a><span class="lineno"><a class="line" href="definitions_8h.html#a22418126363f1ddcc0322b0748f1dd6e">   80</a></span>&#160;<span class="preprocessor">#define BTNOK 16</span></div>
+<div class="line"><a name="l00081"></a><span class="lineno"><a class="line" href="definitions_8h.html#ad5ee19d412e181a4569f1697d399ca24">   81</a></span>&#160;<span class="preprocessor">#define BTNNAV 17</span></div>
+<div class="line"><a name="l00082"></a><span class="lineno"><a class="line" href="definitions_8h.html#a171ef18ea7b584f85234640a918da857">   82</a></span>&#160;<span class="preprocessor">#define DEBOUNCE 300</span></div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160; </div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;<span class="comment">// Versioning</span></div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;<span class="preprocessor">#ifndef VERSION</span></div>
+<div class="line"><a name="l00086"></a><span class="lineno"><a class="line" href="definitions_8h.html#a1c6d5de492ac61ad29aec7aa9a436bbf">   86</a></span>&#160;<span class="preprocessor">  #define VERSION &quot;testing&quot;</span></div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160; </div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;<span class="comment">// OTA configuration</span></div>
+<div class="line"><a name="l00090"></a><span class="lineno"><a class="line" href="definitions_8h.html#a312c3a9fb6e3210f9fee8191bc6884b7">   90</a></span>&#160;<span class="preprocessor">#define OTA_PWD &quot;ciaociao&quot;</span></div>
+<div class="line"><a name="l00091"></a><span class="lineno"><a class="line" href="definitions_8h.html#a586542b79d00e4db7e1d5a667ae83a2b">   91</a></span>&#160;<span class="preprocessor">#define WIFI_SSID &quot;iswifi&quot;</span></div>
+<div class="line"><a name="l00092"></a><span class="lineno"><a class="line" href="definitions_8h.html#aff86f7b4e1a646c5e052d287a5a5a7b7">   92</a></span>&#160;<span class="preprocessor">#define WIFI_PWD &quot;ciaociao&quot;</span></div>
+<div class="line"><a name="l00093"></a><span class="lineno"><a class="line" href="definitions_8h.html#a3f04e4ab276f2a7ca2f698e53f89879d">   93</a></span>&#160;<span class="preprocessor">#define WIFI_HOSTBASE &quot;picow-&quot;</span></div>
+<div class="line"><a name="l00094"></a><span class="lineno"><a class="line" href="definitions_8h.html#ab554e60c60569e439b8e0e1901d5754c">   94</a></span>&#160;<span class="preprocessor">#define CONF_PATH &quot;/config.txt&quot;</span></div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160; </div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;<span class="preprocessor">#endif</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

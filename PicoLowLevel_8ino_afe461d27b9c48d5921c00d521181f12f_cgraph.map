@@ -1,19 +1,23 @@
 <map id="loop" name="loop">
-<area shape="rect" id="node1" title=" " alt="" coords="5,271,56,297"/>
-<area shape="rect" id="node2" href="$classWebManagement.html#a48b2f695f7445b7628119b630447123e" title=" " alt="" coords="104,5,292,32"/>
-<area shape="rect" id="node3" href="$classSerialDebug.html#a3d01753681fd740869da197b2fa772b0" title="Sends a string to the Serial port with a debug level, only if it is lower than the setted one." alt="" coords="785,461,924,488"/>
-<area shape="rect" id="node4" href="$classSerialDebug.html#a153ed172ea7eefd852292af7561ff961" title="Sends a line to the serial port with a debug level, only if it is lower than the setted one." alt="" coords="587,461,737,488"/>
-<area shape="rect" id="node5" href="$structMCP2515.html#a5cba1b20e3055c7ff9aa7510d035302b" title=" " alt="" coords="109,245,287,272"/>
-<area shape="rect" id="node6" href="$classBattery.html#a63577a5d458094efc4d24a00f052682b" title="Reads the current battery voltage." alt="" coords="121,296,275,323"/>
-<area shape="rect" id="node7" href="$PicoLowLevel_8ino.html#a8f9fa76a93541264f22c8f23f3fc1631" title=" " alt="" coords="139,183,257,209"/>
-<area shape="rect" id="node11" href="$PicoLowLevel_8ino.html#a8b77b83a1d03b08c93bdab6e3917a70b" title=" " alt="" coords="153,360,243,387"/>
-<area shape="rect" id="node17" href="$classPID.html#ab6c2a366f39cf53149b50216b300bdcd" title=" " alt="" coords="340,664,539,691"/>
-<area shape="rect" id="node8" href="$classTractionEncoder.html#a5c92615c77ba1f26be87ff4e4c564d4b" title="Computes and returns the last detected speed." alt="" coords="342,208,537,235"/>
-<area shape="rect" id="node9" href="$PicoLowLevel_8ino.html#a8525066812661764db35342986352875" title=" " alt="" coords="385,157,494,184"/>
-<area shape="rect" id="node10" href="$structMCP2515.html#a20201611f703db6b6c98bae03a3018ee" title=" " alt="" coords="349,107,529,133"/>
-<area shape="rect" id="node12" href="$classPID.html#a2d1e271496506301a6f22d0418aa0cc0" title=" " alt="" coords="384,259,495,285"/>
-<area shape="rect" id="node13" href="$classPID.html#a266f60cce93632141002987d5d67d0cc" title=" " alt="" coords="381,309,498,336"/>
-<area shape="rect" id="node14" href="$classPID.html#a7162d3b89da5a9d4b3d75011b0b57c63" title=" " alt="" coords="352,360,527,387"/>
-<area shape="rect" id="node15" href="$classPID.html#a33f657a6cce4f57302f90bec9664d294" title=" " alt="" coords="360,512,519,539"/>
-<area shape="rect" id="node16" href="$classMotor.html#a59dc38671f171be3097b3d84ddf1180e" title="Sets the motor speed." alt="" coords="389,461,490,488"/>
+<area shape="rect" id="node1" title=" " alt="" coords="5,430,56,456"/>
+<area shape="rect" id="node2" href="$classBattery.html#ab738945fc3d54086b6afa6e8ba21c513" title="Check the battery charge status." alt="" coords="139,63,268,90"/>
+<area shape="rect" id="node3" href="$classBattery.html#a63577a5d458094efc4d24a00f052682b" title="Reads the current battery voltage." alt="" coords="371,31,525,58"/>
+<area shape="rect" id="node4" href="$classWebManagement.html#a48b2f695f7445b7628119b630447123e" title=" " alt="" coords="109,114,297,140"/>
+<area shape="rect" id="node5" href="$classSerialDebug.html#a3d01753681fd740869da197b2fa772b0" title="Sends a string to the Serial port with a debug level, only if it is lower than the setted one." alt="" coords="792,278,931,304"/>
+<area shape="rect" id="node6" href="$classSerialDebug.html#a153ed172ea7eefd852292af7561ff961" title="Sends a line to the serial port with a debug level, only if it is lower than the setted one." alt="" coords="593,303,744,330"/>
+<area shape="rect" id="node7" href="$structMCP2515.html#a5cba1b20e3055c7ff9aa7510d035302b" title=" " alt="" coords="114,506,293,532"/>
+<area shape="rect" id="node8" href="$PicoLowLevel_8ino.html#a8f9fa76a93541264f22c8f23f3fc1631" title=" " alt="" coords="144,227,263,254"/>
+<area shape="rect" id="node12" href="$classPID.html#a21a14d1fef2157417124a9445cdbe58e" title=" " alt="" coords="159,556,248,583"/>
+<area shape="rect" id="node13" href="$classPID.html#a51fdda77a492d1a303fbb3ac44bd7e54" title=" " alt="" coords="161,607,246,634"/>
+<area shape="rect" id="node14" href="$classPID.html#a96b79772d13f60d161149be254ab6ff5" title=" " alt="" coords="159,658,248,684"/>
+<area shape="rect" id="node15" href="$PicoLowLevel_8ino.html#a8b77b83a1d03b08c93bdab6e3917a70b" title=" " alt="" coords="159,404,248,431"/>
+<area shape="rect" id="node21" href="$classPID.html#ab6c2a366f39cf53149b50216b300bdcd" title=" " alt="" coords="104,708,303,735"/>
+<area shape="rect" id="node9" href="$classTractionEncoder.html#a2c414262e6a923fe180d51197fc9bf5b" title="Computes and returns the last detected speed." alt="" coords="351,252,545,279"/>
+<area shape="rect" id="node10" href="$PicoLowLevel_8ino.html#a8525066812661764db35342986352875" title=" " alt="" coords="393,202,503,228"/>
+<area shape="rect" id="node11" href="$structMCP2515.html#a20201611f703db6b6c98bae03a3018ee" title=" " alt="" coords="358,151,538,178"/>
+<area shape="rect" id="node16" href="$classPID.html#a2d1e271496506301a6f22d0418aa0cc0" title=" " alt="" coords="393,354,503,380"/>
+<area shape="rect" id="node17" href="$classPID.html#a266f60cce93632141002987d5d67d0cc" title=" " alt="" coords="389,404,507,431"/>
+<area shape="rect" id="node18" href="$classPID.html#a7162d3b89da5a9d4b3d75011b0b57c63" title=" " alt="" coords="361,455,535,482"/>
+<area shape="rect" id="node19" href="$classPID.html#a33f657a6cce4f57302f90bec9664d294" title=" " alt="" coords="369,506,527,532"/>
+<area shape="rect" id="node20" href="$classMotor.html#a59dc38671f171be3097b3d84ddf1180e" title="Sets the motor speed." alt="" coords="397,556,499,583"/>
 </map>

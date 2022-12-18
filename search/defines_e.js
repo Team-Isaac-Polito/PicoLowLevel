@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['yaw_5fmax_5fangle_1024',['YAW_MAX_ANGLE',['../definitions_8h.html#af0c82f6c59297b43dbe4304eb58aa635',1,'definitions.h']]],
-  ['yaw_5fmin_5fangle_1025',['YAW_MIN_ANGLE',['../definitions_8h.html#a70c03bb0e96cbcd00bf1704d9b57df18',1,'definitions.h']]]
+  ['wifi_5fhostbase_1051',['WIFI_HOSTBASE',['../definitions_8h.html#a3f04e4ab276f2a7ca2f698e53f89879d',1,'definitions.h']]],
+  ['wifi_5fpwd_1052',['WIFI_PWD',['../definitions_8h.html#aff86f7b4e1a646c5e052d287a5a5a7b7',1,'definitions.h']]],
+  ['wifi_5fssid_1053',['WIFI_SSID',['../definitions_8h.html#a586542b79d00e4db7e1d5a667ae83a2b',1,'definitions.h']]]
 ];

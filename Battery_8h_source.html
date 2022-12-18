@@ -98,23 +98,25 @@ $(document).ready(function(){initNavTree('Battery_8h_source.html',''); initResiz
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    <span class="keywordtype">float</span> <a class="code" href="classBattery.html#a63577a5d458094efc4d24a00f052682b">readVoltage</a>();</div>
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    <span class="keywordtype">float</span> <a class="code" href="classBattery.html#a59f7ba6493e12b18935baf93e7f8661c">chargePercent</a>();</div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="classBattery.html#ab738945fc3d54086b6afa6e8ba21c513">charged</a>();</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;  <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    <span class="keywordtype">byte</span> pin;</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    <span class="keywordtype">int</span> r1, r2;</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;};</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="classBattery.html#a1749be218db101e2b6d252ac1c5691c9">USB</a>();</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;  <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    <span class="keywordtype">byte</span> pin;</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    <span class="keywordtype">int</span> r1, r2;</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;};</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="ttc" id="aDebug_8h_html"><div class="ttname"><a href="Debug_8h.html">Debug.h</a></div></div>
 <div class="ttc" id="aclassBattery_html"><div class="ttname"><a href="classBattery.html">Battery</a></div><div class="ttdoc">Class to measure battery level and status.</div><div class="ttdef"><b>Definition:</b> Battery.h:11</div></div>
+<div class="ttc" id="aclassBattery_html_a1749be218db101e2b6d252ac1c5691c9"><div class="ttname"><a href="classBattery.html#a1749be218db101e2b6d252ac1c5691c9">Battery::USB</a></div><div class="ttdeci">bool USB()</div><div class="ttdoc">Check if the Pico is being powered from the USB port.</div><div class="ttdef"><b>Definition:</b> Battery.cpp:33</div></div>
 <div class="ttc" id="aclassBattery_html_a59f7ba6493e12b18935baf93e7f8661c"><div class="ttname"><a href="classBattery.html#a59f7ba6493e12b18935baf93e7f8661c">Battery::chargePercent</a></div><div class="ttdeci">float chargePercent()</div><div class="ttdoc">Estimates the current battery charge.</div><div class="ttdef"><b>Definition:</b> Battery.cpp:16</div></div>
 <div class="ttc" id="aclassBattery_html_a63577a5d458094efc4d24a00f052682b"><div class="ttname"><a href="classBattery.html#a63577a5d458094efc4d24a00f052682b">Battery::readVoltage</a></div><div class="ttdeci">float readVoltage()</div><div class="ttdoc">Reads the current battery voltage.</div><div class="ttdef"><b>Definition:</b> Battery.cpp:7</div></div>
 <div class="ttc" id="aclassBattery_html_ab738945fc3d54086b6afa6e8ba21c513"><div class="ttname"><a href="classBattery.html#ab738945fc3d54086b6afa6e8ba21c513">Battery::charged</a></div><div class="ttdeci">bool charged()</div><div class="ttdoc">Check the battery charge status.</div><div class="ttdef"><b>Definition:</b> Battery.cpp:25</div></div>
 <div class="ttc" id="aclassBattery_html_ac1e06c595ba3e039847894e15129b7b9"><div class="ttname"><a href="classBattery.html#ac1e06c595ba3e039847894e15129b7b9">Battery::Battery</a></div><div class="ttdeci">Battery(byte pin=BAT_PIN, int r1=BAT_R1, int r2=BAT_R2)</div><div class="ttdef"><b>Definition:</b> Battery.h:13</div></div>
 <div class="ttc" id="adefinitions_8h_html"><div class="ttname"><a href="definitions_8h.html">definitions.h</a></div></div>
-<div class="ttc" id="adefinitions_8h_html_a20b253193d688ee7dd45d76b238da77d"><div class="ttname"><a href="definitions_8h.html#a20b253193d688ee7dd45d76b238da77d">BAT_R2</a></div><div class="ttdeci">#define BAT_R2</div><div class="ttdef"><b>Definition:</b> definitions.h:21</div></div>
-<div class="ttc" id="adefinitions_8h_html_a4b3ebf31b61ea7a58d1ddc040671ff75"><div class="ttname"><a href="definitions_8h.html#a4b3ebf31b61ea7a58d1ddc040671ff75">BAT_R1</a></div><div class="ttdeci">#define BAT_R1</div><div class="ttdef"><b>Definition:</b> definitions.h:20</div></div>
-<div class="ttc" id="adefinitions_8h_html_a97cbb70550e3db2602f3284eb4641c04"><div class="ttname"><a href="definitions_8h.html#a97cbb70550e3db2602f3284eb4641c04">BAT_PIN</a></div><div class="ttdeci">#define BAT_PIN</div><div class="ttdef"><b>Definition:</b> definitions.h:19</div></div>
+<div class="ttc" id="adefinitions_8h_html_a20b253193d688ee7dd45d76b238da77d"><div class="ttname"><a href="definitions_8h.html#a20b253193d688ee7dd45d76b238da77d">BAT_R2</a></div><div class="ttdeci">#define BAT_R2</div><div class="ttdef"><b>Definition:</b> definitions.h:24</div></div>
+<div class="ttc" id="adefinitions_8h_html_a4b3ebf31b61ea7a58d1ddc040671ff75"><div class="ttname"><a href="definitions_8h.html#a4b3ebf31b61ea7a58d1ddc040671ff75">BAT_R1</a></div><div class="ttdeci">#define BAT_R1</div><div class="ttdef"><b>Definition:</b> definitions.h:23</div></div>
+<div class="ttc" id="adefinitions_8h_html_a97cbb70550e3db2602f3284eb4641c04"><div class="ttname"><a href="definitions_8h.html#a97cbb70550e3db2602f3284eb4641c04">BAT_PIN</a></div><div class="ttdeci">#define BAT_PIN</div><div class="ttdef"><b>Definition:</b> definitions.h:22</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

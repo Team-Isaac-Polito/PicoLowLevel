@@ -97,6 +97,12 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:afc791524c076933bd58ef7f9fe999542"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab6c2a366f39cf53149b50216b300bdcd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPID.html#ab6c2a366f39cf53149b50216b300bdcd">updateReferenceValue</a> (float ref)</td></tr>
 <tr class="separator:ab6c2a366f39cf53149b50216b300bdcd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a96b79772d13f60d161149be254ab6ff5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPID.html#a96b79772d13f60d161149be254ab6ff5">setKp</a> (float kp)</td></tr>
+<tr class="separator:a96b79772d13f60d161149be254ab6ff5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a51fdda77a492d1a303fbb3ac44bd7e54"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPID.html#a51fdda77a492d1a303fbb3ac44bd7e54">setKi</a> (float ki)</td></tr>
+<tr class="separator:a51fdda77a492d1a303fbb3ac44bd7e54"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a21a14d1fef2157417124a9445cdbe58e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPID.html#a21a14d1fef2157417124a9445cdbe58e">setKd</a> (float kd)</td></tr>
+<tr class="separator:a21a14d1fef2157417124a9445cdbe58e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a266f60cce93632141002987d5d67d0cc"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPID.html#a266f60cce93632141002987d5d67d0cc">getOutput</a> ()</td></tr>
 <tr class="separator:a266f60cce93632141002987d5d67d0cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7162d3b89da5a9d4b3d75011b0b57c63"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPID.html#a7162d3b89da5a9d4b3d75011b0b57c63">getReferenceValue</a> ()</td></tr>
@@ -105,6 +111,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a2d1e271496506301a6f22d0418aa0cc0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a33f657a6cce4f57302f90bec9664d294"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPID.html#a33f657a6cce4f57302f90bec9664d294">updateFeedback</a> (float fb)</td></tr>
 <tr class="separator:a33f657a6cce4f57302f90bec9664d294"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a51c567347f9ca1a4572e5040b5296e30"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPID.html#a51c567347f9ca1a4572e5040b5296e30">resetState</a> ()</td></tr>
+<tr class="separator:a51c567347f9ca1a4572e5040b5296e30"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="afc791524c076933bd58ef7f9fe999542"></a>
@@ -168,16 +176,6 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="classPID_a2d1e271496506301a6f22d0418aa0cc0_cgraph.png" border="0" usemap="#aclassPID_a2d1e271496506301a6f22d0418aa0cc0_cgraph" alt=""/></div>
-<map name="aclassPID_a2d1e271496506301a6f22d0418aa0cc0_cgraph" id="aclassPID_a2d1e271496506301a6f22d0418aa0cc0_cgraph">
-<area shape="rect" title=" " alt="" coords="5,5,116,32"/>
-<area shape="rect" href="classSerialDebug.html#a3d01753681fd740869da197b2fa772b0" title="Sends a string to the Serial port with a debug level, only if it is lower than the setted one." alt="" coords="363,5,501,32"/>
-<area shape="rect" href="classSerialDebug.html#a153ed172ea7eefd852292af7561ff961" title="Sends a line to the serial port with a debug level, only if it is lower than the setted one." alt="" coords="164,31,315,57"/>
-</map>
-</div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -245,6 +243,104 @@ Here is the caller graph for this function:</div>
 
 </div>
 </div>
+<a id="a51c567347f9ca1a4572e5040b5296e30"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a51c567347f9ca1a4572e5040b5296e30">&#9670;&nbsp;</a></span>resetState()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void PID::resetState </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a21a14d1fef2157417124a9445cdbe58e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a21a14d1fef2157417124a9445cdbe58e">&#9670;&nbsp;</a></span>setKd()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void PID::setKd </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>kd</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classPID_a21a14d1fef2157417124a9445cdbe58e_icgraph.png" border="0" usemap="#aclassPID_a21a14d1fef2157417124a9445cdbe58e_icgraph" alt=""/></div>
+<map name="aclassPID_a21a14d1fef2157417124a9445cdbe58e_icgraph" id="aclassPID_a21a14d1fef2157417124a9445cdbe58e_icgraph">
+<area shape="rect" title=" " alt="" coords="104,5,193,32"/>
+<area shape="rect" href="PicoLowLevel_8ino.html#afe461d27b9c48d5921c00d521181f12f" title=" " alt="" coords="5,5,56,32"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="a51fdda77a492d1a303fbb3ac44bd7e54"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a51fdda77a492d1a303fbb3ac44bd7e54">&#9670;&nbsp;</a></span>setKi()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void PID::setKi </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>ki</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classPID_a51fdda77a492d1a303fbb3ac44bd7e54_icgraph.png" border="0" usemap="#aclassPID_a51fdda77a492d1a303fbb3ac44bd7e54_icgraph" alt=""/></div>
+<map name="aclassPID_a51fdda77a492d1a303fbb3ac44bd7e54_icgraph" id="aclassPID_a51fdda77a492d1a303fbb3ac44bd7e54_icgraph">
+<area shape="rect" title=" " alt="" coords="104,5,189,32"/>
+<area shape="rect" href="PicoLowLevel_8ino.html#afe461d27b9c48d5921c00d521181f12f" title=" " alt="" coords="5,5,56,32"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="a96b79772d13f60d161149be254ab6ff5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a96b79772d13f60d161149be254ab6ff5">&#9670;&nbsp;</a></span>setKp()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void PID::setKp </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>kp</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classPID_a96b79772d13f60d161149be254ab6ff5_icgraph.png" border="0" usemap="#aclassPID_a96b79772d13f60d161149be254ab6ff5_icgraph" alt=""/></div>
+<map name="aclassPID_a96b79772d13f60d161149be254ab6ff5_icgraph" id="aclassPID_a96b79772d13f60d161149be254ab6ff5_icgraph">
+<area shape="rect" title=" " alt="" coords="104,5,193,32"/>
+<area shape="rect" href="PicoLowLevel_8ino.html#afe461d27b9c48d5921c00d521181f12f" title=" " alt="" coords="5,5,56,32"/>
+</map>
+</div>
+
+</div>
+</div>
 <a id="a33f657a6cce4f57302f90bec9664d294"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a33f657a6cce4f57302f90bec9664d294">&#9670;&nbsp;</a></span>updateFeedback()</h2>
 
@@ -260,16 +356,6 @@ Here is the caller graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
-<div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="classPID_a33f657a6cce4f57302f90bec9664d294_cgraph.png" border="0" usemap="#aclassPID_a33f657a6cce4f57302f90bec9664d294_cgraph" alt=""/></div>
-<map name="aclassPID_a33f657a6cce4f57302f90bec9664d294_cgraph" id="aclassPID_a33f657a6cce4f57302f90bec9664d294_cgraph">
-<area shape="rect" title=" " alt="" coords="5,5,164,32"/>
-<area shape="rect" href="classSerialDebug.html#a3d01753681fd740869da197b2fa772b0" title="Sends a string to the Serial port with a debug level, only if it is lower than the setted one." alt="" coords="411,5,549,32"/>
-<area shape="rect" href="classSerialDebug.html#a153ed172ea7eefd852292af7561ff961" title="Sends a line to the serial port with a debug level, only if it is lower than the setted one." alt="" coords="212,31,363,57"/>
-</map>
-</div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -298,16 +384,6 @@ Here is the caller graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
-<div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="classPID_ab6c2a366f39cf53149b50216b300bdcd_cgraph.png" border="0" usemap="#aclassPID_ab6c2a366f39cf53149b50216b300bdcd_cgraph" alt=""/></div>
-<map name="aclassPID_ab6c2a366f39cf53149b50216b300bdcd_cgraph" id="aclassPID_ab6c2a366f39cf53149b50216b300bdcd_cgraph">
-<area shape="rect" title=" " alt="" coords="5,5,204,32"/>
-<area shape="rect" href="classSerialDebug.html#a3d01753681fd740869da197b2fa772b0" title="Sends a string to the Serial port with a debug level, only if it is lower than the setted one." alt="" coords="451,5,589,32"/>
-<area shape="rect" href="classSerialDebug.html#a153ed172ea7eefd852292af7561ff961" title="Sends a line to the serial port with a debug level, only if it is lower than the setted one." alt="" coords="252,31,403,57"/>
-</map>
-</div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
