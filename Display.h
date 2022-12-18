@@ -16,6 +16,7 @@ public:
   Display();
   void begin();
 
+  void handleGUI();
   void okInterrupt();
   void navInterrupt();
 
@@ -24,7 +25,6 @@ private:
   void showWifi();
   void showBattery();
   void showVersion();
-  void handleGUI();
 
   Adafruit_SH1106G display = Adafruit_SH1106G(DISPLAY_WIDTH, DISPLAY_HEIGHT, &Wire1, -1);
 
