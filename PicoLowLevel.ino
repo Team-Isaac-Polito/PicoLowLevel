@@ -14,11 +14,11 @@
 #include "WebManagement.h"
 #include "Display.h"
 
-int time_enc = 0;
+int time_pid = 0;
 int time_bat = 0;
 int time_tel = 0;
 int time_data = 0;
-int time_enc_avg = DT_PID;
+int time_pid_avg = DT_PID;
 int time_tel_avg = DT_TEL;
 
 struct can_frame canMsg;
@@ -252,19 +252,19 @@ void setup() {
 void loop() {
   int time_cur = millis();
 
-  // pid routine, to be executed every DT milliseconds
-  if (time_cur - time_enc >= DT_PID) { 
-    time_enc_avg = (time_enc_avg + (time_cur - time_enc)) / 2;
-    time_enc = time_cur;
+  // PID routine
+  if (time_cur - time_pid >= DT_PID) { 
+    time_pid_avg = (time_pid_avg + (time_cur - time_pid)) / 2;
+    time_pid = time_cur;
     updatePID();
   }
 
-  // read battery voltage every second
+  // health checks
   if (time_cur - time_bat >= DT_BAT) {
     time_bat = time_cur;
 
     if (time_tel_avg > DT_TEL) Debug.println("Telemetry frequency below required: " + String(1000/time_tel_avg) + " Hz", Levels::WARN);
-    if (time_tel_avg > DT_PID) Debug.println("Average PID frequency below required: " + String(1000/time_enc_avg) + " Hz", Levels::WARN);
+    if (time_tel_avg > DT_PID) Debug.println("Average PID frequency below required: " + String(1000/time_pid_avg) + " Hz", Levels::WARN);
 
     if(!battery.charged()) Debug.println("Battery voltage low! " + String(battery.readVoltage()) + "v", Levels::WARN);
   }
