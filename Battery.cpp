@@ -33,3 +33,5 @@ bool Battery::charged() {
 bool Battery::USB() {
   return digitalRead(34);
 }
+
+Battery battery;
