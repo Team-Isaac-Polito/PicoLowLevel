@@ -274,7 +274,6 @@ void loop() {
     time_tel_avg = (time_tel_avg + (time_cur - time_tel)) / 2;
     time_tel = time_cur;
     
-    Debug.print("Sending telemetry.");
     sendTelemetry();
   }
 
