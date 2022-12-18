@@ -352,13 +352,10 @@ void loop() {
   if (time_cur - time_bat >= DT_BAT) {
     time_bat = time_cur;
 
-    Debug.print("Battery voltage is: ");
-    Debug.println(battery.readVoltage());
-
     if (time_tel_avg > DT_TEL) Debug.println("Telemetry frequency below required: " + String(1000/time_tel_avg) + " Hz", Levels::WARN);
     if (time_tel_avg > DT_PID) Debug.println("Average PID frequency below required: " + String(1000/time_enc_avg) + " Hz", Levels::WARN);
 
-    if(!battery.charged()) Debug.println("Battery voltage low!", Levels::WARN);
+    if(!battery.charged()) Debug.println("Battery voltage low! " + String(battery.readVoltage()) + "v", Levels::WARN);
   }
 
   // send telemetry
