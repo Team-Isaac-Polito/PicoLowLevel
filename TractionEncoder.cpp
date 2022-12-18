@@ -43,7 +43,7 @@ int TractionEncoder::getSpeed() {
 
     time = micros();
 
-    return rpm/10; 
+    return rpm; 
 }
 
 /**
