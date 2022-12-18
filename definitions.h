@@ -1,7 +1,10 @@
 #ifndef definitions_h
 #define definitions_h
 
-#define DT 20
+// Main loop timings
+#define DT_BAT 1000   // 1000ms / 1000 = 1 Hz
+#define DT_PID 20     // 1000ms / 20   = 50 Hz
+#define DT_TEL 10     // 1000ms / 10   = 100 Hz
 
 // PWM configuration
 #define PWM_MAX_VALUE 1023

@@ -340,14 +340,14 @@ void loop() {
   int time_cur = millis();
 
   // pid routine, to be executed every DT milliseconds
-  if (time_cur - time_enc >= DT) { 
-    if (time_cur - time_enc > DT) Debug.println("PID routine running below set frequency!", Levels::WARN);
+  if (time_cur - time_enc >= DT_PID) { 
+    if (time_cur - time_enc > DT_PID) Debug.println("PID routine running below set frequency!", Levels::WARN);
     time_enc = time_cur;
     updatePID();
   }
 
   // read battery voltage every second
-  if (time_cur - time_bat >= 1000) {
+  if (time_cur - time_bat >= DT_BAT) {
     time_bat = time_cur;
 
     Debug.print("Battery voltage is: ");
@@ -357,8 +357,8 @@ void loop() {
   }
 
   // send telemetry
-  if (time_cur - time_tel >= 10) {
-    if (time_cur - time_enc > 10) Debug.println("Telemetry routine running below set frequency!", Levels::WARN);
+  if (time_cur - time_tel >= DT_TEL) {
+    if (time_cur - time_enc > DT_TEL) Debug.println("Telemetry routine running below set frequency!", Levels::WARN);
     time_tel = time_cur;
     
     Debug.print("Sending telemetry.");
