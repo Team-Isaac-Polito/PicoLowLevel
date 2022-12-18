@@ -62,7 +62,7 @@ void Display::handleGUI() {
     menupos++;
     if (menupos >= NMENUS) menupos = 0;
     else menutime = millis();
-  } else if(millis() - menutime > (MENUTIMEOUT * 1000)) {
+  } else if(menupos != 0 && millis() - menutime > (MENUTIMEOUT * 1000)) {
     change = true;
     menupos = 0;
   }
