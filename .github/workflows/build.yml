@@ -10,18 +10,36 @@ jobs:
         
   build:
     name: Build
+
+    strategy:
+      matrix:
+        libraries: ["Adafruit SH110X",]  
+    
     runs-on: ubuntu-latest
+    
     steps:
+    
     - uses: actions/checkout@v3
       with:
         ref: refs/heads/main
-    - name: Build code with arduino-cli and make
+    
+    - name: Install arduino-cli
       run: |
         curl -fsSL https://raw.githubusercontent.com/arduino/arduino-cli/master/install.sh | BINDIR=/usr/local/bin sh
-        arduino-cli lib install "Adafruit SH110X"
+    
+    - name: Install libraries
+      run: |
+        arduino-cli lib install "${{ matrix.libraries }}"
+    
+    - name: Install RP2040 core
+      run: |
         arduino-cli --additional-urls https://github.com/earlephilhower/arduino-pico/releases/download/global/package_rp2040_index.json core update-index
         arduino-cli --additional-urls https://github.com/earlephilhower/arduino-pico/releases/download/global/package_rp2040_index.json core install rp2040:rp2040
+    
+    - name: Build
+      run: |
         make -j4
+    
     - name: Rename built files
       run: |
         mkdir upload
@@ -31,6 +49,7 @@ jobs:
         mv bin/mod1/PicoLowLevel.ino.bin upload/mod1.bin
         mv bin/mod2/PicoLowLevel.ino.bin upload/mod2.bin
         mv bin/mod3/PicoLowLevel.ino.bin upload/mod3.bin
+    
     - uses: actions/upload-artifact@v3
       with:
         name: Built files
