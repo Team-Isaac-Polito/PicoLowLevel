@@ -45,7 +45,7 @@
 // Encoder conversion constant
 // K = 100          *       10^6        *       60      / (     48   *             74,83                    *       2 )
 //      centiRPM           microsecToSec        SecToMin       intPerRotation        transmissionRatio             transmissionRatio2
-#define ENC_TR_CONVERSION 835226
+#define ENC_TR_CONVERSION (835226*2)
 // (centiRPM/100) : maxRPM = PWM : 1023
 // maxRPM = 130 / 2 (2 = transmissionRatio)
 // PWM = centiRPM * 1023 / (100 * maxRPM)

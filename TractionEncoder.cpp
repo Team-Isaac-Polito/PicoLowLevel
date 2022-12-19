@@ -17,7 +17,7 @@ void TractionEncoder::begin() {
     pinMode(pin_a,INPUT);
     pinMode(pin_b,INPUT);
     attachInterrupt(digitalPinToInterrupt(pin_a), &ISR_wrapper, CHANGE, this);
-    attachInterrupt(digitalPinToInterrupt(pin_b), &ISR_wrapper, CHANGE, this);
+    //attachInterrupt(digitalPinToInterrupt(pin_b), &ISR_wrapper, CHANGE, this);
 }
 
 /**
