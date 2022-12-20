@@ -106,9 +106,7 @@ void MCP2515::readRegisters(const REGISTER reg, uint8_t values[], const uint8_t 
     SPI.transfer(INSTRUCTION_READ);
     SPI.transfer(reg);
     // mcp2515 has auto-increment of address-pointer
-    for (uint8_t i=0; i<n; i++) {
-        values[i] = SPI.transfer(0x00);
-    }
+    SPI.transfer(nullptr, values, n);
     endSPI();
 }
 
@@ -126,9 +124,7 @@ void MCP2515::setRegisters(const REGISTER reg, const uint8_t values[], const uin
     startSPI();
     SPI.transfer(INSTRUCTION_WRITE);
     SPI.transfer(reg);
-    for (uint8_t i=0; i<n; i++) {
-        SPI.transfer(values[i]);
-    }
+    SPI.transfer(values, nullptr, n);
     endSPI();
 }
 
