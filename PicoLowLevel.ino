@@ -196,6 +196,18 @@ void setup() {
   mcp2515.begin();
   mcp2515.reset();
   mcp2515.setBitrate(CAN_1000KBPS, MCP_8MHZ);
+
+  mcp2515.setConfigMode(); // tell the MCP2515 next instructions are for configuration
+  // enable filtering for 11 bit address on both RX buffers
+  mcp2515.setFilterMask(MCP2515::MASK0, false, 0x03FF);
+  mcp2515.setFilterMask(MCP2515::MASK1, false, 0x03FF);
+  // set all filters to module's ID, so only packets for us get through
+  mcp2515.setFilter(MCP2515::RXF0, false, CAN_ID);
+  mcp2515.setFilter(MCP2515::RXF1, false, CAN_ID);
+  mcp2515.setFilter(MCP2515::RXF2, false, CAN_ID);
+  mcp2515.setFilter(MCP2515::RXF3, false, CAN_ID);
+  mcp2515.setFilter(MCP2515::RXF4, false, CAN_ID);
+  mcp2515.setFilter(MCP2515::RXF5, false, CAN_ID);
   mcp2515.setNormalMode();
 
   // initializing PWM
@@ -277,7 +289,7 @@ void loop() {
     sendTelemetry();
   }
 
-  if (mcp2515.readMessage(&canMsg) == MCP2515::ERROR_OK && (canMsg.can_id == CAN_ID)) {
+  if (mcp2515.readMessage(&canMsg) == MCP2515::ERROR_OK) {
     time_data = time_cur;
 
     Debug.println("RECEIVED CANBUS DATA");
