@@ -1,8 +1,8 @@
 <map id="MCP2515::setConfigMode" name="MCP2515::setConfigMode">
-<area shape="rect" id="node1" title=" " alt="" coords="511,56,699,83"/>
+<area shape="rect" id="node1" title=" " alt="" coords="511,81,699,108"/>
 <area shape="rect" id="node2" href="$structMCP2515.html#a241625bd7b3ff5bc3deff7688b095d35" title=" " alt="" coords="296,5,451,32"/>
 <area shape="rect" id="node3" href="$structMCP2515.html#aac89e9e84bb70719f3af943584efbe0e" title=" " alt="" coords="301,56,445,83"/>
-<area shape="rect" id="node6" href="$structMCP2515.html#a4ecb1f510ead2fee02dcf368fdf18dfd" title=" " alt="" coords="284,107,463,133"/>
-<area shape="rect" id="node4" href="$structMCP2515.html#acc117f5538fcd2b00a18edf11382175a" title=" " alt="" coords="112,81,236,108"/>
 <area shape="rect" id="node5" href="$PicoLowLevel_8ino.html#a4fc01d736fe50cf5b977f755b675f11d" title=" " alt="" coords="5,81,64,108"/>
+<area shape="rect" id="node6" href="$structMCP2515.html#a4ecb1f510ead2fee02dcf368fdf18dfd" title=" " alt="" coords="284,107,463,133"/>
+<area shape="rect" id="node4" href="$structMCP2515.html#acc117f5538fcd2b00a18edf11382175a" title=" " alt="" coords="112,56,236,83"/>
 </map>

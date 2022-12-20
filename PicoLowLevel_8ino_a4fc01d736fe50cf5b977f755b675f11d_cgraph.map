@@ -1,5 +1,5 @@
 <map id="setup" name="setup">
-<area shape="rect" id="node1" title=" " alt="" coords="5,376,64,403"/>
+<area shape="rect" id="node1" title=" " alt="" coords="5,452,64,479"/>
 <area shape="rect" id="node2" href="$classDisplay.html#ab569d31751d87ab3bd70744532d33605" title=" " alt="" coords="154,5,269,32"/>
 <area shape="rect" id="node3" href="$structMCP2515.html#ac3e7e19c0fe33229eac91cba70b31b83" title=" " alt="" coords="148,56,275,83"/>
 <area shape="rect" id="node4" href="$classMotor.html#a8949ad244c546ecde601ec3d03403ed9" title="Initialize motors." alt="" coords="159,107,263,133"/>
@@ -9,16 +9,16 @@
 <area shape="rect" id="node9" href="$classDynamixelInterface.html#a3e4e3332de3d8d675d94a7cd1f6c647c" title=" " alt="" coords="136,310,287,351"/>
 <area shape="rect" id="node10" href="$PicoLowLevel_8ino.html#a463bd5e2d6006d3d57e5569bd7c8cea4" title=" " alt="" coords="160,376,263,403"/>
 <area shape="rect" id="node12" href="$PicoLowLevel_8ino.html#a7e5bd9686428496c0be42f11e557bd2b" title=" " alt="" coords="164,427,259,453"/>
-<area shape="rect" id="node14" href="$structMCP2515.html#acc117f5538fcd2b00a18edf11382175a" title=" " alt="" coords="149,477,273,504"/>
-<area shape="rect" id="node18" href="$structMCP2515.html#a18653c6d11e5bba734a1bd3b39268bb2" title=" " alt="" coords="134,528,289,555"/>
-<area shape="rect" id="node19" href="$classSerialDebug.html#ad55ccd7caae91b050455920991e512e4" title="Sets the level to be used for the debug." alt="" coords="129,579,293,605"/>
-<area shape="rect" id="node20" href="$structMCP2515.html#ac105b61f8336554451a8cb83d7f63548" title=" " alt="" coords="114,629,309,656"/>
-<area shape="rect" id="node21" href="$classDynamixelInterface.html#a092dd633e40a07b3ae4f06a4617ec0a3" title=" " alt="" coords="136,681,287,722"/>
-<area shape="rect" id="node22" href="$classPID.html#ab6c2a366f39cf53149b50216b300bdcd" title="Sets the reference value." alt="" coords="112,747,311,773"/>
+<area shape="rect" id="node14" href="$structMCP2515.html#acc117f5538fcd2b00a18edf11382175a" title=" " alt="" coords="149,528,273,555"/>
+<area shape="rect" id="node15" href="$structMCP2515.html#aac89e9e84bb70719f3af943584efbe0e" title=" " alt="" coords="376,528,520,555"/>
+<area shape="rect" id="node16" href="$structMCP2515.html#ab79662c2b46e623158f5f4119d340d69" title=" " alt="" coords="585,579,773,605"/>
+<area shape="rect" id="node17" href="$structMCP2515.html#a4ecb1f510ead2fee02dcf368fdf18dfd" title=" " alt="" coords="359,579,537,605"/>
+<area shape="rect" id="node18" href="$structMCP2515.html#a18653c6d11e5bba734a1bd3b39268bb2" title=" " alt="" coords="134,680,289,707"/>
+<area shape="rect" id="node19" href="$classSerialDebug.html#ad55ccd7caae91b050455920991e512e4" title="Sets the level to be used for the debug." alt="" coords="129,731,293,757"/>
+<area shape="rect" id="node20" href="$structMCP2515.html#ac105b61f8336554451a8cb83d7f63548" title=" " alt="" coords="114,781,309,808"/>
+<area shape="rect" id="node21" href="$classDynamixelInterface.html#a092dd633e40a07b3ae4f06a4617ec0a3" title=" " alt="" coords="136,833,287,874"/>
+<area shape="rect" id="node22" href="$classPID.html#ab6c2a366f39cf53149b50216b300bdcd" title="Sets the reference value." alt="" coords="112,899,311,925"/>
 <area shape="rect" id="node8" href="$classSerialDebug.html#a3d01753681fd740869da197b2fa772b0" title="Sends a string to the Serial port with a debug level, only if it is lower than the setted one." alt="" coords="610,233,749,260"/>
 <area shape="rect" id="node11" href="$classDisplay.html#a5c28101c672878132e2ce5772ed93588" title="NAV button ISR." alt="" coords="369,376,527,403"/>
 <area shape="rect" id="node13" href="$classDisplay.html#aa9a7e82a5611d737c618a2f1cab7812a" title="OK button ISR." alt="" coords="373,427,523,453"/>
-<area shape="rect" id="node15" href="$structMCP2515.html#aac89e9e84bb70719f3af943584efbe0e" title=" " alt="" coords="376,477,520,504"/>
-<area shape="rect" id="node17" href="$structMCP2515.html#a4ecb1f510ead2fee02dcf368fdf18dfd" title=" " alt="" coords="359,528,537,555"/>
-<area shape="rect" id="node16" href="$structMCP2515.html#ab79662c2b46e623158f5f4119d340d69" title=" " alt="" coords="585,503,773,529"/>
 </map>
