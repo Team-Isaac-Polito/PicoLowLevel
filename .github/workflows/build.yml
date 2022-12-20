@@ -19,14 +19,12 @@ jobs:
     
     steps:
     
-    - uses: actions/checkout@v3
-      with:
-        ref: refs/heads/main
+    - name: Checkout repository
+      uses: actions/checkout@v3
     
     - name: Install arduino-cli
-      run: |
-        curl -fsSL https://raw.githubusercontent.com/arduino/arduino-cli/master/install.sh | BINDIR=/usr/local/bin sh
-    
+      uses: arduino/setup-arduino-cli@v1
+     
     - name: Install libraries
       run: |
         arduino-cli lib install "${{ matrix.libraries }}"
