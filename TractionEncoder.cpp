@@ -53,7 +53,7 @@ void TractionEncoder::ISR() {
     bool ccw = val_b ^ old_a;
     
     // increase steps for ccw, decrease for cw
-    countSteps += ccw ? +1 : -1;
+    countSteps += ccw ? -1 : +1;
 }
 
 /**
