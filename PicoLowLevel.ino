@@ -195,7 +195,7 @@ void setup() {
   // CAN initialization
   mcp2515.begin();
   mcp2515.reset();
-  mcp2515.setBitrate(CAN_1000KBPS, MCP_8MHZ);
+  mcp2515.setBitrate(CAN_125KBPS, MCP_8MHZ);
 
   mcp2515.setConfigMode(); // tell the MCP2515 next instructions are for configuration
   // enable filtering for 11 bit address on both RX buffers
