@@ -17,6 +17,7 @@ PID::PID(float kp, float ki, float kd, float max_output, float alpha) {
 
   old_integral = 0;
   old_fe = 0;
+  old_error = 0;
   tempo = millis();
 }
 
@@ -81,6 +82,7 @@ float PID::getReferenceValue() {
  */
 void PID::resetState() {
   old_fe = 0.f;
+  old_error = 0.f;
   old_integral = 0.f;
 }
 
@@ -89,10 +91,10 @@ void PID::resetState() {
  * Should be executed at a fixed frequency, which will influence the behaviour for a given set of gains.
  */
 void PID::calculate() {
-  unsigned long dt;
+  float dt;
   float error, fe, derivative, integral;
   
-  dt = millis() - tempo; // sarà fatto a frequenza fissata, andrà eliminato e magari aggiunto come parametro al costruttore
+  dt = (float)(millis() - tempo) / 1000.f; // sarà fatto a frequenza fissata, andrà eliminato e magari aggiunto come parametro al costruttore
 
   // e[k] = r[k] - y[k], error between setpoint and true position
   error = referenceValue - feedback;
@@ -104,11 +106,11 @@ void PID::calculate() {
   derivative = (fe - old_fe) / dt;
   
   // e_i[k+1] = e_i[k] + Tₛ e[k], integral
-  integral = old_integral + error * dt;
+  integral = old_integral + ki * old_error * dt;
 
   // PID formula:
   // u[k] = Kp e[k] + Ki e_i[k] + Kd e_d[k], control signal
-  output = referenceValue + kp * error + ki * integral + kd * derivative;
+  output = referenceValue + kp * error + integral + kd * derivative;
 
   // Clamp the output
   if (output > max_output)
@@ -119,6 +121,7 @@ void PID::calculate() {
     old_integral = integral;
 
   // store the state for the next iteration
+  old_error = error;
   old_fe = fe;
   tempo = millis();
 }

@@ -23,7 +23,7 @@ class PID {
     float kp, ki, kd; // gains
     float max_output, alpha; // constants
     float referenceValue, output, feedback; // variables
-    float old_fe, old_integral; // state
+    float old_fe, old_integral, old_error; // state
     unsigned long tempo;
 };
 
