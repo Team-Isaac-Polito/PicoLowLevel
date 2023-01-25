@@ -27,9 +27,6 @@ void TractionEncoder::begin() {
 int TractionEncoder::getSpeed() {
     long rpm;
 
-    Debug.print("TRACTIONENCODER - Steps Counted  ", Levels::DEBUG);
-    Debug.println(countSteps, Levels::DEBUG);
-
     noInterrupts();     // AG INIZIO operazione atomica - non può essere interrotta da interrupt
     rpm = countSteps;
     countSteps = 0;
@@ -37,9 +34,6 @@ int TractionEncoder::getSpeed() {
 
     // check definitions.h to understand what the constant is
     rpm = rpm * ENC_TR_CONVERSION / (long)(micros()-time);
-  
-    Debug.print("TRACTIONENCODER - Calculated RPM  ", Levels::DEBUG);
-    Debug.println(rpm, Levels::DEBUG);
 
     time = micros();
 
