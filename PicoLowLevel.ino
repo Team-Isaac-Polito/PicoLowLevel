@@ -140,7 +140,7 @@ void updatePID() {
   Debug.println("--------------------------------------------");
 
   // RIGHT TRACTION PID
-  speed = encoderTrRight.getSpeed();
+  speed = - encoderTrRight.getSpeed(); // invert
   Debug.print("RIGHT ENCODER \t ");
   Debug.println(speed);
   Debug.print("RIGHT REF VAL ");
@@ -149,7 +149,7 @@ void updatePID() {
   pidTrRight.updateFeedback(speed);
   pidTrRight.calculate();
   
-  outPid = pidTrRight.getOutput() * RPM_TO_PWM;
+  outPid = - pidTrRight.getOutput() * RPM_TO_PWM; // invert
   //if (abs(outPid) < 120) outPid = 0;
 
   motorTrRight.write(outPid);
@@ -307,7 +307,7 @@ void loop() {
         break;
       case DATA_TRACTION_RIGHT:
         data = canMsg.data[1] | canMsg.data[2]<<8;
-        data = -data; // one side needs to rotate on the opposite direction
+        // data = -data; // one side needs to rotate on the opposite direction
         // motorTrRight.write(data);
         pidTrRight.updateReferenceValue(data);
         
