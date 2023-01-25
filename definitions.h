@@ -3,7 +3,7 @@
 
 // Main loop timings
 #define DT_BAT 1000   // 1000ms / 1000 = 1 Hz
-#define DT_PID 20     // 1000ms / 20   = 50 Hz
+#define DT_PID 10     // 1000ms / 100   = 100 Hz
 #define DT_TEL 10     // 1000ms / 10   = 100 Hz
 
 // PWM configuration
@@ -63,8 +63,8 @@
 #define PID_YAW_MAX_OUTPUT	1023
 #define PID_YAW_EMA_ALPHA	.5
 
-#define PID_TR_KP			0.1
-#define PID_TR_KI			0.0
+#define PID_TR_KP			0.25
+#define PID_TR_KI			5.0
 #define PID_TR_KD			0.0
 #define PID_TR_MAX_OUTPUT	6500
 #define PID_TR_EMA_ALPHA	1
