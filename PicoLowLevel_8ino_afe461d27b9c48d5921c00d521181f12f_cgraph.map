@@ -1,24 +1,24 @@
 <map id="loop" name="loop">
-<area shape="rect" id="node1" title=" " alt="" coords="5,385,56,412"/>
-<area shape="rect" id="node2" href="$classBattery.html#ab738945fc3d54086b6afa6e8ba21c513" title="Check the battery charge status." alt="" coords="139,5,268,32"/>
-<area shape="rect" id="node3" href="$classBattery.html#a63577a5d458094efc4d24a00f052682b" title="Reads the current battery voltage." alt="" coords="371,31,525,57"/>
-<area shape="rect" id="node4" href="$classWebManagement.html#a48b2f695f7445b7628119b630447123e" title=" " alt="" coords="109,107,297,133"/>
-<area shape="rect" id="node5" href="$classDisplay.html#a3fa755683f0e28cfc689f35e7f8257b8" title="Handles display via recorded interrupts." alt="" coords="130,157,277,184"/>
-<area shape="rect" id="node6" href="$classSerialDebug.html#a3d01753681fd740869da197b2fa772b0" title="Sends a string to the Serial port with a debug level, only if it is lower than the setted one." alt="" coords="792,284,931,311"/>
-<area shape="rect" id="node7" href="$classSerialDebug.html#a153ed172ea7eefd852292af7561ff961" title="Sends a line to the serial port with a debug level, only if it is lower than the setted one." alt="" coords="593,309,744,336"/>
-<area shape="rect" id="node8" href="$structMCP2515.html#a5cba1b20e3055c7ff9aa7510d035302b" title=" " alt="" coords="114,487,293,513"/>
-<area shape="rect" id="node9" href="$PicoLowLevel_8ino.html#a8f9fa76a93541264f22c8f23f3fc1631" title=" " alt="" coords="144,259,263,285"/>
-<area shape="rect" id="node13" href="$classPID.html#a21a14d1fef2157417124a9445cdbe58e" title="Sets the derivative gain." alt="" coords="159,537,248,564"/>
-<area shape="rect" id="node14" href="$classPID.html#a51fdda77a492d1a303fbb3ac44bd7e54" title="Sets the integrative gain." alt="" coords="161,588,246,615"/>
-<area shape="rect" id="node15" href="$classPID.html#a96b79772d13f60d161149be254ab6ff5" title="Sets the proportional gain." alt="" coords="159,639,248,665"/>
-<area shape="rect" id="node16" href="$PicoLowLevel_8ino.html#a8b77b83a1d03b08c93bdab6e3917a70b" title=" " alt="" coords="159,385,248,412"/>
-<area shape="rect" id="node22" href="$classPID.html#ab6c2a366f39cf53149b50216b300bdcd" title="Sets the reference value." alt="" coords="104,689,303,716"/>
-<area shape="rect" id="node10" href="$classTractionEncoder.html#a2c414262e6a923fe180d51197fc9bf5b" title="Computes and returns the last detected speed." alt="" coords="351,259,545,285"/>
-<area shape="rect" id="node11" href="$PicoLowLevel_8ino.html#a8525066812661764db35342986352875" title=" " alt="" coords="393,208,503,235"/>
-<area shape="rect" id="node12" href="$structMCP2515.html#a20201611f703db6b6c98bae03a3018ee" title=" " alt="" coords="358,157,538,184"/>
-<area shape="rect" id="node17" href="$classPID.html#a2d1e271496506301a6f22d0418aa0cc0" title="Main PID routine." alt="" coords="393,360,503,387"/>
-<area shape="rect" id="node18" href="$classPID.html#a266f60cce93632141002987d5d67d0cc" title="Gets output computed from the last iteration of calculate()" alt="" coords="389,411,507,437"/>
-<area shape="rect" id="node19" href="$classPID.html#a7162d3b89da5a9d4b3d75011b0b57c63" title="Gets the currently used reference value." alt="" coords="361,461,535,488"/>
-<area shape="rect" id="node20" href="$classPID.html#a33f657a6cce4f57302f90bec9664d294" title="Updates the feedback for PID computation." alt="" coords="369,512,527,539"/>
-<area shape="rect" id="node21" href="$classMotor.html#a59dc38671f171be3097b3d84ddf1180e" title="Sets the motor speed." alt="" coords="397,563,499,589"/>
+<area shape="rect" id="node1" title=" " alt="" coords="5,312,56,339"/>
+<area shape="rect" id="node2" href="$classBattery.html#ab738945fc3d54086b6afa6e8ba21c513" title="Check the battery charge status." alt="" coords="139,59,268,86"/>
+<area shape="rect" id="node3" href="$classBattery.html#a63577a5d458094efc4d24a00f052682b" title="Reads the current battery voltage." alt="" coords="371,34,525,60"/>
+<area shape="rect" id="node4" href="$classWebManagement.html#a48b2f695f7445b7628119b630447123e" title=" " alt="" coords="109,110,297,136"/>
+<area shape="rect" id="node5" href="$classDisplay.html#a3fa755683f0e28cfc689f35e7f8257b8" title="Handles display via recorded interrupts." alt="" coords="130,160,277,187"/>
+<area shape="rect" id="node6" href="$classSerialDebug.html#a3d01753681fd740869da197b2fa772b0" title="Sends a string to the Serial port with a debug level, only if it is lower than the setted one." alt="" coords="593,414,732,440"/>
+<area shape="rect" id="node7" href="$classSerialDebug.html#a153ed172ea7eefd852292af7561ff961" title="Sends a line to the serial port with a debug level, only if it is lower than the setted one." alt="" coords="373,414,523,440"/>
+<area shape="rect" id="node8" href="$structMCP2515.html#a5cba1b20e3055c7ff9aa7510d035302b" title=" " alt="" coords="114,312,293,339"/>
+<area shape="rect" id="node9" href="$PicoLowLevel_8ino.html#a8f9fa76a93541264f22c8f23f3fc1631" title=" " alt="" coords="144,262,263,288"/>
+<area shape="rect" id="node13" href="$classPID.html#a21a14d1fef2157417124a9445cdbe58e" title="Sets the derivative gain." alt="" coords="159,414,248,440"/>
+<area shape="rect" id="node14" href="$classPID.html#a51fdda77a492d1a303fbb3ac44bd7e54" title="Sets the integrative gain." alt="" coords="161,464,246,491"/>
+<area shape="rect" id="node15" href="$classPID.html#a96b79772d13f60d161149be254ab6ff5" title="Sets the proportional gain." alt="" coords="159,515,248,542"/>
+<area shape="rect" id="node16" href="$PicoLowLevel_8ino.html#a8b77b83a1d03b08c93bdab6e3917a70b" title=" " alt="" coords="159,566,248,592"/>
+<area shape="rect" id="node22" href="$classPID.html#ab6c2a366f39cf53149b50216b300bdcd" title="Sets the reference value." alt="" coords="104,616,303,643"/>
+<area shape="rect" id="node10" href="$classTractionEncoder.html#a2c414262e6a923fe180d51197fc9bf5b" title="Computes and returns the last detected speed." alt="" coords="351,363,545,390"/>
+<area shape="rect" id="node11" href="$PicoLowLevel_8ino.html#a8525066812661764db35342986352875" title=" " alt="" coords="393,262,503,288"/>
+<area shape="rect" id="node12" href="$structMCP2515.html#a20201611f703db6b6c98bae03a3018ee" title=" " alt="" coords="358,312,538,339"/>
+<area shape="rect" id="node17" href="$classPID.html#a2d1e271496506301a6f22d0418aa0cc0" title="Main PID routine." alt="" coords="393,515,503,542"/>
+<area shape="rect" id="node18" href="$classPID.html#a266f60cce93632141002987d5d67d0cc" title="Gets output computed from the last iteration of calculate()" alt="" coords="389,566,507,592"/>
+<area shape="rect" id="node19" href="$classPID.html#a7162d3b89da5a9d4b3d75011b0b57c63" title="Gets the currently used reference value." alt="" coords="361,616,535,643"/>
+<area shape="rect" id="node20" href="$classPID.html#a33f657a6cce4f57302f90bec9664d294" title="Updates the feedback for PID computation." alt="" coords="369,667,527,694"/>
+<area shape="rect" id="node21" href="$classMotor.html#a59dc38671f171be3097b3d84ddf1180e" title="Sets the motor speed." alt="" coords="397,718,499,744"/>
 </map>

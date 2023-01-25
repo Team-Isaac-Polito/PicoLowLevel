@@ -4,8 +4,8 @@
 <area shape="rect" id="node3" href="$classPID.html#a266f60cce93632141002987d5d67d0cc" title="Gets output computed from the last iteration of calculate()" alt="" coords="181,56,299,83"/>
 <area shape="rect" id="node4" href="$classPID.html#a7162d3b89da5a9d4b3d75011b0b57c63" title="Gets the currently used reference value." alt="" coords="153,107,327,133"/>
 <area shape="rect" id="node5" href="$classTractionEncoder.html#a2c414262e6a923fe180d51197fc9bf5b" title="Computes and returns the last detected speed." alt="" coords="143,157,337,184"/>
-<area shape="rect" id="node6" href="$classSerialDebug.html#a3d01753681fd740869da197b2fa772b0" title="Sends a string to the Serial port with a debug level, only if it is lower than the setted one." alt="" coords="584,208,723,235"/>
-<area shape="rect" id="node7" href="$classSerialDebug.html#a153ed172ea7eefd852292af7561ff961" title="Sends a line to the serial port with a debug level, only if it is lower than the setted one." alt="" coords="385,208,536,235"/>
+<area shape="rect" id="node6" href="$classSerialDebug.html#a3d01753681fd740869da197b2fa772b0" title="Sends a string to the Serial port with a debug level, only if it is lower than the setted one." alt="" coords="385,233,524,260"/>
+<area shape="rect" id="node7" href="$classSerialDebug.html#a153ed172ea7eefd852292af7561ff961" title="Sends a line to the serial port with a debug level, only if it is lower than the setted one." alt="" coords="165,259,315,285"/>
 <area shape="rect" id="node8" href="$classPID.html#a33f657a6cce4f57302f90bec9664d294" title="Updates the feedback for PID computation." alt="" coords="161,309,319,336"/>
-<area shape="rect" id="node9" href="$classMotor.html#a59dc38671f171be3097b3d84ddf1180e" title="Sets the motor speed." alt="" coords="189,259,291,285"/>
+<area shape="rect" id="node9" href="$classMotor.html#a59dc38671f171be3097b3d84ddf1180e" title="Sets the motor speed." alt="" coords="189,360,291,387"/>
 </map>
