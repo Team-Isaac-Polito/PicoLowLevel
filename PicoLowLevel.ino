@@ -157,6 +157,7 @@ void updatePID() {
   Debug.println(outPid);
 
   // YAW PID
+  /*
 #ifdef MODC_YAW    
   // yaw setting
   encoderYaw.update();
@@ -178,6 +179,7 @@ void updatePID() {
   Debug.print("YAW MOTOR ");
   Debug.println(outPid);
 #endif
+*/
 }
 
 void setup() {
