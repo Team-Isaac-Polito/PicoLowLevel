@@ -16,12 +16,13 @@ var NAVTREEINDEX1 =
 "classWebManagement.html#aa205ddf55b474746f2dcdad37385d202":[0,0,12,0],
 "classes.html":[0,1],
 "communication_8h.html":[1,0,8],
+"communication_8h.html#a0597437dbefe23cacdf2592e1df52113":[1,0,8,17],
 "communication_8h.html#a0afb8e66d305d4422ac456b3cd840f8c":[1,0,8,5],
 "communication_8h.html#a0dc4b4c4cf22856a3c4bbd4a1d55d7b3":[1,0,8,9],
 "communication_8h.html#a1d8516b173ec48a4bdc64cf872d3250e":[1,0,8,14],
 "communication_8h.html#a267d58bcabe2e0e01d1b8cd6b47aff34":[1,0,8,8],
 "communication_8h.html#a2e1dd9cdd658caf756722b974daddf29":[1,0,8,4],
-"communication_8h.html#a33ed98285c68b920fa0f5cb77d49edff":[1,0,8,17],
+"communication_8h.html#a4ece8fde36212f4761976e2af1c239f3":[1,0,8,18],
 "communication_8h.html#a5e703fdccab881a1badce143dc2b65b9":[1,0,8,0],
 "communication_8h.html#a763a6940e35150823423fb05b74d915d":[1,0,8,16],
 "communication_8h.html#a7f98c79059221d788e2219865d770648":[1,0,8,13],
@@ -248,6 +249,5 @@ var NAVTREEINDEX1 =
 "mcp2515_8h.html#aa8fed03556b761bec23b3cc0942ae9e8":[1,0,18,57],
 "mcp2515_8h.html#aa90b9ab337f86a17be3e1156f65fbd1b":[1,0,18,110],
 "mcp2515_8h.html#ab3d10733e569cbff26e7ba9491580711":[1,0,18,36],
-"mcp2515_8h.html#ab5971037ca6bea4ff6992060b9c535a9":[1,0,18,46],
-"mcp2515_8h.html#ab710df1b078494c80ba5a4f16de46d46":[1,0,18,64]
+"mcp2515_8h.html#ab5971037ca6bea4ff6992060b9c535a9":[1,0,18,46]
 };
