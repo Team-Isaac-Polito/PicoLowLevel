@@ -10,7 +10,8 @@
 
 #define SEND_STATUS                 0x05                
 #define SEND_IMU_DATA               0x06
-#define SEND_YAW_ENCODER            0x07    
+#define SEND_YAW_ENCODER_MIDDLE     0x07
+#define SEND_YAW_ENCODER_TAIL       0x13    
 #define SEND_TRACTION_LEFT_SPEED    0x08 
 #define SEND_TRACTION_RIGHT_SPEED   0x09            
 #define SEND_BATTERY_VOLTAGE        0x0A
