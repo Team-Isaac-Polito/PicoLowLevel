@@ -21,12 +21,12 @@
 
 #elif defined(MOD_MIDDLE)
 #define CAN_ID    0x16  // MIDDLE
-// #define MODC_YAW
+#define MODC_YAW
 #define ABS_ENC_OFFSET 285 // TODO
 
 #elif defined(MOD_TAIL)
 #define CAN_ID    0x17  // TAIL
-// #define MODC_YAW
+#define MODC_YAW
 #define MODC_PITCH
 #define SERVO_A_ID 5
 #define SERVO_B_ID 6
