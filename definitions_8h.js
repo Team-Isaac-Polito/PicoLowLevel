@@ -22,6 +22,7 @@ var definitions_8h =
     [ "DRV_YAW_DIR", "definitions_8h.html#aad0b3e0c09b139f4c378a826d2a6980e", null ],
     [ "DRV_YAW_PWM", "definitions_8h.html#afe165eb2f8497769312ae454b8e82df5", null ],
     [ "DT_BAT", "definitions_8h.html#a14ecb7bd497a342b8949427c46c0fa63", null ],
+    [ "DT_ENC", "definitions_8h.html#a2b3326f739c5e9bcce0dc5c4c2fd822c", null ],
     [ "DT_PID", "definitions_8h.html#aac0da386ac4ac42189aee8271d1df9ec", null ],
     [ "DT_TEL", "definitions_8h.html#a026d8cbe0fadeab497a924a902dfb38a", null ],
     [ "ENC_TR_CONVERSION", "definitions_8h.html#a589af76c46d65dc478da492d8b6326b8", null ],

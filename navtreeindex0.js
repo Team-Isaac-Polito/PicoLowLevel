@@ -69,10 +69,11 @@ var NAVTREEINDEX0 =
 "PID_8h.html":[1,0,24],
 "PID_8h_source.html":[1,0,24],
 "PicoLowLevel_8ino.html":[1,0,22],
-"PicoLowLevel_8ino.html#a04622adaa5e072a2c1298d265a7b8a62":[1,0,22,19],
-"PicoLowLevel_8ino.html#a11434e0ef972655cb88995982b0c455c":[1,0,22,20],
-"PicoLowLevel_8ino.html#a144e2695164737d1fc740583c2b62fe3":[1,0,22,21],
+"PicoLowLevel_8ino.html#a04622adaa5e072a2c1298d265a7b8a62":[1,0,22,20],
+"PicoLowLevel_8ino.html#a11434e0ef972655cb88995982b0c455c":[1,0,22,21],
+"PicoLowLevel_8ino.html#a144e2695164737d1fc740583c2b62fe3":[1,0,22,22],
 "PicoLowLevel_8ino.html#a148c1bbc1eb3240bf28172ae5d9bc0b8":[1,0,22,10],
+"PicoLowLevel_8ino.html#a2d01d438b50cc6db75123591456ec000":[1,0,22,19],
 "PicoLowLevel_8ino.html#a30b4803eb13744e75e38327f0fdc0a53":[1,0,22,16],
 "PicoLowLevel_8ino.html#a364504b937401ea7af55419b785d2552":[1,0,22,9],
 "PicoLowLevel_8ino.html#a38308b86a3aa53b89c5c6c861e5aebe2":[1,0,22,15],
@@ -86,8 +87,8 @@ var NAVTREEINDEX0 =
 "PicoLowLevel_8ino.html#a8b77b83a1d03b08c93bdab6e3917a70b":[1,0,22,6],
 "PicoLowLevel_8ino.html#a8f9fa76a93541264f22c8f23f3fc1631":[1,0,22,4],
 "PicoLowLevel_8ino.html#aa5083e8fab8ddaf62944949e251663bb":[1,0,22,8],
-"PicoLowLevel_8ino.html#aaa722e883eaa5b32796aa17a38a9616b":[1,0,22,22],
-"PicoLowLevel_8ino.html#ab59f34ca642eafe4c57b5a58d5e1ee4d":[1,0,22,23],
+"PicoLowLevel_8ino.html#aaa722e883eaa5b32796aa17a38a9616b":[1,0,22,23],
+"PicoLowLevel_8ino.html#ab59f34ca642eafe4c57b5a58d5e1ee4d":[1,0,22,24],
 "PicoLowLevel_8ino.html#abdddc61832fa5b690fa53906a61025b3":[1,0,22,17],
 "PicoLowLevel_8ino.html#acc50c1424cde2d478085d4006d6d3ae1":[1,0,22,14],
 "PicoLowLevel_8ino.html#af3d232fd7a3ac5e87760e907b8a916a4":[1,0,22,12],
@@ -248,6 +249,5 @@ var NAVTREEINDEX0 =
 "classSerialDebug.html#a153ed172ea7eefd852292af7561ff961":[0,0,10,7],
 "classSerialDebug.html#a35e40ba1b4bcb750acbdbd9636f67cf0":[0,0,10,5],
 "classSerialDebug.html#a3d01753681fd740869da197b2fa772b0":[0,0,10,3],
-"classSerialDebug.html#a3d5743721fba4fcd4f0cbe50ec98a6a6":[0,0,10,4],
-"classSerialDebug.html#a3f2b219ccc37935479be550438af3ce9":[0,0,10,1]
+"classSerialDebug.html#a3d5743721fba4fcd4f0cbe50ec98a6a6":[0,0,10,4]
 };

@@ -97,24 +97,27 @@ $(document).ready(function(){initNavTree('TractionEncoder_8h_source.html',''); i
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;  <span class="keyword">public</span>:</div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    <a class="code" href="classTractionEncoder.html#a142b64f71aaf0dbf5f62a1aa6ddb90c0">TractionEncoder</a>(<span class="keywordtype">byte</span> pin_a, <span class="keywordtype">byte</span> pin_b);</div>
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classTractionEncoder.html#a3b38935e97776ddcebdeb2c394f6d48d">begin</a>();</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    <span class="keywordtype">int</span> <a class="code" href="classTractionEncoder.html#a2c414262e6a923fe180d51197fc9bf5b">getSpeed</a>();</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;  <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    <span class="keywordtype">byte</span> pin_a, pin_b;</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    <span class="keywordtype">bool</span> old_a;</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    <span class="keywordtype">long</span> countSteps;</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> time;</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <span class="keywordtype">void</span> ISR();</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> ISR_wrapper(<a class="code" href="classTractionEncoder.html">TractionEncoder</a>* te);</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;};</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classTractionEncoder.html#a6d70ace18f1dcec4d0ddddf84ad48343">update</a>();</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    <span class="keywordtype">int</span> <a class="code" href="classTractionEncoder.html#a2c414262e6a923fe180d51197fc9bf5b">getSpeed</a>();</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;  <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    <span class="keywordtype">byte</span> pin_a, pin_b;</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    <span class="keywordtype">bool</span> old_a;</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    <span class="keywordtype">long</span> countSteps;</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> time;</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <span class="keywordtype">int</span> speed;</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <span class="keywordtype">void</span> ISR();</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> ISR_wrapper(<a class="code" href="classTractionEncoder.html">TractionEncoder</a>* te);</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;};</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="ttc" id="aDebug_8h_html"><div class="ttname"><a href="Debug_8h.html">Debug.h</a></div></div>
 <div class="ttc" id="aclassTractionEncoder_html"><div class="ttname"><a href="classTractionEncoder.html">TractionEncoder</a></div><div class="ttdoc">Class used to read data from traction rotary encoders.</div><div class="ttdef"><b>Definition:</b> TractionEncoder.h:12</div></div>
 <div class="ttc" id="aclassTractionEncoder_html_a142b64f71aaf0dbf5f62a1aa6ddb90c0"><div class="ttname"><a href="classTractionEncoder.html#a142b64f71aaf0dbf5f62a1aa6ddb90c0">TractionEncoder::TractionEncoder</a></div><div class="ttdeci">TractionEncoder(byte pin_a, byte pin_b)</div><div class="ttdoc">Creates object.</div><div class="ttdef"><b>Definition:</b> TractionEncoder.cpp:6</div></div>
-<div class="ttc" id="aclassTractionEncoder_html_a2c414262e6a923fe180d51197fc9bf5b"><div class="ttname"><a href="classTractionEncoder.html#a2c414262e6a923fe180d51197fc9bf5b">TractionEncoder::getSpeed</a></div><div class="ttdeci">int getSpeed()</div><div class="ttdoc">Computes and returns the last detected speed.</div><div class="ttdef"><b>Definition:</b> TractionEncoder.cpp:27</div></div>
+<div class="ttc" id="aclassTractionEncoder_html_a2c414262e6a923fe180d51197fc9bf5b"><div class="ttname"><a href="classTractionEncoder.html#a2c414262e6a923fe180d51197fc9bf5b">TractionEncoder::getSpeed</a></div><div class="ttdeci">int getSpeed()</div><div class="ttdoc">Returns the last detected speed.</div><div class="ttdef"><b>Definition:</b> TractionEncoder.cpp:47</div></div>
 <div class="ttc" id="aclassTractionEncoder_html_a3b38935e97776ddcebdeb2c394f6d48d"><div class="ttname"><a href="classTractionEncoder.html#a3b38935e97776ddcebdeb2c394f6d48d">TractionEncoder::begin</a></div><div class="ttdeci">void begin()</div><div class="ttdoc">Sets the encoder's pins and attach the interrupt.</div><div class="ttdef"><b>Definition:</b> TractionEncoder.cpp:16</div></div>
+<div class="ttc" id="aclassTractionEncoder_html_a6d70ace18f1dcec4d0ddddf84ad48343"><div class="ttname"><a href="classTractionEncoder.html#a6d70ace18f1dcec4d0ddddf84ad48343">TractionEncoder::update</a></div><div class="ttdeci">void update()</div><div class="ttdoc">Computes and updates the encoder detected speed.</div><div class="ttdef"><b>Definition:</b> TractionEncoder.cpp:26</div></div>
 <div class="ttc" id="adefinitions_8h_html"><div class="ttname"><a href="definitions_8h.html">definitions.h</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->

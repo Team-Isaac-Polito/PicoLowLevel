@@ -37,11 +37,12 @@ var searchData=
   ['drv_5fyaw_5fdir_176',['DRV_YAW_DIR',['../definitions_8h.html#aad0b3e0c09b139f4c378a826d2a6980e',1,'definitions.h']]],
   ['drv_5fyaw_5fpwm_177',['DRV_YAW_PWM',['../definitions_8h.html#afe165eb2f8497769312ae454b8e82df5',1,'definitions.h']]],
   ['dt_5fbat_178',['DT_BAT',['../definitions_8h.html#a14ecb7bd497a342b8949427c46c0fa63',1,'definitions.h']]],
-  ['dt_5fpid_179',['DT_PID',['../definitions_8h.html#aac0da386ac4ac42189aee8271d1df9ec',1,'definitions.h']]],
-  ['dt_5ftel_180',['DT_TEL',['../definitions_8h.html#a026d8cbe0fadeab497a924a902dfb38a',1,'definitions.h']]],
-  ['dynamixel_181',['Dynamixel',['../DynamixelSerial_8cpp.html#a1a1d486c65f90073af6761706a8dfbad',1,'Dynamixel():&#160;DynamixelSerial.cpp'],['../DynamixelSerial_8h.html#a1a1d486c65f90073af6761706a8dfbad',1,'Dynamixel():&#160;DynamixelSerial.cpp']]],
-  ['dynamixelinterface_182',['DynamixelInterface',['../classDynamixelInterface.html',1,'']]],
-  ['dynamixelmotor_183',['DynamixelMotor',['../classDynamixelMotor.html#a8520f929d10b94b28323f698fd644e66',1,'DynamixelMotor::DynamixelMotor()'],['../classDynamixelMotor.html',1,'DynamixelMotor']]],
-  ['dynamixelserial_2ecpp_184',['DynamixelSerial.cpp',['../DynamixelSerial_8cpp.html',1,'']]],
-  ['dynamixelserial_2eh_185',['DynamixelSerial.h',['../DynamixelSerial_8h.html',1,'']]]
+  ['dt_5fenc_179',['DT_ENC',['../definitions_8h.html#a2b3326f739c5e9bcce0dc5c4c2fd822c',1,'definitions.h']]],
+  ['dt_5fpid_180',['DT_PID',['../definitions_8h.html#aac0da386ac4ac42189aee8271d1df9ec',1,'definitions.h']]],
+  ['dt_5ftel_181',['DT_TEL',['../definitions_8h.html#a026d8cbe0fadeab497a924a902dfb38a',1,'definitions.h']]],
+  ['dynamixel_182',['Dynamixel',['../DynamixelSerial_8cpp.html#a1a1d486c65f90073af6761706a8dfbad',1,'Dynamixel():&#160;DynamixelSerial.cpp'],['../DynamixelSerial_8h.html#a1a1d486c65f90073af6761706a8dfbad',1,'Dynamixel():&#160;DynamixelSerial.cpp']]],
+  ['dynamixelinterface_183',['DynamixelInterface',['../classDynamixelInterface.html',1,'']]],
+  ['dynamixelmotor_184',['DynamixelMotor',['../classDynamixelMotor.html#a8520f929d10b94b28323f698fd644e66',1,'DynamixelMotor::DynamixelMotor()'],['../classDynamixelMotor.html',1,'DynamixelMotor']]],
+  ['dynamixelserial_2ecpp_185',['DynamixelSerial.cpp',['../DynamixelSerial_8cpp.html',1,'']]],
+  ['dynamixelserial_2eh_186',['DynamixelSerial.h',['../DynamixelSerial_8h.html',1,'']]]
 ];
