@@ -18,6 +18,7 @@ int time_pid = 0;
 int time_bat = 0;
 int time_tel = 0;
 int time_data = 0;
+int time_enc = 0;
 int time_pid_avg = DT_PID;
 int time_tel_avg = DT_TEL;
 
@@ -275,6 +276,12 @@ void loop() {
     time_pid_avg = (time_pid_avg + (time_cur - time_pid)) / 2;
     time_pid = time_cur;
     updatePID();
+  }
+
+  if (time_cur - time_enc >= DT_ENC) {
+    time_enc = time_cur;
+    encoderTrRight.update();
+    encoderTrLeft.update();
   }
 
   // health checks

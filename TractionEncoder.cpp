@@ -21,10 +21,9 @@ void TractionEncoder::begin() {
 }
 
 /**
- * Computes and returns the last detected speed.
- * @return The speed in centiRPMs.
+ * Computes and updates the encoder detected speed.
  */
-int TractionEncoder::getSpeed() {
+void TractionEncoder::update() {
     long rpm;
 
     noInterrupts();     // AG INIZIO operazione atomica - non può essere interrotta da interrupt
@@ -37,7 +36,16 @@ int TractionEncoder::getSpeed() {
 
     time = micros();
 
-    return rpm; 
+    speed = rpm;
+}
+
+
+/**
+ * Returns the last detected speed.
+ * @return The speed in centiRPMs.
+ */
+int TractionEncoder::getSpeed() {
+    return speed;
 }
 
 /**

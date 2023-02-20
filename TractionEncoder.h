@@ -13,6 +13,7 @@ class TractionEncoder {
   public:
     TractionEncoder(byte pin_a, byte pin_b);
     void begin();
+    void update();
     int getSpeed();
 
   private:
@@ -20,6 +21,7 @@ class TractionEncoder {
     bool old_a;
     long countSteps;
     unsigned long time;
+    int speed;
 
     void ISR();
     static void ISR_wrapper(TractionEncoder* te);
