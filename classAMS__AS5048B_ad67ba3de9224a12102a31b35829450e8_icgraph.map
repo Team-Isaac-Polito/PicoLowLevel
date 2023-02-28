@@ -1,0 +1,4 @@
+<map id="AMS_AS5048B::setZeroReg" name="AMS_AS5048B::setZeroReg">
+<area shape="rect" id="node1" title="sets current angle as the zero position" alt="" coords="243,5,441,32"/>
+<area shape="rect" id="node2" href="$classAbsoluteEncoder.html#a26b4493f44904d31dab6f5fd3e9c734e" title="Sets the encoder current position to zero." alt="" coords="5,5,195,32"/>
+</map>
