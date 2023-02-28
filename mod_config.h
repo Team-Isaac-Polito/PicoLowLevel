@@ -24,7 +24,6 @@
 #elif defined(MOD_MIDDLE)
 #define CAN_ID    0x16  // MIDDLE
 #define MODC_YAW
-#define ABS_ENC_OFFSET 285 // TODO
 #define SEND_TRACTION_LEFT_SPEED    0x14
 #define SEND_TRACTION_RIGHT_SPEED   0x15
 
@@ -39,8 +38,6 @@
 #define SERVO_SPEED 200
 #define SEND_TRACTION_LEFT_SPEED    0x16
 #define SEND_TRACTION_RIGHT_SPEED   0x17
-
-#define ABS_ENC_OFFSET 169 // TODO
 
 #endif
 
