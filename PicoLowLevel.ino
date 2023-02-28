@@ -255,6 +255,7 @@ void setup() {
 #ifdef MODC_YAW    
   encoderYaw.update();
   oldAngle = encoderYaw.readAngle();
+  encoderYaw.setZero();
 #endif
 
   // Display initialization
