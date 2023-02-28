@@ -24,7 +24,7 @@ void AbsoluteEncoder::begin() {
 void AbsoluteEncoder::setZero() {
   Debug.println("ABSOLUTE ENCODER - SET ZERO", Levels::DEBUG);
 
-  zeroRegW(0x0);
+  setZeroReg();
 }
 
 /**
