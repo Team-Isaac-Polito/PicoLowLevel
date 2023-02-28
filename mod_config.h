@@ -12,7 +12,7 @@
 #if defined(MOD_HEAD)
 #define CAN_ID    0x15  // HEAD
 #define MODC_EE
-#define SERVO_PITCH_ID 1
+#define SERVO_PITCH_ID 6
 #define SERVO_ROLL_ID 4
 #define SERVO_PITCH2_ID 2
 #define SERVO_MIN 200
@@ -29,7 +29,7 @@
 #define MODC_YAW
 #define MODC_PITCH
 #define SERVO_A_ID 5
-#define SERVO_B_ID 6
+#define SERVO_B_ID 1
 #define SERVO_MIN 200
 #define SERVO_MAX 800
 #define SERVO_SPEED 200
