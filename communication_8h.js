@@ -15,8 +15,6 @@ var communication_8h =
     [ "SEND_IMU_DATA", "communication_8h.html#aa46e0b478c976f82c09cf9fe98e8bb37", null ],
     [ "SEND_STATUS", "communication_8h.html#a7f98c79059221d788e2219865d770648", null ],
     [ "SEND_TEMPERATURE", "communication_8h.html#a1d8516b173ec48a4bdc64cf872d3250e", null ],
-    [ "SEND_TRACTION_LEFT_SPEED", "communication_8h.html#aa4a0d412979f3a7891d7d09dd816c568", null ],
-    [ "SEND_TRACTION_RIGHT_SPEED", "communication_8h.html#a763a6940e35150823423fb05b74d915d", null ],
     [ "SEND_YAW_ENCODER_MIDDLE", "communication_8h.html#a0597437dbefe23cacdf2592e1df52113", null ],
     [ "SEND_YAW_ENCODER_TAIL", "communication_8h.html#a4ece8fde36212f4761976e2af1c239f3", null ]
 ];
