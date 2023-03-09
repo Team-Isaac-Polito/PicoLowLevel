@@ -10,6 +10,12 @@
 template<typename T>
 class ExpSmoothingFilter: public Filter<T> {
   public:
+    /**
+     * Constructor for the exponential smoothing filter.
+     * The weight for the filter is given by the parameters a and b, representing the fraction a/b.
+     * @param a weight fraction numerator.
+     * @param b weight fraction denominator.
+     */
     ExpSmoothingFilter(int a, int b) {
         this->a = a;
         this->b = b;

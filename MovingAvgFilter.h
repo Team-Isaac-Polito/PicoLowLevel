@@ -5,11 +5,15 @@
 
 /**
  * Class for a moving average filter implementing the Filter interface.
- * @tparam T 
+ * @tparam T type of the variable to be filtered.
  */
 template<typename T>
 class MovingAvgFilter: public Filter<T> {
   public:
+    /**
+     * Constructor for the moving average filter.
+     * @param nsamples number of samples to consider for the average.
+     */
     MovingAvgFilter(int nsamples) {
         this->nsamples = nsamples;
         last = 0;
