@@ -5,13 +5,14 @@
 #include <functional>
 #include "Debug.h"
 #include "definitions.h"
+#include "MovingAvgFilter.h"
 
 /**
  * Class used to read data from traction rotary encoders.
  */
 class TractionEncoder { 
   public:
-    TractionEncoder(byte pin_a, byte pin_b);
+    TractionEncoder(byte pin_a, byte pin_b, Filter<int> *filter = NULL);
     void begin();
     void update();
     int getSpeed();
@@ -22,6 +23,8 @@ class TractionEncoder {
     long countSteps;
     unsigned long time;
     int speed;
+
+    Filter<int> *filter;
 
     void ISR();
     static void ISR_wrapper(TractionEncoder* te);

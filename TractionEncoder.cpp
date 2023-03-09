@@ -3,9 +3,10 @@
 /**
  * Creates object.
  */
-TractionEncoder::TractionEncoder(byte pin_a, byte pin_b) {
+TractionEncoder::TractionEncoder(byte pin_a, byte pin_b, Filter<int> *filter) {
     this->pin_a = pin_a;
     this->pin_b = pin_b;
+    this->filter = filter;
 
     time = micros();
 }
@@ -36,7 +37,7 @@ void TractionEncoder::update() {
 
     time = micros();
 
-    speed = rpm;
+    speed = filter?filter->filter(rpm):rpm;
 }
 
 

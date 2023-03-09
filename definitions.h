@@ -52,6 +52,8 @@
 // PWM = centiRPM * 1023 / (100 * maxRPM)
 #define RPM_TO_PWM .15738461538
 
+#define ENC_TR_SAMPLES 5
+
 // YAW MIN/MAX
 #define YAW_MAX_ANGLE 30
 #define YAW_MIN_ANGLE -YAW_MAX_ANGLE

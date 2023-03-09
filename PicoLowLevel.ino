@@ -28,8 +28,8 @@ MCP2515 mcp2515(5);
 Motor motorTrLeft(DRV_TR_LEFT_PWM,DRV_TR_LEFT_DIR);
 Motor motorTrRight(DRV_TR_RIGHT_PWM,DRV_TR_RIGHT_DIR);
 
-TractionEncoder encoderTrLeft(ENC_TR_LEFT_A,ENC_TR_LEFT_B);
-TractionEncoder encoderTrRight(ENC_TR_RIGHT_A,ENC_TR_RIGHT_B);
+TractionEncoder encoderTrLeft(ENC_TR_LEFT_A,ENC_TR_LEFT_B, new MovingAvgFilter<int>(ENC_TR_SAMPLES));
+TractionEncoder encoderTrRight(ENC_TR_RIGHT_A,ENC_TR_RIGHT_B, new MovingAvgFilter<int>(ENC_TR_SAMPLES));
 
 PID pidTrLeft(PID_TR_KP,PID_TR_KI,PID_TR_KD ,PID_TR_MAX_OUTPUT,PID_TR_EMA_ALPHA);
 PID pidTrRight(PID_TR_KP,PID_TR_KI,PID_TR_KD ,PID_TR_MAX_OUTPUT,PID_TR_EMA_ALPHA);
