@@ -1,0 +1,5 @@
+<map id="Filter&lt; T &gt;" name="Filter&lt; T &gt;">
+<area shape="rect" id="node1" title="Interface for a generic filter, with parameterized type." alt="" coords="152,5,245,32"/>
+<area shape="rect" id="node2" href="$classExpSmoothingFilter.html" title="Class for a exponential smoothing filter implementing the Filter interface." alt="" coords="5,80,192,107"/>
+<area shape="rect" id="node3" href="$classMovingAvgFilter.html" title="Class for a moving average filter implementing the Filter interface." alt="" coords="216,80,381,107"/>
+</map>

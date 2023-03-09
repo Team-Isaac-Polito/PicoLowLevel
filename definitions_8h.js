@@ -30,6 +30,7 @@ var definitions_8h =
     [ "ENC_TR_LEFT_B", "definitions_8h.html#aecfecdffcd96ec00ef8e03611814d7cc", null ],
     [ "ENC_TR_RIGHT_A", "definitions_8h.html#a2ada7078fc0575d93eaa74cc49e46407", null ],
     [ "ENC_TR_RIGHT_B", "definitions_8h.html#a1cc8812a084c15431363c7e560d152a3", null ],
+    [ "ENC_TR_SAMPLES", "definitions_8h.html#a594bcc2a5046d3de4097f9e3b90fc690", null ],
     [ "I2C_SENS_SCL", "definitions_8h.html#a3f2df152c5e497460f3d1a1a47bf2a0b", null ],
     [ "I2C_SENS_SDA", "definitions_8h.html#a086a3d10779b3af61041e6aed262ab2f", null ],
     [ "MENUTIMEOUT", "definitions_8h.html#a99d5f79ba2e5b9aa3b7e1f5929618469", null ],

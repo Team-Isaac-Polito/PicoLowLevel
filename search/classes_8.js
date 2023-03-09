@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['webmanagement_533',['WebManagement',['../classWebManagement.html',1,'']]]
+  ['serialdebug_543',['SerialDebug',['../classSerialDebug.html',1,'']]]
 ];

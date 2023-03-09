@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['pid_530',['PID',['../classPID.html',1,'']]]
+  ['filter_537',['Filter',['../classFilter.html',1,'']]],
+  ['filter_3c_20int_20_3e_538',['Filter&lt; int &gt;',['../classFilter.html',1,'']]]
 ];

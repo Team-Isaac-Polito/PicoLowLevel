@@ -20,6 +20,12 @@ var files_dup =
     ] ],
     [ "DynamixelSerial.cpp", "DynamixelSerial_8cpp.html", "DynamixelSerial_8cpp" ],
     [ "DynamixelSerial.h", "DynamixelSerial_8h.html", "DynamixelSerial_8h" ],
+    [ "ExpSmoothingFilter.h", "ExpSmoothingFilter_8h.html", [
+      [ "ExpSmoothingFilter", "classExpSmoothingFilter.html", "classExpSmoothingFilter" ]
+    ] ],
+    [ "Filter.h", "Filter_8h.html", [
+      [ "Filter", "classFilter.html", "classFilter" ]
+    ] ],
     [ "html.h", "html_8h.html", "html_8h" ],
     [ "mcp2515.cpp", "mcp2515_8cpp.html", [
       [ "MCP2515", "structMCP2515.html", "structMCP2515" ]
@@ -29,6 +35,9 @@ var files_dup =
     [ "Motor.cpp", "Motor_8cpp.html", null ],
     [ "Motor.h", "Motor_8h.html", [
       [ "Motor", "classMotor.html", "classMotor" ]
+    ] ],
+    [ "MovingAvgFilter.h", "MovingAvgFilter_8h.html", [
+      [ "MovingAvgFilter", "classMovingAvgFilter.html", "classMovingAvgFilter" ]
     ] ],
     [ "PicoLowLevel.ino", "PicoLowLevel_8ino.html", "PicoLowLevel_8ino" ],
     [ "PID.cpp", "PID_8cpp.html", null ],

@@ -96,9 +96,9 @@ $(document).ready(function(){initNavTree('classTractionEncoder.html',''); initRe
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a142b64f71aaf0dbf5f62a1aa6ddb90c0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTractionEncoder.html#a142b64f71aaf0dbf5f62a1aa6ddb90c0">TractionEncoder</a> (byte pin_a, byte pin_b)</td></tr>
-<tr class="memdesc:a142b64f71aaf0dbf5f62a1aa6ddb90c0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates object.  <a href="classTractionEncoder.html#a142b64f71aaf0dbf5f62a1aa6ddb90c0">More...</a><br /></td></tr>
-<tr class="separator:a142b64f71aaf0dbf5f62a1aa6ddb90c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a087860f2f22da4cf9dd0a4d93398eb73"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTractionEncoder.html#a087860f2f22da4cf9dd0a4d93398eb73">TractionEncoder</a> (byte pin_a, byte pin_b, <a class="el" href="classFilter.html">Filter</a>&lt; int &gt; *filter=NULL)</td></tr>
+<tr class="memdesc:a087860f2f22da4cf9dd0a4d93398eb73"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates object.  <a href="classTractionEncoder.html#a087860f2f22da4cf9dd0a4d93398eb73">More...</a><br /></td></tr>
+<tr class="separator:a087860f2f22da4cf9dd0a4d93398eb73"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3b38935e97776ddcebdeb2c394f6d48d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTractionEncoder.html#a3b38935e97776ddcebdeb2c394f6d48d">begin</a> ()</td></tr>
 <tr class="memdesc:a3b38935e97776ddcebdeb2c394f6d48d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the encoder's pins and attach the interrupt.  <a href="classTractionEncoder.html#a3b38935e97776ddcebdeb2c394f6d48d">More...</a><br /></td></tr>
 <tr class="separator:a3b38935e97776ddcebdeb2c394f6d48d"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -112,8 +112,8 @@ Public Member Functions</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Class used to read data from traction rotary encoders. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a142b64f71aaf0dbf5f62a1aa6ddb90c0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a142b64f71aaf0dbf5f62a1aa6ddb90c0">&#9670;&nbsp;</a></span>TractionEncoder()</h2>
+<a id="a087860f2f22da4cf9dd0a4d93398eb73"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a087860f2f22da4cf9dd0a4d93398eb73">&#9670;&nbsp;</a></span>TractionEncoder()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -128,7 +128,13 @@ Public Member Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">byte&#160;</td>
-          <td class="paramname"><em>pin_b</em>&#160;</td>
+          <td class="paramname"><em>pin_b</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classFilter.html">Filter</a>&lt; int &gt; *&#160;</td>
+          <td class="paramname"><em>filter</em> = <code>NULL</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -219,6 +225,15 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 
 <p>Computes and updates the encoder detected speed. </p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classTractionEncoder_a6d70ace18f1dcec4d0ddddf84ad48343_cgraph.png" border="0" usemap="#aclassTractionEncoder_a6d70ace18f1dcec4d0ddddf84ad48343_cgraph" alt=""/></div>
+<map name="aclassTractionEncoder_a6d70ace18f1dcec4d0ddddf84ad48343_cgraph" id="aclassTractionEncoder_a6d70ace18f1dcec4d0ddddf84ad48343_cgraph">
+<area shape="rect" title="Computes and updates the encoder detected speed." alt="" coords="5,5,184,32"/>
+<area shape="rect" href="classFilter.html#ab8e25fe3166a547f5c08e6c7b7f019e2" title="Virtual filter function, will be replaced by the one from the chosen filter." alt="" coords="232,5,325,32"/>
+</map>
+</div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">

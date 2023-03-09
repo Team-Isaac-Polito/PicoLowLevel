@@ -1,3 +1,5 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$classMotor.html" title="Motor class used to control simple DC motors." alt="" coords="5,5,65,32"/>
+<area shape="rect" id="node1" href="$classFilter.html" title="Interface for a generic filter, with parameterized type." alt="" coords="5,31,99,57"/>
+<area shape="rect" id="node2" href="$classExpSmoothingFilter.html" title="Class for a exponential smoothing filter implementing the Filter interface." alt="" coords="147,5,333,32"/>
+<area shape="rect" id="node3" href="$classMovingAvgFilter.html" title="Class for a moving average filter implementing the Filter interface." alt="" coords="157,56,323,83"/>
 </map>

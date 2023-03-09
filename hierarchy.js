@@ -8,6 +8,11 @@ var hierarchy =
     [ "Display", "classDisplay.html", null ],
     [ "DynamixelInterface", "classDynamixelInterface.html", null ],
     [ "DynamixelMotor", "classDynamixelMotor.html", null ],
+    [ "Filter< T >", "classFilter.html", [
+      [ "ExpSmoothingFilter< T >", "classExpSmoothingFilter.html", null ],
+      [ "MovingAvgFilter< T >", "classMovingAvgFilter.html", null ]
+    ] ],
+    [ "Filter< int >", "classFilter.html", null ],
     [ "Motor", "classMotor.html", null ],
     [ "TXBMCP2515::N_TXBUFFERS", null, [
       [ "MCP2515", "structMCP2515.html", null ]

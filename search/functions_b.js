@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['okinterrupt_618',['okInterrupt',['../classDisplay.html#aa9a7e82a5611d737c618a2f1cab7812a',1,'Display::okInterrupt()'],['../PicoLowLevel_8ino.html#a7e5bd9686428496c0be42f11e557bd2b',1,'okInterrupt():&#160;PicoLowLevel.ino']]]
+  ['navinterrupt_635',['navInterrupt',['../classDisplay.html#a5c28101c672878132e2ce5772ed93588',1,'Display::navInterrupt()'],['../PicoLowLevel_8ino.html#a463bd5e2d6006d3d57e5569bd7c8cea4',1,'navInterrupt():&#160;PicoLowLevel.ino']]]
 ];

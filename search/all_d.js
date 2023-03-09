@@ -1,27 +1,7 @@
 var searchData=
 [
-  ['picolowlevel_382',['PicoLowLevel',['../index.html',1,'']]],
-  ['picolowlevel_2eino_383',['PicoLowLevel.ino',['../PicoLowLevel_8ino.html',1,'']]],
-  ['pid_384',['PID',['../classPID.html#afc791524c076933bd58ef7f9fe999542',1,'PID::PID()'],['../classPID.html',1,'PID']]],
-  ['pid_2ecpp_385',['PID.cpp',['../PID_8cpp.html',1,'']]],
-  ['pid_2eh_386',['PID.h',['../PID_8h.html',1,'']]],
-  ['pid_5ftr_5fema_5falpha_387',['PID_TR_EMA_ALPHA',['../definitions_8h.html#a0a4f9abdeddf6d66c5aee909650fb4ad',1,'definitions.h']]],
-  ['pid_5ftr_5fkd_388',['PID_TR_KD',['../definitions_8h.html#accae2c467ae047adc09dfccae1d0f69a',1,'definitions.h']]],
-  ['pid_5ftr_5fki_389',['PID_TR_KI',['../definitions_8h.html#ac96ccd4f5010ccf20ba6e61ba9b6f75e',1,'definitions.h']]],
-  ['pid_5ftr_5fkp_390',['PID_TR_KP',['../definitions_8h.html#a97c92aad60194d5be48266a7342d405a',1,'definitions.h']]],
-  ['pid_5ftr_5fmax_5foutput_391',['PID_TR_MAX_OUTPUT',['../definitions_8h.html#af2e04ff2e58c0917c6e543a277e26ddc',1,'definitions.h']]],
-  ['pid_5fyaw_5fema_5falpha_392',['PID_YAW_EMA_ALPHA',['../definitions_8h.html#ac965a656d63a0b2b234e0a8e7f4095a2',1,'definitions.h']]],
-  ['pid_5fyaw_5fkd_393',['PID_YAW_KD',['../definitions_8h.html#a9cf5d5da2be210c8398fdc8eefdb9594',1,'definitions.h']]],
-  ['pid_5fyaw_5fki_394',['PID_YAW_KI',['../definitions_8h.html#a3d72a78ffca149ed3f498a565de20b62',1,'definitions.h']]],
-  ['pid_5fyaw_5fkp_395',['PID_YAW_KP',['../definitions_8h.html#a0e2a6a57554d5fd056ed49e256efa8ee',1,'definitions.h']]],
-  ['pid_5fyaw_5fmax_5foutput_396',['PID_YAW_MAX_OUTPUT',['../definitions_8h.html#ae3d9411ee05bb7d41cc8690863217d63',1,'definitions.h']]],
-  ['pidtrleft_397',['pidTrLeft',['../PicoLowLevel_8ino.html#a38308b86a3aa53b89c5c6c861e5aebe2',1,'PicoLowLevel.ino']]],
-  ['pidtrright_398',['pidTrRight',['../PicoLowLevel_8ino.html#a30b4803eb13744e75e38327f0fdc0a53',1,'PicoLowLevel.ino']]],
-  ['ping_399',['ping',['../classDynamixelMotor.html#a6d5cb7d43df2239fd11eade1a552917a',1,'DynamixelMotor']]],
-  ['print_400',['print',['../classSerialDebug.html#a3d5743721fba4fcd4f0cbe50ec98a6a6',1,'SerialDebug::print(T any)'],['../classSerialDebug.html#a35e40ba1b4bcb750acbdbd9636f67cf0',1,'SerialDebug::print(T any, Levels level)'],['../classSerialDebug.html#ad08c02141e413ef16b19ce63968fc7cd',1,'SerialDebug::print(String st)'],['../classSerialDebug.html#a3d01753681fd740869da197b2fa772b0',1,'SerialDebug::print(String st, Levels level)']]],
-  ['println_401',['println',['../classSerialDebug.html#ae4f31eb4850d021afb9bb84a1a1f6254',1,'SerialDebug::println(T any)'],['../classSerialDebug.html#a910cf94f8d0cd3dea788dbedc1fcf849',1,'SerialDebug::println(T any, Levels level)'],['../classSerialDebug.html#a12bec7c49d756040fa4f16ce5f1f6cd4',1,'SerialDebug::println(String st)'],['../classSerialDebug.html#a153ed172ea7eefd852292af7561ff961',1,'SerialDebug::println(String st, Levels level)']]],
-  ['progmem_402',['PROGMEM',['../bitmap__logos_8h.html#ad008eb7329e2d9d099a771fd9315b450',1,'PROGMEM():&#160;bitmap_logos.h'],['../html_8h.html#a67ebc9495992759f9804816b42f738cc',1,'PROGMEM():&#160;html.h']]],
-  ['progregister_403',['progRegister',['../classAMS__AS5048B.html#a6ff8070d7845ce5ef325a6c64ea29c96',1,'AMS_AS5048B']]],
-  ['pwm_5ffrequency_404',['PWM_FREQUENCY',['../definitions_8h.html#a6177eb86ee16a1956c81749e4e332cf0',1,'definitions.h']]],
-  ['pwm_5fmax_5fvalue_405',['PWM_MAX_VALUE',['../definitions_8h.html#aafe0521fa22763b7afc50e12d31b450d',1,'definitions.h']]]
+  ['off_386',['OFF',['../Debug_8h.html#ae06cf0c67532073a49f95f03488d29bfa88559a0cfd8250c9d65970cc145c92d4',1,'Debug.h']]],
+  ['okinterrupt_387',['okInterrupt',['../classDisplay.html#aa9a7e82a5611d737c618a2f1cab7812a',1,'Display::okInterrupt()'],['../PicoLowLevel_8ino.html#a7e5bd9686428496c0be42f11e557bd2b',1,'okInterrupt():&#160;PicoLowLevel.ino']]],
+  ['oldangle_388',['oldAngle',['../PicoLowLevel_8ino.html#acc50c1424cde2d478085d4006d6d3ae1',1,'PicoLowLevel.ino']]],
+  ['ota_5fpwd_389',['OTA_PWD',['../definitions_8h.html#a312c3a9fb6e3210f9fee8191bc6884b7',1,'definitions.h']]]
 ];

@@ -1,6 +1,9 @@
 var searchData=
 [
-  ['webmanagement_682',['WebManagement',['../classWebManagement.html#aa205ddf55b474746f2dcdad37385d202',1,'WebManagement']]],
-  ['write_683',['write',['../classMotor.html#a59dc38671f171be3097b3d84ddf1180e',1,'Motor']]],
-  ['writebuf_684',['writeBuf',['../classDynamixelInterface.html#a42add10cb7682b39a3722b3a402d343b',1,'DynamixelInterface']]]
+  ['update_694',['update',['../classAbsoluteEncoder.html#aae25f76ad9e1a21f3d5a08059a003151',1,'AbsoluteEncoder::update()'],['../classTractionEncoder.html#a6d70ace18f1dcec4d0ddddf84ad48343',1,'TractionEncoder::update()']]],
+  ['updatefeedback_695',['updateFeedback',['../classPID.html#a33f657a6cce4f57302f90bec9664d294',1,'PID']]],
+  ['updatemovingavgexp_696',['updateMovingAvgExp',['../classAMS__AS5048B.html#a20a1cab67cc2ec87135366723893b1aa',1,'AMS_AS5048B']]],
+  ['updatepid_697',['updatePID',['../PicoLowLevel_8ino.html#a8b77b83a1d03b08c93bdab6e3917a70b',1,'PicoLowLevel.ino']]],
+  ['updatereferencevalue_698',['updateReferenceValue',['../classPID.html#ab6c2a366f39cf53149b50216b300bdcd',1,'PID']]],
+  ['usb_699',['USB',['../classBattery.html#a1749be218db101e2b6d252ac1c5691c9',1,'Battery']]]
 ];

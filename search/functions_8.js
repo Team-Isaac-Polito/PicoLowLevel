@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['lockregister_608',['lockRegister',['../classDynamixelMotor.html#a821cc422ff64d76069c4bfa59d369b4d',1,'DynamixelMotor']]],
-  ['loop_609',['loop',['../PicoLowLevel_8ino.html#afe461d27b9c48d5921c00d521181f12f',1,'PicoLowLevel.ino']]]
+  ['handle_623',['handle',['../classWebManagement.html#a48b2f695f7445b7628119b630447123e',1,'WebManagement']]],
+  ['handlegui_624',['handleGUI',['../classDisplay.html#a3fa755683f0e28cfc689f35e7f8257b8',1,'Display']]]
 ];

@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['zeroregr_685',['zeroRegR',['../classAMS__AS5048B.html#a7784bc5f991bb485c2731a7189d277bf',1,'AMS_AS5048B']]],
-  ['zeroregw_686',['zeroRegW',['../classAMS__AS5048B.html#a67cbd882f0300705d615ce1e2dff2f47',1,'AMS_AS5048B']]]
+  ['webmanagement_700',['WebManagement',['../classWebManagement.html#aa205ddf55b474746f2dcdad37385d202',1,'WebManagement']]],
+  ['write_701',['write',['../classMotor.html#a59dc38671f171be3097b3d84ddf1180e',1,'Motor']]],
+  ['writebuf_702',['writeBuf',['../classDynamixelInterface.html#a42add10cb7682b39a3722b3a402d343b',1,'DynamixelInterface']]]
 ];

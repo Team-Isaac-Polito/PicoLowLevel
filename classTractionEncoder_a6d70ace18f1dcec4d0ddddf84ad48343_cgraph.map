@@ -1,0 +1,4 @@
+<map id="TractionEncoder::update" name="TractionEncoder::update">
+<area shape="rect" id="node1" title="Computes and updates the encoder detected speed." alt="" coords="5,5,184,32"/>
+<area shape="rect" id="node2" href="$classFilter.html#ab8e25fe3166a547f5c08e6c7b7f019e2" title="Virtual filter function, will be replaced by the one from the chosen filter." alt="" coords="232,5,325,32"/>
+</map>
