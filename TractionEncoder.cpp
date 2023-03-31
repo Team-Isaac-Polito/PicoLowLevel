@@ -18,7 +18,7 @@ void TractionEncoder::begin() {
     pinMode(pin_a,INPUT);
     pinMode(pin_b,INPUT);
     attachInterrupt(digitalPinToInterrupt(pin_a), &ISR_wrapper, CHANGE, this);
-    //attachInterrupt(digitalPinToInterrupt(pin_b), &ISR_wrapper, CHANGE, this);
+    attachInterrupt(digitalPinToInterrupt(pin_b), &ISR_wrapper, CHANGE, this);
 }
 
 /**
@@ -55,11 +55,13 @@ int TractionEncoder::getSpeed() {
  */
 void TractionEncoder::ISR() {  
     // saving state of pin_a for next iteration
-    old_a = digitalRead(pin_a);
+    bool val_a = digitalRead(pin_a);
     bool val_b = digitalRead(pin_b);
 
     // direction detection can be simplified to a XOR between current state of pin b and old state of pin a
     bool ccw = val_b ^ old_a;
+    
+    old_a = val_a;
     
     // increase steps for ccw, decrease for cw
     countSteps += ccw ? -1 : +1;
