@@ -32,7 +32,7 @@ class MovingAvgFilter: public Filter<T> {
         samples[last] = value;
         total += value;
 
-        if(++last > nsamples) last = 0;
+        if(++last >= nsamples) last = 0;
 
         return (T)(total/nsamples);
     }
