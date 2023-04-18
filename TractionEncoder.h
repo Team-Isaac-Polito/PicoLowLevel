@@ -3,7 +3,6 @@
 
 #include <Arduino.h>
 #include <functional>
-#include "Debug.h"
 #include "definitions.h"
 #include "MovingAvgFilter.h"
 
