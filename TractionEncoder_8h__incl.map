@@ -1,9 +1,8 @@
 <map id="TractionEncoder.h" name="TractionEncoder.h">
-<area shape="rect" id="node1" title=" " alt="" coords="104,5,240,32"/>
-<area shape="rect" id="node2" title=" " alt="" coords="37,155,121,181"/>
-<area shape="rect" id="node3" title=" " alt="" coords="24,80,110,107"/>
-<area shape="rect" id="node4" href="$Debug_8h.html" title=" " alt="" coords="134,80,210,107"/>
-<area shape="rect" id="node5" href="$definitions_8h.html" title=" " alt="" coords="258,80,361,107"/>
-<area shape="rect" id="node6" href="$MovingAvgFilter_8h.html" title=" " alt="" coords="386,80,524,107"/>
-<area shape="rect" id="node7" href="$Filter_8h.html" title=" " alt="" coords="422,155,488,181"/>
+<area shape="rect" id="node1" title=" " alt="" coords="147,5,283,32"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,80,89,107"/>
+<area shape="rect" id="node3" title=" " alt="" coords="113,80,200,107"/>
+<area shape="rect" id="node4" href="$definitions_8h.html" title=" " alt="" coords="224,80,327,107"/>
+<area shape="rect" id="node5" href="$MovingAvgFilter_8h.html" title=" " alt="" coords="351,80,490,107"/>
+<area shape="rect" id="node6" href="$Filter_8h.html" title=" " alt="" coords="387,155,454,181"/>
 </map>
