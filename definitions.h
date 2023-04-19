@@ -33,9 +33,6 @@
 #define DRV_TR_RIGHT_PWM  8
 #define DRV_TR_RIGHT_CURR A1
 
-#define DRV_YAW_DIR  3
-#define DRV_YAW_PWM  2
-
 // Motor configuration
 #define MAX_SPEED 65.f
 
@@ -56,24 +53,6 @@
 #define RPM_TO_PWM .15738461538
 
 #define ENC_TR_SAMPLES 5
-
-// YAW MIN/MAX
-#define YAW_MAX_ANGLE 30
-#define YAW_MIN_ANGLE -YAW_MAX_ANGLE
-
-
-// PID configuration
-#define PID_YAW_KP			13
-#define PID_YAW_KI			.005
-#define PID_YAW_KD			1000
-#define PID_YAW_MAX_OUTPUT	1023
-#define PID_YAW_EMA_ALPHA	.5
-
-#define PID_TR_KP			0.25
-#define PID_TR_KI			5.0
-#define PID_TR_KD			0.0
-#define PID_TR_MAX_OUTPUT	6500
-#define PID_TR_EMA_ALPHA	1
 
 // Display
 #define DISPLAY_ADDR 0x3c
