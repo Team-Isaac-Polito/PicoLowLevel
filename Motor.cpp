@@ -4,11 +4,11 @@
  * Create object and set motor pins.
  * @param pwm PWM pin.
  * @param dir Direction pin.
+ * @param invert Invert motor direction, usuful when motors are mounted opposite to one another.
  */
-Motor::Motor(byte pwm, byte dir) {
-  this->pwm = pwm;
-  this->dir = dir;
-}
+Motor::Motor(byte pwm, byte dir, bool invert)
+    : pwm(pwm), dir(dir), invert(invert)
+{}
 
 /**
  * Initialize motors.
@@ -22,9 +22,8 @@ void Motor::begin() {
  * Sets the motor speed.
  * @param value Speed of the motor, ranging from 0 to maximum PWM value.
  */
-void Motor::write(float value) {
-  int vli = (int) value;
-  int mot = constrain(abs(vli), 0, PWM_MAX_VALUE);
+void Motor::write(int value) {
+  int mot = constrain(abs(value), 0, PWM_MAX_VALUE);
   analogWrite(pwm, mot);
-  digitalWrite(dir, vli < 0);
+  digitalWrite(dir, invert ^ (value < 0));
 }

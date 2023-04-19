@@ -9,12 +9,13 @@
  */
 class Motor {
   public:
-    Motor(byte pwm, byte dir);
+    Motor(byte pwm, byte dir, bool invert = false);
     void begin();
-    void write(float value);
+    void write(int value);
     
   private:
     byte pwm, dir;
+    bool invert;
 };
 
 #endif
