@@ -280,11 +280,13 @@ void loop() {
     updatePID();
   }
 
+/*
   if (time_cur - time_enc >= DT_ENC) {
     time_enc = time_cur;
     encoderTrRight.update();
     encoderTrLeft.update();
   }
+*/
 
   // health checks
   if (time_cur - time_bat >= DT_BAT) {

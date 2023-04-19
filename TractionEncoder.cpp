@@ -1,43 +1,34 @@
 #include "TractionEncoder.h"
 
+
+bool TractionEncoder::initialized = false;
+uint TractionEncoder::last_sm;
+uint TractionEncoder::offset;
+
 /**
  * Creates object.
+ * @param pin_a Pin A of the encoder.
+ * @param pin_b Pin B of the encoder.
+ * @param filter Filter to apply to the encoder's output. NULL if no filter is needed.
+ * @param invert Invert the encoder's output.
+ * @param pio PIO to use. Each PIO can handle up to 4 encoders.
  */
-TractionEncoder::TractionEncoder(byte pin_a, byte pin_b, Filter<int> *filter) {
-    this->pin_a = pin_a;
-    this->pin_b = pin_b;
-    this->filter = filter;
-
-    time = micros();
-}
+TractionEncoder::TractionEncoder(byte pin_a, byte pin_b, Filter<int> *filter, bool invert, PIO pio) 
+    : pin_a(pin_a), pin_b(pin_b), invert(invert), filter(filter), pio(pio)
+{}
 
 /**
  * Sets the encoder's pins and attach the interrupt.
  */
 void TractionEncoder::begin() {
-    pinMode(pin_a,INPUT);
-    pinMode(pin_b,INPUT);
-    attachInterrupt(digitalPinToInterrupt(pin_a), &ISR_wrapper, CHANGE, this);
-    attachInterrupt(digitalPinToInterrupt(pin_b), &ISR_wrapper, CHANGE, this);
-}
-
-/**
- * Computes and updates the encoder detected speed.
- */
-void TractionEncoder::update() {
-    long rpm;
-
-    noInterrupts();     // AG INIZIO operazione atomica - non può essere interrotta da interrupt
-    rpm = countSteps;
-    countSteps = 0;
-    interrupts();
-
-    // check definitions.h to understand what the constant is
-    rpm = rpm * ENC_TR_CONVERSION / (long)(micros()-time);
-
-    time = micros();
-
-    speed = filter?filter->filter(rpm):rpm;
+    if (!initialized) {
+        initialized = true;
+        last_sm = 0;
+        offset = pio_add_program(pio, &quadrature_encoder_program);
+    }
+    sm = last_sm++;
+    quadrature_encoder_program_init(pio, sm, offset, pin_a, 0);
+    last_time = micros();
 }
 
 
@@ -46,31 +37,25 @@ void TractionEncoder::update() {
  * @return The speed in centiRPMs.
  */
 int TractionEncoder::getSpeed() {
-    return speed;
+    unsigned long time = micros();
+    int steps = getSteps();
+    int delta = steps - last_steps;
+    int deltat = time - last_time;
+    last_steps = steps;
+    last_time = time;
+
+    // check definitions.h to understand what the constant is
+    int rpm = delta * ENC_TR_CONVERSION / deltat;
+
+    if(filter != NULL) rpm = filter->filter(rpm);
+
+    return invert?-rpm:rpm;
 }
 
 /**
- * Interrupt Service Routing for the encoder.
- * This registers a new rotation has happened every time it's called. 
+ * Returns the number of steps since the class was initialized.
+ * @return The number of steps.
  */
-void TractionEncoder::ISR() {  
-    // saving state of pin_a for next iteration
-    bool val_a = digitalRead(pin_a);
-    bool val_b = digitalRead(pin_b);
-
-    // direction detection can be simplified to a XOR between current state of pin b and old state of pin a
-    bool ccw = val_b ^ old_a;
-    
-    old_a = val_a;
-    
-    // increase steps for ccw, decrease for cw
-    countSteps += ccw ? -1 : +1;
-}
-
-/**
- * Static wrapper for ISR(), allowing it to be used in attachInterrupt().
- * @param te The instance of the TractionEncoder class to call ISR() for.
- */
-void TractionEncoder::ISR_wrapper(TractionEncoder* te) {
-  te->ISR();
+int TractionEncoder::getSteps() {
+    return quadrature_encoder_get_count(pio, sm);
 }

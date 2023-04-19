@@ -5,28 +5,32 @@
 #include <functional>
 #include "Filter.h"
 #include "definitions.h"
+#include "quadrature_encoder.pio.h"
 
 /**
  * Class used to read data from traction rotary encoders.
  */
 class TractionEncoder { 
   public:
-    TractionEncoder(byte pin_a, byte pin_b, Filter<int> *filter = NULL);
+    TractionEncoder(byte pin_a, byte pin_b, Filter<int> *filter = NULL, bool invert = false, PIO pio = pio0);
     void begin();
-    void update();
     int getSpeed();
+    int getSteps();
 
   private:
     byte pin_a, pin_b;
-    bool old_a;
-    long countSteps;
-    unsigned long time;
-    int speed;
-
+    bool invert;
     Filter<int> *filter;
+    
+    unsigned long last_time;
+    int last_steps;
 
-    void ISR();
-    static void ISR_wrapper(TractionEncoder* te);
+    PIO pio;
+    uint sm;
+
+    static uint last_sm;
+    static uint offset;
+    static bool initialized;
 };
 
 #endif
