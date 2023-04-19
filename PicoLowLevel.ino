@@ -1,10 +1,8 @@
 #include <Wire.h>
 #include <SPI.h>
-#include "Motor.h"
+#include "SmartMotor.h"
 #include "AbsoluteEncoder.h"
-#include "MovingAvgFilter.h"
 #include "Battery.h"
-#include "TractionEncoder.h"
 #include "DynamixelSerial.h"
 #include "PID.h"
 #include "definitions.h"
@@ -26,14 +24,8 @@ int time_tel_avg = DT_TEL;
 struct can_frame canMsg;
 MCP2515 mcp2515(5);
 
-Motor motorTrLeft(DRV_TR_LEFT_PWM,DRV_TR_LEFT_DIR);
-Motor motorTrRight(DRV_TR_RIGHT_PWM,DRV_TR_RIGHT_DIR);
-
-TractionEncoder encoderTrLeft(ENC_TR_LEFT_A,ENC_TR_LEFT_B, new MovingAvgFilter<int>(ENC_TR_SAMPLES));
-TractionEncoder encoderTrRight(ENC_TR_RIGHT_A,ENC_TR_RIGHT_B, new MovingAvgFilter<int>(ENC_TR_SAMPLES));
-
-PID pidTrLeft(PID_TR_KP,PID_TR_KI,PID_TR_KD ,PID_TR_MAX_OUTPUT,PID_TR_EMA_ALPHA);
-PID pidTrRight(PID_TR_KP,PID_TR_KI,PID_TR_KD ,PID_TR_MAX_OUTPUT,PID_TR_EMA_ALPHA);
+SmartMotor motorTrLeft(DRV_TR_LEFT_PWM, DRV_TR_LEFT_DIR, ENC_TR_LEFT_A, ENC_TR_LEFT_B, false);
+SmartMotor motorTrRight(DRV_TR_RIGHT_PWM, DRV_TR_RIGHT_DIR, ENC_TR_RIGHT_A, ENC_TR_RIGHT_B, false);
 
 
 #ifdef MODC_YAW
@@ -79,7 +71,7 @@ void sendTelemetry() {
   canMsg.can_dlc = 5;
   
   // sending right encoder as float
-  float speedR = - encoderTrRight.getSpeed(); // invert
+  float speedR = motorTrRight.getSpeed();
   canMsg.data[0] = SEND_TRACTION_RIGHT_SPEED;
   canMsg.data[1] = ((uint8_t*)&speedR)[3];
   canMsg.data[2] = ((uint8_t*)&speedR)[2];
@@ -88,7 +80,7 @@ void sendTelemetry() {
   mcp2515.sendMessage(&canMsg);
 
   // sending left encoder as float
-  float speedL = encoderTrLeft.getSpeed();
+  float speedL = motorTrLeft.getSpeed();
   canMsg.data[0] = SEND_TRACTION_LEFT_SPEED;
   canMsg.data[1] = ((uint8_t*)&speedL)[3];
   canMsg.data[2] = ((uint8_t*)&speedL)[2];
@@ -124,44 +116,6 @@ void sendTelemetry() {
 }
 
 void updatePID() {
-  float speed, outPid;
-  // LEFT TRACTION PID 
-  Debug.println("\n\n\n\n");
-  speed = encoderTrLeft.getSpeed();
-  Debug.print("LEFT ENCODER \t ");
-  Debug.println(speed);
-  Debug.print("LEFT REF VAL ");
-  Debug.println(pidTrLeft.getReferenceValue());
-
-  pidTrLeft.updateFeedback(speed);
-  pidTrLeft.calculate();
-  
-  outPid = pidTrLeft.getOutput() * RPM_TO_PWM;
-  //if (abs(outPid) < 120) outPid = 0;
-
-  motorTrLeft.write(outPid);
-  Debug.print("LEFT MOTOR OUTPUT \t ");
-  Debug.println(outPid);
-
-  Debug.println("--------------------------------------------");
-
-  // RIGHT TRACTION PID
-  speed = - encoderTrRight.getSpeed(); // invert
-  Debug.print("RIGHT ENCODER \t ");
-  Debug.println(speed);
-  Debug.print("RIGHT REF VAL ");
-  Debug.println(pidTrRight.getReferenceValue());
-
-  pidTrRight.updateFeedback(speed);
-  pidTrRight.calculate();
-  
-  outPid = - pidTrRight.getOutput() * RPM_TO_PWM; // invert
-  //if (abs(outPid) < 120) outPid = 0;
-
-  motorTrRight.write(outPid);
-  Debug.print("RIGHT MOTOR OUTPUT \t ");
-  Debug.println(outPid);
-
   // YAW PID
   /*
 #ifdef MODC_YAW    
@@ -229,14 +183,6 @@ void setup() {
   motorTrLeft.begin();
   motorTrRight.begin();
 
-  // encoder initialization
-  encoderTrLeft.begin();
-  encoderTrRight.begin();
-
-  // PID initialization
-  pidTrLeft.updateReferenceValue(0);
-  pidTrRight.updateReferenceValue(0);
-
 #ifdef MODC_YAW
   motorYaw.begin();
   encoderYaw.begin();
@@ -280,13 +226,9 @@ void loop() {
     updatePID();
   }
 
-/*
-  if (time_cur - time_enc >= DT_ENC) {
-    time_enc = time_cur;
-    encoderTrRight.update();
-    encoderTrLeft.update();
-  }
-*/
+  // update motors
+  motorTrLeft.update();
+  motorTrRight.update();
 
   // health checks
   if (time_cur - time_bat >= DT_BAT) {
@@ -316,17 +258,14 @@ void loop() {
     switch (canMsg.data[0]) {
       case DATA_TRACTION_LEFT:
         data = canMsg.data[1] | canMsg.data[2]<<8;
-        // motorTrLeft.write(data);
-        pidTrLeft.updateReferenceValue(data);
+        motorTrLeft.setSpeed((float)(data)/100.f);
 
         Debug.print("TRACTION LEFT DATA :\t");
         Debug.println(data);
         break;
       case DATA_TRACTION_RIGHT:
         data = canMsg.data[1] | canMsg.data[2]<<8;
-        // data = -data; // one side needs to rotate on the opposite direction
-        // motorTrRight.write(data);
-        pidTrRight.updateReferenceValue(data);
+        motorTrRight.setSpeed((float)(data)/100.f);
         
         Debug.print("TRACTION RIGHT DATA :\t");
         Debug.println(data);
@@ -379,35 +318,13 @@ void loop() {
         Debug.print("ROLL END EFFECTOR MOTOR DATA : \t");
         Debug.println(data);
         break;
-
-      case DATA_PID_KP:
-        for (int i = 0; i<4; i++) buf[i] = canMsg.data[i+1];
-        float kp;
-        memcpy(&kp, &buf, sizeof(kp));
-        pidTrLeft.setKp(kp);
-        pidTrRight.setKp(kp);
-        break;
-      case DATA_PID_KD:
-        for (int i = 0; i<4; i++) buf[i] = canMsg.data[i+1];
-        float kd;
-        memcpy(&kd, &buf, sizeof(kd));
-        pidTrLeft.setKd(kp);
-        pidTrRight.setKd(kp);
-        break;
-      case DATA_PID_KI:
-        for (int i = 0; i<4; i++) buf[i] = canMsg.data[i+1];
-        float ki;
-        memcpy(&ki, &buf, sizeof(ki));
-        pidTrLeft.setKi(ki);
-        pidTrRight.setKi(ki);
-        break;
     }
     
   } else if (time_cur - time_data > 1000 && time_data != -1) { //if we do not receive data for more than a second stop motors
     time_data = -1;
     Debug.println("Stopping motors after timeout.", Levels::INFO);
-    pidTrLeft.updateReferenceValue(0);
-    pidTrRight.updateReferenceValue(0);
+    motorTrLeft.stop();
+    motorTrRight.stop();
   }
 
   wm.handle();
