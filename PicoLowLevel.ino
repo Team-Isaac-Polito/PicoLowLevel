@@ -4,7 +4,6 @@
 #include "AbsoluteEncoder.h"
 #include "Battery.h"
 #include "DynamixelSerial.h"
-#include "PID.h"
 #include "definitions.h"
 #include "mod_config.h"
 #include "Debug.h"
@@ -13,12 +12,9 @@
 #include "WebManagement.h"
 #include "Display.h"
 
-int time_pid = 0;
 int time_bat = 0;
 int time_tel = 0;
 int time_data = 0;
-int time_enc = 0;
-int time_pid_avg = DT_PID;
 int time_tel_avg = DT_TEL;
 
 struct can_frame canMsg;
@@ -29,9 +25,7 @@ SmartMotor motorTrRight(DRV_TR_RIGHT_PWM, DRV_TR_RIGHT_DIR, ENC_TR_RIGHT_A, ENC_
 
 
 #ifdef MODC_YAW
-Motor motorYaw(DRV_YAW_PWM,DRV_YAW_DIR);
 AbsoluteEncoder encoderYaw(ABSOLUTE_ENCODER_ADDRESS);
-PID pidYaw(PID_YAW_KP,PID_YAW_KI,PID_YAW_KD ,PID_YAW_MAX_OUTPUT,PID_YAW_EMA_ALPHA);
 #endif
 
 
@@ -115,33 +109,6 @@ void sendTelemetry() {
 #endif
 }
 
-void updatePID() {
-  // YAW PID
-  /*
-#ifdef MODC_YAW    
-  // yaw setting
-  encoderYaw.update();
-  float angle = encoderYaw.readAngle();
-  if(angle != ANGLE_READ_ERROR && abs(angle - oldAngle) < 30) {
-    pidYaw.updateFeedback(angle);
-    oldAngle = angle;
-  }
-  pidYaw.calculate();
-  
-  outPid = -pidYaw.getOutput();
-
-  if (abs(outPid) < 60) outPid = 0;
-  motorYaw.write(outPid);
-  Debug.print("YAW REF VALUE ");
-  Debug.println(pidYaw.getReferenceValue());
-  Debug.print("READ ANGLE ");
-  Debug.println(encoderYaw.readAngle());
-  Debug.print("YAW MOTOR ");
-  Debug.println(outPid);
-#endif
-*/
-}
-
 void setup() {
   Serial.begin(115200);
   Debug.setLevel(Levels::INFO); // comment to set debug verbosity to debug
@@ -183,13 +150,6 @@ void setup() {
   motorTrLeft.begin();
   motorTrRight.begin();
 
-#ifdef MODC_YAW
-  motorYaw.begin();
-  encoderYaw.begin();
-
-  pidYaw.updateReferenceValue(0);
-#endif
-
 #if defined MODC_PITCH || defined MODC_EE
   Serial1.setRX(1);
   Serial1.setTX(0);
@@ -219,13 +179,6 @@ void setup() {
 void loop() {
   int time_cur = millis();
 
-  // PID routine
-  if (time_cur - time_pid >= DT_PID) { 
-    time_pid_avg = (time_pid_avg + (time_cur - time_pid)) / 2;
-    time_pid = time_cur;
-    updatePID();
-  }
-
   // update motors
   motorTrLeft.update();
   motorTrRight.update();
@@ -235,7 +188,6 @@ void loop() {
     time_bat = time_cur;
 
     if (time_tel_avg > DT_TEL) Debug.println("Telemetry frequency below required: " + String(1000/time_tel_avg) + " Hz", Levels::WARN);
-    if (time_tel_avg > DT_PID) Debug.println("Average PID frequency below required: " + String(1000/time_pid_avg) + " Hz", Levels::WARN);
 
     if(!battery.charged()) Debug.println("Battery voltage low! " + String(battery.readVoltage()) + "v", Levels::WARN);
   }
@@ -268,14 +220,6 @@ void loop() {
         motorTrRight.setSpeed((float)(data)/100.f);
         
         Debug.print("TRACTION RIGHT DATA :\t");
-        Debug.println(data);
-        break;
-      case DATA_YAW:  
-        data = canMsg.data[1] | canMsg.data[2]<<8;
-#ifdef MODC_YAW  
-        pidYaw.updateReferenceValue(data);
-#endif
-        Debug.print("YAW DATA :\t");
         Debug.println(data);
         break;
       case DATA_PITCH:
