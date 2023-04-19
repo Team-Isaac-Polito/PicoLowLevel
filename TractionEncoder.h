@@ -3,8 +3,8 @@
 
 #include <Arduino.h>
 #include <functional>
+#include "Filter.h"
 #include "definitions.h"
-#include "MovingAvgFilter.h"
 
 /**
  * Class used to read data from traction rotary encoders.

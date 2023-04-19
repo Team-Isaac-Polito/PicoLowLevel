@@ -2,6 +2,7 @@
 #include <SPI.h>
 #include "Motor.h"
 #include "AbsoluteEncoder.h"
+#include "MovingAvgFilter.h"
 #include "Battery.h"
 #include "TractionEncoder.h"
 #include "DynamixelSerial.h"
