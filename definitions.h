@@ -36,6 +36,9 @@
 #define DRV_YAW_DIR  3
 #define DRV_YAW_PWM  2
 
+// Motor configuration
+#define MAX_SPEED 65.f
+
 // Encoder pins
 #define ENC_TR_LEFT_A   12
 #define ENC_TR_LEFT_B   13
