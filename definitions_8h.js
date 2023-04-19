@@ -33,6 +33,7 @@ var definitions_8h =
     [ "ENC_TR_SAMPLES", "definitions_8h.html#a594bcc2a5046d3de4097f9e3b90fc690", null ],
     [ "I2C_SENS_SCL", "definitions_8h.html#a3f2df152c5e497460f3d1a1a47bf2a0b", null ],
     [ "I2C_SENS_SDA", "definitions_8h.html#a086a3d10779b3af61041e6aed262ab2f", null ],
+    [ "MAX_SPEED", "definitions_8h.html#ac2cd96d53dd3ba6407db6766c3d92b26", null ],
     [ "MENUTIMEOUT", "definitions_8h.html#a99d5f79ba2e5b9aa3b7e1f5929618469", null ],
     [ "NMENUS", "definitions_8h.html#a1cdc7ad3ab2f4274826bf78195a9725f", null ],
     [ "OTA_PWD", "definitions_8h.html#a312c3a9fb6e3210f9fee8191bc6884b7", null ],

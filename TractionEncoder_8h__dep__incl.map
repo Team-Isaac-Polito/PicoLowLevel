@@ -1,5 +1,7 @@
 <map id="TractionEncoder.h" name="TractionEncoder.h">
-<area shape="rect" id="node1" title=" " alt="" coords="87,5,223,32"/>
-<area shape="rect" id="node2" href="$PicoLowLevel_8ino.html" title=" " alt="" coords="5,80,140,107"/>
-<area shape="rect" id="node3" href="$TractionEncoder_8cpp.html" title=" " alt="" coords="164,80,315,107"/>
+<area shape="rect" id="node1" title=" " alt="" coords="159,5,295,32"/>
+<area shape="rect" id="node2" href="$SmartMotor_8h.html" title=" " alt="" coords="95,80,205,107"/>
+<area shape="rect" id="node5" href="$TractionEncoder_8cpp.html" title=" " alt="" coords="229,80,380,107"/>
+<area shape="rect" id="node3" href="$PicoLowLevel_8ino.html" title=" " alt="" coords="5,155,140,181"/>
+<area shape="rect" id="node4" href="$SmartMotor_8cpp.html" title=" " alt="" coords="165,155,290,181"/>
 </map>

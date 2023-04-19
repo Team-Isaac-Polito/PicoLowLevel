@@ -1,24 +1,24 @@
 <map id="setup" name="setup">
-<area shape="rect" id="node1" title=" " alt="" coords="5,452,64,479"/>
-<area shape="rect" id="node2" href="$classDisplay.html#ab569d31751d87ab3bd70744532d33605" title=" " alt="" coords="154,5,269,32"/>
-<area shape="rect" id="node3" href="$structMCP2515.html#ac3e7e19c0fe33229eac91cba70b31b83" title=" " alt="" coords="148,56,275,83"/>
-<area shape="rect" id="node4" href="$classMotor.html#a8949ad244c546ecde601ec3d03403ed9" title="Initialize motors." alt="" coords="159,107,263,133"/>
-<area shape="rect" id="node5" href="$classTractionEncoder.html#a3b38935e97776ddcebdeb2c394f6d48d" title="Sets the encoder&#39;s pins and attach the interrupt." alt="" coords="127,157,296,184"/>
-<area shape="rect" id="node6" href="$classWebManagement.html#a02872e65a699697c243e1dd23a3988c3" title=" " alt="" coords="121,208,301,235"/>
-<area shape="rect" id="node7" href="$classSerialDebug.html#a153ed172ea7eefd852292af7561ff961" title="Sends a line to the serial port with a debug level, only if it is lower than the setted one." alt="" coords="373,233,523,260"/>
-<area shape="rect" id="node9" href="$classDynamixelInterface.html#a3e4e3332de3d8d675d94a7cd1f6c647c" title=" " alt="" coords="136,310,287,351"/>
-<area shape="rect" id="node10" href="$PicoLowLevel_8ino.html#a463bd5e2d6006d3d57e5569bd7c8cea4" title=" " alt="" coords="160,376,263,403"/>
-<area shape="rect" id="node12" href="$PicoLowLevel_8ino.html#a7e5bd9686428496c0be42f11e557bd2b" title=" " alt="" coords="164,427,259,453"/>
-<area shape="rect" id="node14" href="$structMCP2515.html#acc117f5538fcd2b00a18edf11382175a" title=" " alt="" coords="149,528,273,555"/>
-<area shape="rect" id="node15" href="$structMCP2515.html#aac89e9e84bb70719f3af943584efbe0e" title=" " alt="" coords="376,528,520,555"/>
-<area shape="rect" id="node16" href="$structMCP2515.html#ab79662c2b46e623158f5f4119d340d69" title=" " alt="" coords="585,579,773,605"/>
-<area shape="rect" id="node17" href="$structMCP2515.html#a4ecb1f510ead2fee02dcf368fdf18dfd" title=" " alt="" coords="359,579,537,605"/>
-<area shape="rect" id="node18" href="$structMCP2515.html#a18653c6d11e5bba734a1bd3b39268bb2" title=" " alt="" coords="134,680,289,707"/>
-<area shape="rect" id="node19" href="$classSerialDebug.html#ad55ccd7caae91b050455920991e512e4" title="Sets the level to be used for the debug." alt="" coords="129,731,293,757"/>
-<area shape="rect" id="node20" href="$structMCP2515.html#ac105b61f8336554451a8cb83d7f63548" title=" " alt="" coords="114,781,309,808"/>
-<area shape="rect" id="node21" href="$classDynamixelInterface.html#a092dd633e40a07b3ae4f06a4617ec0a3" title=" " alt="" coords="136,833,287,874"/>
-<area shape="rect" id="node22" href="$classPID.html#ab6c2a366f39cf53149b50216b300bdcd" title="Sets the reference value." alt="" coords="112,899,311,925"/>
-<area shape="rect" id="node8" href="$classSerialDebug.html#a3d01753681fd740869da197b2fa772b0" title="Sends a string to the Serial port with a debug level, only if it is lower than the setted one." alt="" coords="610,233,749,260"/>
-<area shape="rect" id="node11" href="$classDisplay.html#a5c28101c672878132e2ce5772ed93588" title="NAV button ISR." alt="" coords="369,376,527,403"/>
-<area shape="rect" id="node13" href="$classDisplay.html#aa9a7e82a5611d737c618a2f1cab7812a" title="OK button ISR." alt="" coords="373,427,523,453"/>
+<area shape="rect" id="node1" title=" " alt="" coords="5,401,64,428"/>
+<area shape="rect" id="node2" href="$classDisplay.html#ab569d31751d87ab3bd70744532d33605" title=" " alt="" coords="152,5,267,32"/>
+<area shape="rect" id="node3" href="$structMCP2515.html#ac3e7e19c0fe33229eac91cba70b31b83" title=" " alt="" coords="146,56,273,83"/>
+<area shape="rect" id="node4" href="$classSmartMotor.html#abe1e015d445ac4c830b446127279bdb1" title="Initialize SmartMotor and necessary components." alt="" coords="138,107,281,133"/>
+<area shape="rect" id="node7" href="$classWebManagement.html#a02872e65a699697c243e1dd23a3988c3" title=" " alt="" coords="119,157,299,184"/>
+<area shape="rect" id="node8" href="$classSerialDebug.html#a153ed172ea7eefd852292af7561ff961" title="Sends a line to the serial port with a debug level, only if it is lower than the setted one." alt="" coords="369,196,519,223"/>
+<area shape="rect" id="node10" href="$classDynamixelInterface.html#a3e4e3332de3d8d675d94a7cd1f6c647c" title=" " alt="" coords="134,259,285,301"/>
+<area shape="rect" id="node11" href="$PicoLowLevel_8ino.html#a463bd5e2d6006d3d57e5569bd7c8cea4" title=" " alt="" coords="158,325,261,352"/>
+<area shape="rect" id="node13" href="$PicoLowLevel_8ino.html#a7e5bd9686428496c0be42f11e557bd2b" title=" " alt="" coords="162,376,257,403"/>
+<area shape="rect" id="node15" href="$structMCP2515.html#acc117f5538fcd2b00a18edf11382175a" title=" " alt="" coords="147,477,271,504"/>
+<area shape="rect" id="node16" href="$structMCP2515.html#aac89e9e84bb70719f3af943584efbe0e" title=" " alt="" coords="372,477,516,504"/>
+<area shape="rect" id="node17" href="$structMCP2515.html#ab79662c2b46e623158f5f4119d340d69" title=" " alt="" coords="581,528,769,555"/>
+<area shape="rect" id="node18" href="$structMCP2515.html#a4ecb1f510ead2fee02dcf368fdf18dfd" title=" " alt="" coords="355,528,533,555"/>
+<area shape="rect" id="node19" href="$structMCP2515.html#a18653c6d11e5bba734a1bd3b39268bb2" title=" " alt="" coords="132,629,287,656"/>
+<area shape="rect" id="node20" href="$classSerialDebug.html#ad55ccd7caae91b050455920991e512e4" title="Sets the level to be used for the debug." alt="" coords="127,680,291,707"/>
+<area shape="rect" id="node21" href="$structMCP2515.html#ac105b61f8336554451a8cb83d7f63548" title=" " alt="" coords="112,731,307,757"/>
+<area shape="rect" id="node22" href="$classDynamixelInterface.html#a092dd633e40a07b3ae4f06a4617ec0a3" title=" " alt="" coords="134,782,285,823"/>
+<area shape="rect" id="node5" href="$classMotor.html#a8949ad244c546ecde601ec3d03403ed9" title="Initialize motors." alt="" coords="392,69,496,96"/>
+<area shape="rect" id="node6" href="$classTractionEncoder.html#a3b38935e97776ddcebdeb2c394f6d48d" title="Sets the encoder&#39;s pins and attach the interrupt." alt="" coords="359,120,529,147"/>
+<area shape="rect" id="node9" href="$classSerialDebug.html#a3d01753681fd740869da197b2fa772b0" title="Sends a string to the Serial port with a debug level, only if it is lower than the setted one." alt="" coords="606,196,745,223"/>
+<area shape="rect" id="node12" href="$classDisplay.html#a5c28101c672878132e2ce5772ed93588" title="NAV button ISR." alt="" coords="365,325,523,352"/>
+<area shape="rect" id="node14" href="$classDisplay.html#aa9a7e82a5611d737c618a2f1cab7812a" title="OK button ISR." alt="" coords="369,376,519,403"/>
 </map>

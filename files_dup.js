@@ -44,6 +44,11 @@ var files_dup =
     [ "PID.h", "PID_8h.html", [
       [ "PID", "classPID.html", "classPID" ]
     ] ],
+    [ "quadrature_encoder.pio.h", "quadrature__encoder_8pio_8h.html", "quadrature__encoder_8pio_8h" ],
+    [ "SmartMotor.cpp", "SmartMotor_8cpp.html", null ],
+    [ "SmartMotor.h", "SmartMotor_8h.html", [
+      [ "SmartMotor", "classSmartMotor.html", "classSmartMotor" ]
+    ] ],
     [ "TractionEncoder.cpp", "TractionEncoder_8cpp.html", null ],
     [ "TractionEncoder.h", "TractionEncoder_8h.html", [
       [ "TractionEncoder", "classTractionEncoder.html", "classTractionEncoder" ]

@@ -93,19 +93,20 @@ $(document).ready(function(){initNavTree('Motor_8h_source.html',''); initResizab
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
 <div class="line"><a name="l00010"></a><span class="lineno"><a class="line" href="classMotor.html">   10</a></span>&#160;<span class="keyword">class </span><a class="code" href="classMotor.html">Motor</a> {</div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;  <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    <a class="code" href="classMotor.html#a2fa21a9588e7fb8ca61db5b569cc7e63">Motor</a>(<span class="keywordtype">byte</span> pwm, <span class="keywordtype">byte</span> dir);</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    <a class="code" href="classMotor.html#a952368cd91471b38166a227cb4f2384f">Motor</a>(<span class="keywordtype">byte</span> pwm, <span class="keywordtype">byte</span> dir, <span class="keywordtype">bool</span> invert = <span class="keyword">false</span>);</div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classMotor.html#a8949ad244c546ecde601ec3d03403ed9">begin</a>();</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classMotor.html#a59dc38671f171be3097b3d84ddf1180e">write</a>(<span class="keywordtype">float</span> value);</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classMotor.html#af98d9cd13add0aacca7cebe13b14103b">write</a>(<span class="keywordtype">int</span> value);</div>
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    </div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;  <span class="keyword">private</span>:</div>
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    <span class="keywordtype">byte</span> pwm, dir;</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;};</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    <span class="keywordtype">bool</span> invert;</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;};</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="ttc" id="aclassMotor_html"><div class="ttname"><a href="classMotor.html">Motor</a></div><div class="ttdoc">Motor class used to control simple DC motors.</div><div class="ttdef"><b>Definition:</b> Motor.h:10</div></div>
-<div class="ttc" id="aclassMotor_html_a2fa21a9588e7fb8ca61db5b569cc7e63"><div class="ttname"><a href="classMotor.html#a2fa21a9588e7fb8ca61db5b569cc7e63">Motor::Motor</a></div><div class="ttdeci">Motor(byte pwm, byte dir)</div><div class="ttdoc">Create object and set motor pins.</div><div class="ttdef"><b>Definition:</b> Motor.cpp:8</div></div>
-<div class="ttc" id="aclassMotor_html_a59dc38671f171be3097b3d84ddf1180e"><div class="ttname"><a href="classMotor.html#a59dc38671f171be3097b3d84ddf1180e">Motor::write</a></div><div class="ttdeci">void write(float value)</div><div class="ttdoc">Sets the motor speed.</div><div class="ttdef"><b>Definition:</b> Motor.cpp:25</div></div>
 <div class="ttc" id="aclassMotor_html_a8949ad244c546ecde601ec3d03403ed9"><div class="ttname"><a href="classMotor.html#a8949ad244c546ecde601ec3d03403ed9">Motor::begin</a></div><div class="ttdeci">void begin()</div><div class="ttdoc">Initialize motors.</div><div class="ttdef"><b>Definition:</b> Motor.cpp:16</div></div>
+<div class="ttc" id="aclassMotor_html_a952368cd91471b38166a227cb4f2384f"><div class="ttname"><a href="classMotor.html#a952368cd91471b38166a227cb4f2384f">Motor::Motor</a></div><div class="ttdeci">Motor(byte pwm, byte dir, bool invert=false)</div><div class="ttdoc">Create object and set motor pins.</div><div class="ttdef"><b>Definition:</b> Motor.cpp:9</div></div>
+<div class="ttc" id="aclassMotor_html_af98d9cd13add0aacca7cebe13b14103b"><div class="ttname"><a href="classMotor.html#af98d9cd13add0aacca7cebe13b14103b">Motor::write</a></div><div class="ttdeci">void write(int value)</div><div class="ttdoc">Sets the motor speed.</div><div class="ttdef"><b>Definition:</b> Motor.cpp:25</div></div>
 <div class="ttc" id="adefinitions_8h_html"><div class="ttname"><a href="definitions_8h.html">definitions.h</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->

@@ -126,6 +126,7 @@ $(document).ready(function(){initNavTree('functions.html',''); initResizable(); 
 , <a class="el" href="classDynamixelInterface.html#a3e4e3332de3d8d675d94a7cd1f6c647c">DynamixelInterface</a>
 , <a class="el" href="structMCP2515.html#ac3e7e19c0fe33229eac91cba70b31b83">MCP2515</a>
 , <a class="el" href="classMotor.html#a8949ad244c546ecde601ec3d03403ed9">Motor</a>
+, <a class="el" href="classSmartMotor.html#abe1e015d445ac4c830b446127279bdb1">SmartMotor</a>
 , <a class="el" href="classTractionEncoder.html#a3b38935e97776ddcebdeb2c394f6d48d">TractionEncoder</a>
 , <a class="el" href="classWebManagement.html#a02872e65a699697c243e1dd23a3988c3">WebManagement</a>
 </li>
@@ -135,6 +136,9 @@ $(document).ready(function(){initNavTree('functions.html',''); initResizable(); 
 <h3><a id="index_c"></a>- c -</h3><ul>
 <li>calculate()
 : <a class="el" href="classPID.html#a2d1e271496506301a6f22d0418aa0cc0">PID</a>
+</li>
+<li>calibrate()
+: <a class="el" href="classSmartMotor.html#ad30a82d663ba563d7618fbf0873c9671">SmartMotor</a>
 </li>
 <li>can_dlc
 : <a class="el" href="structcan__frame.html#acc198c7ef36537091728a4dfd8b9bdae">can_frame</a>
@@ -329,10 +333,14 @@ $(document).ready(function(){initNavTree('functions.html',''); initResizable(); 
 : <a class="el" href="classPID.html#a7162d3b89da5a9d4b3d75011b0b57c63">PID</a>
 </li>
 <li>getSpeed()
-: <a class="el" href="classTractionEncoder.html#a2c414262e6a923fe180d51197fc9bf5b">TractionEncoder</a>
+: <a class="el" href="classSmartMotor.html#a3dccbce0a9c9b01c7a3d5f2df239338f">SmartMotor</a>
+, <a class="el" href="classTractionEncoder.html#a2c414262e6a923fe180d51197fc9bf5b">TractionEncoder</a>
 </li>
 <li>getStatus()
 : <a class="el" href="structMCP2515.html#a5bddfe6aecd468877b7d26957873900f">MCP2515</a>
+</li>
+<li>getSteps()
+: <a class="el" href="classTractionEncoder.html#a7d301b140af5e49258d4a8dbebe7776d">TractionEncoder</a>
 </li>
 </ul>
 
@@ -371,7 +379,7 @@ $(document).ready(function(){initNavTree('functions.html',''); initResizable(); 
 : <a class="el" href="structMCP2515.html#aae087a179d7d10909f90ccaed19c2e81">MCP2515</a>
 </li>
 <li>Motor()
-: <a class="el" href="classMotor.html#a2fa21a9588e7fb8ca61db5b569cc7e63">Motor</a>
+: <a class="el" href="classMotor.html#a952368cd91471b38166a227cb4f2384f">Motor</a>
 </li>
 <li>move()
 : <a class="el" href="classDynamixelMotor.html#afb5e75666674466f3172e72c0e064aaa">DynamixelMotor</a>
@@ -585,6 +593,9 @@ $(document).ready(function(){initNavTree('functions.html',''); initResizable(); 
 <li>setSleepMode()
 : <a class="el" href="structMCP2515.html#af99c2b9ae70de75b3e44ce06e034cd1b">MCP2515</a>
 </li>
+<li>setSpeed()
+: <a class="el" href="classSmartMotor.html#aa27c9f4fb2be24193947b1bd141f513a">SmartMotor</a>
+</li>
 <li>setSRL()
 : <a class="el" href="classDynamixelMotor.html#aa64e8de0278fd6329dd92da745577d2e">DynamixelMotor</a>
 </li>
@@ -600,6 +611,12 @@ $(document).ready(function(){initNavTree('functions.html',''); initResizable(); 
 <li>setZeroReg()
 : <a class="el" href="classAMS__AS5048B.html#ad67ba3de9224a12102a31b35829450e8">AMS_AS5048B</a>
 </li>
+<li>SmartMotor()
+: <a class="el" href="classSmartMotor.html#abfcda59bcc997e23787e28a3c07abb53">SmartMotor</a>
+</li>
+<li>stop()
+: <a class="el" href="classSmartMotor.html#a0888c018802eebdef813dd4824d98da2">SmartMotor</a>
+</li>
 </ul>
 
 
@@ -608,7 +625,7 @@ $(document).ready(function(){initNavTree('functions.html',''); initResizable(); 
 : <a class="el" href="classAMS__AS5048B.html#ac2485a851c68e9a5b410c47ffc3485ca">AMS_AS5048B</a>
 </li>
 <li>TractionEncoder()
-: <a class="el" href="classTractionEncoder.html#a087860f2f22da4cf9dd0a4d93398eb73">TractionEncoder</a>
+: <a class="el" href="classTractionEncoder.html#a50938e32e75149e2d33d67dfefe380e2">TractionEncoder</a>
 </li>
 <li>turn()
 : <a class="el" href="classDynamixelMotor.html#ae2e50c83b3cc3d6491a7b7739730dcad">DynamixelMotor</a>
@@ -631,7 +648,7 @@ $(document).ready(function(){initNavTree('functions.html',''); initResizable(); 
 <h3><a id="index_u"></a>- u -</h3><ul>
 <li>update()
 : <a class="el" href="classAbsoluteEncoder.html#aae25f76ad9e1a21f3d5a08059a003151">AbsoluteEncoder</a>
-, <a class="el" href="classTractionEncoder.html#a6d70ace18f1dcec4d0ddddf84ad48343">TractionEncoder</a>
+, <a class="el" href="classSmartMotor.html#a1eb6dc1fd54a13dce1705c7a31b0f9ab">SmartMotor</a>
 </li>
 <li>updateFeedback()
 : <a class="el" href="classPID.html#a33f657a6cce4f57302f90bec9664d294">PID</a>
@@ -653,7 +670,7 @@ $(document).ready(function(){initNavTree('functions.html',''); initResizable(); 
 : <a class="el" href="classWebManagement.html#aa205ddf55b474746f2dcdad37385d202">WebManagement</a>
 </li>
 <li>write()
-: <a class="el" href="classMotor.html#a59dc38671f171be3097b3d84ddf1180e">Motor</a>
+: <a class="el" href="classMotor.html#af98d9cd13add0aacca7cebe13b14103b">Motor</a>
 </li>
 <li>writeBuf()
 : <a class="el" href="classDynamixelInterface.html#a42add10cb7682b39a3722b3a402d343b">DynamixelInterface</a>

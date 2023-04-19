@@ -1,0 +1,12 @@
+<map id="SmartMotor::calibrate" name="SmartMotor::calibrate">
+<area shape="rect" id="node1" title="Calibrate the PID controller." alt="" coords="5,132,169,159"/>
+<area shape="rect" id="node2" href="$classSmartMotor.html#a3dccbce0a9c9b01c7a3d5f2df239338f" title="Get the current speed of the motor." alt="" coords="217,31,385,57"/>
+<area shape="rect" id="node6" href="$classSerialDebug.html#a153ed172ea7eefd852292af7561ff961" title="Sends a line to the serial port with a debug level, only if it is lower than the setted one." alt="" coords="226,81,377,108"/>
+<area shape="rect" id="node8" href="$classPID.html#a51fdda77a492d1a303fbb3ac44bd7e54" title="Sets the integrative gain." alt="" coords="259,132,344,159"/>
+<area shape="rect" id="node9" href="$classPID.html#a96b79772d13f60d161149be254ab6ff5" title="Sets the proportional gain." alt="" coords="257,183,346,209"/>
+<area shape="rect" id="node10" href="$classMotor.html#af98d9cd13add0aacca7cebe13b14103b" title="Sets the motor speed." alt="" coords="251,233,352,260"/>
+<area shape="rect" id="node3" href="$classTractionEncoder.html#a2c414262e6a923fe180d51197fc9bf5b" title="Returns the last detected speed." alt="" coords="433,31,628,57"/>
+<area shape="rect" id="node4" href="$classFilter.html#ab8e25fe3166a547f5c08e6c7b7f019e2" title="Virtual filter function, will be replaced by the one from the chosen filter." alt="" coords="725,5,818,32"/>
+<area shape="rect" id="node5" href="$classTractionEncoder.html#a7d301b140af5e49258d4a8dbebe7776d" title="Returns the number of steps since the class was initialized." alt="" coords="676,56,867,83"/>
+<area shape="rect" id="node7" href="$classSerialDebug.html#a3d01753681fd740869da197b2fa772b0" title="Sends a string to the Serial port with a debug level, only if it is lower than the setted one." alt="" coords="461,81,600,108"/>
+</map>

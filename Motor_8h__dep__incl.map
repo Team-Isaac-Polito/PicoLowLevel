@@ -1,5 +1,7 @@
 <map id="Motor.h" name="Motor.h">
-<area shape="rect" id="node1" title=" " alt="" coords="80,5,151,32"/>
+<area shape="rect" id="node1" title=" " alt="" coords="75,5,145,32"/>
 <area shape="rect" id="node2" href="$Motor_8cpp.html" title=" " alt="" coords="5,80,92,107"/>
-<area shape="rect" id="node3" href="$PicoLowLevel_8ino.html" title=" " alt="" coords="116,80,251,107"/>
+<area shape="rect" id="node3" href="$SmartMotor_8h.html" title=" " alt="" coords="116,80,227,107"/>
+<area shape="rect" id="node4" href="$PicoLowLevel_8ino.html" title=" " alt="" coords="27,155,161,181"/>
+<area shape="rect" id="node5" href="$SmartMotor_8cpp.html" title=" " alt="" coords="186,155,311,181"/>
 </map>

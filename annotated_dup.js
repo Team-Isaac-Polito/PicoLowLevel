@@ -14,6 +14,7 @@ var annotated_dup =
     [ "MovingAvgFilter", "classMovingAvgFilter.html", "classMovingAvgFilter" ],
     [ "PID", "classPID.html", "classPID" ],
     [ "SerialDebug", "classSerialDebug.html", "classSerialDebug" ],
+    [ "SmartMotor", "classSmartMotor.html", "classSmartMotor" ],
     [ "TractionEncoder", "classTractionEncoder.html", "classTractionEncoder" ],
     [ "WebManagement", "classWebManagement.html", "classWebManagement" ]
 ];

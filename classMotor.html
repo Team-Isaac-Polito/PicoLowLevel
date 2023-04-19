@@ -96,21 +96,21 @@ $(document).ready(function(){initNavTree('classMotor.html',''); initResizable();
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a2fa21a9588e7fb8ca61db5b569cc7e63"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMotor.html#a2fa21a9588e7fb8ca61db5b569cc7e63">Motor</a> (byte pwm, byte dir)</td></tr>
-<tr class="memdesc:a2fa21a9588e7fb8ca61db5b569cc7e63"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create object and set motor pins.  <a href="classMotor.html#a2fa21a9588e7fb8ca61db5b569cc7e63">More...</a><br /></td></tr>
-<tr class="separator:a2fa21a9588e7fb8ca61db5b569cc7e63"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a952368cd91471b38166a227cb4f2384f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMotor.html#a952368cd91471b38166a227cb4f2384f">Motor</a> (byte pwm, byte dir, bool invert=false)</td></tr>
+<tr class="memdesc:a952368cd91471b38166a227cb4f2384f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create object and set motor pins.  <a href="classMotor.html#a952368cd91471b38166a227cb4f2384f">More...</a><br /></td></tr>
+<tr class="separator:a952368cd91471b38166a227cb4f2384f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8949ad244c546ecde601ec3d03403ed9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMotor.html#a8949ad244c546ecde601ec3d03403ed9">begin</a> ()</td></tr>
 <tr class="memdesc:a8949ad244c546ecde601ec3d03403ed9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize motors.  <a href="classMotor.html#a8949ad244c546ecde601ec3d03403ed9">More...</a><br /></td></tr>
 <tr class="separator:a8949ad244c546ecde601ec3d03403ed9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a59dc38671f171be3097b3d84ddf1180e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMotor.html#a59dc38671f171be3097b3d84ddf1180e">write</a> (float value)</td></tr>
-<tr class="memdesc:a59dc38671f171be3097b3d84ddf1180e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the motor speed.  <a href="classMotor.html#a59dc38671f171be3097b3d84ddf1180e">More...</a><br /></td></tr>
-<tr class="separator:a59dc38671f171be3097b3d84ddf1180e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af98d9cd13add0aacca7cebe13b14103b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMotor.html#af98d9cd13add0aacca7cebe13b14103b">write</a> (int value)</td></tr>
+<tr class="memdesc:af98d9cd13add0aacca7cebe13b14103b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the motor speed.  <a href="classMotor.html#af98d9cd13add0aacca7cebe13b14103b">More...</a><br /></td></tr>
+<tr class="separator:af98d9cd13add0aacca7cebe13b14103b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p><a class="el" href="classMotor.html" title="Motor class used to control simple DC motors.">Motor</a> class used to control simple DC motors. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a2fa21a9588e7fb8ca61db5b569cc7e63"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2fa21a9588e7fb8ca61db5b569cc7e63">&#9670;&nbsp;</a></span>Motor()</h2>
+<a id="a952368cd91471b38166a227cb4f2384f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a952368cd91471b38166a227cb4f2384f">&#9670;&nbsp;</a></span>Motor()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -125,7 +125,13 @@ Public Member Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">byte&#160;</td>
-          <td class="paramname"><em>dir</em>&#160;</td>
+          <td class="paramname"><em>dir</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>invert</em> = <code>false</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -140,6 +146,7 @@ Public Member Functions</h2></td></tr>
   <table class="params">
     <tr><td class="paramname">pwm</td><td>PWM pin. </td></tr>
     <tr><td class="paramname">dir</td><td>Direction pin. </td></tr>
+    <tr><td class="paramname">invert</td><td>Invert motor direction, usuful when motors are mounted opposite to one another. </td></tr>
   </table>
   </dd>
 </dl>
@@ -169,15 +176,16 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classMotor_a8949ad244c546ecde601ec3d03403ed9_icgraph.png" border="0" usemap="#aclassMotor_a8949ad244c546ecde601ec3d03403ed9_icgraph" alt=""/></div>
 <map name="aclassMotor_a8949ad244c546ecde601ec3d03403ed9_icgraph" id="aclassMotor_a8949ad244c546ecde601ec3d03403ed9_icgraph">
-<area shape="rect" title="Initialize motors." alt="" coords="112,5,216,32"/>
+<area shape="rect" title="Initialize motors." alt="" coords="303,5,407,32"/>
+<area shape="rect" href="classSmartMotor.html#abe1e015d445ac4c830b446127279bdb1" title="Initialize SmartMotor and necessary components." alt="" coords="112,5,255,32"/>
 <area shape="rect" href="PicoLowLevel_8ino.html#a4fc01d736fe50cf5b977f755b675f11d" title=" " alt="" coords="5,5,64,32"/>
 </map>
 </div>
 
 </div>
 </div>
-<a id="a59dc38671f171be3097b3d84ddf1180e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a59dc38671f171be3097b3d84ddf1180e">&#9670;&nbsp;</a></span>write()</h2>
+<a id="af98d9cd13add0aacca7cebe13b14103b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af98d9cd13add0aacca7cebe13b14103b">&#9670;&nbsp;</a></span>write()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -185,7 +193,7 @@ Here is the caller graph for this function:</div>
         <tr>
           <td class="memname">void Motor::write </td>
           <td>(</td>
-          <td class="paramtype">float&#160;</td>
+          <td class="paramtype">int&#160;</td>
           <td class="paramname"><em>value</em></td><td>)</td>
           <td></td>
         </tr>
@@ -202,11 +210,13 @@ Here is the caller graph for this function:</div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="classMotor_a59dc38671f171be3097b3d84ddf1180e_icgraph.png" border="0" usemap="#aclassMotor_a59dc38671f171be3097b3d84ddf1180e_icgraph" alt=""/></div>
-<map name="aclassMotor_a59dc38671f171be3097b3d84ddf1180e_icgraph" id="aclassMotor_a59dc38671f171be3097b3d84ddf1180e_icgraph">
-<area shape="rect" title="Sets the motor speed." alt="" coords="241,5,343,32"/>
-<area shape="rect" href="PicoLowLevel_8ino.html#a8b77b83a1d03b08c93bdab6e3917a70b" title=" " alt="" coords="104,5,193,32"/>
-<area shape="rect" href="PicoLowLevel_8ino.html#afe461d27b9c48d5921c00d521181f12f" title=" " alt="" coords="5,5,56,32"/>
+<div class="center"><img src="classMotor_af98d9cd13add0aacca7cebe13b14103b_icgraph.png" border="0" usemap="#aclassMotor_af98d9cd13add0aacca7cebe13b14103b_icgraph" alt=""/></div>
+<map name="aclassMotor_af98d9cd13add0aacca7cebe13b14103b_icgraph" id="aclassMotor_af98d9cd13add0aacca7cebe13b14103b_icgraph">
+<area shape="rect" title="Sets the motor speed." alt="" coords="316,56,417,83"/>
+<area shape="rect" href="classSmartMotor.html#ad30a82d663ba563d7618fbf0873c9671" title="Calibrate the PID controller." alt="" coords="104,5,268,32"/>
+<area shape="rect" href="classSmartMotor.html#a0888c018802eebdef813dd4824d98da2" title="Stop the motor." alt="" coords="119,56,253,83"/>
+<area shape="rect" href="classSmartMotor.html#a1eb6dc1fd54a13dce1705c7a31b0f9ab" title="Update routine, updating the PID and the motor speed." alt="" coords="110,107,262,133"/>
+<area shape="rect" href="PicoLowLevel_8ino.html#afe461d27b9c48d5921c00d521181f12f" title=" " alt="" coords="5,81,56,108"/>
 </map>
 </div>
 

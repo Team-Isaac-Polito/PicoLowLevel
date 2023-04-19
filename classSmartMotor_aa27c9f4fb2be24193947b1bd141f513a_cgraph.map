@@ -1,0 +1,4 @@
+<map id="SmartMotor::setSpeed" name="SmartMotor::setSpeed">
+<area shape="rect" id="node1" title="Set the desired speed of the motor." alt="" coords="5,5,172,32"/>
+<area shape="rect" id="node2" href="$classPID.html#ab6c2a366f39cf53149b50216b300bdcd" title="Sets the reference value." alt="" coords="220,5,419,32"/>
+</map>

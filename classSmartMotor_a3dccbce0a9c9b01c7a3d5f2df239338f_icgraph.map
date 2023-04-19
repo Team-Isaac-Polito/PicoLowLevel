@@ -1,0 +1,7 @@
+<map id="SmartMotor::getSpeed" name="SmartMotor::getSpeed">
+<area shape="rect" id="node1" title="Get the current speed of the motor." alt="" coords="316,56,484,83"/>
+<area shape="rect" id="node2" href="$classSmartMotor.html#ad30a82d663ba563d7618fbf0873c9671" title="Calibrate the PID controller." alt="" coords="104,5,268,32"/>
+<area shape="rect" id="node3" href="$PicoLowLevel_8ino.html#a8f9fa76a93541264f22c8f23f3fc1631" title=" " alt="" coords="127,56,245,83"/>
+<area shape="rect" id="node5" href="$classSmartMotor.html#a1eb6dc1fd54a13dce1705c7a31b0f9ab" title="Update routine, updating the PID and the motor speed." alt="" coords="110,107,262,133"/>
+<area shape="rect" id="node4" href="$PicoLowLevel_8ino.html#afe461d27b9c48d5921c00d521181f12f" title=" " alt="" coords="5,81,56,108"/>
+</map>

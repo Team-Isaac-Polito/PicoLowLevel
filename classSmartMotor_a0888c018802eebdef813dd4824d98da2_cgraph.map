@@ -1,0 +1,6 @@
+<map id="SmartMotor::stop" name="SmartMotor::stop">
+<area shape="rect" id="node1" title="Stop the motor." alt="" coords="5,56,140,83"/>
+<area shape="rect" id="node2" href="$classPID.html#a51c567347f9ca1a4572e5040b5296e30" title="Resets the PID state, as if it was the first iteration." alt="" coords="228,5,347,32"/>
+<area shape="rect" id="node3" href="$classPID.html#ab6c2a366f39cf53149b50216b300bdcd" title="Sets the reference value." alt="" coords="188,56,387,83"/>
+<area shape="rect" id="node4" href="$classMotor.html#af98d9cd13add0aacca7cebe13b14103b" title="Sets the motor speed." alt="" coords="237,107,338,133"/>
+</map>

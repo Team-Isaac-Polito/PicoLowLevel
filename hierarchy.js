@@ -22,6 +22,7 @@ var hierarchy =
       [ "MCP2515", "structMCP2515.html", null ]
     ] ],
     [ "SerialDebug", "classSerialDebug.html", null ],
+    [ "SmartMotor", "classSmartMotor.html", null ],
     [ "TractionEncoder", "classTractionEncoder.html", null ],
     [ "WebManagement", "classWebManagement.html", null ]
 ];

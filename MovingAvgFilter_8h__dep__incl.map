@@ -1,6 +1,6 @@
 <map id="MovingAvgFilter.h" name="MovingAvgFilter.h">
-<area shape="rect" id="node1" title=" " alt="" coords="86,5,225,32"/>
-<area shape="rect" id="node2" href="$TractionEncoder_8h.html" title=" " alt="" coords="87,80,223,107"/>
+<area shape="rect" id="node1" title=" " alt="" coords="81,5,219,32"/>
+<area shape="rect" id="node2" href="$SmartMotor_8h.html" title=" " alt="" coords="95,80,205,107"/>
 <area shape="rect" id="node3" href="$PicoLowLevel_8ino.html" title=" " alt="" coords="5,155,140,181"/>
-<area shape="rect" id="node4" href="$TractionEncoder_8cpp.html" title=" " alt="" coords="164,155,315,181"/>
+<area shape="rect" id="node4" href="$SmartMotor_8cpp.html" title=" " alt="" coords="165,155,290,181"/>
 </map>

@@ -1,0 +1,11 @@
+<map id="SmartMotor::update" name="SmartMotor::update">
+<area shape="rect" id="node1" title="Update routine, updating the PID and the motor speed." alt="" coords="5,107,157,133"/>
+<area shape="rect" id="node2" href="$classPID.html#a2d1e271496506301a6f22d0418aa0cc0" title="Main PID routine." alt="" coords="234,5,345,32"/>
+<area shape="rect" id="node3" href="$classPID.html#a266f60cce93632141002987d5d67d0cc" title="Gets output computed from the last iteration of calculate()" alt="" coords="231,56,348,83"/>
+<area shape="rect" id="node4" href="$classSmartMotor.html#a3dccbce0a9c9b01c7a3d5f2df239338f" title="Get the current speed of the motor." alt="" coords="205,107,373,133"/>
+<area shape="rect" id="node8" href="$classPID.html#a33f657a6cce4f57302f90bec9664d294" title="Updates the feedback for PID computation." alt="" coords="210,157,369,184"/>
+<area shape="rect" id="node9" href="$classMotor.html#af98d9cd13add0aacca7cebe13b14103b" title="Sets the motor speed." alt="" coords="239,208,340,235"/>
+<area shape="rect" id="node5" href="$classTractionEncoder.html#a2c414262e6a923fe180d51197fc9bf5b" title="Returns the last detected speed." alt="" coords="421,107,616,133"/>
+<area shape="rect" id="node6" href="$classFilter.html#ab8e25fe3166a547f5c08e6c7b7f019e2" title="Virtual filter function, will be replaced by the one from the chosen filter." alt="" coords="713,81,806,108"/>
+<area shape="rect" id="node7" href="$classTractionEncoder.html#a7d301b140af5e49258d4a8dbebe7776d" title="Returns the number of steps since the class was initialized." alt="" coords="664,132,855,159"/>
+</map>

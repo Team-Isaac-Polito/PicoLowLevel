@@ -96,24 +96,24 @@ $(document).ready(function(){initNavTree('classTractionEncoder.html',''); initRe
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a087860f2f22da4cf9dd0a4d93398eb73"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTractionEncoder.html#a087860f2f22da4cf9dd0a4d93398eb73">TractionEncoder</a> (byte pin_a, byte pin_b, <a class="el" href="classFilter.html">Filter</a>&lt; int &gt; *filter=NULL)</td></tr>
-<tr class="memdesc:a087860f2f22da4cf9dd0a4d93398eb73"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates object.  <a href="classTractionEncoder.html#a087860f2f22da4cf9dd0a4d93398eb73">More...</a><br /></td></tr>
-<tr class="separator:a087860f2f22da4cf9dd0a4d93398eb73"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a50938e32e75149e2d33d67dfefe380e2"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTractionEncoder.html#a50938e32e75149e2d33d67dfefe380e2">TractionEncoder</a> (byte pin_a, byte pin_b, <a class="el" href="classFilter.html">Filter</a>&lt; int &gt; *filter=NULL, bool invert=false, PIO pio=pio0)</td></tr>
+<tr class="memdesc:a50938e32e75149e2d33d67dfefe380e2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates object.  <a href="classTractionEncoder.html#a50938e32e75149e2d33d67dfefe380e2">More...</a><br /></td></tr>
+<tr class="separator:a50938e32e75149e2d33d67dfefe380e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3b38935e97776ddcebdeb2c394f6d48d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTractionEncoder.html#a3b38935e97776ddcebdeb2c394f6d48d">begin</a> ()</td></tr>
 <tr class="memdesc:a3b38935e97776ddcebdeb2c394f6d48d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the encoder's pins and attach the interrupt.  <a href="classTractionEncoder.html#a3b38935e97776ddcebdeb2c394f6d48d">More...</a><br /></td></tr>
 <tr class="separator:a3b38935e97776ddcebdeb2c394f6d48d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6d70ace18f1dcec4d0ddddf84ad48343"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTractionEncoder.html#a6d70ace18f1dcec4d0ddddf84ad48343">update</a> ()</td></tr>
-<tr class="memdesc:a6d70ace18f1dcec4d0ddddf84ad48343"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes and updates the encoder detected speed.  <a href="classTractionEncoder.html#a6d70ace18f1dcec4d0ddddf84ad48343">More...</a><br /></td></tr>
-<tr class="separator:a6d70ace18f1dcec4d0ddddf84ad48343"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2c414262e6a923fe180d51197fc9bf5b"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTractionEncoder.html#a2c414262e6a923fe180d51197fc9bf5b">getSpeed</a> ()</td></tr>
 <tr class="memdesc:a2c414262e6a923fe180d51197fc9bf5b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the last detected speed.  <a href="classTractionEncoder.html#a2c414262e6a923fe180d51197fc9bf5b">More...</a><br /></td></tr>
 <tr class="separator:a2c414262e6a923fe180d51197fc9bf5b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7d301b140af5e49258d4a8dbebe7776d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTractionEncoder.html#a7d301b140af5e49258d4a8dbebe7776d">getSteps</a> ()</td></tr>
+<tr class="memdesc:a7d301b140af5e49258d4a8dbebe7776d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the number of steps since the class was initialized.  <a href="classTractionEncoder.html#a7d301b140af5e49258d4a8dbebe7776d">More...</a><br /></td></tr>
+<tr class="separator:a7d301b140af5e49258d4a8dbebe7776d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Class used to read data from traction rotary encoders. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a087860f2f22da4cf9dd0a4d93398eb73"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a087860f2f22da4cf9dd0a4d93398eb73">&#9670;&nbsp;</a></span>TractionEncoder()</h2>
+<a id="a50938e32e75149e2d33d67dfefe380e2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a50938e32e75149e2d33d67dfefe380e2">&#9670;&nbsp;</a></span>TractionEncoder()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -134,7 +134,19 @@ Public Member Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype"><a class="el" href="classFilter.html">Filter</a>&lt; int &gt; *&#160;</td>
-          <td class="paramname"><em>filter</em> = <code>NULL</code>&#160;</td>
+          <td class="paramname"><em>filter</em> = <code>NULL</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>invert</em> = <code>false</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">PIO&#160;</td>
+          <td class="paramname"><em>pio</em> = <code>pio0</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -145,6 +157,16 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Creates object. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pin_a</td><td>Pin A of the encoder. </td></tr>
+    <tr><td class="paramname">pin_b</td><td>Pin B of the encoder. </td></tr>
+    <tr><td class="paramname">filter</td><td><a class="el" href="classFilter.html" title="Interface for a generic filter, with parameterized type.">Filter</a> to apply to the encoder's output. NULL if no filter is needed. </td></tr>
+    <tr><td class="paramname">invert</td><td>Invert the encoder's output. </td></tr>
+    <tr><td class="paramname">pio</td><td>PIO to use. Each PIO can handle up to 4 encoders. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -171,7 +193,8 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classTractionEncoder_a3b38935e97776ddcebdeb2c394f6d48d_icgraph.png" border="0" usemap="#aclassTractionEncoder_a3b38935e97776ddcebdeb2c394f6d48d_icgraph" alt=""/></div>
 <map name="aclassTractionEncoder_a3b38935e97776ddcebdeb2c394f6d48d_icgraph" id="aclassTractionEncoder_a3b38935e97776ddcebdeb2c394f6d48d_icgraph">
-<area shape="rect" title="Sets the encoder&#39;s pins and attach the interrupt." alt="" coords="112,5,281,32"/>
+<area shape="rect" title="Sets the encoder&#39;s pins and attach the interrupt." alt="" coords="303,5,472,32"/>
+<area shape="rect" href="classSmartMotor.html#abe1e015d445ac4c830b446127279bdb1" title="Initialize SmartMotor and necessary components." alt="" coords="112,5,255,32"/>
 <area shape="rect" href="PicoLowLevel_8ino.html#a4fc01d736fe50cf5b977f755b675f11d" title=" " alt="" coords="5,5,64,32"/>
 </map>
 </div>
@@ -196,27 +219,39 @@ Here is the caller graph for this function:</div>
 <p>Returns the last detected speed. </p>
 <dl class="section return"><dt>Returns</dt><dd>The speed in centiRPMs. </dd></dl>
 <div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classTractionEncoder_a2c414262e6a923fe180d51197fc9bf5b_cgraph.png" border="0" usemap="#aclassTractionEncoder_a2c414262e6a923fe180d51197fc9bf5b_cgraph" alt=""/></div>
+<map name="aclassTractionEncoder_a2c414262e6a923fe180d51197fc9bf5b_cgraph" id="aclassTractionEncoder_a2c414262e6a923fe180d51197fc9bf5b_cgraph">
+<area shape="rect" title="Returns the last detected speed." alt="" coords="5,31,200,57"/>
+<area shape="rect" href="classFilter.html#ab8e25fe3166a547f5c08e6c7b7f019e2" title="Virtual filter function, will be replaced by the one from the chosen filter." alt="" coords="297,5,390,32"/>
+<area shape="rect" href="classTractionEncoder.html#a7d301b140af5e49258d4a8dbebe7776d" title="Returns the number of steps since the class was initialized." alt="" coords="248,56,439,83"/>
+</map>
+</div>
+<div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classTractionEncoder_a2c414262e6a923fe180d51197fc9bf5b_icgraph.png" border="0" usemap="#aclassTractionEncoder_a2c414262e6a923fe180d51197fc9bf5b_icgraph" alt=""/></div>
 <map name="aclassTractionEncoder_a2c414262e6a923fe180d51197fc9bf5b_icgraph" id="aclassTractionEncoder_a2c414262e6a923fe180d51197fc9bf5b_icgraph">
-<area shape="rect" title="Returns the last detected speed." alt="" coords="271,31,465,57"/>
-<area shape="rect" href="PicoLowLevel_8ino.html#a8f9fa76a93541264f22c8f23f3fc1631" title=" " alt="" coords="104,5,223,32"/>
-<area shape="rect" href="PicoLowLevel_8ino.html#a8b77b83a1d03b08c93bdab6e3917a70b" title=" " alt="" coords="119,56,208,83"/>
-<area shape="rect" href="PicoLowLevel_8ino.html#afe461d27b9c48d5921c00d521181f12f" title=" " alt="" coords="5,31,56,57"/>
+<area shape="rect" title="Returns the last detected speed." alt="" coords="532,56,727,83"/>
+<area shape="rect" href="classSmartMotor.html#a3dccbce0a9c9b01c7a3d5f2df239338f" title="Get the current speed of the motor." alt="" coords="316,56,484,83"/>
+<area shape="rect" href="classSmartMotor.html#ad30a82d663ba563d7618fbf0873c9671" title="Calibrate the PID controller." alt="" coords="104,5,268,32"/>
+<area shape="rect" href="PicoLowLevel_8ino.html#a8f9fa76a93541264f22c8f23f3fc1631" title=" " alt="" coords="127,56,245,83"/>
+<area shape="rect" href="classSmartMotor.html#a1eb6dc1fd54a13dce1705c7a31b0f9ab" title="Update routine, updating the PID and the motor speed." alt="" coords="110,107,262,133"/>
+<area shape="rect" href="PicoLowLevel_8ino.html#afe461d27b9c48d5921c00d521181f12f" title=" " alt="" coords="5,81,56,108"/>
 </map>
 </div>
 
 </div>
 </div>
-<a id="a6d70ace18f1dcec4d0ddddf84ad48343"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6d70ace18f1dcec4d0ddddf84ad48343">&#9670;&nbsp;</a></span>update()</h2>
+<a id="a7d301b140af5e49258d4a8dbebe7776d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7d301b140af5e49258d4a8dbebe7776d">&#9670;&nbsp;</a></span>getSteps()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void TractionEncoder::update </td>
+          <td class="memname">int TractionEncoder::getSteps </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -224,23 +259,20 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p>Computes and updates the encoder detected speed. </p>
-<div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="classTractionEncoder_a6d70ace18f1dcec4d0ddddf84ad48343_cgraph.png" border="0" usemap="#aclassTractionEncoder_a6d70ace18f1dcec4d0ddddf84ad48343_cgraph" alt=""/></div>
-<map name="aclassTractionEncoder_a6d70ace18f1dcec4d0ddddf84ad48343_cgraph" id="aclassTractionEncoder_a6d70ace18f1dcec4d0ddddf84ad48343_cgraph">
-<area shape="rect" title="Computes and updates the encoder detected speed." alt="" coords="5,5,184,32"/>
-<area shape="rect" href="classFilter.html#ab8e25fe3166a547f5c08e6c7b7f019e2" title="Virtual filter function, will be replaced by the one from the chosen filter." alt="" coords="232,5,325,32"/>
-</map>
-</div>
+<p>Returns the number of steps since the class was initialized. </p>
+<dl class="section return"><dt>Returns</dt><dd>The number of steps. </dd></dl>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="classTractionEncoder_a6d70ace18f1dcec4d0ddddf84ad48343_icgraph.png" border="0" usemap="#aclassTractionEncoder_a6d70ace18f1dcec4d0ddddf84ad48343_icgraph" alt=""/></div>
-<map name="aclassTractionEncoder_a6d70ace18f1dcec4d0ddddf84ad48343_icgraph" id="aclassTractionEncoder_a6d70ace18f1dcec4d0ddddf84ad48343_icgraph">
-<area shape="rect" title="Computes and updates the encoder detected speed." alt="" coords="104,5,283,32"/>
-<area shape="rect" href="PicoLowLevel_8ino.html#afe461d27b9c48d5921c00d521181f12f" title=" " alt="" coords="5,5,56,32"/>
+<div class="center"><img src="classTractionEncoder_a7d301b140af5e49258d4a8dbebe7776d_icgraph.png" border="0" usemap="#aclassTractionEncoder_a7d301b140af5e49258d4a8dbebe7776d_icgraph" alt=""/></div>
+<map name="aclassTractionEncoder_a7d301b140af5e49258d4a8dbebe7776d_icgraph" id="aclassTractionEncoder_a7d301b140af5e49258d4a8dbebe7776d_icgraph">
+<area shape="rect" title="Returns the number of steps since the class was initialized." alt="" coords="775,56,965,83"/>
+<area shape="rect" href="classTractionEncoder.html#a2c414262e6a923fe180d51197fc9bf5b" title="Returns the last detected speed." alt="" coords="532,56,727,83"/>
+<area shape="rect" href="classSmartMotor.html#a3dccbce0a9c9b01c7a3d5f2df239338f" title="Get the current speed of the motor." alt="" coords="316,56,484,83"/>
+<area shape="rect" href="classSmartMotor.html#ad30a82d663ba563d7618fbf0873c9671" title="Calibrate the PID controller." alt="" coords="104,5,268,32"/>
+<area shape="rect" href="PicoLowLevel_8ino.html#a8f9fa76a93541264f22c8f23f3fc1631" title=" " alt="" coords="127,56,245,83"/>
+<area shape="rect" href="classSmartMotor.html#a1eb6dc1fd54a13dce1705c7a31b0f9ab" title="Update routine, updating the PID and the motor speed." alt="" coords="110,107,262,133"/>
+<area shape="rect" href="PicoLowLevel_8ino.html#afe461d27b9c48d5921c00d521181f12f" title=" " alt="" coords="5,81,56,108"/>
 </map>
 </div>
 

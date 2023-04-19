@@ -1,0 +1,6 @@
+<map id="SmartMotor::getSpeed" name="SmartMotor::getSpeed">
+<area shape="rect" id="node1" title="Get the current speed of the motor." alt="" coords="5,31,173,57"/>
+<area shape="rect" id="node2" href="$classTractionEncoder.html#a2c414262e6a923fe180d51197fc9bf5b" title="Returns the last detected speed." alt="" coords="221,31,416,57"/>
+<area shape="rect" id="node3" href="$classFilter.html#ab8e25fe3166a547f5c08e6c7b7f019e2" title="Virtual filter function, will be replaced by the one from the chosen filter." alt="" coords="513,5,606,32"/>
+<area shape="rect" id="node4" href="$classTractionEncoder.html#a7d301b140af5e49258d4a8dbebe7776d" title="Returns the number of steps since the class was initialized." alt="" coords="464,56,655,83"/>
+</map>

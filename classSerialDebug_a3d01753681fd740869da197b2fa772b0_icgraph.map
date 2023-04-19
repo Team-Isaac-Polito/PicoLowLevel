@@ -1,13 +1,13 @@
 <map id="SerialDebug::print" name="SerialDebug::print">
-<area shape="rect" id="node1" title="Sends a string to the Serial port with a debug level, only if it is lower than the setted one." alt="" coords="603,133,741,160"/>
-<area shape="rect" id="node2" href="$PicoLowLevel_8ino.html#afe461d27b9c48d5921c00d521181f12f" title=" " alt="" coords="9,32,60,59"/>
-<area shape="rect" id="node3" href="$classSerialDebug.html#ad08c02141e413ef16b19ce63968fc7cd" title="Sends a debug string to the serial port, only debug is accepted." alt="" coords="383,184,521,211"/>
-<area shape="rect" id="node4" href="$classSerialDebug.html#a153ed172ea7eefd852292af7561ff961" title="Sends a line to the serial port with a debug level, only if it is lower than the setted one." alt="" coords="377,133,527,160"/>
-<area shape="rect" id="node10" href="$PicoLowLevel_8ino.html#a8b77b83a1d03b08c93bdab6e3917a70b" title=" " alt="" coords="162,32,251,59"/>
-<area shape="rect" id="node11" href="$classAbsoluteEncoder.html#a487c5f6059e9dd3dbaa485938fda6c80" title="Reads the current measured angle." alt="" coords="349,235,555,261"/>
-<area shape="rect" id="node5" href="$classAbsoluteEncoder.html#a76e13c75b1976dbc5eac9968d97848fe" title="Start the encoder at zero with the default direction." alt="" coords="119,133,294,160"/>
-<area shape="rect" id="node6" href="$classWebManagement.html#a02872e65a699697c243e1dd23a3988c3" title=" " alt="" coords="117,235,297,261"/>
-<area shape="rect" id="node7" href="$PicoLowLevel_8ino.html#a4fc01d736fe50cf5b977f755b675f11d" title=" " alt="" coords="5,209,64,236"/>
-<area shape="rect" id="node8" href="$classSerialDebug.html#a12bec7c49d756040fa4f16ce5f1f6cd4" title="Sends a debug line to the serial port, only debug is accepted." alt="" coords="131,285,282,312"/>
-<area shape="rect" id="node9" href="$classAbsoluteEncoder.html#a26b4493f44904d31dab6f5fd3e9c734e" title="Sets the encoder current position to zero." alt="" coords="112,336,301,363"/>
+<area shape="rect" id="node1" title="Sends a string to the Serial port with a debug level, only if it is lower than the setted one." alt="" coords="603,107,741,133"/>
+<area shape="rect" id="node2" href="$PicoLowLevel_8ino.html#afe461d27b9c48d5921c00d521181f12f" title=" " alt="" coords="181,5,232,32"/>
+<area shape="rect" id="node3" href="$classSerialDebug.html#ad08c02141e413ef16b19ce63968fc7cd" title="Sends a debug string to the serial port, only debug is accepted." alt="" coords="383,81,521,108"/>
+<area shape="rect" id="node4" href="$classSerialDebug.html#a153ed172ea7eefd852292af7561ff961" title="Sends a line to the serial port with a debug level, only if it is lower than the setted one." alt="" coords="377,132,527,159"/>
+<area shape="rect" id="node11" href="$classAbsoluteEncoder.html#a487c5f6059e9dd3dbaa485938fda6c80" title="Reads the current measured angle." alt="" coords="349,183,555,209"/>
+<area shape="rect" id="node5" href="$classAbsoluteEncoder.html#a76e13c75b1976dbc5eac9968d97848fe" title="Start the encoder at zero with the default direction." alt="" coords="119,56,294,83"/>
+<area shape="rect" id="node6" href="$classWebManagement.html#a02872e65a699697c243e1dd23a3988c3" title=" " alt="" coords="117,107,297,133"/>
+<area shape="rect" id="node7" href="$PicoLowLevel_8ino.html#a4fc01d736fe50cf5b977f755b675f11d" title=" " alt="" coords="5,132,64,159"/>
+<area shape="rect" id="node8" href="$classSmartMotor.html#ad30a82d663ba563d7618fbf0873c9671" title="Calibrate the PID controller." alt="" coords="125,208,289,235"/>
+<area shape="rect" id="node9" href="$classSerialDebug.html#a12bec7c49d756040fa4f16ce5f1f6cd4" title="Sends a debug line to the serial port, only debug is accepted." alt="" coords="131,259,282,285"/>
+<area shape="rect" id="node10" href="$classAbsoluteEncoder.html#a26b4493f44904d31dab6f5fd3e9c734e" title="Sets the encoder current position to zero." alt="" coords="112,309,301,336"/>
 </map>

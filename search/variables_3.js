@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['encodertrleft_712',['encoderTrLeft',['../PicoLowLevel_8ino.html#a047d9ffdd586300b8fd47b6c105cb9a8',1,'PicoLowLevel.ino']]],
-  ['encodertrright_713',['encoderTrRight',['../PicoLowLevel_8ino.html#a2b105ebc0af5ab813c1999b1668f0584',1,'PicoLowLevel.ino']]]
+  ['mcp2515_728',['mcp2515',['../PicoLowLevel_8ino.html#a46fdf4638c6477530e06540445669901',1,'PicoLowLevel.ino']]],
+  ['motortrleft_729',['motorTrLeft',['../PicoLowLevel_8ino.html#affd788a2f3318ab1548067c1239fb823',1,'PicoLowLevel.ino']]],
+  ['motortrright_730',['motorTrRight',['../PicoLowLevel_8ino.html#a3107114b6c7545e2b3e5fd8cf6f87268',1,'PicoLowLevel.ino']]]
 ];
