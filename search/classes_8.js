@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['serialdebug_550',['SerialDebug',['../classSerialDebug.html',1,'']]],
-  ['smartmotor_551',['SmartMotor',['../classSmartMotor.html',1,'']]]
+  ['serialdebug_532',['SerialDebug',['../classSerialDebug.html',1,'']]],
+  ['smartmotor_533',['SmartMotor',['../classSmartMotor.html',1,'']]]
 ];

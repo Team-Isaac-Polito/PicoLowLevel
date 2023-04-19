@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['yaw_5fmax_5fangle_532',['YAW_MAX_ANGLE',['../definitions_8h.html#af0c82f6c59297b43dbe4304eb58aa635',1,'definitions.h']]],
-  ['yaw_5fmin_5fangle_533',['YAW_MIN_ANGLE',['../definitions_8h.html#a70c03bb0e96cbcd00bf1704d9b57df18',1,'definitions.h']]]
+  ['zeroregr_516',['zeroRegR',['../classAMS__AS5048B.html#a7784bc5f991bb485c2731a7189d277bf',1,'AMS_AS5048B']]],
+  ['zeroregw_517',['zeroRegW',['../classAMS__AS5048B.html#a67cbd882f0300705d615ce1e2dff2f47',1,'AMS_AS5048B']]]
 ];
