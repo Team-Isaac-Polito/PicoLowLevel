@@ -52,7 +52,8 @@
 // PWM = centiRPM * 1023 / (100 * maxRPM)
 #define RPM_TO_PWM .15738461538
 
-#define ENC_TR_SAMPLES 5
+// Traction encoder filter samples
+#define ENC_TR_SAMPLES 10
 
 // Display
 #define DISPLAY_ADDR 0x3c

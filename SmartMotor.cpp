@@ -11,7 +11,7 @@
  */
 SmartMotor::SmartMotor(byte pwm, byte dir, byte enc_a, byte enc_b, bool invert, PIO pio)
     : motor(pwm, dir, invert),
-      encoder(enc_a, enc_b, new MovingAvgFilter<int>(10), invert, pio),
+      encoder(enc_a, enc_b, new MovingAvgFilter<int>(ENC_TR_SAMPLES), invert, pio),
       pid(0.f, 0.f, 0.f, MAX_SPEED, 1.f),
       invert(invert)
 {}
