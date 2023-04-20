@@ -18,7 +18,7 @@ int time_data = 0;
 int time_tel_avg = DT_TEL;
 
 struct can_frame canMsg;
-MCP2515 mcp2515(5);
+MCP2515 mcp2515(5, 10000000UL, &SPI); // passing all parameters avoids premature initialization of SPI, which should be done in setup()
 
 SmartMotor motorTrLeft(DRV_TR_LEFT_PWM, DRV_TR_LEFT_DIR, ENC_TR_LEFT_A, ENC_TR_LEFT_B, false);
 SmartMotor motorTrRight(DRV_TR_RIGHT_PWM, DRV_TR_RIGHT_DIR, ENC_TR_RIGHT_A, ENC_TR_RIGHT_B, false);
@@ -99,6 +99,12 @@ void setup() {
   Wire1.setSDA(I2C_SENS_SDA);
   Wire1.setSCL(I2C_SENS_SCL);
   Wire1.begin();
+
+  SPI.setRX(4);
+  SPI.setCS(5);
+  SPI.setSCK(6);
+  SPI.setTX(7);
+  SPI.begin();
   
   LittleFS.begin();
 
@@ -106,7 +112,6 @@ void setup() {
   wm.begin(WIFI_SSID, WIFI_PWD, hostname.c_str());
 
   // CAN initialization
-  mcp2515.begin();
   mcp2515.reset();
   mcp2515.setBitrate(CAN_125KBPS, MCP_8MHZ);
 

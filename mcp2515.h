@@ -90,13 +90,17 @@
 #define MCP_16MHz_100kBPS_CFG2 (0xFA)
 #define MCP_16MHz_100kBPS_CFG3 (0x87)
 
-#define MCP_16MHz_80kBPS_CFG1 (0x03)
-#define MCP_16MHz_80kBPS_CFG2 (0xFF)
-#define MCP_16MHz_80kBPS_CFG3 (0x87)
+#define MCP_16MHz_95kBPS_CFG1 (0x03)
+#define MCP_16MHz_95kBPS_CFG2 (0xAD)
+#define MCP_16MHz_95kBPS_CFG3 (0x07)
 
 #define MCP_16MHz_83k3BPS_CFG1 (0x03)
 #define MCP_16MHz_83k3BPS_CFG2 (0xBE)
 #define MCP_16MHz_83k3BPS_CFG3 (0x07)
+
+#define MCP_16MHz_80kBPS_CFG1 (0x03)
+#define MCP_16MHz_80kBPS_CFG2 (0xFF)
+#define MCP_16MHz_80kBPS_CFG3 (0x87)
 
 #define MCP_16MHz_50kBPS_CFG1 (0x07)
 #define MCP_16MHz_50kBPS_CFG2 (0xFA)
@@ -444,6 +448,7 @@ class MCP2515
 
         uint8_t SPICS;
         uint32_t SPI_CLOCK;
+        SPIClass * SPIn;
 
     private:
 
@@ -461,8 +466,7 @@ class MCP2515
         void prepareId(uint8_t *buffer, const bool ext, const uint32_t id);
     
     public:
-        MCP2515(const uint8_t _CS, const uint32_t _SPI_CLOCK = DEFAULT_SPI_CLOCK);
-        void begin();
+        MCP2515(const uint8_t _CS, const uint32_t _SPI_CLOCK = DEFAULT_SPI_CLOCK, SPIClass * _SPI = nullptr);
         ERROR reset(void);
         ERROR setConfigMode();
         ERROR setListenOnlyMode();
