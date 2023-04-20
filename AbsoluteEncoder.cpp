@@ -32,11 +32,7 @@ void AbsoluteEncoder::setZero() {
  * @return Angle in degrees.
  */
 float AbsoluteEncoder::readAngle() {
-#ifdef ABS_ENC_OFFSET
-  float angle = angleR(U_DEG, false) - ABS_ENC_OFFSET;
-#else
   float angle = angleR(U_DEG, false);
-#endif
   Debug.print("ABSOLUTE ENCODER - READ ANGLE ", Levels::DEBUG);
   Debug.print(angle, Levels::DEBUG);
 
