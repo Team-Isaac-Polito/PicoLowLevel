@@ -54,12 +54,6 @@ void navInterrupt() {
   display.navInterrupt();
 }
 
-int motorCurrent(bool rightSide) {
-  int val = analogRead(rightSide?DRV_TR_RIGHT_CURR:DRV_TR_LEFT_CURR);
-  val = map(val, 0, 4095, 0, 3300000);
-  return (val-50)/40;
-}
-
 void sendTelemetry() {
   canMsg.can_id = 0x14;
   canMsg.can_dlc = 5;
@@ -80,16 +74,6 @@ void sendTelemetry() {
   canMsg.data[2] = ((uint8_t*)&speedL)[2];
   canMsg.data[3] = ((uint8_t*)&speedL)[1];
   canMsg.data[4] = ((uint8_t*)&speedL)[0];
-  mcp2515.sendMessage(&canMsg);
-
-  // sending motor currents as two unsigned integers of 16bit
-  int currL = motorCurrent(false);
-  int currR = motorCurrent(true);
-  canMsg.data[0] = SEND_CURRENT;
-  canMsg.data[1] = currL;
-  canMsg.data[2] = currL>>8;
-  canMsg.data[3] = currR;
-  canMsg.data[4] = currR>>8;
   mcp2515.sendMessage(&canMsg);
 
   // if we have an absolute encoder connected send it's value as float
