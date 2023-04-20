@@ -1,14 +1,13 @@
 var PicoLowLevel_8ino =
 [
     [ "loop", "PicoLowLevel_8ino.html#afe461d27b9c48d5921c00d521181f12f", null ],
-    [ "motorCurrent", "PicoLowLevel_8ino.html#a8525066812661764db35342986352875", null ],
     [ "navInterrupt", "PicoLowLevel_8ino.html#a463bd5e2d6006d3d57e5569bd7c8cea4", null ],
     [ "okInterrupt", "PicoLowLevel_8ino.html#a7e5bd9686428496c0be42f11e557bd2b", null ],
     [ "sendTelemetry", "PicoLowLevel_8ino.html#a8f9fa76a93541264f22c8f23f3fc1631", null ],
     [ "setup", "PicoLowLevel_8ino.html#a4fc01d736fe50cf5b977f755b675f11d", null ],
     [ "canMsg", "PicoLowLevel_8ino.html#a48f09105460ef86504c1aa704071773f", null ],
     [ "display", "PicoLowLevel_8ino.html#aa5083e8fab8ddaf62944949e251663bb", null ],
-    [ "mcp2515", "PicoLowLevel_8ino.html#a46fdf4638c6477530e06540445669901", null ],
+    [ "mcp2515", "PicoLowLevel_8ino.html#ab6513f212de1bf0cdcb4bee62404ecb0", null ],
     [ "motorTrLeft", "PicoLowLevel_8ino.html#affd788a2f3318ab1548067c1239fb823", null ],
     [ "motorTrRight", "PicoLowLevel_8ino.html#a3107114b6c7545e2b3e5fd8cf6f87268", null ],
     [ "oldAngle", "PicoLowLevel_8ino.html#acc50c1424cde2d478085d4006d6d3ae1", null ],

@@ -49,8 +49,7 @@ var structMCP2515 =
       [ "TXB1", "structMCP2515.html#a57d6805c8638eaa5d2a257376606340bab7cb89258b4208d08354e495ca30c0ab", null ],
       [ "TXB2", "structMCP2515.html#a57d6805c8638eaa5d2a257376606340baff658a218c4e05ffabb40049382bb83f", null ]
     ] ],
-    [ "MCP2515", "structMCP2515.html#aae087a179d7d10909f90ccaed19c2e81", null ],
-    [ "begin", "structMCP2515.html#ac3e7e19c0fe33229eac91cba70b31b83", null ],
+    [ "MCP2515", "structMCP2515.html#a0c54990c59d94ad6249e9b6a5ff9befb", null ],
     [ "checkError", "structMCP2515.html#a938a1d282c588e0ee731815acd8d2dda", null ],
     [ "checkReceive", "structMCP2515.html#a5dcf1cfeb041555b8101299b313c2a0a", null ],
     [ "clearERRIF", "structMCP2515.html#a4461be96be06f9972bc9a2f9d5684237", null ],

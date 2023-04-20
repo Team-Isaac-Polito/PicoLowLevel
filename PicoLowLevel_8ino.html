@@ -156,8 +156,6 @@ Functions</h2></td></tr>
 <tr class="separator:a7e5bd9686428496c0be42f11e557bd2b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a463bd5e2d6006d3d57e5569bd7c8cea4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="PicoLowLevel_8ino.html#a463bd5e2d6006d3d57e5569bd7c8cea4">navInterrupt</a> ()</td></tr>
 <tr class="separator:a463bd5e2d6006d3d57e5569bd7c8cea4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8525066812661764db35342986352875"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="PicoLowLevel_8ino.html#a8525066812661764db35342986352875">motorCurrent</a> (bool rightSide)</td></tr>
-<tr class="separator:a8525066812661764db35342986352875"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8f9fa76a93541264f22c8f23f3fc1631"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="PicoLowLevel_8ino.html#a8f9fa76a93541264f22c8f23f3fc1631">sendTelemetry</a> ()</td></tr>
 <tr class="separator:a8f9fa76a93541264f22c8f23f3fc1631"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4fc01d736fe50cf5b977f755b675f11d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="PicoLowLevel_8ino.html#a4fc01d736fe50cf5b977f755b675f11d">setup</a> ()</td></tr>
@@ -177,8 +175,8 @@ Variables</h2></td></tr>
 <tr class="separator:aaa722e883eaa5b32796aa17a38a9616b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a48f09105460ef86504c1aa704071773f"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="structcan__frame.html">can_frame</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="PicoLowLevel_8ino.html#a48f09105460ef86504c1aa704071773f">canMsg</a></td></tr>
 <tr class="separator:a48f09105460ef86504c1aa704071773f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a46fdf4638c6477530e06540445669901"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structMCP2515.html">MCP2515</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="PicoLowLevel_8ino.html#a46fdf4638c6477530e06540445669901">mcp2515</a> (5)</td></tr>
-<tr class="separator:a46fdf4638c6477530e06540445669901"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab6513f212de1bf0cdcb4bee62404ecb0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structMCP2515.html">MCP2515</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="PicoLowLevel_8ino.html#ab6513f212de1bf0cdcb4bee62404ecb0">mcp2515</a> (5, 10000000UL, &amp;SPI)</td></tr>
+<tr class="separator:ab6513f212de1bf0cdcb4bee62404ecb0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:affd788a2f3318ab1548067c1239fb823"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classSmartMotor.html">SmartMotor</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="PicoLowLevel_8ino.html#affd788a2f3318ab1548067c1239fb823">motorTrLeft</a> (<a class="el" href="definitions_8h.html#a3c87411ac09e79dc27923bb09f93e01b">DRV_TR_LEFT_PWM</a>, <a class="el" href="definitions_8h.html#a8dbf39c1e920a51756af511614b969cb">DRV_TR_LEFT_DIR</a>, <a class="el" href="definitions_8h.html#a490edeb188ba039c64401279469c94b6">ENC_TR_LEFT_A</a>, <a class="el" href="definitions_8h.html#aecfecdffcd96ec00ef8e03611814d7cc">ENC_TR_LEFT_B</a>, false)</td></tr>
 <tr class="separator:affd788a2f3318ab1548067c1239fb823"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3107114b6c7545e2b3e5fd8cf6f87268"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classSmartMotor.html">SmartMotor</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="PicoLowLevel_8ino.html#a3107114b6c7545e2b3e5fd8cf6f87268">motorTrRight</a> (<a class="el" href="definitions_8h.html#a349704dcb46a2ab119ad824e2b976f49">DRV_TR_RIGHT_PWM</a>, <a class="el" href="definitions_8h.html#a615e14d6653fd2648241d5b541fe185c">DRV_TR_RIGHT_DIR</a>, <a class="el" href="definitions_8h.html#a2ada7078fc0575d93eaa74cc49e46407">ENC_TR_RIGHT_A</a>, <a class="el" href="definitions_8h.html#a1cc8812a084c15431363c7e560d152a3">ENC_TR_RIGHT_B</a>, false)</td></tr>
@@ -218,50 +216,21 @@ Here is the call graph for this function:</div>
 <area shape="rect" href="classSerialDebug.html#a3d01753681fd740869da197b2fa772b0" title="Sends a string to the Serial port with a debug level, only if it is lower than the setted one." alt="" coords="370,233,509,260"/>
 <area shape="rect" href="classSerialDebug.html#a153ed172ea7eefd852292af7561ff961" title="Sends a line to the serial port with a debug level, only if it is lower than the setted one." alt="" coords="123,208,273,235"/>
 <area shape="rect" href="structMCP2515.html#a5cba1b20e3055c7ff9aa7510d035302b" title=" " alt="" coords="109,309,287,336"/>
-<area shape="rect" href="PicoLowLevel_8ino.html#a8f9fa76a93541264f22c8f23f3fc1631" title=" " alt="" coords="139,500,257,527"/>
+<area shape="rect" href="PicoLowLevel_8ino.html#a8f9fa76a93541264f22c8f23f3fc1631" title=" " alt="" coords="139,487,257,513"/>
 <area shape="rect" href="classSmartMotor.html#aa27c9f4fb2be24193947b1bd141f513a" title="Set the desired speed of the motor." alt="" coords="115,360,281,387"/>
 <area shape="rect" href="classSmartMotor.html#a0888c018802eebdef813dd4824d98da2" title="Stop the motor." alt="" coords="131,411,265,437"/>
-<area shape="rect" href="classSmartMotor.html#a1eb6dc1fd54a13dce1705c7a31b0f9ab" title="Update routine, updating the PID and the motor speed." alt="" coords="122,613,274,640"/>
-<area shape="rect" href="classSmartMotor.html#a3dccbce0a9c9b01c7a3d5f2df239338f" title="Get the current speed of the motor." alt="" coords="355,588,523,615"/>
-<area shape="rect" href="PicoLowLevel_8ino.html#a8525066812661764db35342986352875" title=" " alt="" coords="385,436,494,463"/>
-<area shape="rect" href="structMCP2515.html#a20201611f703db6b6c98bae03a3018ee" title=" " alt="" coords="349,537,529,564"/>
-<area shape="rect" href="classTractionEncoder.html#a2c414262e6a923fe180d51197fc9bf5b" title="Returns the last detected speed." alt="" coords="587,588,781,615"/>
-<area shape="rect" href="classFilter.html#ab8e25fe3166a547f5c08e6c7b7f019e2" title="Virtual filter function, will be replaced by the one from the chosen filter." alt="" coords="878,563,971,589"/>
-<area shape="rect" href="classTractionEncoder.html#a7d301b140af5e49258d4a8dbebe7776d" title="Returns the number of steps since the class was initialized." alt="" coords="829,613,1020,640"/>
+<area shape="rect" href="classSmartMotor.html#a1eb6dc1fd54a13dce1705c7a31b0f9ab" title="Update routine, updating the PID and the motor speed." alt="" coords="122,563,274,589"/>
+<area shape="rect" href="classSmartMotor.html#a3dccbce0a9c9b01c7a3d5f2df239338f" title="Get the current speed of the motor." alt="" coords="355,537,523,564"/>
+<area shape="rect" href="structMCP2515.html#a20201611f703db6b6c98bae03a3018ee" title=" " alt="" coords="349,487,529,513"/>
+<area shape="rect" href="classTractionEncoder.html#a2c414262e6a923fe180d51197fc9bf5b" title="Returns the last detected speed." alt="" coords="587,537,781,564"/>
+<area shape="rect" href="classFilter.html#ab8e25fe3166a547f5c08e6c7b7f019e2" title="Virtual filter function, will be replaced by the one from the chosen filter." alt="" coords="878,512,971,539"/>
+<area shape="rect" href="classTractionEncoder.html#a7d301b140af5e49258d4a8dbebe7776d" title="Returns the number of steps since the class was initialized." alt="" coords="829,563,1020,589"/>
 <area shape="rect" href="classPID.html#ab6c2a366f39cf53149b50216b300bdcd" title="Sets the reference value." alt="" coords="340,335,539,361"/>
 <area shape="rect" href="classPID.html#a51c567347f9ca1a4572e5040b5296e30" title="Resets the PID state, as if it was the first iteration." alt="" coords="380,385,499,412"/>
-<area shape="rect" href="classMotor.html#af98d9cd13add0aacca7cebe13b14103b" title="Sets the motor speed." alt="" coords="389,487,490,513"/>
-<area shape="rect" href="classPID.html#a2d1e271496506301a6f22d0418aa0cc0" title="Main PID routine." alt="" coords="384,639,495,665"/>
-<area shape="rect" href="classPID.html#a266f60cce93632141002987d5d67d0cc" title="Gets output computed from the last iteration of calculate()" alt="" coords="381,689,498,716"/>
-<area shape="rect" href="classPID.html#a33f657a6cce4f57302f90bec9664d294" title="Updates the feedback for PID computation." alt="" coords="360,740,519,767"/>
-</map>
-</div>
-
-</div>
-</div>
-<a id="a8525066812661764db35342986352875"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8525066812661764db35342986352875">&#9670;&nbsp;</a></span>motorCurrent()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int motorCurrent </td>
-          <td>(</td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>rightSide</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="PicoLowLevel_8ino_a8525066812661764db35342986352875_icgraph.png" border="0" usemap="#aPicoLowLevel_8ino_a8525066812661764db35342986352875_icgraph" alt=""/></div>
-<map name="aPicoLowLevel_8ino_a8525066812661764db35342986352875_icgraph" id="aPicoLowLevel_8ino_a8525066812661764db35342986352875_icgraph">
-<area shape="rect" title=" " alt="" coords="271,5,380,32"/>
-<area shape="rect" href="PicoLowLevel_8ino.html#a8f9fa76a93541264f22c8f23f3fc1631" title=" " alt="" coords="104,5,223,32"/>
-<area shape="rect" href="PicoLowLevel_8ino.html#afe461d27b9c48d5921c00d521181f12f" title=" " alt="" coords="5,5,56,32"/>
+<area shape="rect" href="classMotor.html#af98d9cd13add0aacca7cebe13b14103b" title="Sets the motor speed." alt="" coords="389,436,490,463"/>
+<area shape="rect" href="classPID.html#a2d1e271496506301a6f22d0418aa0cc0" title="Main PID routine." alt="" coords="384,588,495,615"/>
+<area shape="rect" href="classPID.html#a266f60cce93632141002987d5d67d0cc" title="Gets output computed from the last iteration of calculate()" alt="" coords="381,639,498,665"/>
+<area shape="rect" href="classPID.html#a33f657a6cce4f57302f90bec9664d294" title="Updates the feedback for PID computation." alt="" coords="360,689,519,716"/>
 </map>
 </div>
 
@@ -356,10 +325,9 @@ Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="PicoLowLevel_8ino_a8f9fa76a93541264f22c8f23f3fc1631_cgraph.png" border="0" usemap="#aPicoLowLevel_8ino_a8f9fa76a93541264f22c8f23f3fc1631_cgraph" alt=""/></div>
 <map name="aPicoLowLevel_8ino_a8f9fa76a93541264f22c8f23f3fc1631_cgraph" id="aPicoLowLevel_8ino_a8f9fa76a93541264f22c8f23f3fc1631_cgraph">
-<area shape="rect" title=" " alt="" coords="5,81,124,108"/>
+<area shape="rect" title=" " alt="" coords="5,56,124,83"/>
 <area shape="rect" href="classSmartMotor.html#a3dccbce0a9c9b01c7a3d5f2df239338f" title="Get the current speed of the motor." alt="" coords="178,31,346,57"/>
-<area shape="rect" href="PicoLowLevel_8ino.html#a8525066812661764db35342986352875" title=" " alt="" coords="207,81,317,108"/>
-<area shape="rect" href="structMCP2515.html#a20201611f703db6b6c98bae03a3018ee" title=" " alt="" coords="172,132,352,159"/>
+<area shape="rect" href="structMCP2515.html#a20201611f703db6b6c98bae03a3018ee" title=" " alt="" coords="172,81,352,108"/>
 <area shape="rect" href="classTractionEncoder.html#a2c414262e6a923fe180d51197fc9bf5b" title="Returns the last detected speed." alt="" coords="400,31,595,57"/>
 <area shape="rect" href="classFilter.html#ab8e25fe3166a547f5c08e6c7b7f019e2" title="Virtual filter function, will be replaced by the one from the chosen filter." alt="" coords="691,5,785,32"/>
 <area shape="rect" href="classTractionEncoder.html#a7d301b140af5e49258d4a8dbebe7776d" title="Returns the number of steps since the class was initialized." alt="" coords="643,56,833,83"/>
@@ -396,28 +364,27 @@ Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="PicoLowLevel_8ino_a4fc01d736fe50cf5b977f755b675f11d_cgraph.png" border="0" usemap="#aPicoLowLevel_8ino_a4fc01d736fe50cf5b977f755b675f11d_cgraph" alt=""/></div>
 <map name="aPicoLowLevel_8ino_a4fc01d736fe50cf5b977f755b675f11d_cgraph" id="aPicoLowLevel_8ino_a4fc01d736fe50cf5b977f755b675f11d_cgraph">
-<area shape="rect" title=" " alt="" coords="5,401,64,428"/>
+<area shape="rect" title=" " alt="" coords="5,376,64,403"/>
 <area shape="rect" href="classDisplay.html#ab569d31751d87ab3bd70744532d33605" title=" " alt="" coords="152,5,267,32"/>
-<area shape="rect" href="structMCP2515.html#ac3e7e19c0fe33229eac91cba70b31b83" title=" " alt="" coords="146,56,273,83"/>
-<area shape="rect" href="classSmartMotor.html#abe1e015d445ac4c830b446127279bdb1" title="Initialize SmartMotor and necessary components." alt="" coords="138,107,281,133"/>
-<area shape="rect" href="classWebManagement.html#a02872e65a699697c243e1dd23a3988c3" title=" " alt="" coords="119,157,299,184"/>
-<area shape="rect" href="classSerialDebug.html#a153ed172ea7eefd852292af7561ff961" title="Sends a line to the serial port with a debug level, only if it is lower than the setted one." alt="" coords="369,196,519,223"/>
-<area shape="rect" href="classDynamixelInterface.html#a3e4e3332de3d8d675d94a7cd1f6c647c" title=" " alt="" coords="134,259,285,301"/>
-<area shape="rect" href="PicoLowLevel_8ino.html#a463bd5e2d6006d3d57e5569bd7c8cea4" title=" " alt="" coords="158,325,261,352"/>
-<area shape="rect" href="PicoLowLevel_8ino.html#a7e5bd9686428496c0be42f11e557bd2b" title=" " alt="" coords="162,376,257,403"/>
-<area shape="rect" href="structMCP2515.html#acc117f5538fcd2b00a18edf11382175a" title=" " alt="" coords="147,477,271,504"/>
-<area shape="rect" href="structMCP2515.html#aac89e9e84bb70719f3af943584efbe0e" title=" " alt="" coords="372,477,516,504"/>
-<area shape="rect" href="structMCP2515.html#ab79662c2b46e623158f5f4119d340d69" title=" " alt="" coords="581,528,769,555"/>
-<area shape="rect" href="structMCP2515.html#a4ecb1f510ead2fee02dcf368fdf18dfd" title=" " alt="" coords="355,528,533,555"/>
-<area shape="rect" href="structMCP2515.html#a18653c6d11e5bba734a1bd3b39268bb2" title=" " alt="" coords="132,629,287,656"/>
-<area shape="rect" href="classSerialDebug.html#ad55ccd7caae91b050455920991e512e4" title="Sets the level to be used for the debug." alt="" coords="127,680,291,707"/>
-<area shape="rect" href="structMCP2515.html#ac105b61f8336554451a8cb83d7f63548" title=" " alt="" coords="112,731,307,757"/>
-<area shape="rect" href="classDynamixelInterface.html#a092dd633e40a07b3ae4f06a4617ec0a3" title=" " alt="" coords="134,782,285,823"/>
-<area shape="rect" href="classMotor.html#a8949ad244c546ecde601ec3d03403ed9" title="Initialize motors." alt="" coords="392,69,496,96"/>
-<area shape="rect" href="classTractionEncoder.html#a3b38935e97776ddcebdeb2c394f6d48d" title="Sets the encoder&#39;s pins and attach the interrupt." alt="" coords="359,120,529,147"/>
-<area shape="rect" href="classSerialDebug.html#a3d01753681fd740869da197b2fa772b0" title="Sends a string to the Serial port with a debug level, only if it is lower than the setted one." alt="" coords="606,196,745,223"/>
-<area shape="rect" href="classDisplay.html#a5c28101c672878132e2ce5772ed93588" title="NAV button ISR." alt="" coords="365,325,523,352"/>
-<area shape="rect" href="classDisplay.html#aa9a7e82a5611d737c618a2f1cab7812a" title="OK button ISR." alt="" coords="369,376,519,403"/>
+<area shape="rect" href="classSmartMotor.html#abe1e015d445ac4c830b446127279bdb1" title="Initialize SmartMotor and necessary components." alt="" coords="138,56,281,83"/>
+<area shape="rect" href="classWebManagement.html#a02872e65a699697c243e1dd23a3988c3" title=" " alt="" coords="119,107,299,133"/>
+<area shape="rect" href="classSerialDebug.html#a153ed172ea7eefd852292af7561ff961" title="Sends a line to the serial port with a debug level, only if it is lower than the setted one." alt="" coords="369,145,519,172"/>
+<area shape="rect" href="classDynamixelInterface.html#a3e4e3332de3d8d675d94a7cd1f6c647c" title=" " alt="" coords="134,209,285,250"/>
+<area shape="rect" href="PicoLowLevel_8ino.html#a463bd5e2d6006d3d57e5569bd7c8cea4" title=" " alt="" coords="158,275,261,301"/>
+<area shape="rect" href="PicoLowLevel_8ino.html#a7e5bd9686428496c0be42f11e557bd2b" title=" " alt="" coords="162,325,257,352"/>
+<area shape="rect" href="structMCP2515.html#acc117f5538fcd2b00a18edf11382175a" title=" " alt="" coords="147,427,271,453"/>
+<area shape="rect" href="structMCP2515.html#aac89e9e84bb70719f3af943584efbe0e" title=" " alt="" coords="372,427,516,453"/>
+<area shape="rect" href="structMCP2515.html#ab79662c2b46e623158f5f4119d340d69" title=" " alt="" coords="581,477,769,504"/>
+<area shape="rect" href="structMCP2515.html#a4ecb1f510ead2fee02dcf368fdf18dfd" title=" " alt="" coords="355,477,533,504"/>
+<area shape="rect" href="structMCP2515.html#a18653c6d11e5bba734a1bd3b39268bb2" title=" " alt="" coords="132,579,287,605"/>
+<area shape="rect" href="classSerialDebug.html#ad55ccd7caae91b050455920991e512e4" title="Sets the level to be used for the debug." alt="" coords="127,629,291,656"/>
+<area shape="rect" href="structMCP2515.html#ac105b61f8336554451a8cb83d7f63548" title=" " alt="" coords="112,680,307,707"/>
+<area shape="rect" href="classDynamixelInterface.html#a092dd633e40a07b3ae4f06a4617ec0a3" title=" " alt="" coords="134,731,285,773"/>
+<area shape="rect" href="classMotor.html#a8949ad244c546ecde601ec3d03403ed9" title="Initialize motors." alt="" coords="392,19,496,45"/>
+<area shape="rect" href="classTractionEncoder.html#a3b38935e97776ddcebdeb2c394f6d48d" title="Sets the encoder&#39;s pins and attach the interrupt." alt="" coords="359,69,529,96"/>
+<area shape="rect" href="classSerialDebug.html#a3d01753681fd740869da197b2fa772b0" title="Sends a string to the Serial port with a debug level, only if it is lower than the setted one." alt="" coords="606,145,745,172"/>
+<area shape="rect" href="classDisplay.html#a5c28101c672878132e2ce5772ed93588" title="NAV button ISR." alt="" coords="365,275,523,301"/>
+<area shape="rect" href="classDisplay.html#aa9a7e82a5611d737c618a2f1cab7812a" title="OK button ISR." alt="" coords="369,325,519,352"/>
 </map>
 </div>
 
@@ -452,18 +419,34 @@ Here is the call graph for this function:</div>
 
 </div>
 </div>
-<a id="a46fdf4638c6477530e06540445669901"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a46fdf4638c6477530e06540445669901">&#9670;&nbsp;</a></span>mcp2515</h2>
+<a id="ab6513f212de1bf0cdcb4bee62404ecb0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab6513f212de1bf0cdcb4bee62404ecb0">&#9670;&nbsp;</a></span>mcp2515</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="structMCP2515.html">MCP2515</a> mcp2515(5) </td>
+          <td class="memname"><a class="el" href="structMCP2515.html">MCP2515</a> mcp2515(5, 10000000UL, &amp;SPI) </td>
           <td>(</td>
           <td class="paramtype">5&#160;</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">10000000UL&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&amp;&#160;</td>
+          <td class="paramname"><em>SPI</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">

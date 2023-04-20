@@ -1,10 +1,13 @@
 var searchData=
 [
-  ['send_5fbattery_5fvoltage_1025',['SEND_BATTERY_VOLTAGE',['../communication_8h.html#aa67298332d7e2070c4b48cb91f55411c',1,'communication.h']]],
-  ['send_5fcurrent_1026',['SEND_CURRENT',['../communication_8h.html#a85791bd835c342d068d8c0c72eadf6bb',1,'communication.h']]],
-  ['send_5fimu_5fdata_1027',['SEND_IMU_DATA',['../communication_8h.html#aa46e0b478c976f82c09cf9fe98e8bb37',1,'communication.h']]],
-  ['send_5fstatus_1028',['SEND_STATUS',['../communication_8h.html#a7f98c79059221d788e2219865d770648',1,'communication.h']]],
-  ['send_5ftemperature_1029',['SEND_TEMPERATURE',['../communication_8h.html#a1d8516b173ec48a4bdc64cf872d3250e',1,'communication.h']]],
-  ['send_5fyaw_5fencoder_5fmiddle_1030',['SEND_YAW_ENCODER_MIDDLE',['../communication_8h.html#a0597437dbefe23cacdf2592e1df52113',1,'communication.h']]],
-  ['send_5fyaw_5fencoder_5ftail_1031',['SEND_YAW_ENCODER_TAIL',['../communication_8h.html#a4ece8fde36212f4761976e2af1c239f3',1,'communication.h']]]
+  ['u_5fdeg_1030',['U_DEG',['../ams__as5048b_8h.html#a15d9efbfd44b0034e50d02e6d6e1c77f',1,'ams_as5048b.h']]],
+  ['u_5fgrad_1031',['U_GRAD',['../ams__as5048b_8h.html#ae0c7a1469237b07df9fab72da030eaf4',1,'ams_as5048b.h']]],
+  ['u_5fmilnato_1032',['U_MILNATO',['../ams__as5048b_8h.html#aedb6ad68543282ad6cdfa7f53fbfba69',1,'ams_as5048b.h']]],
+  ['u_5fmilru_1033',['U_MILRU',['../ams__as5048b_8h.html#abe2f3b938f958d26130ac588f75639f3',1,'ams_as5048b.h']]],
+  ['u_5fmilse_1034',['U_MILSE',['../ams__as5048b_8h.html#a22390954a492f7661dfa1fb99a7562cf',1,'ams_as5048b.h']]],
+  ['u_5fmoa_1035',['U_MOA',['../ams__as5048b_8h.html#ac6eb74a595d17eaffa68af26e7ee38bb',1,'ams_as5048b.h']]],
+  ['u_5frad_1036',['U_RAD',['../ams__as5048b_8h.html#aea1a31ca1a12601341fec4e65f18cc06',1,'ams_as5048b.h']]],
+  ['u_5fraw_1037',['U_RAW',['../ams__as5048b_8h.html#a50a0dba364fcf860f5dcf0925044a855',1,'ams_as5048b.h']]],
+  ['u_5fsoa_1038',['U_SOA',['../ams__as5048b_8h.html#a57bdbfe869e73d062cec16fec1c75249',1,'ams_as5048b.h']]],
+  ['u_5ftrn_1039',['U_TRN',['../ams__as5048b_8h.html#aae96eab81af58400dbbdcfacb637a081',1,'ams_as5048b.h']]]
 ];

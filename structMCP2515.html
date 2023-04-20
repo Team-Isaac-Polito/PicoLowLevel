@@ -179,10 +179,8 @@ Public Types</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:aae087a179d7d10909f90ccaed19c2e81"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structMCP2515.html#aae087a179d7d10909f90ccaed19c2e81">MCP2515</a> (const uint8_t _CS, const uint32_t _SPI_CLOCK=DEFAULT_SPI_CLOCK)</td></tr>
-<tr class="separator:aae087a179d7d10909f90ccaed19c2e81"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac3e7e19c0fe33229eac91cba70b31b83"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structMCP2515.html#ac3e7e19c0fe33229eac91cba70b31b83">begin</a> ()</td></tr>
-<tr class="separator:ac3e7e19c0fe33229eac91cba70b31b83"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0c54990c59d94ad6249e9b6a5ff9befb"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structMCP2515.html#a0c54990c59d94ad6249e9b6a5ff9befb">MCP2515</a> (const uint8_t _CS, const uint32_t _SPI_CLOCK=DEFAULT_SPI_CLOCK, SPIClass *_SPI=nullptr)</td></tr>
+<tr class="separator:a0c54990c59d94ad6249e9b6a5ff9befb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acc117f5538fcd2b00a18edf11382175a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structMCP2515.html#ae4683d2afbf0580dcd801b5e02e444d1">ERROR</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structMCP2515.html#acc117f5538fcd2b00a18edf11382175a">reset</a> (void)</td></tr>
 <tr class="separator:acc117f5538fcd2b00a18edf11382175a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab79662c2b46e623158f5f4119d340d69"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structMCP2515.html#ae4683d2afbf0580dcd801b5e02e444d1">ERROR</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structMCP2515.html#ab79662c2b46e623158f5f4119d340d69">setConfigMode</a> ()</td></tr>
@@ -391,8 +389,8 @@ Public Member Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="aae087a179d7d10909f90ccaed19c2e81"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aae087a179d7d10909f90ccaed19c2e81">&#9670;&nbsp;</a></span>MCP2515()</h2>
+<a id="a0c54990c59d94ad6249e9b6a5ff9befb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0c54990c59d94ad6249e9b6a5ff9befb">&#9670;&nbsp;</a></span>MCP2515()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -407,7 +405,13 @@ Public Member Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const uint32_t&#160;</td>
-          <td class="paramname"><em>_SPI_CLOCK</em> = <code>DEFAULT_SPI_CLOCK</code>&#160;</td>
+          <td class="paramname"><em>_SPI_CLOCK</em> = <code>DEFAULT_SPI_CLOCK</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SPIClass *&#160;</td>
+          <td class="paramname"><em>_SPI</em> = <code>nullptr</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -420,33 +424,6 @@ Public Member Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="ac3e7e19c0fe33229eac91cba70b31b83"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac3e7e19c0fe33229eac91cba70b31b83">&#9670;&nbsp;</a></span>begin()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void MCP2515::begin </td>
-          <td>(</td>
-          <td class="paramtype">void&#160;</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="structMCP2515_ac3e7e19c0fe33229eac91cba70b31b83_icgraph.png" border="0" usemap="#astructMCP2515_ac3e7e19c0fe33229eac91cba70b31b83_icgraph" alt=""/></div>
-<map name="astructMCP2515_ac3e7e19c0fe33229eac91cba70b31b83_icgraph" id="astructMCP2515_ac3e7e19c0fe33229eac91cba70b31b83_icgraph">
-<area shape="rect" title=" " alt="" coords="112,5,239,32"/>
-<area shape="rect" href="PicoLowLevel_8ino.html#a4fc01d736fe50cf5b977f755b675f11d" title=" " alt="" coords="5,5,64,32"/>
-</map>
-</div>
-
-</div>
-</div>
 <a id="a938a1d282c588e0ee731815acd8d2dda"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a938a1d282c588e0ee731815acd8d2dda">&#9670;&nbsp;</a></span>checkError()</h2>
 
