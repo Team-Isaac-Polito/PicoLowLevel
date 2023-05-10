@@ -12,6 +12,9 @@
 #include "html.h"
 #include "definitions.h"
 
+/**
+ * Provides a class for managing a WiFi connection and HTTP server for remote firmware updates and configuration management.
+ */
 class WebManagement {
 public:
   WebManagement(String configFile) : confFile(configFile), server(80) {}

@@ -1,5 +1,11 @@
 #include "WebManagement.h"
 
+/**
+ * Initializes the WiFi connection, mDNS, OTA, and HTTP server.
+ * @param ssid The SSID of the WiFi network to connect to.
+ * @param password The password of the WiFi network to connect to.
+ * @param hostname The hostname to use for the device.
+ */
 void WebManagement::begin(const char* ssid, const char* password, const char* hostname) {
   WiFi.mode(WIFI_STA);
   WiFi.setHostname(hostname);
@@ -15,12 +21,18 @@ void WebManagement::begin(const char* ssid, const char* password, const char* ho
   Debug.println("WiFi ready with IP: " + WiFi.localIP().toString());
 }
 
+/**
+ * Handles incoming HTTP requests and OTA updates.
+ */
 void WebManagement::handle() {
   server.handleClient();
   //ArduinoOTA.handle();
   MDNS.update();
 }
 
+/**
+ * Sets up the HTTP server routes.
+ */
 void WebManagement::setupServer() {
   server.on("/", HTTP_GET, [this]() {
     server.sendHeader("Connection", "close");
@@ -44,6 +56,10 @@ void WebManagement::setupServer() {
   }, [this]() { handleConfig(); });
 }
 
+/**
+ * Sets up OTA for remote firmware updates.
+ * @param hostname The hostname to use for the device.
+ */
 void WebManagement::setupOTA(const char* hostname) {
   ArduinoOTA.setHostname(hostname);
   ArduinoOTA.setPassword(OTA_PWD);
@@ -82,6 +98,9 @@ void WebManagement::setupOTA(const char* hostname) {
   ArduinoOTA.begin();
 }
 
+/**
+ * Handles firmware updates via HTTP POST requests.
+ */
 void WebManagement::handleUpdate() {
   HTTPUpload& upload = server.upload();
   if (upload.status == UPLOAD_FILE_START) {
@@ -107,6 +126,9 @@ void WebManagement::handleUpdate() {
   }
 }
 
+/**
+ * Handles HTTP GET requests for the configuration file.
+ */
 void WebManagement::handleConfig() {
   HTTPUpload& upload = server.upload();
   if (upload.status == UPLOAD_FILE_START) {
@@ -133,6 +155,11 @@ void WebManagement::handleConfig() {
   }
 }
 
+/**
+ * Reads a file from the file system.
+ * @param path The path of the file to read.
+ * @return The contents of the file as a string.
+ */
 String WebManagement::readFile(String path) {
   String out = "";
   File file = LittleFS.open(path, "r");
