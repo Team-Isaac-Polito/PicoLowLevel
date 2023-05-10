@@ -99,31 +99,31 @@ $(document).ready(function(){initNavTree('WebManagement_8h_source.html',''); ini
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="html_8h.html">html.h</a>&quot;</span></div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="definitions_8h.html">definitions.h</a>&quot;</span></div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
-<div class="line"><a name="l00015"></a><span class="lineno"><a class="line" href="classWebManagement.html">   15</a></span>&#160;<span class="keyword">class </span><a class="code" href="classWebManagement.html">WebManagement</a> {</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="classWebManagement.html#aa205ddf55b474746f2dcdad37385d202">   17</a></span>&#160;  <a class="code" href="classWebManagement.html#aa205ddf55b474746f2dcdad37385d202">WebManagement</a>(String configFile) : confFile(configFile), server(80) {}</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classWebManagement.html#a02872e65a699697c243e1dd23a3988c3">begin</a>(<span class="keyword">const</span> <span class="keywordtype">char</span>* ssid, <span class="keyword">const</span> <span class="keywordtype">char</span>* password, <span class="keyword">const</span> <span class="keywordtype">char</span>* hostname);</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classWebManagement.html#a48b2f695f7445b7628119b630447123e">handle</a>();</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;  <span class="keywordtype">void</span> setupServer();</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;  <span class="keywordtype">void</span> setupOTA(<span class="keyword">const</span> <span class="keywordtype">char</span>* hostname);</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;  <span class="keywordtype">void</span> handleUpdate();</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;  <span class="keywordtype">void</span> handleConfig();</div>
+<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="classWebManagement.html">   18</a></span>&#160;<span class="keyword">class </span><a class="code" href="classWebManagement.html">WebManagement</a> {</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="classWebManagement.html#aa205ddf55b474746f2dcdad37385d202">   20</a></span>&#160;  <a class="code" href="classWebManagement.html#aa205ddf55b474746f2dcdad37385d202">WebManagement</a>(String configFile) : confFile(configFile), server(80) {}</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classWebManagement.html#a02872e65a699697c243e1dd23a3988c3">begin</a>(<span class="keyword">const</span> <span class="keywordtype">char</span>* ssid, <span class="keyword">const</span> <span class="keywordtype">char</span>* password, <span class="keyword">const</span> <span class="keywordtype">char</span>* hostname);</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classWebManagement.html#a48b2f695f7445b7628119b630447123e">handle</a>();</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;  <span class="keywordtype">void</span> setupServer();</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;  <span class="keywordtype">void</span> setupOTA(<span class="keyword">const</span> <span class="keywordtype">char</span>* hostname);</div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;  String readFile(String path);</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;  String confFile;</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;  File tempFile;</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;  WebServer server;</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;};</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;  <span class="keywordtype">void</span> handleUpdate();</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;  <span class="keywordtype">void</span> handleConfig();</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;  String readFile(String path);</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;  String confFile;</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;  File tempFile;</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;  WebServer server;</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;};</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="ttc" id="aDebug_8h_html"><div class="ttname"><a href="Debug_8h.html">Debug.h</a></div></div>
-<div class="ttc" id="aclassWebManagement_html"><div class="ttname"><a href="classWebManagement.html">WebManagement</a></div><div class="ttdef"><b>Definition:</b> WebManagement.h:15</div></div>
-<div class="ttc" id="aclassWebManagement_html_a02872e65a699697c243e1dd23a3988c3"><div class="ttname"><a href="classWebManagement.html#a02872e65a699697c243e1dd23a3988c3">WebManagement::begin</a></div><div class="ttdeci">void begin(const char *ssid, const char *password, const char *hostname)</div><div class="ttdef"><b>Definition:</b> WebManagement.cpp:3</div></div>
-<div class="ttc" id="aclassWebManagement_html_a48b2f695f7445b7628119b630447123e"><div class="ttname"><a href="classWebManagement.html#a48b2f695f7445b7628119b630447123e">WebManagement::handle</a></div><div class="ttdeci">void handle()</div><div class="ttdef"><b>Definition:</b> WebManagement.cpp:18</div></div>
-<div class="ttc" id="aclassWebManagement_html_aa205ddf55b474746f2dcdad37385d202"><div class="ttname"><a href="classWebManagement.html#aa205ddf55b474746f2dcdad37385d202">WebManagement::WebManagement</a></div><div class="ttdeci">WebManagement(String configFile)</div><div class="ttdef"><b>Definition:</b> WebManagement.h:17</div></div>
+<div class="ttc" id="aclassWebManagement_html"><div class="ttname"><a href="classWebManagement.html">WebManagement</a></div><div class="ttdoc">Provides a class for managing a WiFi connection and HTTP server for remote firmware updates and confi...</div><div class="ttdef"><b>Definition:</b> WebManagement.h:18</div></div>
+<div class="ttc" id="aclassWebManagement_html_a02872e65a699697c243e1dd23a3988c3"><div class="ttname"><a href="classWebManagement.html#a02872e65a699697c243e1dd23a3988c3">WebManagement::begin</a></div><div class="ttdeci">void begin(const char *ssid, const char *password, const char *hostname)</div><div class="ttdoc">Initializes the WiFi connection, mDNS, OTA, and HTTP server.</div><div class="ttdef"><b>Definition:</b> WebManagement.cpp:9</div></div>
+<div class="ttc" id="aclassWebManagement_html_a48b2f695f7445b7628119b630447123e"><div class="ttname"><a href="classWebManagement.html#a48b2f695f7445b7628119b630447123e">WebManagement::handle</a></div><div class="ttdeci">void handle()</div><div class="ttdoc">Handles incoming HTTP requests and OTA updates.</div><div class="ttdef"><b>Definition:</b> WebManagement.cpp:27</div></div>
+<div class="ttc" id="aclassWebManagement_html_aa205ddf55b474746f2dcdad37385d202"><div class="ttname"><a href="classWebManagement.html#aa205ddf55b474746f2dcdad37385d202">WebManagement::WebManagement</a></div><div class="ttdeci">WebManagement(String configFile)</div><div class="ttdef"><b>Definition:</b> WebManagement.h:20</div></div>
 <div class="ttc" id="adefinitions_8h_html"><div class="ttname"><a href="definitions_8h.html">definitions.h</a></div></div>
 <div class="ttc" id="ahtml_8h_html"><div class="ttname"><a href="html_8h.html">html.h</a></div></div>
 </div><!-- fragment --></div><!-- contents -->

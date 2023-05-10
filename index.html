@@ -85,7 +85,35 @@ $(document).ready(function(){initNavTree('index.html',''); initResizable(); });
 <div class="title">PicoLowLevel </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p><a class="anchor" id="md_README"></a></p>
+<div class="textblock"><p><a class="anchor" id="md_README"></a> This is the code running on the board inside each module of Rese.Q.</p>
+<h1><a class="anchor" id="autotoc_md1"></a>
+Module components</h1>
+<p>The components inside each modules are:</p>
+<ul>
+<li>Raspberry Pi Pico W</li>
+<li>CAN transceiver, with <a class="el" href="structMCP2515.html">MCP2515</a> and TJA1050</li>
+<li>Two DC motors<ul>
+<li>controlled by Pololu G2 24v13 drivers</li>
+<li>rotary encoder with 48 pulses per motor rotation</li>
+<li>150:1 gearbox</li>
+</ul>
+</li>
+<li>One to three Dynamixel AX-12A smart servo motors</li>
+<li>AMS AS5048B absolute encoder</li>
+<li>64*128 OLED display with SH1106 driver</li>
+</ul>
+<h1><a class="anchor" id="autotoc_md2"></a>
+Building</h1>
+<p>To build the project you need a working Arduino environment. This can be either the official Arduino IDE, VSCode with the <a href="https://github.com/microsoft/vscode-arduino">Arduino extension</a>, or even simply <a href="https://github.com/arduino/arduino-cli">arduino-cli</a>.</p>
+<h2><a class="anchor" id="autotoc_md3"></a>
+Arduino-Pico</h2>
+<p>This project is based on the Arduino framework, and in particular uses the Raspberry Pi Pico available <a href="https://github.com/earlephilhower/arduino-pico">here</a>. The guide on how to install the core can be found in the repository's README.</p>
+<h2><a class="anchor" id="autotoc_md4"></a>
+Libraries</h2>
+<p>Currently the only external library we are using is the <code>Adafruit SH110X</code> library, used to control the display. It can be found in Arduino's library manager.</p>
+<h2><a class="anchor" id="autotoc_md5"></a>
+Build options</h2>
+<p>In the Arduino IDE the Raspberry Pi Pico W board should be selected, and the flash size should be set to <code>2MB (Sketch: 1MB, FS: 1MB)</code>, meaning that half of the microcontroller memory will be dedicated to the program itself, while the other half can be used for storing informations and performing over-the-air (OTA) upgrades. </p>
 </div></div><!-- PageDoc -->
 </div><!-- contents -->
 </div><!-- doc-content -->

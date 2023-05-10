@@ -25,6 +25,12 @@
 var NAVTREE =
 [
   [ "PicoLowLevel", "index.html", [
+    [ "Module components", "index.html#autotoc_md1", null ],
+    [ "Building", "index.html#autotoc_md2", [
+      [ "Arduino-Pico", "index.html#autotoc_md3", null ],
+      [ "Libraries", "index.html#autotoc_md4", null ],
+      [ "Build options", "index.html#autotoc_md5", null ]
+    ] ],
     [ "Classes", "annotated.html", [
       [ "Class List", "annotated.html", "annotated_dup" ],
       [ "Class Index", "classes.html", null ],
@@ -56,7 +62,7 @@ var NAVTREEINDEX =
 [
 "AbsoluteEncoder_8cpp.html",
 "classPID.html#ab6c2a366f39cf53149b50216b300bdcd",
-"mcp2515_8h.html#ab3d10733e569cbff26e7ba9491580711"
+"mcp2515_8h.html#aa6def6703d1a49e8593a6548ff7af72a"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

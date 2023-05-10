@@ -2,7 +2,7 @@
 <area shape="rect" id="node1" title=" " alt="" coords="5,259,56,285"/>
 <area shape="rect" id="node2" href="$classBattery.html#ab738945fc3d54086b6afa6e8ba21c513" title="Check the battery charge status." alt="" coords="133,5,263,32"/>
 <area shape="rect" id="node3" href="$classBattery.html#a63577a5d458094efc4d24a00f052682b" title="Reads the current battery voltage." alt="" coords="362,31,517,57"/>
-<area shape="rect" id="node4" href="$classWebManagement.html#a48b2f695f7445b7628119b630447123e" title=" " alt="" coords="104,107,292,133"/>
+<area shape="rect" id="node4" href="$classWebManagement.html#a48b2f695f7445b7628119b630447123e" title="Handles incoming HTTP requests and OTA updates." alt="" coords="104,107,292,133"/>
 <area shape="rect" id="node5" href="$classDisplay.html#a3fa755683f0e28cfc689f35e7f8257b8" title="Handles display via recorded interrupts." alt="" coords="125,157,271,184"/>
 <area shape="rect" id="node6" href="$classSerialDebug.html#a3d01753681fd740869da197b2fa772b0" title="Sends a string to the Serial port with a debug level, only if it is lower than the setted one." alt="" coords="370,233,509,260"/>
 <area shape="rect" id="node7" href="$classSerialDebug.html#a153ed172ea7eefd852292af7561ff961" title="Sends a line to the serial port with a debug level, only if it is lower than the setted one." alt="" coords="123,208,273,235"/>

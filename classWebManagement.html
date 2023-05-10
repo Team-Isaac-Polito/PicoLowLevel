@@ -89,6 +89,9 @@ $(document).ready(function(){initNavTree('classWebManagement.html',''); initResi
 </div><!--header-->
 <div class="contents">
 
+<p>Provides a class for managing a WiFi connection and HTTP server for remote firmware updates and configuration management.  
+ <a href="classWebManagement.html#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="WebManagement_8h_source.html">WebManagement.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
@@ -96,11 +99,15 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:aa205ddf55b474746f2dcdad37385d202"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classWebManagement.html#aa205ddf55b474746f2dcdad37385d202">WebManagement</a> (String configFile)</td></tr>
 <tr class="separator:aa205ddf55b474746f2dcdad37385d202"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a02872e65a699697c243e1dd23a3988c3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classWebManagement.html#a02872e65a699697c243e1dd23a3988c3">begin</a> (const char *ssid, const char *password, const char *hostname)</td></tr>
+<tr class="memdesc:a02872e65a699697c243e1dd23a3988c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the WiFi connection, mDNS, OTA, and HTTP server.  <a href="classWebManagement.html#a02872e65a699697c243e1dd23a3988c3">More...</a><br /></td></tr>
 <tr class="separator:a02872e65a699697c243e1dd23a3988c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a48b2f695f7445b7628119b630447123e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classWebManagement.html#a48b2f695f7445b7628119b630447123e">handle</a> ()</td></tr>
+<tr class="memdesc:a48b2f695f7445b7628119b630447123e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handles incoming HTTP requests and OTA updates.  <a href="classWebManagement.html#a48b2f695f7445b7628119b630447123e">More...</a><br /></td></tr>
 <tr class="separator:a48b2f695f7445b7628119b630447123e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Provides a class for managing a WiFi connection and HTTP server for remote firmware updates and configuration management. </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="aa205ddf55b474746f2dcdad37385d202"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aa205ddf55b474746f2dcdad37385d202">&#9670;&nbsp;</a></span>WebManagement()</h2>
 
@@ -159,12 +166,22 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Initializes the WiFi connection, mDNS, OTA, and HTTP server. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ssid</td><td>The SSID of the WiFi network to connect to. </td></tr>
+    <tr><td class="paramname">password</td><td>The password of the WiFi network to connect to. </td></tr>
+    <tr><td class="paramname">hostname</td><td>The hostname to use for the device. </td></tr>
+  </table>
+  </dd>
+</dl>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classWebManagement_a02872e65a699697c243e1dd23a3988c3_cgraph.png" border="0" usemap="#aclassWebManagement_a02872e65a699697c243e1dd23a3988c3_cgraph" alt=""/></div>
 <map name="aclassWebManagement_a02872e65a699697c243e1dd23a3988c3_cgraph" id="aclassWebManagement_a02872e65a699697c243e1dd23a3988c3_cgraph">
-<area shape="rect" title=" " alt="" coords="5,5,185,32"/>
+<area shape="rect" title="Initializes the WiFi connection, mDNS, OTA, and HTTP server." alt="" coords="5,5,185,32"/>
 <area shape="rect" href="classSerialDebug.html#a153ed172ea7eefd852292af7561ff961" title="Sends a line to the serial port with a debug level, only if it is lower than the setted one." alt="" coords="233,5,384,32"/>
 <area shape="rect" href="classSerialDebug.html#a3d01753681fd740869da197b2fa772b0" title="Sends a string to the Serial port with a debug level, only if it is lower than the setted one." alt="" coords="432,5,571,32"/>
 </map>
@@ -174,7 +191,7 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classWebManagement_a02872e65a699697c243e1dd23a3988c3_icgraph.png" border="0" usemap="#aclassWebManagement_a02872e65a699697c243e1dd23a3988c3_icgraph" alt=""/></div>
 <map name="aclassWebManagement_a02872e65a699697c243e1dd23a3988c3_icgraph" id="aclassWebManagement_a02872e65a699697c243e1dd23a3988c3_icgraph">
-<area shape="rect" title=" " alt="" coords="112,5,292,32"/>
+<area shape="rect" title="Initializes the WiFi connection, mDNS, OTA, and HTTP server." alt="" coords="112,5,292,32"/>
 <area shape="rect" href="PicoLowLevel_8ino.html#a4fc01d736fe50cf5b977f755b675f11d" title=" " alt="" coords="5,5,64,32"/>
 </map>
 </div>
@@ -195,12 +212,14 @@ Here is the caller graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Handles incoming HTTP requests and OTA updates. </p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classWebManagement_a48b2f695f7445b7628119b630447123e_icgraph.png" border="0" usemap="#aclassWebManagement_a48b2f695f7445b7628119b630447123e_icgraph" alt=""/></div>
 <map name="aclassWebManagement_a48b2f695f7445b7628119b630447123e_icgraph" id="aclassWebManagement_a48b2f695f7445b7628119b630447123e_icgraph">
-<area shape="rect" title=" " alt="" coords="104,5,292,32"/>
+<area shape="rect" title="Handles incoming HTTP requests and OTA updates." alt="" coords="104,5,292,32"/>
 <area shape="rect" href="PicoLowLevel_8ino.html#afe461d27b9c48d5921c00d521181f12f" title=" " alt="" coords="5,5,56,32"/>
 </map>
 </div>

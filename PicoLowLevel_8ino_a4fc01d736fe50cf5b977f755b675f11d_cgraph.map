@@ -2,7 +2,7 @@
 <area shape="rect" id="node1" title=" " alt="" coords="5,376,64,403"/>
 <area shape="rect" id="node2" href="$classDisplay.html#ab569d31751d87ab3bd70744532d33605" title=" " alt="" coords="152,5,267,32"/>
 <area shape="rect" id="node3" href="$classSmartMotor.html#abe1e015d445ac4c830b446127279bdb1" title="Initialize SmartMotor and necessary components." alt="" coords="138,56,281,83"/>
-<area shape="rect" id="node6" href="$classWebManagement.html#a02872e65a699697c243e1dd23a3988c3" title=" " alt="" coords="119,107,299,133"/>
+<area shape="rect" id="node6" href="$classWebManagement.html#a02872e65a699697c243e1dd23a3988c3" title="Initializes the WiFi connection, mDNS, OTA, and HTTP server." alt="" coords="119,107,299,133"/>
 <area shape="rect" id="node7" href="$classSerialDebug.html#a153ed172ea7eefd852292af7561ff961" title="Sends a line to the serial port with a debug level, only if it is lower than the setted one." alt="" coords="369,145,519,172"/>
 <area shape="rect" id="node9" href="$classDynamixelInterface.html#a3e4e3332de3d8d675d94a7cd1f6c647c" title=" " alt="" coords="134,209,285,250"/>
 <area shape="rect" id="node10" href="$PicoLowLevel_8ino.html#a463bd5e2d6006d3d57e5569bd7c8cea4" title=" " alt="" coords="158,275,261,301"/>
