@@ -139,6 +139,9 @@ void setup() {
   motorTrLeft.begin();
   motorTrRight.begin();
 
+  motorTrLeft.calibrate();
+  motorTrRight.calibrate();
+
 #if defined MODC_PITCH || defined MODC_EE
   Serial1.setRX(1);
   Serial1.setTX(0);
