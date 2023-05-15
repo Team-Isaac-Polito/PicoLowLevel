@@ -6,7 +6,7 @@
 <area shape="rect" id="node11" href="$classAbsoluteEncoder.html#a487c5f6059e9dd3dbaa485938fda6c80" title="Reads the current measured angle." alt="" coords="349,183,555,209"/>
 <area shape="rect" id="node5" href="$classAbsoluteEncoder.html#a76e13c75b1976dbc5eac9968d97848fe" title="Start the encoder at zero with the default direction." alt="" coords="119,56,294,83"/>
 <area shape="rect" id="node6" href="$classWebManagement.html#a02872e65a699697c243e1dd23a3988c3" title="Initializes the WiFi connection, mDNS, OTA, and HTTP server." alt="" coords="117,107,297,133"/>
-<area shape="rect" id="node7" href="$PicoLowLevel_8ino.html#a4fc01d736fe50cf5b977f755b675f11d" title=" " alt="" coords="5,132,64,159"/>
+<area shape="rect" id="node7" href="$PicoLowLevel_8ino.html#a4fc01d736fe50cf5b977f755b675f11d" title=" " alt="" coords="5,157,64,184"/>
 <area shape="rect" id="node8" href="$classSmartMotor.html#ad30a82d663ba563d7618fbf0873c9671" title="Calibrate the PID controller." alt="" coords="125,208,289,235"/>
 <area shape="rect" id="node9" href="$classSerialDebug.html#a12bec7c49d756040fa4f16ce5f1f6cd4" title="Sends a debug line to the serial port, only debug is accepted." alt="" coords="131,259,282,285"/>
 <area shape="rect" id="node10" href="$classAbsoluteEncoder.html#a26b4493f44904d31dab6f5fd3e9c734e" title="Sets the encoder current position to zero." alt="" coords="112,309,301,336"/>

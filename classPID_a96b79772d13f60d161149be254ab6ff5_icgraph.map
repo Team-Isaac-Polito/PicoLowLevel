@@ -1,4 +1,5 @@
 <map id="PID::setKp" name="PID::setKp">
-<area shape="rect" id="node1" title="Sets the proportional gain." alt="" coords="217,5,307,32"/>
-<area shape="rect" id="node2" href="$classSmartMotor.html#ad30a82d663ba563d7618fbf0873c9671" title="Calibrate the PID controller." alt="" coords="5,5,169,32"/>
+<area shape="rect" id="node1" title="Sets the proportional gain." alt="" coords="324,5,413,32"/>
+<area shape="rect" id="node2" href="$classSmartMotor.html#ad30a82d663ba563d7618fbf0873c9671" title="Calibrate the PID controller." alt="" coords="112,5,276,32"/>
+<area shape="rect" id="node3" href="$PicoLowLevel_8ino.html#a4fc01d736fe50cf5b977f755b675f11d" title=" " alt="" coords="5,5,64,32"/>
 </map>
