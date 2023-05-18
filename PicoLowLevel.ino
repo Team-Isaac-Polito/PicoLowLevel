@@ -21,7 +21,7 @@ struct can_frame canMsg;
 MCP2515 mcp2515(5, 10000000UL, &SPI); // passing all parameters avoids premature initialization of SPI, which should be done in setup()
 
 SmartMotor motorTrLeft(DRV_TR_LEFT_PWM, DRV_TR_LEFT_DIR, ENC_TR_LEFT_A, ENC_TR_LEFT_B, false);
-SmartMotor motorTrRight(DRV_TR_RIGHT_PWM, DRV_TR_RIGHT_DIR, ENC_TR_RIGHT_A, ENC_TR_RIGHT_B, false);
+SmartMotor motorTrRight(DRV_TR_RIGHT_PWM, DRV_TR_RIGHT_DIR, ENC_TR_RIGHT_A, ENC_TR_RIGHT_B, true);
 
 
 #ifdef MODC_YAW
