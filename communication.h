@@ -3,8 +3,7 @@
 
 // Commands definition
 
-#define DATA_TRACTION_LEFT          0x01
-#define DATA_TRACTION_RIGHT         0x02
+#define COM_MOTOR_SETPOINT          0x21
 #define DATA_YAW                    0x03
 #define DATA_PITCH                  0x04
 

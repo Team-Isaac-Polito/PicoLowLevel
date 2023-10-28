@@ -117,8 +117,8 @@ void setup() {
 
   mcp2515.setConfigMode(); // tell the MCP2515 next instructions are for configuration
   // enable filtering for 11 bit address on both RX buffers
-  mcp2515.setFilterMask(MCP2515::MASK0, false, 0x03FF);
-  mcp2515.setFilterMask(MCP2515::MASK1, false, 0x03FF);
+  mcp2515.setFilterMask(MCP2515::MASK0, false, 0xFF00);
+  mcp2515.setFilterMask(MCP2515::MASK1, false, 0xFF00);
   // set all filters to module's ID, so only packets for us get through
   mcp2515.setFilter(MCP2515::RXF0, false, CAN_ID);
   mcp2515.setFilter(MCP2515::RXF1, false, CAN_ID);
@@ -199,19 +199,18 @@ void loop() {
     int16_t data;
     byte buf[4];
 
-    switch (canMsg.data[0]) {
-      case DATA_TRACTION_LEFT:
-        data = canMsg.data[1] | canMsg.data[2]<<8;
-        motorTrLeft.setSpeed((float)(data)/100.f);
+    byte type = canMsg.can_id & 0xFF0000;
 
-        Debug.print("TRACTION LEFT DATA :\t");
-        Debug.println(data);
-        break;
-      case DATA_TRACTION_RIGHT:
-        data = canMsg.data[1] | canMsg.data[2]<<8;
-        motorTrRight.setSpeed((float)(data)/100.f);
-        
-        Debug.print("TRACTION RIGHT DATA :\t");
+    switch (type) {
+      case COM_MOTOR_SETPOINT:
+        // take the first four bytes from the array and and put them in a float
+        float leftSpeed, rightSpeed;
+        memcpy(&leftSpeed, canMsg.data, 4);
+        memcpy(&rightSpeed, canMsg.data+4, 4);
+        motorTrLeft.setSpeed(leftSpeed);
+        motorTrRight.setSpeed(rightSpeed);
+
+        Debug.print("TRACTION DATA :\t");
         Debug.println(data);
         break;
       case DATA_PITCH:

@@ -10,7 +10,7 @@
 
 
 #if defined(MOD_HEAD)
-#define CAN_ID    0x15  // HEAD
+#define CAN_ID    0x11  // HEAD
 #define MODC_EE
 #define SERVO_PITCH_ID 6
 #define SERVO_ROLL_ID 4
@@ -22,13 +22,13 @@
 #define SEND_TRACTION_RIGHT_SPEED   0x09
 
 #elif defined(MOD_MIDDLE)
-#define CAN_ID    0x16  // MIDDLE
+#define CAN_ID    0x12  // MIDDLE
 #define MODC_YAW
 #define SEND_TRACTION_LEFT_SPEED    0x14
 #define SEND_TRACTION_RIGHT_SPEED   0x15
 
 #elif defined(MOD_TAIL)
-#define CAN_ID    0x17  // TAIL
+#define CAN_ID    0x13  // TAIL
 #define MODC_YAW
 #define MODC_PITCH
 #define SERVO_A_ID 5
