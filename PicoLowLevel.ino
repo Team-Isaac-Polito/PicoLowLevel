@@ -199,7 +199,7 @@ void loop() {
     int16_t data;
     byte buf[4];
 
-    byte type = canMsg.can_id & 0xFF0000;
+    byte type = canMsg.can_id >> 16;
 
     switch (type) {
       case COM_MOTOR_SETPOINT:
