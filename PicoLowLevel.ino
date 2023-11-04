@@ -210,8 +210,10 @@ void loop() {
         motorTrLeft.setSpeed(leftSpeed);
         motorTrRight.setSpeed(rightSpeed);
 
-        Debug.print("TRACTION DATA :\t");
-        Debug.println(data);
+        Debug.print("TRACTION DATA :\tleft: \t");
+        Debug.print(leftSpeed);
+        Debug.print("\tright: \t");
+        Debug.println(rightSpeed);
         break;
       case DATA_PITCH:
         data = canMsg.data[1] | canMsg.data[2]<<8;
