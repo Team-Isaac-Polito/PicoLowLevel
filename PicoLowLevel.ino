@@ -116,16 +116,16 @@ void setup() {
   mcp2515.setBitrate(CAN_125KBPS, MCP_8MHZ);
 
   mcp2515.setConfigMode(); // tell the MCP2515 next instructions are for configuration
-  // enable filtering for 11 bit address on both RX buffers
-  mcp2515.setFilterMask(MCP2515::MASK0, false, 0xFF00);
-  mcp2515.setFilterMask(MCP2515::MASK1, false, 0xFF00);
+  // enable filtering for 29 bit address on both RX buffers
+  mcp2515.setFilterMask(MCP2515::MASK0, true, 0xFF00);
+  mcp2515.setFilterMask(MCP2515::MASK1, true, 0xFF00);
   // set all filters to module's ID, so only packets for us get through
-  mcp2515.setFilter(MCP2515::RXF0, false, CAN_ID);
-  mcp2515.setFilter(MCP2515::RXF1, false, CAN_ID);
-  mcp2515.setFilter(MCP2515::RXF2, false, CAN_ID);
-  mcp2515.setFilter(MCP2515::RXF3, false, CAN_ID);
-  mcp2515.setFilter(MCP2515::RXF4, false, CAN_ID);
-  mcp2515.setFilter(MCP2515::RXF5, false, CAN_ID);
+  mcp2515.setFilter(MCP2515::RXF0, true, CAN_ID<<8);
+  mcp2515.setFilter(MCP2515::RXF1, true, CAN_ID<<8);
+  mcp2515.setFilter(MCP2515::RXF2, true, CAN_ID<<8);
+  mcp2515.setFilter(MCP2515::RXF3, true, CAN_ID<<8);
+  mcp2515.setFilter(MCP2515::RXF4, true, CAN_ID<<8);
+  mcp2515.setFilter(MCP2515::RXF5, true, CAN_ID<<8);
   mcp2515.setNormalMode();
 
   // initializing PWM
