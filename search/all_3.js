@@ -61,6 +61,7 @@ var searchData=
   ['clkout_5fdiv2_138',['CLKOUT_DIV2',['../mcp2515_8h.html#a67c63428365b799be30ceeae1739adcba148dcdfec6ea1d2e6337e2881b9f3e64',1,'mcp2515.h']]],
   ['clkout_5fdiv4_139',['CLKOUT_DIV4',['../mcp2515_8h.html#a67c63428365b799be30ceeae1739adcbae14eab165463c978d343bc045ade585e',1,'mcp2515.h']]],
   ['clkout_5fdiv8_140',['CLKOUT_DIV8',['../mcp2515_8h.html#a67c63428365b799be30ceeae1739adcba86a092d440dad027b4e056bb247165c7',1,'mcp2515.h']]],
-  ['communication_2eh_141',['communication.h',['../communication_8h.html',1,'']]],
-  ['conf_5fpath_142',['CONF_PATH',['../definitions_8h.html#ab554e60c60569e439b8e0e1901d5754c',1,'definitions.h']]]
+  ['com_5fmotor_5fsetpoint_141',['COM_MOTOR_SETPOINT',['../communication_8h.html#abf80c1b14acc51c3c4f5ce0c3a543c36',1,'communication.h']]],
+  ['communication_2eh_142',['communication.h',['../communication_8h.html',1,'']]],
+  ['conf_5fpath_143',['CONF_PATH',['../definitions_8h.html#ab554e60c60569e439b8e0e1901d5754c',1,'definitions.h']]]
 ];

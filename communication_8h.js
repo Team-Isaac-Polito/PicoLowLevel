@@ -1,5 +1,6 @@
 var communication_8h =
 [
+    [ "COM_MOTOR_SETPOINT", "communication_8h.html#abf80c1b14acc51c3c4f5ce0c3a543c36", null ],
     [ "DATA_EE_PITCH", "communication_8h.html#a5e703fdccab881a1badce143dc2b65b9", null ],
     [ "DATA_EE_PITCH2", "communication_8h.html#afc8adb26a38088bbd573ef797af5a112", null ],
     [ "DATA_EE_ROLL", "communication_8h.html#ac36a7740495e6c1d10b2773e4946ebd7", null ],
@@ -7,8 +8,6 @@ var communication_8h =
     [ "DATA_PID_KI", "communication_8h.html#a2e1dd9cdd658caf756722b974daddf29", null ],
     [ "DATA_PID_KP", "communication_8h.html#a0afb8e66d305d4422ac456b3cd840f8c", null ],
     [ "DATA_PITCH", "communication_8h.html#a9b697cbcbce7011c74089a8a058dfeda", null ],
-    [ "DATA_TRACTION_LEFT", "communication_8h.html#ad9c94fb2fe2663df588b52d0020aca8b", null ],
-    [ "DATA_TRACTION_RIGHT", "communication_8h.html#a267d58bcabe2e0e01d1b8cd6b47aff34", null ],
     [ "DATA_YAW", "communication_8h.html#a0dc4b4c4cf22856a3c4bbd4a1d55d7b3", null ],
     [ "SEND_BATTERY_VOLTAGE", "communication_8h.html#aa67298332d7e2070c4b48cb91f55411c", null ],
     [ "SEND_CURRENT", "communication_8h.html#a85791bd835c342d068d8c0c72eadf6bb", null ],
