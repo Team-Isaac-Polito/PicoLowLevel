@@ -1,27 +1,19 @@
 #ifndef COMMUNICATION_H
 #define COMMUNICATION_H
 
-// Commands definition
+// CAN bus packet identifiers
 
-#define COM_MOTOR_SETPOINT          0x21
-#define DATA_YAW                    0x03
-#define DATA_PITCH                  0x04
+#define BATTERY_VOLTAGE       0x11
+#define BATTERY_PERCENT       0x12
+#define BATTERY_TEMPERATURE   0x13
+#define MOTOR_SETPOINT        0x21
+#define MOTOR_FEEDBACK			0x22
+#define JOINT_YAW_FEEDBACK    0x32
 
-#define SEND_STATUS                 0x05                
-#define SEND_IMU_DATA               0x06
-#define SEND_YAW_ENCODER_MIDDLE     0x07
-#define SEND_YAW_ENCODER_TAIL       0x13    
-// moved traction to allow module configuration
-#define SEND_BATTERY_VOLTAGE        0x0A
-#define SEND_CURRENT                0x0E
-#define SEND_TEMPERATURE            0x0F
-
-#define DATA_EE_PITCH               0x0B
-#define DATA_EE_ROLL                0x0C
-#define DATA_EE_PITCH2              0x0D
-
-#define DATA_PID_KP                 0x10
-#define DATA_PID_KI                 0x11
-#define DATA_PID_KD                 0x12
+// TODO: update to ROS2 equivalent
+#define DATA_PITCH            0x04
+#define DATA_EE_PITCH         0x0B
+#define DATA_EE_ROLL          0x0C
+#define DATA_EE_PITCH2        0x0D
 
 #endif
