@@ -55,40 +55,35 @@ void navInterrupt() {
 }
 
 void sendTelemetry() {
-  canMsg.can_id = 0x14;
-  canMsg.can_dlc = 5;
-  
-  // sending right encoder as float
+  canMsg.can_id = CAN_ID; // source
+
+  // send motor feedback as float
   float speedR = motorTrRight.getSpeed();
-  canMsg.data[0] = SEND_TRACTION_RIGHT_SPEED;
-  canMsg.data[1] = ((uint8_t*)&speedR)[3];
-  canMsg.data[2] = ((uint8_t*)&speedR)[2];
-  canMsg.data[3] = ((uint8_t*)&speedR)[1];
-  canMsg.data[4] = ((uint8_t*)&speedR)[0];
-  mcp2515.sendMessage(&canMsg);
-
-  // sending left encoder as float
   float speedL = motorTrLeft.getSpeed();
-  canMsg.data[0] = SEND_TRACTION_LEFT_SPEED;
-  canMsg.data[1] = ((uint8_t*)&speedL)[3];
+
+  canMsg.can_dlc = 8;
+  canMsg.can_id |= MOTOR_FEEDBACK << 16;
+  canMsg.data[0] = ((uint8_t*)&speedL)[0];
+  canMsg.data[1] = ((uint8_t*)&speedL)[1];
   canMsg.data[2] = ((uint8_t*)&speedL)[2];
-  canMsg.data[3] = ((uint8_t*)&speedL)[1];
-  canMsg.data[4] = ((uint8_t*)&speedL)[0];
+  canMsg.data[3] = ((uint8_t*)&speedL)[3];
+  canMsg.data[4] = ((uint8_t*)&speedR)[0];
+  canMsg.data[5] = ((uint8_t*)&speedR)[1];
+  canMsg.data[6] = ((uint8_t*)&speedR)[2];
+  canMsg.data[7] = ((uint8_t*)&speedR)[3];
   mcp2515.sendMessage(&canMsg);
 
-  // if we have an absolute encoder connected send it's value as float
-#ifdef MODC_YAW  
+  // send yaw angle of the joint if this module has one
+#ifdef MODC_YAW
   encoderYaw.update();
   float angle = encoderYaw.readAngle();
-#if defined(MOD_TAIL)
-  canMsg.data[0] = SEND_YAW_ENCODER_TAIL;
-#elif defined(MOD_MIDDLE)
-  canMsg.data[0] = SEND_YAW_ENCODER_MIDDLE;
-#endif
-  canMsg.data[1] = ((uint8_t*)&angle)[3];
+
+  canMsg.can_dlc = 4;
+  canMsg.can_id |= JOINT_YAW_FEEDBACK << 16;
+  canMsg.data[0] = ((uint8_t*)&angle)[0];
+  canMsg.data[1] = ((uint8_t*)&angle)[1];
   canMsg.data[2] = ((uint8_t*)&angle)[2];
-  canMsg.data[3] = ((uint8_t*)&angle)[1];
-  canMsg.data[4] = ((uint8_t*)&angle)[0];
+  canMsg.data[3] = ((uint8_t*)&angle)[3];
   mcp2515.sendMessage(&canMsg);
 #endif
 }
