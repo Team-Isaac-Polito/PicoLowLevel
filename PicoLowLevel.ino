@@ -30,9 +30,9 @@ AbsoluteEncoder encoderYaw(ABSOLUTE_ENCODER_ADDRESS);
 
 
 #ifdef MODC_EE
-DynamixelMotor motorPitch(SERVO_PITCH_ID);
-DynamixelMotor motorPitch2(SERVO_PITCH2_ID);
-DynamixelMotor motorRoll(SERVO_ROLL_ID);
+DynamixelMotor motorEEPitch(SERVO_EE_PITCH_ID);
+DynamixelMotor motorEEHeadPitch(SERVO_EE_HEAD_PITCH_ID);
+DynamixelMotor motorEEHeadRoll(SERVO_EE_HEAD_ROLL_ID);
 #endif
 
 #ifdef MODC_PITCH
@@ -221,33 +221,30 @@ void loop() {
         Debug.println(data);
         break;
 
-      case DATA_EE_PITCH:
+      case DATA_EE_PITCH_SETPOINT:
         data = canMsg.data[1] | canMsg.data[2]<<8;
 #ifdef MODC_EE
-        data = map(data, 0, 1023, SERVO_MIN, SERVO_MAX);
-        motorPitch.moveSpeed(data, SERVO_SPEED);
+        motorEEPitch.moveSpeed(data, SERVO_SPEED);
 #endif
         Debug.print("PITCH END EFFECTOR MOTOR DATA : \t");
         Debug.println(data);
         break;
 
-      case DATA_EE_PITCH2:
+      case DATA_EE_HEAD_PITCH_SETPOINT:
         data = canMsg.data[1] | canMsg.data[2]<<8;
 #ifdef MODC_EE
-        data = map(data, 0, 1023, SERVO_MIN, SERVO_MAX);
-        motorPitch2.moveSpeed(data, SERVO_SPEED);
+        motorEEHeadPitch.moveSpeed(data, SERVO_SPEED);
 #endif
-        Debug.print("PITCH2 END EFFECTOR MOTOR DATA : \t");
+        Debug.print("HEAD PITCH END EFFECTOR MOTOR DATA : \t");
         Debug.println(data);
         break;
 
-      case DATA_EE_ROLL:
+      case DATA_EE_HEAD_ROLL_SETPOINT:
         data = canMsg.data[1] | canMsg.data[2]<<8;
 #ifdef MODC_EE
-        data = map(data, 0, 1023, SERVO_MIN, SERVO_MAX);
-        motorRoll.moveSpeed(data, SERVO_SPEED);
+        motorEEHeadRoll.moveSpeed(data, SERVO_SPEED);
 #endif
-        Debug.print("ROLL END EFFECTOR MOTOR DATA : \t");
+        Debug.print("HEAD ROLL END EFFECTOR MOTOR DATA : \t");
         Debug.println(data);
         break;
     }
