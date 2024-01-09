@@ -197,7 +197,7 @@ void loop() {
     byte type = canMsg.can_id >> 16;
 
     switch (type) {
-      case COM_MOTOR_SETPOINT:
+      case MOTOR_SETPOINT:
         // take the first four bytes from the array and and put them in a float
         float leftSpeed, rightSpeed;
         memcpy(&leftSpeed, canMsg.data, 4);
