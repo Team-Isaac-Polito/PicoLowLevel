@@ -222,7 +222,7 @@ void loop() {
         break;
 
       case DATA_EE_PITCH_SETPOINT:
-        data = canMsg.data[1] | canMsg.data[2]<<8;
+        memcpy(&data, canMsg.data, 2);
 #ifdef MODC_EE
         motorEEPitch.moveSpeed(data, SERVO_SPEED);
 #endif
@@ -231,7 +231,7 @@ void loop() {
         break;
 
       case DATA_EE_HEAD_PITCH_SETPOINT:
-        data = canMsg.data[1] | canMsg.data[2]<<8;
+        memcpy(&data, canMsg.data, 2);
 #ifdef MODC_EE
         motorEEHeadPitch.moveSpeed(data, SERVO_SPEED);
 #endif
@@ -240,7 +240,7 @@ void loop() {
         break;
 
       case DATA_EE_HEAD_ROLL_SETPOINT:
-        data = canMsg.data[1] | canMsg.data[2]<<8;
+        memcpy(&data, canMsg.data, 2);
 #ifdef MODC_EE
         motorEEHeadRoll.moveSpeed(data, SERVO_SPEED);
 #endif
