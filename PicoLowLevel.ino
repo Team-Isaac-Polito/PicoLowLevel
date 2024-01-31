@@ -55,7 +55,7 @@ void navInterrupt() {
 }
 
 void sendTelemetry() {
-  canMsg.can_id = CAN_ID; // source
+  canMsg.can_id = CAN_ID | CAN_EFF_FLAG; // source
 
   // send motor feedback as float
   float speedR = motorTrRight.getSpeed();
