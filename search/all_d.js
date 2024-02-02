@@ -1,7 +1,5 @@
 var searchData=
 [
-  ['off_384',['OFF',['../Debug_8h.html#ae06cf0c67532073a49f95f03488d29bfa88559a0cfd8250c9d65970cc145c92d4',1,'Debug.h']]],
-  ['okinterrupt_385',['okInterrupt',['../classDisplay.html#aa9a7e82a5611d737c618a2f1cab7812a',1,'Display::okInterrupt()'],['../PicoLowLevel_8ino.html#a7e5bd9686428496c0be42f11e557bd2b',1,'okInterrupt():&#160;PicoLowLevel.ino']]],
-  ['oldangle_386',['oldAngle',['../PicoLowLevel_8ino.html#acc50c1424cde2d478085d4006d6d3ae1',1,'PicoLowLevel.ino']]],
-  ['ota_5fpwd_387',['OTA_PWD',['../definitions_8h.html#a312c3a9fb6e3210f9fee8191bc6884b7',1,'definitions.h']]]
+  ['navinterrupt_382',['navInterrupt',['../classDisplay.html#a5c28101c672878132e2ce5772ed93588',1,'Display::navInterrupt()'],['../PicoLowLevel_8ino.html#a463bd5e2d6006d3d57e5569bd7c8cea4',1,'navInterrupt():&#160;PicoLowLevel.ino']]],
+  ['nmenus_383',['NMENUS',['../definitions_8h.html#a1cdc7ad3ab2f4274826bf78195a9725f',1,'definitions.h']]]
 ];

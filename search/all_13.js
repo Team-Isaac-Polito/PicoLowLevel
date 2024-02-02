@@ -1,18 +1,16 @@
 var searchData=
 [
-  ['u_5fdeg_488',['U_DEG',['../ams__as5048b_8h.html#a15d9efbfd44b0034e50d02e6d6e1c77f',1,'ams_as5048b.h']]],
-  ['u_5fgrad_489',['U_GRAD',['../ams__as5048b_8h.html#ae0c7a1469237b07df9fab72da030eaf4',1,'ams_as5048b.h']]],
-  ['u_5fmilnato_490',['U_MILNATO',['../ams__as5048b_8h.html#aedb6ad68543282ad6cdfa7f53fbfba69',1,'ams_as5048b.h']]],
-  ['u_5fmilru_491',['U_MILRU',['../ams__as5048b_8h.html#abe2f3b938f958d26130ac588f75639f3',1,'ams_as5048b.h']]],
-  ['u_5fmilse_492',['U_MILSE',['../ams__as5048b_8h.html#a22390954a492f7661dfa1fb99a7562cf',1,'ams_as5048b.h']]],
-  ['u_5fmoa_493',['U_MOA',['../ams__as5048b_8h.html#ac6eb74a595d17eaffa68af26e7ee38bb',1,'ams_as5048b.h']]],
-  ['u_5frad_494',['U_RAD',['../ams__as5048b_8h.html#aea1a31ca1a12601341fec4e65f18cc06',1,'ams_as5048b.h']]],
-  ['u_5fraw_495',['U_RAW',['../ams__as5048b_8h.html#a50a0dba364fcf860f5dcf0925044a855',1,'ams_as5048b.h']]],
-  ['u_5fsoa_496',['U_SOA',['../ams__as5048b_8h.html#a57bdbfe869e73d062cec16fec1c75249',1,'ams_as5048b.h']]],
-  ['u_5ftrn_497',['U_TRN',['../ams__as5048b_8h.html#aae96eab81af58400dbbdcfacb637a081',1,'ams_as5048b.h']]],
-  ['update_498',['update',['../classAbsoluteEncoder.html#aae25f76ad9e1a21f3d5a08059a003151',1,'AbsoluteEncoder::update()'],['../classSmartMotor.html#a1eb6dc1fd54a13dce1705c7a31b0f9ab',1,'SmartMotor::update()']]],
-  ['updatefeedback_499',['updateFeedback',['../classPID.html#a33f657a6cce4f57302f90bec9664d294',1,'PID']]],
-  ['updatemovingavgexp_500',['updateMovingAvgExp',['../classAMS__AS5048B.html#a20a1cab67cc2ec87135366723893b1aa',1,'AMS_AS5048B']]],
-  ['updatereferencevalue_501',['updateReferenceValue',['../classPID.html#ab6c2a366f39cf53149b50216b300bdcd',1,'PID']]],
-  ['usb_502',['USB',['../classBattery.html#a1749be218db101e2b6d252ac1c5691c9',1,'Battery']]]
+  ['time_5fbat_468',['time_bat',['../PicoLowLevel_8ino.html#abdddc61832fa5b690fa53906a61025b3',1,'PicoLowLevel.ino']]],
+  ['time_5fdata_469',['time_data',['../PicoLowLevel_8ino.html#af5ae4fd4d3611a40bcdd4aa82014a9d5',1,'PicoLowLevel.ino']]],
+  ['time_5ftel_470',['time_tel',['../PicoLowLevel_8ino.html#a144e2695164737d1fc740583c2b62fe3',1,'PicoLowLevel.ino']]],
+  ['time_5ftel_5favg_471',['time_tel_avg',['../PicoLowLevel_8ino.html#aaa722e883eaa5b32796aa17a38a9616b',1,'PicoLowLevel.ino']]],
+  ['toggledebug_472',['toggleDebug',['../classAMS__AS5048B.html#ac2485a851c68e9a5b410c47ffc3485ca',1,'AMS_AS5048B']]],
+  ['tractionencoder_473',['TractionEncoder',['../classTractionEncoder.html',1,'TractionEncoder'],['../classTractionEncoder.html#a50938e32e75149e2d33d67dfefe380e2',1,'TractionEncoder::TractionEncoder()']]],
+  ['tractionencoder_2ecpp_474',['TractionEncoder.cpp',['../TractionEncoder_8cpp.html',1,'']]],
+  ['tractionencoder_2eh_475',['TractionEncoder.h',['../TractionEncoder_8h.html',1,'']]],
+  ['turn_476',['turn',['../classDynamixelMotor.html#ae2e50c83b3cc3d6491a7b7739730dcad',1,'DynamixelMotor']]],
+  ['txb0_477',['TXB0',['../structMCP2515.html#a57d6805c8638eaa5d2a257376606340babc97bd5f742190ae01ff7ff84f2dfdb7',1,'MCP2515']]],
+  ['txb1_478',['TXB1',['../structMCP2515.html#a57d6805c8638eaa5d2a257376606340bab7cb89258b4208d08354e495ca30c0ab',1,'MCP2515']]],
+  ['txb2_479',['TXB2',['../structMCP2515.html#a57d6805c8638eaa5d2a257376606340baff658a218c4e05ffabb40049382bb83f',1,'MCP2515']]],
+  ['txbn_480',['TXBn',['../structMCP2515.html#a57d6805c8638eaa5d2a257376606340b',1,'MCP2515']]]
 ];
