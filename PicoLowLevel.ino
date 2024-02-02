@@ -30,9 +30,9 @@ AbsoluteEncoder encoderYaw(ABSOLUTE_ENCODER_ADDRESS);
 
 
 #ifdef MODC_EE
-DynamixelMotor motorPitch(SERVO_PITCH_ID);
-DynamixelMotor motorPitch2(SERVO_PITCH2_ID);
-DynamixelMotor motorRoll(SERVO_ROLL_ID);
+DynamixelMotor motorEEPitch(SERVO_EE_PITCH_ID);
+DynamixelMotor motorEEHeadPitch(SERVO_EE_HEAD_PITCH_ID);
+DynamixelMotor motorEEHeadRoll(SERVO_EE_HEAD_ROLL_ID);
 #endif
 
 #ifdef MODC_PITCH
@@ -55,40 +55,35 @@ void navInterrupt() {
 }
 
 void sendTelemetry() {
-  canMsg.can_id = 0x14;
-  canMsg.can_dlc = 5;
-  
-  // sending right encoder as float
+  canMsg.can_id = CAN_ID | CAN_EFF_FLAG; // source
+
+  // send motor feedback as float
   float speedR = motorTrRight.getSpeed();
-  canMsg.data[0] = SEND_TRACTION_RIGHT_SPEED;
-  canMsg.data[1] = ((uint8_t*)&speedR)[3];
-  canMsg.data[2] = ((uint8_t*)&speedR)[2];
-  canMsg.data[3] = ((uint8_t*)&speedR)[1];
-  canMsg.data[4] = ((uint8_t*)&speedR)[0];
-  mcp2515.sendMessage(&canMsg);
-
-  // sending left encoder as float
   float speedL = motorTrLeft.getSpeed();
-  canMsg.data[0] = SEND_TRACTION_LEFT_SPEED;
-  canMsg.data[1] = ((uint8_t*)&speedL)[3];
+
+  canMsg.can_dlc = 8;
+  canMsg.can_id |= MOTOR_FEEDBACK << 16;
+  canMsg.data[0] = ((uint8_t*)&speedL)[0];
+  canMsg.data[1] = ((uint8_t*)&speedL)[1];
   canMsg.data[2] = ((uint8_t*)&speedL)[2];
-  canMsg.data[3] = ((uint8_t*)&speedL)[1];
-  canMsg.data[4] = ((uint8_t*)&speedL)[0];
+  canMsg.data[3] = ((uint8_t*)&speedL)[3];
+  canMsg.data[4] = ((uint8_t*)&speedR)[0];
+  canMsg.data[5] = ((uint8_t*)&speedR)[1];
+  canMsg.data[6] = ((uint8_t*)&speedR)[2];
+  canMsg.data[7] = ((uint8_t*)&speedR)[3];
   mcp2515.sendMessage(&canMsg);
 
-  // if we have an absolute encoder connected send it's value as float
-#ifdef MODC_YAW  
+  // send yaw angle of the joint if this module has one
+#ifdef MODC_YAW
   encoderYaw.update();
   float angle = encoderYaw.readAngle();
-#if defined(MOD_TAIL)
-  canMsg.data[0] = SEND_YAW_ENCODER_TAIL;
-#elif defined(MOD_MIDDLE)
-  canMsg.data[0] = SEND_YAW_ENCODER_MIDDLE;
-#endif
-  canMsg.data[1] = ((uint8_t*)&angle)[3];
+
+  canMsg.can_dlc = 4;
+  canMsg.can_id |= JOINT_YAW_FEEDBACK << 16;
+  canMsg.data[0] = ((uint8_t*)&angle)[0];
+  canMsg.data[1] = ((uint8_t*)&angle)[1];
   canMsg.data[2] = ((uint8_t*)&angle)[2];
-  canMsg.data[3] = ((uint8_t*)&angle)[1];
-  canMsg.data[4] = ((uint8_t*)&angle)[0];
+  canMsg.data[3] = ((uint8_t*)&angle)[3];
   mcp2515.sendMessage(&canMsg);
 #endif
 }
@@ -202,7 +197,7 @@ void loop() {
     byte type = canMsg.can_id >> 16;
 
     switch (type) {
-      case COM_MOTOR_SETPOINT:
+      case MOTOR_SETPOINT:
         // take the first four bytes from the array and and put them in a float
         float leftSpeed, rightSpeed;
         memcpy(&leftSpeed, canMsg.data, 4);
@@ -226,33 +221,30 @@ void loop() {
         Debug.println(data);
         break;
 
-      case DATA_EE_PITCH:
-        data = canMsg.data[1] | canMsg.data[2]<<8;
+      case DATA_EE_PITCH_SETPOINT:
+        memcpy(&data, canMsg.data, 2);
 #ifdef MODC_EE
-        data = map(data, 0, 1023, SERVO_MIN, SERVO_MAX);
-        motorPitch.moveSpeed(data, SERVO_SPEED);
+        motorEEPitch.moveSpeed(data, SERVO_SPEED);
 #endif
         Debug.print("PITCH END EFFECTOR MOTOR DATA : \t");
         Debug.println(data);
         break;
 
-      case DATA_EE_PITCH2:
-        data = canMsg.data[1] | canMsg.data[2]<<8;
+      case DATA_EE_HEAD_PITCH_SETPOINT:
+        memcpy(&data, canMsg.data, 2);
 #ifdef MODC_EE
-        data = map(data, 0, 1023, SERVO_MIN, SERVO_MAX);
-        motorPitch2.moveSpeed(data, SERVO_SPEED);
+        motorEEHeadPitch.moveSpeed(data, SERVO_SPEED);
 #endif
-        Debug.print("PITCH2 END EFFECTOR MOTOR DATA : \t");
+        Debug.print("HEAD PITCH END EFFECTOR MOTOR DATA : \t");
         Debug.println(data);
         break;
 
-      case DATA_EE_ROLL:
-        data = canMsg.data[1] | canMsg.data[2]<<8;
+      case DATA_EE_HEAD_ROLL_SETPOINT:
+        memcpy(&data, canMsg.data, 2);
 #ifdef MODC_EE
-        data = map(data, 0, 1023, SERVO_MIN, SERVO_MAX);
-        motorRoll.moveSpeed(data, SERVO_SPEED);
+        motorEEHeadRoll.moveSpeed(data, SERVO_SPEED);
 #endif
-        Debug.print("ROLL END EFFECTOR MOTOR DATA : \t");
+        Debug.print("HEAD ROLL END EFFECTOR MOTOR DATA : \t");
         Debug.println(data);
         break;
     }

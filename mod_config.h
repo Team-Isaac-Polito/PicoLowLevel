@@ -1,31 +1,19 @@
 #ifndef module_configuration_h
 #define module_configuration_h
 
-
-// select here which module to build for
-// teoricamente definiti dal compilatore
-//#define MOD_HEAD
-//#define MOD_MIDDLE
-//#define MOD_TAIL
-
+// MOD_HEAD, MOD_MIDDLE, MOD_TAIL are defined in the makefile
 
 #if defined(MOD_HEAD)
 #define CAN_ID    0x11  // HEAD
 #define MODC_EE
-#define SERVO_PITCH_ID 6
-#define SERVO_ROLL_ID 4
-#define SERVO_PITCH2_ID 2
-#define SERVO_MIN 200
-#define SERVO_MAX 800
+#define SERVO_EE_PITCH_ID 6
+#define SERVO_EE_HEAD_ROLL_ID 4
+#define SERVO_EE_HEAD_PITCH_ID 2
 #define SERVO_SPEED 200
-#define SEND_TRACTION_LEFT_SPEED    0x08
-#define SEND_TRACTION_RIGHT_SPEED   0x09
 
 #elif defined(MOD_MIDDLE)
 #define CAN_ID    0x12  // MIDDLE
 #define MODC_YAW
-#define SEND_TRACTION_LEFT_SPEED    0x14
-#define SEND_TRACTION_RIGHT_SPEED   0x15
 
 #elif defined(MOD_TAIL)
 #define CAN_ID    0x13  // TAIL
@@ -36,9 +24,6 @@
 #define SERVO_MIN 200
 #define SERVO_MAX 800
 #define SERVO_SPEED 200
-#define SEND_TRACTION_LEFT_SPEED    0x16
-#define SEND_TRACTION_RIGHT_SPEED   0x17
-
 #endif
 
 #endif
