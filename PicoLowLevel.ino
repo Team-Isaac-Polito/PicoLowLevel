@@ -54,7 +54,7 @@ void navInterrupt() {
   display.navInterrupt();
 }
 
-void sendTelemetry() {
+void sendFeedback() {
   canMsg.can_id = CAN_ID | CAN_EFF_FLAG; // source
 
   // send motor feedback as float
@@ -207,7 +207,7 @@ void loop() {
     time_tel_avg = (time_tel_avg + (time_cur - time_tel)) / 2;
     time_tel = time_cur;
     
-    sendTelemetry();
+    sendFeedback();
   }
 
   if (mcp2515.readMessage(&canMsg) == MCP2515::ERROR_OK) {
