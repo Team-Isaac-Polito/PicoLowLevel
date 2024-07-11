@@ -12,6 +12,9 @@
 #define DATA_EE_PITCH_SETPOINT          0x41
 #define DATA_EE_HEAD_PITCH_SETPOINT     0x43
 #define DATA_EE_HEAD_ROLL_SETPOINT      0x45
+#define DATA_EE_PITCH_FEEDBACK          0x42
+#define DATA_EE_HEAD_PITCH_FEEDBACK     0x44
+#define DATA_EE_HEAD_ROLL_FEEDBACK      0x46
 
 // TODO: update to ROS2 equivalent
 #define DATA_PITCH                      0x04 // Deprecated?
