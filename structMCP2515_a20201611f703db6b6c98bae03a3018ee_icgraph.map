@@ -1,6 +1,6 @@
 <map id="MCP2515::sendMessage" name="MCP2515::sendMessage">
 <area shape="rect" id="node1" title=" " alt="" coords="332,31,512,57"/>
-<area shape="rect" id="node2" href="$structMCP2515.html#a077ee25001aa82309f2c1b7b7303b4c4" title=" " alt="" coords="104,5,284,32"/>
-<area shape="rect" id="node3" href="$PicoLowLevel_8ino.html#a8f9fa76a93541264f22c8f23f3fc1631" title=" " alt="" coords="135,56,253,83"/>
-<area shape="rect" id="node4" href="$PicoLowLevel_8ino.html#afe461d27b9c48d5921c00d521181f12f" title=" " alt="" coords="5,56,56,83"/>
+<area shape="rect" id="node2" href="$PicoLowLevel_8ino.html#a71eeb9677589014e9412c294dafb3102" title=" " alt="" coords="137,5,251,32"/>
+<area shape="rect" id="node4" href="$structMCP2515.html#a077ee25001aa82309f2c1b7b7303b4c4" title=" " alt="" coords="104,56,284,83"/>
+<area shape="rect" id="node3" href="$PicoLowLevel_8ino.html#afe461d27b9c48d5921c00d521181f12f" title=" " alt="" coords="5,5,56,32"/>
 </map>

@@ -3,7 +3,7 @@ var PicoLowLevel_8ino =
     [ "loop", "PicoLowLevel_8ino.html#afe461d27b9c48d5921c00d521181f12f", null ],
     [ "navInterrupt", "PicoLowLevel_8ino.html#a463bd5e2d6006d3d57e5569bd7c8cea4", null ],
     [ "okInterrupt", "PicoLowLevel_8ino.html#a7e5bd9686428496c0be42f11e557bd2b", null ],
-    [ "sendTelemetry", "PicoLowLevel_8ino.html#a8f9fa76a93541264f22c8f23f3fc1631", null ],
+    [ "sendFeedback", "PicoLowLevel_8ino.html#a71eeb9677589014e9412c294dafb3102", null ],
     [ "setup", "PicoLowLevel_8ino.html#a4fc01d736fe50cf5b977f755b675f11d", null ],
     [ "canMsg", "PicoLowLevel_8ino.html#a48f09105460ef86504c1aa704071773f", null ],
     [ "display", "PicoLowLevel_8ino.html#aa5083e8fab8ddaf62944949e251663bb", null ],

@@ -7,7 +7,7 @@
 <area shape="rect" id="node6" href="$classSerialDebug.html#a3d01753681fd740869da197b2fa772b0" title="Sends a string to the Serial port with a debug level, only if it is lower than the setted one." alt="" coords="370,233,509,260"/>
 <area shape="rect" id="node7" href="$classSerialDebug.html#a153ed172ea7eefd852292af7561ff961" title="Sends a line to the serial port with a debug level, only if it is lower than the setted one." alt="" coords="123,208,273,235"/>
 <area shape="rect" id="node8" href="$structMCP2515.html#a5cba1b20e3055c7ff9aa7510d035302b" title=" " alt="" coords="109,309,287,336"/>
-<area shape="rect" id="node9" href="$PicoLowLevel_8ino.html#a8f9fa76a93541264f22c8f23f3fc1631" title=" " alt="" coords="139,487,257,513"/>
+<area shape="rect" id="node9" href="$PicoLowLevel_8ino.html#a71eeb9677589014e9412c294dafb3102" title=" " alt="" coords="141,487,255,513"/>
 <area shape="rect" id="node15" href="$classSmartMotor.html#aa27c9f4fb2be24193947b1bd141f513a" title="Set the desired speed of the motor." alt="" coords="115,360,281,387"/>
 <area shape="rect" id="node17" href="$classSmartMotor.html#a0888c018802eebdef813dd4824d98da2" title="Stop the motor." alt="" coords="131,411,265,437"/>
 <area shape="rect" id="node20" href="$classSmartMotor.html#a1eb6dc1fd54a13dce1705c7a31b0f9ab" title="Update routine, updating the PID and the motor speed." alt="" coords="122,563,274,589"/>

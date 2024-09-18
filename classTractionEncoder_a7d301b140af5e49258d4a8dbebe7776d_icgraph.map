@@ -3,7 +3,7 @@
 <area shape="rect" id="node2" href="$classTractionEncoder.html#a2c414262e6a923fe180d51197fc9bf5b" title="Returns the last detected speed." alt="" coords="540,56,735,83"/>
 <area shape="rect" id="node3" href="$classSmartMotor.html#a3dccbce0a9c9b01c7a3d5f2df239338f" title="Get the current speed of the motor." alt="" coords="324,56,492,83"/>
 <area shape="rect" id="node4" href="$classSmartMotor.html#ad30a82d663ba563d7618fbf0873c9671" title="Calibrate the PID controller." alt="" coords="112,5,276,32"/>
-<area shape="rect" id="node6" href="$PicoLowLevel_8ino.html#a8f9fa76a93541264f22c8f23f3fc1631" title=" " alt="" coords="135,56,253,83"/>
+<area shape="rect" id="node6" href="$PicoLowLevel_8ino.html#a71eeb9677589014e9412c294dafb3102" title=" " alt="" coords="137,56,251,83"/>
 <area shape="rect" id="node8" href="$classSmartMotor.html#a1eb6dc1fd54a13dce1705c7a31b0f9ab" title="Update routine, updating the PID and the motor speed." alt="" coords="118,107,270,133"/>
 <area shape="rect" id="node5" href="$PicoLowLevel_8ino.html#a4fc01d736fe50cf5b977f755b675f11d" title=" " alt="" coords="5,5,64,32"/>
 <area shape="rect" id="node7" href="$PicoLowLevel_8ino.html#afe461d27b9c48d5921c00d521181f12f" title=" " alt="" coords="9,81,60,108"/>
