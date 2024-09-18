@@ -54,7 +54,7 @@ void navInterrupt() {
   display.navInterrupt();
 }
 
-void sendTelemetry() {
+void sendFeedback() {
   canMsg.can_id = CAN_ID | CAN_EFF_FLAG; // source
 
   // send motor feedback as float
@@ -84,6 +84,29 @@ void sendTelemetry() {
   canMsg.data[1] = ((uint8_t*)&angle)[1];
   canMsg.data[2] = ((uint8_t*)&angle)[2];
   canMsg.data[3] = ((uint8_t*)&angle)[3];
+  mcp2515.sendMessage(&canMsg);
+#endif
+
+  // send end effector data (if module has it)
+#ifdef MODC_EE
+  int pitch = motorEEPitch.readPosition();
+  canMsg.can_dlc = 4;
+  canMsg.can_id |= DATA_EE_PITCH_FEEDBACK << 16;
+  memcpy(canMsg.data, &pitch, 4);
+  mcp2515.sendMessage(&canMsg);
+
+
+  int headPitch = motorEEHeadPitch.readPosition();
+  canMsg.can_dlc = 4;
+  canMsg.can_id |= DATA_EE_HEAD_PITCH_FEEDBACK << 16;
+  memcpy(canMsg.data, &headPitch, 4);
+  mcp2515.sendMessage(&canMsg);
+
+
+  int headRoll = motorEEHeadRoll.readPosition();
+  canMsg.can_dlc = 4;
+  canMsg.can_id |= DATA_EE_HEAD_ROLL_FEEDBACK << 16;
+  memcpy(canMsg.data, &headRoll, 4);
   mcp2515.sendMessage(&canMsg);
 #endif
 }
@@ -184,7 +207,7 @@ void loop() {
     time_tel_avg = (time_tel_avg + (time_cur - time_tel)) / 2;
     time_tel = time_cur;
     
-    sendTelemetry();
+    sendFeedback();
   }
 
   if (mcp2515.readMessage(&canMsg) == MCP2515::ERROR_OK) {
