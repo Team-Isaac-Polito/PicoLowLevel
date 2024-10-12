@@ -106,8 +106,8 @@ void WebManagement::handleUpdate() {
   if (upload.status == UPLOAD_FILE_START) {
     WiFiUDP::stopAll();
     Debug.println("Update: " + String(upload.filename.c_str()));
-    FSInfo64 i;
-    LittleFS.info64(i);
+    FSInfo i;
+    LittleFS.info(i);
     uint32_t maxSketchSpace = i.totalBytes - i.usedBytes;
     if (!Update.begin(maxSketchSpace)) {  // start with max available size
       Update.printError(Serial); // TODO avoid serial without debug
