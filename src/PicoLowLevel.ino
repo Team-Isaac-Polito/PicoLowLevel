@@ -55,6 +55,7 @@ void navInterrupt() {
 }
 
 void sendFeedback() {
+  canMsg = {0};
   canMsg.can_id = CAN_ID | CAN_EFF_FLAG; // source
 
   // send motor feedback as float
@@ -78,6 +79,8 @@ void sendFeedback() {
   encoderYaw.update();
   float angle = encoderYaw.readAngle();
 
+  can_msg = {0};
+  canMsg.can_id = CAN_ID | CAN_EFF_FLAG;
   canMsg.can_dlc = 4;
   canMsg.can_id |= JOINT_YAW_FEEDBACK << 16;
   canMsg.data[0] = ((uint8_t*)&angle)[0];
@@ -90,25 +93,32 @@ void sendFeedback() {
   // send end effector data (if module has it)
 #ifdef MODC_EE
   int pitch = motorEEPitch.readPosition();
+  int headPitch = motorEEHeadPitch.readPosition();
+  int headRoll = motorEEHeadRoll.readPosition();
+
+  canMsg = {0};
+  canMsg.can_id = CAN_ID | CAN_EFF_FLAG;
   canMsg.can_dlc = 4;
   canMsg.can_id |= DATA_EE_PITCH_FEEDBACK << 16;
   memcpy(canMsg.data, &pitch, 4);
   mcp2515.sendMessage(&canMsg);
 
-
-  int headPitch = motorEEHeadPitch.readPosition();
+  canMsg = {0};
+  canMsg.can_id = CAN_ID | CAN_EFF_FLAG;
   canMsg.can_dlc = 4;
   canMsg.can_id |= DATA_EE_HEAD_PITCH_FEEDBACK << 16;
   memcpy(canMsg.data, &headPitch, 4);
   mcp2515.sendMessage(&canMsg);
 
-
-  int headRoll = motorEEHeadRoll.readPosition();
+  canMsg = {0};
+  canMsg.can_id = CAN_ID | CAN_EFF_FLAG;
   canMsg.can_dlc = 4;
   canMsg.can_id |= DATA_EE_HEAD_ROLL_FEEDBACK << 16;
   memcpy(canMsg.data, &headRoll, 4);
   mcp2515.sendMessage(&canMsg);
 #endif
+
+  canMsg = {0};
 }
 
 void setup() {
