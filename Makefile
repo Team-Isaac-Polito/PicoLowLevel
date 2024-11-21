@@ -3,6 +3,8 @@ MODULE1 = mod1
 MODULE2 = mod2
 MODULE3 = mod3
 
+target: clean mod1 mod2 mod3
+
 #Build only
 build_mod1: 
 	pio run -e $(MODULE1) 
