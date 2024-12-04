@@ -1,6 +1,8 @@
 #ifndef module_configuration_h
 #define module_configuration_h
 
+// MK1
+
 // MOD_HEAD, MOD_MIDDLE, MOD_TAIL are defined in the makefile
 
 #if defined(MOD_HEAD)
@@ -24,6 +26,13 @@
 #define SERVO_MIN 200
 #define SERVO_MAX 800
 #define SERVO_SPEED 200
+#endif
+
+// MK2
+#define MOD_TEST
+
+#if defined(MOD_TEST)
+#define CAN_ID    0x21  // HEAD
 #endif
 
 #endif
