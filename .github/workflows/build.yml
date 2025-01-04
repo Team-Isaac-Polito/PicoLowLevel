@@ -4,51 +4,45 @@ on:
   push:
     branches:
       - main
-
+  pull_request:
+    branches:
+      - main
 
 jobs:
         
   build:
-    name: Build
-
-    strategy:
-      matrix:
-        libraries: ["Adafruit SH110X",]  
-    
+    name: Build    
     runs-on: ubuntu-latest
     
     steps:
     
     - name: Checkout repository
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
     
-    - name: Install arduino-cli
-      uses: arduino/setup-arduino-cli@v1
-     
-    - name: Install libraries
-      run: |
-        arduino-cli lib install "${{ matrix.libraries }}"
-    
-    - name: Install RP2040 core
-      run: |
-        arduino-cli --additional-urls https://github.com/earlephilhower/arduino-pico/releases/download/global/package_rp2040_index.json core update-index
-        arduino-cli --additional-urls https://github.com/earlephilhower/arduino-pico/releases/download/global/package_rp2040_index.json core install rp2040:rp2040
-    
-    - name: Build
-      run: |
-        make -j4
-    
-    - name: Rename built files
-      run: |
+    - uses: actions/cache@v4
+      with:
+        path: |
+          ~/.cache/pip
+          ~/.platformio/.cache
+        key: ${{ runner.os }}-pio
+    - uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+    - name: Install PlatformIO Core
+      run: pip install --upgrade platformio
+
+    - name: Build PlatformIO Project
+      run: make
+
+    - name: Move firmware
+      run: | 
         mkdir upload
-        mv bin/mod1/PicoLowLevel.ino.uf2 upload/mod1.uf2
-        mv bin/mod2/PicoLowLevel.ino.uf2 upload/mod2.uf2
-        mv bin/mod3/PicoLowLevel.ino.uf2 upload/mod3.uf2
-        mv bin/mod1/PicoLowLevel.ino.bin upload/mod1.bin
-        mv bin/mod2/PicoLowLevel.ino.bin upload/mod2.bin
-        mv bin/mod3/PicoLowLevel.ino.bin upload/mod3.bin
+        mv .pio/build/mod1/firmware.uf2 upload/mod1.uf2
+        mv .pio/build/mod2/firmware.uf2 upload/mod2.uf2
+        mv .pio/build/mod3/firmware.uf2 upload/mod3.uf2
     
     - uses: actions/upload-artifact@v3
+      if: github.ref == 'refs/heads/main'
       with:
-        name: Built files
+        name: firmware
         path: upload
