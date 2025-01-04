@@ -3,22 +3,22 @@ MODULE1 = mod1
 MODULE2 = mod2
 MODULE3 = mod3
 
-target: clean mod1 mod2 mod3
+target: mod1 mod2 mod3
 
 #Build only
-build_mod1: 
+mod1: 
 	pio run -e $(MODULE1) 
-build_mod2:
+mod2:
 	pio run -e $(MODULE2) 
-build_mod3:
+mod3:
 	pio run -e $(MODULE3)
 
 #Build and upload
-mod1:
+upload_mod1:
 	pio run -e $(MODULE1) -t upload
-mod2:
+upload_mod2:
 	pio run -e $(MODULE2) -t upload
-mod3:
+upload_mod3:
 	pio run -e $(MODULE3) -t upload
 
 #Remove build files
