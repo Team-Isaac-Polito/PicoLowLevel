@@ -41,7 +41,7 @@ jobs:
         mv .pio/build/mod2/firmware.uf2 upload/mod2.uf2
         mv .pio/build/mod3/firmware.uf2 upload/mod3.uf2
     
-    - uses: actions/upload-artifact@v3
+    - uses: actions/upload-artifact@v4
       if: github.ref == 'refs/heads/main'
       with:
         name: firmware
