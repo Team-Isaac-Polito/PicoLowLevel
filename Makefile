@@ -1,38 +1,26 @@
-COMPILER = arduino-cli
-BOARD_NAME = rp2040:rp2040:rpipicow
+#Modules
+MODULE1 = mod1
+MODULE2 = mod2
+MODULE3 = mod3
 
-BUILD_PATH = .//bin
-BUILD_PATH1 = .//bin//mod1
-BUILD_PATH2 = .//bin//mod2
-BUILD_PATH3 = .//bin//mod3
+target: mod1 mod2 mod3
 
-MODULE1 = MOD_HEAD
-MODULE2 = MOD_MIDDLE
-MODULE3 = MOD_TAIL
-
-VERSION := $(shell git rev-parse --short HEAD)
-
-ifdef OS
-	RM = del /s /q > nul
-else
-   ifeq ($(shell uname), Linux)
-      RM = rm -rf
-   endif
-endif
-
-target: clean mod1 mod2 mod3
-	
-mod1:
-	@echo compiling module 1
-	@$(COMPILER) compile --fqbn $(BOARD_NAME) --board-options flash=2097152_1048576 --build-path $(BUILD_PATH1) --build-property build.extra_flags="-DVERSION=\"$(VERSION)\" -D$(MODULE1)" PicoLowLevel.ino
-
+#Build only
+mod1: 
+	pio run -e $(MODULE1) 
 mod2:
-	@echo compiling module 2
-	@$(COMPILER) compile --fqbn $(BOARD_NAME) --board-options flash=2097152_1048576 --build-path $(BUILD_PATH2) --build-property build.extra_flags="-DVERSION=\"$(VERSION)\" -D$(MODULE2)" PicoLowLevel.ino
-
+	pio run -e $(MODULE2) 
 mod3:
-	@echo compiling module 3
-	@$(COMPILER) compile --fqbn $(BOARD_NAME) --board-options flash=2097152_1048576 --build-path $(BUILD_PATH3) --build-property build.extra_flags="-DVERSION=\"$(VERSION)\" -D$(MODULE3)" PicoLowLevel.ino
+	pio run -e $(MODULE3)
 
-clean: 
-	@$(RM) "$(BUILD_PATH)" || true
+#Build and upload
+upload_mod1:
+	pio run -e $(MODULE1) -t upload
+upload_mod2:
+	pio run -e $(MODULE2) -t upload
+upload_mod3:
+	pio run -e $(MODULE3) -t upload
+
+#Remove build files
+clean:
+	pio run -t clean
