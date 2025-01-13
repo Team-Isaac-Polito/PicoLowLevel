@@ -79,7 +79,7 @@ void sendFeedback() {
   encoderYaw.update();
   float angle = encoderYaw.readAngle();
 
-  can_msg = {0};
+  canMsg = {0};
   canMsg.can_id = CAN_ID | CAN_EFF_FLAG;
   canMsg.can_dlc = 4;
   canMsg.can_id |= JOINT_YAW_FEEDBACK << 16;
