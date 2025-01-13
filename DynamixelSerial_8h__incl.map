@@ -1,5 +1,7 @@
-<map id="DynamixelSerial.h" name="DynamixelSerial.h">
-<area shape="rect" id="node1" title=" " alt="" coords="43,5,185,32"/>
-<area shape="rect" id="node2" title=" " alt="" coords="5,80,89,107"/>
-<area shape="rect" id="node3" title=" " alt="" coords="113,80,248,107"/>
+<map id="lib/DynamixelSerial/src/DynamixelSerial.h" name="lib/DynamixelSerial/src/DynamixelSerial.h">
+<area shape="rect" id="Node000001" title=" " alt="" coords="30,5,198,45"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,93,89,119"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="100,47,68,84,64,81,96,44"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="113,93,248,119"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="132,44,164,81,160,84,128,47"/>
 </map>

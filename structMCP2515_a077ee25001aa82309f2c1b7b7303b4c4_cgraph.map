@@ -1,4 +1,5 @@
 <map id="MCP2515::sendMessage" name="MCP2515::sendMessage">
-<area shape="rect" id="node1" title=" " alt="" coords="5,5,185,32"/>
-<area shape="rect" id="node2" href="$structMCP2515.html#a20201611f703db6b6c98bae03a3018ee" title=" " alt="" coords="233,5,413,32"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,185,31"/>
+<area shape="rect" id="Node000002" href="$structMCP2515.html#a20201611f703db6b6c98bae03a3018ee" title=" " alt="" coords="233,5,413,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="186,15,220,15,220,21,186,21"/>
 </map>

@@ -1,5 +1,7 @@
 <map id="WebManagement::begin" name="WebManagement::begin">
-<area shape="rect" id="node1" title="Initializes the WiFi connection, mDNS, OTA, and HTTP server." alt="" coords="5,5,185,32"/>
-<area shape="rect" id="node2" href="$classSerialDebug.html#a153ed172ea7eefd852292af7561ff961" title="Sends a line to the serial port with a debug level, only if it is lower than the setted one." alt="" coords="233,5,384,32"/>
-<area shape="rect" id="node3" href="$classSerialDebug.html#a3d01753681fd740869da197b2fa772b0" title="Sends a string to the Serial port with a debug level, only if it is lower than the setted one." alt="" coords="432,5,571,32"/>
+<area shape="rect" id="Node000001" title="Initializes the WiFi connection, mDNS, OTA, and HTTP server." alt="" coords="5,5,185,31"/>
+<area shape="rect" id="Node000002" href="$classSerialDebug.html#a153ed172ea7eefd852292af7561ff961" title="Sends a line to the serial port with a debug level, only if it is lower than the setted one." alt="" coords="233,5,384,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="185,15,219,15,219,21,185,21"/>
+<area shape="rect" id="Node000003" href="$classSerialDebug.html#a3d01753681fd740869da197b2fa772b0" title="Sends a string to the Serial port with a debug level, only if it is lower than the setted one." alt="" coords="432,5,571,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="384,15,418,15,418,21,384,21"/>
 </map>

@@ -1,5 +1,7 @@
 <map id="DynamixelMotor::setID" name="DynamixelMotor::setID">
-<area shape="rect" id="node1" title=" " alt="" coords="5,46,177,73"/>
-<area shape="rect" id="node2" href="$classDynamixelInterface.html#a779b26e5c86b08dfaa3309e6055905b0" title=" " alt="" coords="225,5,376,47"/>
-<area shape="rect" id="node3" href="$classDynamixelInterface.html#a42add10cb7682b39a3722b3a402d343b" title=" " alt="" coords="225,71,376,112"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,45,177,70"/>
+<area shape="rect" id="Node000002" href="$classDynamixelInterface.html#a779b26e5c86b08dfaa3309e6055905b0" title=" " alt="" coords="225,5,376,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="175,42,211,36,212,42,175,47"/>
+<area shape="rect" id="Node000003" href="$classDynamixelInterface.html#a42add10cb7682b39a3722b3a402d343b" title=" " alt="" coords="225,69,376,109"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="175,67,212,73,211,78,175,73"/>
 </map>

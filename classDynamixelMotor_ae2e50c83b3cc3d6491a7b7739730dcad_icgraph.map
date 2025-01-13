@@ -1,4 +1,5 @@
 <map id="DynamixelMotor::turn" name="DynamixelMotor::turn">
-<area shape="rect" id="node1" title=" " alt="" coords="261,5,425,32"/>
-<area shape="rect" id="node2" href="$classDynamixelMotor.html#acfbac3e25761963eab67aa1fdf1be841" title=" " alt="" coords="5,5,213,32"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="261,5,425,31"/>
+<area shape="rect" id="Node000002" href="$classDynamixelMotor.html#acfbac3e25761963eab67aa1fdf1be841" title=" " alt="" coords="5,5,213,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="248,21,213,21,213,15,248,15"/>
 </map>

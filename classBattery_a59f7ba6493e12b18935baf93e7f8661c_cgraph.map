@@ -1,4 +1,5 @@
 <map id="Battery::chargePercent" name="Battery::chargePercent">
-<area shape="rect" id="node1" title="Estimates the current battery charge." alt="" coords="5,5,176,32"/>
-<area shape="rect" id="node2" href="$classBattery.html#a63577a5d458094efc4d24a00f052682b" title="Reads the current battery voltage." alt="" coords="224,5,379,32"/>
+<area shape="rect" id="Node000001" title="Estimates the current battery charge." alt="" coords="5,5,176,31"/>
+<area shape="rect" id="Node000002" href="$classBattery.html#a63577a5d458094efc4d24a00f052682b" title="Reads the current battery voltage." alt="" coords="224,5,379,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="176,15,210,15,210,21,176,21"/>
 </map>

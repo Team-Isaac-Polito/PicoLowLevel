@@ -1,0 +1,52 @@
+<map id="loop" name="loop">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,256,56,281"/>
+<area shape="rect" id="Node000002" href="$classBattery.html#ab738945fc3d54086b6afa6e8ba21c513" title="Check the battery charge status." alt="" coords="133,5,263,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="30,256,34,216,44,161,66,101,82,73,102,48,120,34,124,39,106,52,86,76,71,103,49,162,39,217,35,256"/>
+<area shape="rect" id="Node000003" href="$classBattery.html#a63577a5d458094efc4d24a00f052682b" title="Reads the current battery voltage." alt="" coords="362,31,517,56"/>
+<area shape="poly" id="edge9_Node000001_Node000003" title=" " alt="" coords="30,255,36,222,48,177,69,131,84,110,102,92,120,81,145,73,207,59,279,50,348,44,348,50,279,55,208,64,146,78,123,86,106,96,88,113,73,133,53,179,41,223,36,256"/>
+<area shape="rect" id="Node000004" href="$classWebManagement.html#a48b2f695f7445b7628119b630447123e" title="Handles incoming HTTP requests and OTA updates." alt="" coords="104,107,292,132"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="33,255,56,200,76,168,102,141,110,136,113,140,106,145,80,171,61,202,38,257"/>
+<area shape="rect" id="Node000005" href="$classDisplay.html#a3fa755683f0e28cfc689f35e7f8257b8" title="Handles display via recorded interrupts." alt="" coords="125,156,271,181"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="39,254,65,222,103,190,115,184,118,189,105,195,68,226,43,257"/>
+<area shape="rect" id="Node000006" href="$classSerialDebug.html#a3d01753681fd740869da197b2fa772b0" title="Sends a string to the Serial port with a debug level, only if it is lower than the setted one." alt="" coords="370,231,509,256"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="56,264,356,246,357,251,56,270"/>
+<area shape="rect" id="Node000007" href="$classSerialDebug.html#a153ed172ea7eefd852292af7561ff961" title="Sends a line to the serial port with a debug level, only if it is lower than the setted one." alt="" coords="123,205,273,231"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="56,259,141,232,143,237,57,264"/>
+<area shape="rect" id="Node000008" href="$structMCP2515.html#a5cba1b20e3055c7ff9aa7510d035302b" title=" " alt="" coords="109,307,287,332"/>
+<area shape="poly" id="edge8_Node000001_Node000008" title=" " alt="" coords="57,274,143,300,141,305,56,279"/>
+<area shape="rect" id="Node000009" href="$PicoLowLevel_8cpp.html#a71eeb9677589014e9412c294dafb3102" title=" " alt="" coords="141,479,255,504"/>
+<area shape="poly" id="edge10_Node000001_Node000009" title=" " alt="" coords="37,281,44,313,57,355,77,400,106,442,125,458,147,471,145,475,122,462,102,445,73,403,52,357,39,314,32,282"/>
+<area shape="rect" id="Node000015" href="$classSmartMotor.html#aa27c9f4fb2be24193947b1bd141f513a" title="Set the desired speed of the motor." alt="" coords="115,356,281,381"/>
+<area shape="poly" id="edge16_Node000001_Node000015" title=" " alt="" coords="43,280,69,311,105,341,121,349,118,354,103,346,65,315,39,284"/>
+<area shape="rect" id="Node000017" href="$classSmartMotor.html#a0888c018802eebdef813dd4824d98da2" title="Stop the motor." alt="" coords="131,405,265,431"/>
+<area shape="poly" id="edge18_Node000001_Node000017" title=" " alt="" coords="38,280,61,334,80,365,106,391,119,399,116,404,102,395,76,368,56,337,33,282"/>
+<area shape="rect" id="Node000020" href="$classSmartMotor.html#a1eb6dc1fd54a13dce1705c7a31b0f9ab" title="Update routine, updating the PID and the motor speed." alt="" coords="122,552,274,577"/>
+<area shape="poly" id="edge22_Node000001_Node000020" title=" " alt="" coords="35,281,38,324,49,386,70,454,86,486,106,515,124,531,145,544,142,549,121,536,102,518,81,488,65,456,44,387,33,325,30,282"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="264,22,349,31,348,37,263,27"/>
+<area shape="poly" id="edge7_Node000007_Node000006" title=" " alt="" coords="274,223,357,232,356,237,273,229"/>
+<area shape="rect" id="Node000010" href="$classSmartMotor.html#a3dccbce0a9c9b01c7a3d5f2df239338f" title="Get the current speed of the motor." alt="" coords="355,528,523,553"/>
+<area shape="poly" id="edge11_Node000009_Node000010" title=" " alt="" coords="256,500,363,523,362,528,255,506"/>
+<area shape="rect" id="Node000014" href="$structMCP2515.html#a20201611f703db6b6c98bae03a3018ee" title=" " alt="" coords="349,479,529,504"/>
+<area shape="poly" id="edge15_Node000009_Node000014" title=" " alt="" coords="256,489,335,489,335,494,256,494"/>
+<area shape="rect" id="Node000011" href="$classTractionEncoder.html#a2c414262e6a923fe180d51197fc9bf5b" title="Returns the last detected speed." alt="" coords="587,528,781,553"/>
+<area shape="poly" id="edge12_Node000010_Node000011" title=" " alt="" coords="524,538,573,538,573,543,524,543"/>
+<area shape="rect" id="Node000012" href="$classFilter.html#ab8e25fe3166a547f5c08e6c7b7f019e2" title="Virtual filter function, will be replaced by the one from the chosen filter." alt="" coords="878,503,971,528"/>
+<area shape="poly" id="edge13_Node000011_Node000012" title=" " alt="" coords="781,528,864,519,865,524,782,533"/>
+<area shape="rect" id="Node000013" href="$classTractionEncoder.html#a7d301b140af5e49258d4a8dbebe7776d" title="Returns the number of steps since the class was initialized." alt="" coords="829,552,1020,577"/>
+<area shape="poly" id="edge14_Node000011_Node000013" title=" " alt="" coords="782,548,816,551,816,556,781,553"/>
+<area shape="rect" id="Node000016" href="$classPID.html#ab6c2a366f39cf53149b50216b300bdcd" title="Sets the reference value." alt="" coords="340,331,539,356"/>
+<area shape="poly" id="edge17_Node000015_Node000016" title=" " alt="" coords="281,357,326,353,326,358,282,363"/>
+<area shape="poly" id="edge20_Node000017_Node000016" title=" " alt="" coords="253,403,291,390,315,378,339,365,362,357,364,362,341,370,317,382,293,395,255,408"/>
+<area shape="rect" id="Node000018" href="$classPID.html#a51c567347f9ca1a4572e5040b5296e30" title="Resets the PID state, as if it was the first iteration." alt="" coords="380,380,499,405"/>
+<area shape="poly" id="edge19_Node000017_Node000018" title=" " alt="" coords="266,408,366,398,367,403,266,414"/>
+<area shape="rect" id="Node000019" href="$classMotor.html#af98d9cd13add0aacca7cebe13b14103b" title="Sets the motor speed." alt="" coords="389,429,490,455"/>
+<area shape="poly" id="edge21_Node000017_Node000019" title=" " alt="" coords="266,422,375,433,375,438,266,427"/>
+<area shape="poly" id="edge25_Node000020_Node000010" title=" " alt="" coords="274,554,341,548,342,553,274,560"/>
+<area shape="poly" id="edge27_Node000020_Node000019" title=" " alt="" coords="229,549,260,534,290,515,304,502,313,489,323,477,339,465,374,450,376,455,341,470,327,481,317,493,308,505,294,519,262,539,231,554"/>
+<area shape="rect" id="Node000021" href="$classPID.html#a2d1e271496506301a6f22d0418aa0cc0" title="Main PID routine." alt="" coords="384,577,495,603"/>
+<area shape="poly" id="edge23_Node000020_Node000021" title=" " alt="" coords="274,570,371,580,370,585,274,575"/>
+<area shape="rect" id="Node000022" href="$classPID.html#a266f60cce93632141002987d5d67d0cc" title="Gets output computed from the last iteration of calculate()" alt="" coords="381,627,498,652"/>
+<area shape="poly" id="edge24_Node000020_Node000022" title=" " alt="" coords="233,575,341,613,369,621,368,626,339,618,231,580"/>
+<area shape="rect" id="Node000023" href="$classPID.html#a33f657a6cce4f57302f90bec9664d294" title="Updates the feedback for PID computation." alt="" coords="360,676,519,701"/>
+<area shape="poly" id="edge26_Node000020_Node000023" title=" " alt="" coords="215,575,268,618,303,642,341,662,359,669,357,674,339,667,301,646,265,622,212,580"/>
+</map>

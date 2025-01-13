@@ -1,4 +1,5 @@
 <map id="MCP2515::checkReceive" name="MCP2515::checkReceive">
-<area shape="rect" id="node1" title=" " alt="" coords="5,5,187,32"/>
-<area shape="rect" id="node2" href="$structMCP2515.html#a5bddfe6aecd468877b7d26957873900f" title=" " alt="" coords="235,5,388,32"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,187,31"/>
+<area shape="rect" id="Node000002" href="$structMCP2515.html#a5bddfe6aecd468877b7d26957873900f" title=" " alt="" coords="235,5,388,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="187,15,221,15,221,21,187,21"/>
 </map>

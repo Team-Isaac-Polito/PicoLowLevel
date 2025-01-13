@@ -1,8 +1,13 @@
-<map id="mcp2515.cpp" name="mcp2515.cpp">
-<area shape="rect" id="node1" title=" " alt="" coords="49,5,158,32"/>
-<area shape="rect" id="node2" title=" " alt="" coords="5,80,89,107"/>
-<area shape="rect" id="node3" href="$mcp2515_8h.html" title=" " alt="" coords="113,80,208,107"/>
-<area shape="rect" id="node4" title=" " alt="" coords="93,155,148,181"/>
-<area shape="rect" id="node5" href="$can_8h.html" title=" " alt="" coords="172,155,229,181"/>
-<area shape="rect" id="node6" title=" " alt="" coords="165,229,236,256"/>
+<map id="lib/Can/src/mcp2515.cpp" name="lib/Can/src/mcp2515.cpp">
+<area shape="rect" id="Node000001" title=" " alt="" coords="13,5,194,31"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,79,89,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="96,33,67,69,63,66,92,29"/>
+<area shape="rect" id="Node000003" href="$mcp2515_8h.html" title=" " alt="" coords="113,79,208,104"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="115,29,145,66,141,70,111,33"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="93,152,148,177"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="156,106,136,141,132,139,152,103"/>
+<area shape="rect" id="Node000005" href="$can_8h.html" title=" " alt="" coords="172,152,229,177"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="170,103,190,139,185,141,165,106"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="165,225,236,251"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="203,178,203,212,198,212,198,178"/>
 </map>

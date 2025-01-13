@@ -1,5 +1,7 @@
 <map id="SmartMotor::begin" name="SmartMotor::begin">
-<area shape="rect" id="node1" title="Initialize SmartMotor and necessary components." alt="" coords="5,31,148,57"/>
-<area shape="rect" id="node2" href="$classMotor.html#a8949ad244c546ecde601ec3d03403ed9" title="Initialize motors." alt="" coords="229,5,333,32"/>
-<area shape="rect" id="node3" href="$classTractionEncoder.html#a3b38935e97776ddcebdeb2c394f6d48d" title="Sets the encoder&#39;s pins and attach the interrupt." alt="" coords="196,56,365,83"/>
+<area shape="rect" id="Node000001" title="Initialize SmartMotor and necessary components." alt="" coords="5,31,148,56"/>
+<area shape="rect" id="Node000002" href="$classMotor.html#a8949ad244c546ecde601ec3d03403ed9" title="Initialize motors." alt="" coords="229,5,333,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="148,32,214,23,215,29,149,37"/>
+<area shape="rect" id="Node000003" href="$classTractionEncoder.html#a3b38935e97776ddcebdeb2c394f6d48d" title="Sets the encoder&#39;s pins and attach the interrupt." alt="" coords="196,55,365,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="149,49,183,53,182,58,148,54"/>
 </map>

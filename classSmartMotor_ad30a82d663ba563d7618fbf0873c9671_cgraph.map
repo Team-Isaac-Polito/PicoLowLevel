@@ -1,12 +1,21 @@
 <map id="SmartMotor::calibrate" name="SmartMotor::calibrate">
-<area shape="rect" id="node1" title="Calibrate the PID controller." alt="" coords="5,132,169,159"/>
-<area shape="rect" id="node2" href="$classSmartMotor.html#a3dccbce0a9c9b01c7a3d5f2df239338f" title="Get the current speed of the motor." alt="" coords="217,31,385,57"/>
-<area shape="rect" id="node6" href="$classSerialDebug.html#a153ed172ea7eefd852292af7561ff961" title="Sends a line to the serial port with a debug level, only if it is lower than the setted one." alt="" coords="226,81,377,108"/>
-<area shape="rect" id="node8" href="$classPID.html#a51fdda77a492d1a303fbb3ac44bd7e54" title="Sets the integrative gain." alt="" coords="259,132,344,159"/>
-<area shape="rect" id="node9" href="$classPID.html#a96b79772d13f60d161149be254ab6ff5" title="Sets the proportional gain." alt="" coords="257,183,346,209"/>
-<area shape="rect" id="node10" href="$classMotor.html#af98d9cd13add0aacca7cebe13b14103b" title="Sets the motor speed." alt="" coords="251,233,352,260"/>
-<area shape="rect" id="node3" href="$classTractionEncoder.html#a2c414262e6a923fe180d51197fc9bf5b" title="Returns the last detected speed." alt="" coords="433,31,628,57"/>
-<area shape="rect" id="node4" href="$classFilter.html#ab8e25fe3166a547f5c08e6c7b7f019e2" title="Virtual filter function, will be replaced by the one from the chosen filter." alt="" coords="725,5,818,32"/>
-<area shape="rect" id="node5" href="$classTractionEncoder.html#a7d301b140af5e49258d4a8dbebe7776d" title="Returns the number of steps since the class was initialized." alt="" coords="676,56,867,83"/>
-<area shape="rect" id="node7" href="$classSerialDebug.html#a3d01753681fd740869da197b2fa772b0" title="Sends a string to the Serial port with a debug level, only if it is lower than the setted one." alt="" coords="461,81,600,108"/>
+<area shape="rect" id="Node000001" title="Calibrate the PID controller." alt="" coords="5,128,169,153"/>
+<area shape="rect" id="Node000002" href="$classSmartMotor.html#a3dccbce0a9c9b01c7a3d5f2df239338f" title="Get the current speed of the motor." alt="" coords="217,29,385,55"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="106,125,155,95,216,64,235,56,237,61,218,68,157,100,109,130"/>
+<area shape="rect" id="Node000006" href="$classSerialDebug.html#a153ed172ea7eefd852292af7561ff961" title="Sends a line to the serial port with a debug level, only if it is lower than the setted one." alt="" coords="226,79,377,104"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="142,125,231,105,233,110,144,131"/>
+<area shape="rect" id="Node000008" href="$classPID.html#a51fdda77a492d1a303fbb3ac44bd7e54" title="Sets the integrative gain." alt="" coords="259,128,344,153"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="170,138,245,138,245,143,170,143"/>
+<area shape="rect" id="Node000009" href="$classPID.html#a96b79772d13f60d161149be254ab6ff5" title="Sets the proportional gain." alt="" coords="257,177,346,203"/>
+<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="144,151,244,174,243,179,142,156"/>
+<area shape="rect" id="Node000010" href="$classMotor.html#af98d9cd13add0aacca7cebe13b14103b" title="Sets the motor speed." alt="" coords="251,227,352,252"/>
+<area shape="poly" id="edge9_Node000001_Node000010" title=" " alt="" coords="109,151,158,181,218,212,240,220,238,225,216,216,155,185,107,156"/>
+<area shape="rect" id="Node000003" href="$classTractionEncoder.html#a2c414262e6a923fe180d51197fc9bf5b" title="Returns the last detected speed." alt="" coords="433,29,628,55"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="386,39,420,39,420,45,386,45"/>
+<area shape="rect" id="Node000004" href="$classFilter.html#ab8e25fe3166a547f5c08e6c7b7f019e2" title="Virtual filter function, will be replaced by the one from the chosen filter." alt="" coords="725,5,818,31"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="628,30,711,21,711,27,628,35"/>
+<area shape="rect" id="Node000005" href="$classTractionEncoder.html#a7d301b140af5e49258d4a8dbebe7776d" title="Returns the number of steps since the class was initialized." alt="" coords="676,55,867,80"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="628,50,663,53,662,59,628,55"/>
+<area shape="rect" id="Node000007" href="$classSerialDebug.html#a3d01753681fd740869da197b2fa772b0" title="Sends a string to the Serial port with a debug level, only if it is lower than the setted one." alt="" coords="461,79,600,104"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="377,89,448,89,448,94,377,94"/>
 </map>

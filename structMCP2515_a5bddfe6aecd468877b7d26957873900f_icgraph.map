@@ -1,5 +1,7 @@
 <map id="MCP2515::getStatus" name="MCP2515::getStatus">
-<area shape="rect" id="node1" title=" " alt="" coords="235,31,388,57"/>
-<area shape="rect" id="node2" href="$structMCP2515.html#a5dcf1cfeb041555b8101299b313c2a0a" title=" " alt="" coords="5,5,187,32"/>
-<area shape="rect" id="node3" href="$structMCP2515.html#a2cc6c3841b6f5c529a2d064f5d04bd24" title=" " alt="" coords="7,56,185,83"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="235,31,388,56"/>
+<area shape="rect" id="Node000002" href="$structMCP2515.html#a5dcf1cfeb041555b8101299b313c2a0a" title=" " alt="" coords="5,5,187,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="221,35,187,31,187,26,221,30"/>
+<area shape="rect" id="Node000003" href="$structMCP2515.html#a2cc6c3841b6f5c529a2d064f5d04bd24" title=" " alt="" coords="7,55,185,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="221,56,186,60,185,55,221,51"/>
 </map>

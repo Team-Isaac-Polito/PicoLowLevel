@@ -1,5 +1,7 @@
 <map id="AMS_AS5048B::zeroRegW" name="AMS_AS5048B::zeroRegW">
-<area shape="rect" id="node1" title="writes the 2 bytes Zero position register value" alt="" coords="489,5,680,32"/>
-<area shape="rect" id="node2" href="$classAMS__AS5048B.html#ad67ba3de9224a12102a31b35829450e8" title="sets current angle as the zero position" alt="" coords="243,5,441,32"/>
-<area shape="rect" id="node3" href="$classAbsoluteEncoder.html#a26b4493f44904d31dab6f5fd3e9c734e" title="Sets the encoder current position to zero." alt="" coords="5,5,195,32"/>
+<area shape="rect" id="Node000001" title="writes the 2 bytes Zero position register value" alt="" coords="489,5,680,31"/>
+<area shape="rect" id="Node000002" href="$classAMS__AS5048B.html#ad67ba3de9224a12102a31b35829450e8" title="sets current angle as the zero position" alt="" coords="243,5,441,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="475,21,442,21,442,15,475,15"/>
+<area shape="rect" id="Node000003" href="$classAbsoluteEncoder.html#a26b4493f44904d31dab6f5fd3e9c734e" title="Sets the encoder current position to zero." alt="" coords="5,5,195,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="229,21,195,21,195,15,229,15"/>
 </map>

@@ -1,5 +1,7 @@
 <map id="DynamixelMotor::enableLED" name="DynamixelMotor::enableLED">
-<area shape="rect" id="node1" title=" " alt="" coords="5,46,212,73"/>
-<area shape="rect" id="node2" href="$classDynamixelInterface.html#a779b26e5c86b08dfaa3309e6055905b0" title=" " alt="" coords="260,5,411,47"/>
-<area shape="rect" id="node3" href="$classDynamixelInterface.html#a42add10cb7682b39a3722b3a402d343b" title=" " alt="" coords="260,71,411,112"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,45,212,70"/>
+<area shape="rect" id="Node000002" href="$classDynamixelInterface.html#a779b26e5c86b08dfaa3309e6055905b0" title=" " alt="" coords="260,5,411,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="199,42,246,35,247,40,200,47"/>
+<area shape="rect" id="Node000003" href="$classDynamixelInterface.html#a42add10cb7682b39a3722b3a402d343b" title=" " alt="" coords="260,69,411,109"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="200,67,247,74,246,79,199,73"/>
 </map>

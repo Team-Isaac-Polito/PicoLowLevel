@@ -1,5 +1,7 @@
 <map id="PID::getOutput" name="PID::getOutput">
-<area shape="rect" id="node1" title="Gets output computed from the last iteration of calculate()" alt="" coords="304,5,421,32"/>
-<area shape="rect" id="node2" href="$classSmartMotor.html#a1eb6dc1fd54a13dce1705c7a31b0f9ab" title="Update routine, updating the PID and the motor speed." alt="" coords="104,5,256,32"/>
-<area shape="rect" id="node3" href="$PicoLowLevel_8ino.html#afe461d27b9c48d5921c00d521181f12f" title=" " alt="" coords="5,5,56,32"/>
+<area shape="rect" id="Node000001" title="Gets output computed from the last iteration of calculate()" alt="" coords="304,5,421,31"/>
+<area shape="rect" id="Node000002" href="$classSmartMotor.html#a1eb6dc1fd54a13dce1705c7a31b0f9ab" title="Update routine, updating the PID and the motor speed." alt="" coords="104,5,256,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="290,21,257,21,257,15,290,15"/>
+<area shape="rect" id="Node000003" href="$PicoLowLevel_8cpp.html#afe461d27b9c48d5921c00d521181f12f" title=" " alt="" coords="5,5,56,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="90,21,56,21,56,15,90,15"/>
 </map>

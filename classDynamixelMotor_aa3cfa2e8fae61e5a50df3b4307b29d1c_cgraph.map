@@ -1,5 +1,7 @@
 <map id="DynamixelMotor::setTempLimit" name="DynamixelMotor::setTempLimit">
-<area shape="rect" id="node1" title=" " alt="" coords="5,46,232,73"/>
-<area shape="rect" id="node2" href="$classDynamixelInterface.html#a779b26e5c86b08dfaa3309e6055905b0" title=" " alt="" coords="280,5,431,47"/>
-<area shape="rect" id="node3" href="$classDynamixelInterface.html#a42add10cb7682b39a3722b3a402d343b" title=" " alt="" coords="280,71,431,112"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,45,232,70"/>
+<area shape="rect" id="Node000002" href="$classDynamixelInterface.html#a779b26e5c86b08dfaa3309e6055905b0" title=" " alt="" coords="280,5,431,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="212,42,266,35,266,40,213,47"/>
+<area shape="rect" id="Node000003" href="$classDynamixelInterface.html#a42add10cb7682b39a3722b3a402d343b" title=" " alt="" coords="280,69,431,109"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="213,67,266,75,266,80,212,73"/>
 </map>

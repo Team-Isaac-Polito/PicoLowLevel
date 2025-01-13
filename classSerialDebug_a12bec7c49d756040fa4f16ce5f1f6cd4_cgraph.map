@@ -1,5 +1,7 @@
 <map id="SerialDebug::println" name="SerialDebug::println">
-<area shape="rect" id="node1" title="Sends a debug line to the serial port, only debug is accepted." alt="" coords="5,5,156,32"/>
-<area shape="rect" id="node2" href="$classSerialDebug.html#a153ed172ea7eefd852292af7561ff961" title="Sends a line to the serial port with a debug level, only if it is lower than the setted one." alt="" coords="204,5,355,32"/>
-<area shape="rect" id="node3" href="$classSerialDebug.html#a3d01753681fd740869da197b2fa772b0" title="Sends a string to the Serial port with a debug level, only if it is lower than the setted one." alt="" coords="403,5,541,32"/>
+<area shape="rect" id="Node000001" title="Sends a debug line to the serial port, only debug is accepted." alt="" coords="5,5,156,31"/>
+<area shape="rect" id="Node000002" href="$classSerialDebug.html#a153ed172ea7eefd852292af7561ff961" title="Sends a line to the serial port with a debug level, only if it is lower than the setted one." alt="" coords="204,5,355,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="156,15,190,15,190,21,156,21"/>
+<area shape="rect" id="Node000003" href="$classSerialDebug.html#a3d01753681fd740869da197b2fa772b0" title="Sends a string to the Serial port with a debug level, only if it is lower than the setted one." alt="" coords="403,5,541,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="355,15,389,15,389,21,355,21"/>
 </map>

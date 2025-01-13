@@ -1,4 +1,5 @@
 <map id="Battery::charged" name="Battery::charged">
-<area shape="rect" id="node1" title="Check the battery charge status." alt="" coords="5,5,135,32"/>
-<area shape="rect" id="node2" href="$classBattery.html#a63577a5d458094efc4d24a00f052682b" title="Reads the current battery voltage." alt="" coords="183,5,337,32"/>
+<area shape="rect" id="Node000001" title="Check the battery charge status." alt="" coords="5,5,135,31"/>
+<area shape="rect" id="Node000002" href="$classBattery.html#a63577a5d458094efc4d24a00f052682b" title="Reads the current battery voltage." alt="" coords="183,5,337,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="135,15,169,15,169,21,135,21"/>
 </map>

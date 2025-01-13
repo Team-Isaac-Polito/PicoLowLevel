@@ -1,5 +1,7 @@
 <map id="AbsoluteEncoder::readAngle" name="AbsoluteEncoder::readAngle">
-<area shape="rect" id="node1" title="Reads the current measured angle." alt="" coords="5,31,211,57"/>
-<area shape="rect" id="node2" href="$classAMS__AS5048B.html#a23b78448232baf368c4e45f99c139775" title="reads current angle value and converts it into the desired unit" alt="" coords="259,5,428,32"/>
-<area shape="rect" id="node3" href="$classSerialDebug.html#a3d01753681fd740869da197b2fa772b0" title="Sends a string to the Serial port with a debug level, only if it is lower than the setted one." alt="" coords="274,56,413,83"/>
+<area shape="rect" id="Node000001" title="Reads the current measured angle." alt="" coords="5,31,211,56"/>
+<area shape="rect" id="Node000002" href="$classAMS__AS5048B.html#a23b78448232baf368c4e45f99c139775" title="reads current angle value and converts it into the desired unit" alt="" coords="259,5,428,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="210,30,245,26,245,31,211,35"/>
+<area shape="rect" id="Node000003" href="$classSerialDebug.html#a3d01753681fd740869da197b2fa772b0" title="Sends a string to the Serial port with a debug level, only if it is lower than the setted one." alt="" coords="274,55,413,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="211,51,260,56,260,62,210,56"/>
 </map>

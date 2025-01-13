@@ -1,5 +1,7 @@
 <map id="MCP2515" name="MCP2515">
-<area shape="rect" id="node1" title=" " alt="" coords="169,80,252,107"/>
-<area shape="rect" id="node2" title=" " alt="" coords="5,5,216,32"/>
-<area shape="rect" id="node3" title=" " alt="" coords="240,5,384,32"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="169,79,252,104"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,5,216,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="139,36,196,76,193,81,136,41"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="240,5,384,31"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="286,41,229,81,226,76,283,36"/>
 </map>

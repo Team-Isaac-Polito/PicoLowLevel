@@ -31,6 +31,11 @@ var NAVTREE =
       [ "Libraries", "index.html#autotoc_md4", null ],
       [ "Build options", "index.html#autotoc_md5", null ]
     ] ],
+    [ "Uploading Firmware", "index.html#autotoc_md6", [
+      [ "Using GitHub Actions Artifacts", "index.html#autotoc_md7", null ],
+      [ "Using PlatformIO", "index.html#autotoc_md8", null ],
+      [ "Using Makefile", "index.html#autotoc_md9", null ]
+    ] ],
     [ "Classes", "annotated.html", [
       [ "Class List", "annotated.html", "annotated_dup" ],
       [ "Class Index", "classes.html", null ],
@@ -62,7 +67,7 @@ var NAVTREEINDEX =
 [
 "AbsoluteEncoder_8cpp.html",
 "classPID.html#ab6c2a366f39cf53149b50216b300bdcd",
-"mcp2515_8h.html#aa90b9ab337f86a17be3e1156f65fbd1b"
+"mcp2515_8h.html#a7f502641a3b61ab57fb25ff6ca90e32eaec3983b1f90595880d3bb3c7a813d274"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

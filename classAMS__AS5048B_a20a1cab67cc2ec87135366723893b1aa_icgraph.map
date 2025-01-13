@@ -1,4 +1,5 @@
 <map id="AMS_AS5048B::updateMovingAvgExp" name="AMS_AS5048B::updateMovingAvgExp">
-<area shape="rect" id="node1" title="Performs an exponential moving average on the angle. Works on Sine and Cosine of the angle to avoid i..." alt="" coords="237,5,455,47"/>
-<area shape="rect" id="node2" href="$classAbsoluteEncoder.html#aae25f76ad9e1a21f3d5a08059a003151" title="Updates the computations to keep the angle estimation correct." alt="" coords="5,13,189,39"/>
+<area shape="rect" id="Node000001" title="Performs an exponential moving average on the angle. Works on Sine and Cosine of the angle to avoid i..." alt="" coords="237,5,455,45"/>
+<area shape="rect" id="Node000002" href="$classAbsoluteEncoder.html#aae25f76ad9e1a21f3d5a08059a003151" title="Updates the computations to keep the angle estimation correct." alt="" coords="5,13,189,38"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="224,28,189,28,189,23,224,23"/>
 </map>

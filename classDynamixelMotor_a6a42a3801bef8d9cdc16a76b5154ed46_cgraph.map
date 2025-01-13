@@ -1,4 +1,5 @@
 <map id="DynamixelMotor::action" name="DynamixelMotor::action">
-<area shape="rect" id="node1" title=" " alt="" coords="5,13,184,39"/>
-<area shape="rect" id="node2" href="$classDynamixelInterface.html#a42add10cb7682b39a3722b3a402d343b" title=" " alt="" coords="232,5,383,47"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,13,184,38"/>
+<area shape="rect" id="Node000002" href="$classDynamixelInterface.html#a42add10cb7682b39a3722b3a402d343b" title=" " alt="" coords="232,5,383,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="184,23,218,23,218,28,184,28"/>
 </map>

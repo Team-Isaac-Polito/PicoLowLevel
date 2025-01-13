@@ -1,5 +1,7 @@
 <map id="DynamixelMotor::RWStatus" name="DynamixelMotor::RWStatus">
-<area shape="rect" id="node1" title=" " alt="" coords="5,46,207,73"/>
-<area shape="rect" id="node2" href="$classDynamixelInterface.html#a79335d829e0f23de5245ac145f8d28ca" title=" " alt="" coords="255,5,405,47"/>
-<area shape="rect" id="node3" href="$classDynamixelInterface.html#a42add10cb7682b39a3722b3a402d343b" title=" " alt="" coords="255,71,405,112"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,45,207,70"/>
+<area shape="rect" id="Node000002" href="$classDynamixelInterface.html#a79335d829e0f23de5245ac145f8d28ca" title=" " alt="" coords="255,5,405,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="195,42,240,35,241,41,196,47"/>
+<area shape="rect" id="Node000003" href="$classDynamixelInterface.html#a42add10cb7682b39a3722b3a402d343b" title=" " alt="" coords="255,69,405,109"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="196,67,241,74,240,79,195,73"/>
 </map>

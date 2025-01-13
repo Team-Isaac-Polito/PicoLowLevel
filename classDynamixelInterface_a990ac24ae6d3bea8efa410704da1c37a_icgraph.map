@@ -1,6 +1,9 @@
 <map id="DynamixelInterface::readDWord" name="DynamixelInterface::readDWord">
-<area shape="rect" id="node1" title=" " alt="" coords="272,49,423,90"/>
-<area shape="rect" id="node2" href="$classDynamixelMotor.html#ab7be2a87ee7ddbe68acc419d7adc1db3" title=" " alt="" coords="15,5,214,32"/>
-<area shape="rect" id="node3" href="$classDynamixelMotor.html#a43a34e6ac703fdb725305e6bf695dfb3" title=" " alt="" coords="5,56,224,83"/>
-<area shape="rect" id="node4" href="$classDynamixelMotor.html#ab20d99efcb9b421b84c468a83da2bb42" title=" " alt="" coords="11,107,218,133"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="272,47,423,87"/>
+<area shape="rect" id="Node000002" href="$classDynamixelMotor.html#ab7be2a87ee7ddbe68acc419d7adc1db3" title=" " alt="" coords="15,5,214,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="258,51,175,33,176,28,259,46"/>
+<area shape="rect" id="Node000003" href="$classDynamixelMotor.html#a43a34e6ac703fdb725305e6bf695dfb3" title=" " alt="" coords="5,55,224,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="259,70,224,70,224,65,259,65"/>
+<area shape="rect" id="Node000004" href="$classDynamixelMotor.html#ab20d99efcb9b421b84c468a83da2bb42" title=" " alt="" coords="11,104,218,129"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="259,89,176,107,175,101,258,83"/>
 </map>

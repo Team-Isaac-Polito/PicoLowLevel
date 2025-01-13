@@ -1,4 +1,5 @@
 <map id="AMS_AS5048B::setZeroReg" name="AMS_AS5048B::setZeroReg">
-<area shape="rect" id="node1" title="sets current angle as the zero position" alt="" coords="5,5,204,32"/>
-<area shape="rect" id="node2" href="$classAMS__AS5048B.html#a67cbd882f0300705d615ce1e2dff2f47" title="writes the 2 bytes Zero position register value" alt="" coords="252,5,443,32"/>
+<area shape="rect" id="Node000001" title="sets current angle as the zero position" alt="" coords="5,5,204,31"/>
+<area shape="rect" id="Node000002" href="$classAMS__AS5048B.html#a67cbd882f0300705d615ce1e2dff2f47" title="writes the 2 bytes Zero position register value" alt="" coords="252,5,443,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="204,15,238,15,238,21,204,21"/>
 </map>

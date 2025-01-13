@@ -1,5 +1,7 @@
 <map id="DynamixelMotor::setRDT" name="DynamixelMotor::setRDT">
-<area shape="rect" id="node1" title=" " alt="" coords="5,46,191,73"/>
-<area shape="rect" id="node2" href="$classDynamixelInterface.html#a779b26e5c86b08dfaa3309e6055905b0" title=" " alt="" coords="239,5,389,47"/>
-<area shape="rect" id="node3" href="$classDynamixelInterface.html#a42add10cb7682b39a3722b3a402d343b" title=" " alt="" coords="239,71,389,112"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,45,191,70"/>
+<area shape="rect" id="Node000002" href="$classDynamixelInterface.html#a779b26e5c86b08dfaa3309e6055905b0" title=" " alt="" coords="239,5,389,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="184,42,225,36,225,41,185,47"/>
+<area shape="rect" id="Node000003" href="$classDynamixelInterface.html#a42add10cb7682b39a3722b3a402d343b" title=" " alt="" coords="239,69,389,109"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="185,67,225,74,225,79,184,73"/>
 </map>

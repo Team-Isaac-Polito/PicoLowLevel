@@ -1,5 +1,7 @@
 <map id="DynamixelMotor::setPunch" name="DynamixelMotor::setPunch">
-<area shape="rect" id="node1" title=" " alt="" coords="5,46,203,73"/>
-<area shape="rect" id="node2" href="$classDynamixelInterface.html#a779b26e5c86b08dfaa3309e6055905b0" title=" " alt="" coords="251,5,401,47"/>
-<area shape="rect" id="node3" href="$classDynamixelInterface.html#a42add10cb7682b39a3722b3a402d343b" title=" " alt="" coords="251,71,401,112"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,45,203,70"/>
+<area shape="rect" id="Node000002" href="$classDynamixelInterface.html#a779b26e5c86b08dfaa3309e6055905b0" title=" " alt="" coords="251,5,401,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="192,42,237,35,237,41,193,47"/>
+<area shape="rect" id="Node000003" href="$classDynamixelInterface.html#a42add10cb7682b39a3722b3a402d343b" title=" " alt="" coords="251,69,401,109"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="193,67,237,74,237,79,192,73"/>
 </map>

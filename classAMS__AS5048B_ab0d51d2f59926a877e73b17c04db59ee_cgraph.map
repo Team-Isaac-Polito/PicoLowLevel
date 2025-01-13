@@ -1,6 +1,9 @@
 <map id="AMS_AS5048B::begin" name="AMS_AS5048B::begin">
-<area shape="rect" id="node1" title="init values and overall behaviors for AS5948B use" alt="" coords="5,64,165,91"/>
-<area shape="rect" id="node2" href="$classAMS__AS5048B.html#a02b3c3054c8cca8c3d8167b835794ff6" title="reads I2C address register value" alt="" coords="213,5,423,32"/>
-<area shape="rect" id="node3" href="$classAMS__AS5048B.html#ac4b8db2e8d36e45d894812aa799cd89e" title=" " alt="" coords="215,57,421,98"/>
-<area shape="rect" id="node4" href="$classAMS__AS5048B.html#a7784bc5f991bb485c2731a7189d277bf" title="reads the 2 bytes Zero position register value" alt="" coords="225,123,411,149"/>
+<area shape="rect" id="Node000001" title="init values and overall behaviors for AS5948B use" alt="" coords="5,63,165,88"/>
+<area shape="rect" id="Node000002" href="$classAMS__AS5048B.html#a02b3c3054c8cca8c3d8167b835794ff6" title="reads I2C address register value" alt="" coords="213,5,423,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="136,60,213,41,251,31,252,36,214,46,137,65"/>
+<area shape="rect" id="Node000003" href="$classAMS__AS5048B.html#ac4b8db2e8d36e45d894812aa799cd89e" title=" " alt="" coords="215,55,421,95"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="166,73,201,73,201,78,166,78"/>
+<area shape="rect" id="Node000004" href="$classAMS__AS5048B.html#a7784bc5f991bb485c2731a7189d277bf" title="reads the 2 bytes Zero position register value" alt="" coords="225,120,411,145"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="137,85,214,105,252,114,251,119,213,110,136,91"/>
 </map>

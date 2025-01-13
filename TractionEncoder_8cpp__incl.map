@@ -1,12 +1,21 @@
-<map id="TractionEncoder.cpp" name="TractionEncoder.cpp">
-<area shape="rect" id="node1" title=" " alt="" coords="183,5,333,32"/>
-<area shape="rect" id="node2" href="$TractionEncoder_8h.html" title=" " alt="" coords="190,80,326,107"/>
-<area shape="rect" id="node3" title=" " alt="" coords="5,155,89,181"/>
-<area shape="rect" id="node4" title=" " alt="" coords="113,155,200,181"/>
-<area shape="rect" id="node5" href="$Filter_8h.html" title=" " alt="" coords="225,155,291,181"/>
-<area shape="rect" id="node6" href="$definitions_8h.html" title=" " alt="" coords="316,155,419,181"/>
-<area shape="rect" id="node7" href="$quadrature__encoder_8pio_8h.html" title=" " alt="" coords="443,155,630,181"/>
-<area shape="rect" id="node8" title=" " alt="" coords="324,229,443,256"/>
-<area shape="rect" id="node9" title=" " alt="" coords="467,229,607,256"/>
-<area shape="rect" id="node10" title=" " alt="" coords="631,229,757,256"/>
+<map id="lib/TractionEncoder/src/TractionEncoder.cpp" name="lib/TractionEncoder/src/TractionEncoder.cpp">
+<area shape="rect" id="Node000001" title=" " alt="" coords="169,5,347,45"/>
+<area shape="rect" id="Node000002" href="$TractionEncoder_8h.html" title=" " alt="" coords="190,93,326,119"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="261,46,261,79,255,79,255,46"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="5,167,89,192"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="225,121,95,165,93,160,223,116"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="113,167,200,192"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="243,121,186,161,183,156,240,116"/>
+<area shape="rect" id="Node000005" href="$Filter_8h.html" title=" " alt="" coords="225,167,291,192"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="261,119,261,153,255,153,255,119"/>
+<area shape="rect" id="Node000006" href="$definitions_8h.html" title=" " alt="" coords="316,167,419,192"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="277,116,339,157,336,161,274,121"/>
+<area shape="rect" id="Node000007" href="$quadrature__encoder_8pio_8h.html" title=" " alt="" coords="443,167,630,192"/>
+<area shape="poly" id="edge6_Node000002_Node000007" title=" " alt="" coords="303,116,479,161,478,166,302,121"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="324,240,443,265"/>
+<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="513,194,422,237,420,232,511,190"/>
+<area shape="rect" id="Node000009" title=" " alt="" coords="467,240,607,265"/>
+<area shape="poly" id="edge8_Node000007_Node000009" title=" " alt="" coords="539,192,539,226,534,226,534,192"/>
+<area shape="rect" id="Node000010" title=" " alt="" coords="631,240,757,265"/>
+<area shape="poly" id="edge9_Node000007_Node000010" title=" " alt="" coords="563,190,657,232,655,237,561,194"/>
 </map>

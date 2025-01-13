@@ -1,4 +1,5 @@
 <map id="AMS_AS5048B::updateMovingAvgExp" name="AMS_AS5048B::updateMovingAvgExp">
-<area shape="rect" id="node1" title="Performs an exponential moving average on the angle. Works on Sine and Cosine of the angle to avoid i..." alt="" coords="5,5,223,47"/>
-<area shape="rect" id="node2" href="$classAMS__AS5048B.html#a23b78448232baf368c4e45f99c139775" title="reads current angle value and converts it into the desired unit" alt="" coords="271,13,440,39"/>
+<area shape="rect" id="Node000001" title="Performs an exponential moving average on the angle. Works on Sine and Cosine of the angle to avoid i..." alt="" coords="5,5,223,45"/>
+<area shape="rect" id="Node000002" href="$classAMS__AS5048B.html#a23b78448232baf368c4e45f99c139775" title="reads current angle value and converts it into the desired unit" alt="" coords="271,13,440,38"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="223,23,257,23,257,28,223,28"/>
 </map>

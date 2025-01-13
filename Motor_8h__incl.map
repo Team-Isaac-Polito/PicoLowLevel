@@ -1,5 +1,7 @@
-<map id="Motor.h" name="Motor.h">
-<area shape="rect" id="node1" title=" " alt="" coords="71,5,141,32"/>
-<area shape="rect" id="node2" title=" " alt="" coords="5,80,89,107"/>
-<area shape="rect" id="node3" href="$definitions_8h.html" title=" " alt="" coords="113,80,216,107"/>
+<map id="lib/Motor/src/Motor.h" name="lib/Motor/src/Motor.h">
+<area shape="rect" id="Node000001" title=" " alt="" coords="28,5,184,31"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,79,89,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="98,33,67,70,63,67,94,29"/>
+<area shape="rect" id="Node000003" href="$definitions_8h.html" title=" " alt="" coords="113,79,216,104"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="118,29,149,67,145,70,114,33"/>
 </map>

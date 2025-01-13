@@ -1,5 +1,7 @@
 <map id="PID::resetState" name="PID::resetState">
-<area shape="rect" id="node1" title="Resets the PID state, as if it was the first iteration." alt="" coords="287,5,405,32"/>
-<area shape="rect" id="node2" href="$classSmartMotor.html#a0888c018802eebdef813dd4824d98da2" title="Stop the motor." alt="" coords="104,5,239,32"/>
-<area shape="rect" id="node3" href="$PicoLowLevel_8ino.html#afe461d27b9c48d5921c00d521181f12f" title=" " alt="" coords="5,5,56,32"/>
+<area shape="rect" id="Node000001" title="Resets the PID state, as if it was the first iteration." alt="" coords="287,5,405,31"/>
+<area shape="rect" id="Node000002" href="$classSmartMotor.html#a0888c018802eebdef813dd4824d98da2" title="Stop the motor." alt="" coords="104,5,239,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="273,21,239,21,239,15,273,15"/>
+<area shape="rect" id="Node000003" href="$PicoLowLevel_8cpp.html#afe461d27b9c48d5921c00d521181f12f" title=" " alt="" coords="5,5,56,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="90,21,57,21,57,15,90,15"/>
 </map>

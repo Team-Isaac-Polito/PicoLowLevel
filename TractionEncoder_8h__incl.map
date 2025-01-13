@@ -1,11 +1,19 @@
-<map id="TractionEncoder.h" name="TractionEncoder.h">
-<area shape="rect" id="node1" title=" " alt="" coords="190,5,326,32"/>
-<area shape="rect" id="node2" title=" " alt="" coords="5,80,89,107"/>
-<area shape="rect" id="node3" title=" " alt="" coords="113,80,200,107"/>
-<area shape="rect" id="node4" href="$Filter_8h.html" title=" " alt="" coords="225,80,291,107"/>
-<area shape="rect" id="node5" href="$definitions_8h.html" title=" " alt="" coords="316,80,419,107"/>
-<area shape="rect" id="node6" href="$quadrature__encoder_8pio_8h.html" title=" " alt="" coords="443,80,630,107"/>
-<area shape="rect" id="node7" title=" " alt="" coords="324,155,443,181"/>
-<area shape="rect" id="node8" title=" " alt="" coords="467,155,607,181"/>
-<area shape="rect" id="node9" title=" " alt="" coords="631,155,757,181"/>
+<map id="lib/TractionEncoder/src/TractionEncoder.h" name="lib/TractionEncoder/src/TractionEncoder.h">
+<area shape="rect" id="Node000001" title=" " alt="" coords="177,5,339,45"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,93,89,119"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="208,48,92,91,90,86,207,43"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="113,93,200,119"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="235,48,184,87,181,82,232,43"/>
+<area shape="rect" id="Node000004" href="$Filter_8h.html" title=" " alt="" coords="225,93,291,119"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="261,46,261,79,255,79,255,46"/>
+<area shape="rect" id="Node000005" href="$definitions_8h.html" title=" " alt="" coords="316,93,419,119"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="286,43,342,83,339,87,283,48"/>
+<area shape="rect" id="Node000006" href="$quadrature__encoder_8pio_8h.html" title=" " alt="" coords="443,93,630,119"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="325,43,483,87,482,92,324,48"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="324,167,443,192"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="513,121,422,163,420,158,511,116"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="467,167,607,192"/>
+<area shape="poly" id="edge7_Node000006_Node000008" title=" " alt="" coords="539,119,539,153,534,153,534,119"/>
+<area shape="rect" id="Node000009" title=" " alt="" coords="631,167,757,192"/>
+<area shape="poly" id="edge8_Node000006_Node000009" title=" " alt="" coords="563,116,657,159,655,163,561,121"/>
 </map>

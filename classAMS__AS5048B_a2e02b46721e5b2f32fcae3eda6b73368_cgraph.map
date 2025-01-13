@@ -1,4 +1,5 @@
 <map id="AMS_AS5048B::setClockWise" name="AMS_AS5048B::setClockWise">
-<area shape="rect" id="node1" title="Set / unset clock wise counting &#45; sensor counts CCW natively." alt="" coords="5,13,217,39"/>
-<area shape="rect" id="node2" href="$classAMS__AS5048B.html#ac4b8db2e8d36e45d894812aa799cd89e" title=" " alt="" coords="265,5,471,47"/>
+<area shape="rect" id="Node000001" title="Set / unset clock wise counting &#45; sensor counts CCW natively." alt="" coords="5,13,217,38"/>
+<area shape="rect" id="Node000002" href="$classAMS__AS5048B.html#ac4b8db2e8d36e45d894812aa799cd89e" title=" " alt="" coords="265,5,471,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="217,23,251,23,251,28,217,28"/>
 </map>

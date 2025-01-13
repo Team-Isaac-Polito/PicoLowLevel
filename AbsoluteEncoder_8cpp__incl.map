@@ -1,12 +1,24 @@
-<map id="AbsoluteEncoder.cpp" name="AbsoluteEncoder.cpp">
-<area shape="rect" id="node1" title=" " alt="" coords="71,5,229,32"/>
-<area shape="rect" id="node2" href="$AbsoluteEncoder_8h.html" title=" " alt="" coords="79,80,221,107"/>
-<area shape="rect" id="node3" title=" " alt="" coords="5,304,89,331"/>
-<area shape="rect" id="node4" href="$Debug_8h.html" title=" " alt="" coords="48,229,124,256"/>
-<area shape="rect" id="node5" href="$definitions_8h.html" title=" " alt="" coords="99,155,201,181"/>
-<area shape="rect" id="node6" href="$mod__config_8h.html" title=" " alt="" coords="226,155,335,181"/>
-<area shape="rect" id="node7" href="$ams__as5048b_8h.html" title=" " alt="" coords="360,155,484,181"/>
-<area shape="rect" id="node8" title=" " alt="" coords="261,229,364,256"/>
-<area shape="rect" id="node9" title=" " alt="" coords="388,229,456,256"/>
-<area shape="rect" id="node10" title=" " alt="" coords="481,229,545,256"/>
+<map id="lib/AbsoluteEncoder/src/AbsoluteEncoder.cpp" name="lib/AbsoluteEncoder/src/AbsoluteEncoder.cpp">
+<area shape="rect" id="Node000001" title=" " alt="" coords="58,5,242,45"/>
+<area shape="rect" id="Node000002" href="$AbsoluteEncoder_8h.html" title=" " alt="" coords="79,93,221,119"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="153,46,153,79,147,79,147,46"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="5,313,89,339"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="133,121,105,142,77,168,52,202,38,241,36,271,41,299,36,300,31,271,33,239,47,199,73,165,102,137,130,117"/>
+<area shape="rect" id="Node000004" href="$Debug_8h.html" title=" " alt="" coords="48,240,124,265"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="133,121,108,141,88,168,82,197,84,226,78,226,77,197,84,166,104,137,129,117"/>
+<area shape="rect" id="Node000005" href="$definitions_8h.html" title=" " alt="" coords="99,167,201,192"/>
+<area shape="poly" id="edge6_Node000002_Node000005" title=" " alt="" coords="153,119,153,153,147,153,147,119"/>
+<area shape="rect" id="Node000006" href="$mod__config_8h.html" title=" " alt="" coords="226,167,335,192"/>
+<area shape="poly" id="edge7_Node000002_Node000006" title=" " alt="" coords="172,116,249,158,246,162,170,121"/>
+<area shape="rect" id="Node000007" href="$ams__as5048b_8h.html" title=" " alt="" coords="360,167,484,192"/>
+<area shape="poly" id="edge8_Node000002_Node000007" title=" " alt="" coords="194,116,366,161,364,166,193,121"/>
+<area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="82,267,62,303,58,300,77,264"/>
+<area shape="poly" id="edge5_Node000004_Node000004" title=" " alt="" coords="115,237,139,239,147,244,151,253,144,264,130,269,128,263,141,260,145,252,143,247,137,244,115,243"/>
+<area shape="poly" id="edge12_Node000007_Node000004" title=" " alt="" coords="369,195,138,243,137,238,367,189"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="261,240,364,265"/>
+<area shape="poly" id="edge9_Node000007_Node000008" title=" " alt="" coords="406,194,344,235,341,230,403,190"/>
+<area shape="rect" id="Node000009" title=" " alt="" coords="388,240,456,265"/>
+<area shape="poly" id="edge10_Node000007_Node000009" title=" " alt="" coords="425,192,425,226,419,226,419,192"/>
+<area shape="rect" id="Node000010" title=" " alt="" coords="481,240,545,265"/>
+<area shape="poly" id="edge11_Node000007_Node000010" title=" " alt="" coords="438,190,489,229,485,233,435,194"/>
 </map>

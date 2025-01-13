@@ -1,33 +1,64 @@
 <map id="DynamixelInterface::writeBuf" name="DynamixelInterface::writeBuf">
-<area shape="rect" id="node1" title=" " alt="" coords="559,707,709,749"/>
-<area shape="rect" id="node2" href="$classDynamixelMotor.html#a6a42a3801bef8d9cdc16a76b5154ed46" title=" " alt="" coords="297,5,475,32"/>
-<area shape="rect" id="node3" href="$classDynamixelMotor.html#a5386230a6073336a6780a08d76e4cd03" title=" " alt="" coords="283,56,489,83"/>
-<area shape="rect" id="node4" href="$classDynamixelMotor.html#a2664f2ae2bf297f98d662ec5805202f3" title=" " alt="" coords="273,107,499,133"/>
-<area shape="rect" id="node5" href="$classDynamixelMotor.html#a821cc422ff64d76069c4bfa59d369b4d" title=" " alt="" coords="277,157,495,184"/>
-<area shape="rect" id="node6" href="$classDynamixelMotor.html#afb5e75666674466f3172e72c0e064aaa" title=" " alt="" coords="299,208,473,235"/>
-<area shape="rect" id="node7" href="$classDynamixelMotor.html#a20724e135b4cee5a2ae70641bd271f1c" title=" " alt="" coords="279,259,493,285"/>
-<area shape="rect" id="node8" href="$classDynamixelMotor.html#a2df9fe99bad6dfb2068f99fac419153a" title=" " alt="" coords="293,309,479,336"/>
-<area shape="rect" id="node9" href="$classDynamixelMotor.html#a6d5cb7d43df2239fd11eade1a552917a" title=" " alt="" coords="303,360,469,387"/>
-<area shape="rect" id="node10" href="$classDynamixelMotor.html#ab7be2a87ee7ddbe68acc419d7adc1db3" title=" " alt="" coords="287,411,485,437"/>
-<area shape="rect" id="node11" href="$classDynamixelMotor.html#a43a34e6ac703fdb725305e6bf695dfb3" title=" " alt="" coords="277,461,495,488"/>
-<area shape="rect" id="node12" href="$classDynamixelMotor.html#ab20d99efcb9b421b84c468a83da2bb42" title=" " alt="" coords="283,512,489,539"/>
-<area shape="rect" id="node13" href="$classDynamixelMotor.html#af521fac4c2e9b212c86948864f703fb0" title=" " alt="" coords="261,563,511,589"/>
-<area shape="rect" id="node14" href="$classDynamixelMotor.html#ac104209f72c075d4fc32b80e9a9455f8" title=" " alt="" coords="278,613,494,640"/>
-<area shape="rect" id="node15" href="$classDynamixelMotor.html#a0688eda2804cd420c4c3376a2248bfc4" title=" " alt="" coords="301,664,471,691"/>
-<area shape="rect" id="node16" href="$classDynamixelMotor.html#a632f34edd9c9c935dce20f9fa064c6c3" title=" " alt="" coords="285,715,487,741"/>
-<area shape="rect" id="node17" href="$classDynamixelMotor.html#ab2a030d503705b820383bdccd5cfd7b8" title=" " alt="" coords="289,766,483,807"/>
-<area shape="rect" id="node19" href="$classDynamixelMotor.html#af948e3e04fad44d665292f416b9cc99b" title=" " alt="" coords="297,832,475,859"/>
-<area shape="rect" id="node20" href="$classDynamixelMotor.html#a4b5873445d7ee531f8b1dc80b648a603" title=" " alt="" coords="280,883,492,909"/>
-<area shape="rect" id="node21" href="$classDynamixelMotor.html#a525c942af953d97fb94664fd24ccdd55" title=" " alt="" coords="285,933,487,960"/>
-<area shape="rect" id="node22" href="$classDynamixelMotor.html#abe391ddc123aed294aa1ef30c277f7b5" title=" " alt="" coords="300,984,472,1011"/>
-<area shape="rect" id="node23" href="$classDynamixelMotor.html#af7dc00111ffb4b4fe70200f6507eb9b0" title=" " alt="" coords="275,1035,497,1061"/>
-<area shape="rect" id="node24" href="$classDynamixelMotor.html#a78e5b94394fa960b7800303a9f3093f8" title=" " alt="" coords="271,1085,501,1112"/>
-<area shape="rect" id="node25" href="$classDynamixelMotor.html#ac5cb22caf7e59f5a8c17544996a0055f" title=" " alt="" coords="287,1136,485,1163"/>
-<area shape="rect" id="node26" href="$classDynamixelMotor.html#a2d9d07a0f7fa92595a7e086a4d60414b" title=" " alt="" coords="293,1187,479,1213"/>
-<area shape="rect" id="node27" href="$classDynamixelMotor.html#a919ada3000d77e6bbf37a0641b91e4f4" title=" " alt="" coords="275,1238,497,1279"/>
-<area shape="rect" id="node28" href="$classDynamixelMotor.html#aa64e8de0278fd6329dd92da745577d2e" title=" " alt="" coords="295,1304,477,1331"/>
-<area shape="rect" id="node29" href="$classDynamixelMotor.html#aa3cfa2e8fae61e5a50df3b4307b29d1c" title=" " alt="" coords="273,1355,499,1381"/>
-<area shape="rect" id="node30" href="$classDynamixelMotor.html#a967ad51f51edc6a016434e722dd207a3" title=" " alt="" coords="283,1406,489,1447"/>
-<area shape="rect" id="node31" href="$classDynamixelMotor.html#ae2e50c83b3cc3d6491a7b7739730dcad" title=" " alt="" coords="304,1472,468,1499"/>
-<area shape="rect" id="node18" href="$classDynamixelMotor.html#acfbac3e25761963eab67aa1fdf1be841" title=" " alt="" coords="5,1123,213,1149"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="559,689,709,729"/>
+<area shape="rect" id="Node000002" href="$classDynamixelMotor.html#a6a42a3801bef8d9cdc16a76b5154ed46" title=" " alt="" coords="297,5,475,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="629,675,620,538,600,347,584,251,564,163,539,91,525,64,509,44,493,32,474,24,477,19,496,27,513,40,529,61,544,89,569,162,590,250,605,347,626,537,634,675"/>
+<area shape="rect" id="Node000003" href="$classDynamixelMotor.html#a5386230a6073336a6780a08d76e4cd03" title=" " alt="" coords="283,55,489,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="628,675,618,546,597,371,581,282,561,202,537,137,524,112,509,93,488,79,491,74,512,89,528,109,542,134,566,200,586,281,602,370,623,546,633,674"/>
+<area shape="rect" id="Node000004" href="$classDynamixelMotor.html#a2664f2ae2bf297f98d662ec5805202f3" title=" " alt="" coords="273,104,499,129"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="628,675,616,556,594,396,578,315,558,242,535,182,522,159,509,143,494,131,497,127,513,139,527,156,540,180,563,240,583,314,599,395,621,556,633,675"/>
+<area shape="rect" id="Node000005" href="$classDynamixelMotor.html#a821cc422ff64d76069c4bfa59d369b4d" title=" " alt="" coords="277,153,495,179"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="627,675,614,565,590,419,574,347,555,281,533,227,509,192,494,181,497,177,513,188,538,225,560,279,579,345,595,418,619,564,632,674"/>
+<area shape="rect" id="Node000006" href="$classDynamixelMotor.html#afb5e75666674466f3172e72c0e064aaa" title=" " alt="" coords="299,203,473,228"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="626,675,611,575,586,444,570,379,552,320,531,273,509,241,492,230,473,222,475,217,495,225,513,237,536,270,557,318,576,377,592,443,617,574,631,674"/>
+<area shape="rect" id="Node000007" href="$classDynamixelMotor.html#a20724e135b4cee5a2ae70641bd271f1c" title=" " alt="" coords="279,252,493,277"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="631,675,628,595,622,545,612,491,597,436,575,383,546,333,509,291,492,279,495,275,512,287,551,330,580,380,602,434,618,490,628,544,633,595,636,675"/>
+<area shape="rect" id="Node000008" href="$classDynamixelMotor.html#a2df9fe99bad6dfb2068f99fac419153a" title=" " alt="" coords="293,301,479,327"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="630,675,624,604,606,513,590,465,570,419,543,377,509,340,478,323,481,318,512,336,547,373,574,417,595,463,611,512,629,603,635,675"/>
+<area shape="rect" id="Node000009" href="$classDynamixelMotor.html#a6d5cb7d43df2239fd11eade1a552917a" title=" " alt="" coords="303,351,469,376"/>
+<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="628,675,619,613,599,535,583,495,564,456,539,420,509,389,490,378,469,370,470,365,492,373,512,385,543,417,568,453,588,493,604,533,624,612,633,674"/>
+<area shape="rect" id="Node000010" href="$classDynamixelMotor.html#ab7be2a87ee7ddbe68acc419d7adc1db3" title=" " alt="" coords="287,400,485,425"/>
+<area shape="poly" id="edge9_Node000001_Node000010" title=" " alt="" coords="625,676,613,622,592,558,558,493,535,464,509,439,484,425,487,420,512,435,539,460,562,490,596,556,618,621,630,674"/>
+<area shape="rect" id="Node000011" href="$classDynamixelMotor.html#a43a34e6ac703fdb725305e6bf695dfb3" title=" " alt="" coords="277,449,495,475"/>
+<area shape="poly" id="edge10_Node000001_Node000011" title=" " alt="" coords="622,676,607,632,584,581,551,530,532,508,509,488,489,477,492,472,512,484,535,504,556,527,589,578,612,630,627,674"/>
+<area shape="rect" id="Node000012" href="$classDynamixelMotor.html#ab20d99efcb9b421b84c468a83da2bb42" title=" " alt="" coords="283,499,489,524"/>
+<area shape="poly" id="edge11_Node000001_Node000012" title=" " alt="" coords="617,677,599,643,576,605,545,568,509,538,487,526,489,522,512,533,549,564,580,602,604,641,621,675"/>
+<area shape="rect" id="Node000013" href="$classDynamixelMotor.html#af521fac4c2e9b212c86948864f703fb0" title=" " alt="" coords="261,548,511,573"/>
+<area shape="poly" id="edge12_Node000001_Node000013" title=" " alt="" coords="609,679,566,630,539,607,509,587,483,576,485,571,512,582,542,602,570,627,613,675"/>
+<area shape="rect" id="Node000014" href="$classDynamixelMotor.html#ac104209f72c075d4fc32b80e9a9455f8" title=" " alt="" coords="278,597,494,623"/>
+<area shape="poly" id="edge13_Node000001_Node000014" title=" " alt="" coords="593,683,554,658,510,636,473,625,475,620,512,632,557,653,596,678"/>
+<area shape="rect" id="Node000015" href="$classDynamixelMotor.html#a0688eda2804cd420c4c3376a2248bfc4" title=" " alt="" coords="301,647,471,672"/>
+<area shape="poly" id="edge14_Node000001_Node000015" title=" " alt="" coords="545,693,510,686,453,675,454,669,511,681,546,688"/>
+<area shape="rect" id="Node000016" href="$classDynamixelMotor.html#a632f34edd9c9c935dce20f9fa064c6c3" title=" " alt="" coords="285,696,487,721"/>
+<area shape="poly" id="edge15_Node000001_Node000016" title=" " alt="" coords="545,711,487,711,487,706,545,706"/>
+<area shape="rect" id="Node000017" href="$classDynamixelMotor.html#ab2a030d503705b820383bdccd5cfd7b8" title=" " alt="" coords="289,746,483,786"/>
+<area shape="poly" id="edge16_Node000001_Node000017" title=" " alt="" coords="545,732,474,749,472,743,544,727"/>
+<area shape="rect" id="Node000019" href="$classDynamixelMotor.html#af948e3e04fad44d665292f416b9cc99b" title=" " alt="" coords="297,811,475,836"/>
+<area shape="poly" id="edge18_Node000001_Node000019" title=" " alt="" coords="602,740,561,772,512,800,475,813,473,808,510,796,558,768,599,736"/>
+<area shape="rect" id="Node000020" href="$classDynamixelMotor.html#a4b5873445d7ee531f8b1dc80b648a603" title=" " alt="" coords="280,860,492,885"/>
+<area shape="poly" id="edge19_Node000001_Node000020" title=" " alt="" coords="616,742,573,798,545,826,512,850,483,862,481,857,509,845,541,822,569,794,612,739"/>
+<area shape="rect" id="Node000021" href="$classDynamixelMotor.html#a525c942af953d97fb94664fd24ccdd55" title=" " alt="" coords="285,909,487,935"/>
+<area shape="poly" id="edge20_Node000001_Node000021" title=" " alt="" coords="623,743,606,780,582,822,551,864,512,899,488,911,485,907,509,894,547,860,578,819,602,777,618,741"/>
+<area shape="rect" id="Node000022" href="$classDynamixelMotor.html#abe391ddc123aed294aa1ef30c277f7b5" title=" " alt="" coords="300,959,472,984"/>
+<area shape="poly" id="edge21_Node000001_Node000022" title=" " alt="" coords="628,743,614,790,591,845,558,901,536,926,512,948,494,959,474,967,472,962,491,954,509,944,533,923,553,898,586,843,609,788,623,741"/>
+<area shape="rect" id="Node000023" href="$classDynamixelMotor.html#af7dc00111ffb4b4fe70200f6507eb9b0" title=" " alt="" coords="275,1008,497,1033"/>
+<area shape="poly" id="edge22_Node000001_Node000023" title=" " alt="" coords="631,743,620,799,599,868,583,904,564,938,540,970,512,997,492,1010,489,1005,509,993,536,966,559,935,578,901,594,866,615,798,626,742"/>
+<area shape="rect" id="Node000024" href="$classDynamixelMotor.html#a78e5b94394fa960b7800303a9f3093f8" title=" " alt="" coords="271,1057,501,1083"/>
+<area shape="poly" id="edge23_Node000001_Node000024" title=" " alt="" coords="633,743,625,808,606,890,590,933,570,975,544,1013,512,1047,493,1059,490,1055,509,1043,540,1010,565,972,585,931,601,889,620,807,628,742"/>
+<area shape="rect" id="Node000025" href="$classDynamixelMotor.html#ac5cb22caf7e59f5a8c17544996a0055f" title=" " alt="" coords="287,1107,485,1132"/>
+<area shape="poly" id="edge24_Node000001_Node000025" title=" " alt="" coords="635,742,630,816,613,912,597,962,576,1011,548,1057,512,1096,486,1112,484,1107,509,1092,544,1053,571,1009,592,960,607,910,625,815,630,742"/>
+<area shape="rect" id="Node000026" href="$classDynamixelMotor.html#a2d9d07a0f7fa92595a7e086a4d60414b" title=" " alt="" coords="293,1156,479,1181"/>
+<area shape="poly" id="edge25_Node000001_Node000026" title=" " alt="" coords="630,743,615,837,589,957,555,1071,535,1115,513,1145,497,1156,480,1164,478,1159,495,1152,509,1141,530,1113,550,1069,584,956,609,836,625,742"/>
+<area shape="rect" id="Node000027" href="$classDynamixelMotor.html#a919ada3000d77e6bbf37a0641b91e4f4" title=" " alt="" coords="275,1206,497,1246"/>
+<area shape="poly" id="edge26_Node000001_Node000027" title=" " alt="" coords="631,743,616,846,591,981,575,1049,557,1110,536,1160,513,1194,496,1208,492,1204,509,1191,531,1157,552,1108,570,1047,586,980,611,845,626,742"/>
+<area shape="rect" id="Node000028" href="$classDynamixelMotor.html#aa64e8de0278fd6329dd92da745577d2e" title=" " alt="" coords="295,1271,477,1296"/>
+<area shape="poly" id="edge27_Node000001_Node000028" title=" " alt="" coords="633,743,620,858,597,1014,581,1092,562,1163,539,1220,513,1260,497,1272,479,1280,477,1275,494,1267,509,1256,534,1218,557,1161,576,1090,592,1013,615,858,627,742"/>
+<area shape="rect" id="Node000029" href="$classDynamixelMotor.html#aa3cfa2e8fae61e5a50df3b4307b29d1c" title=" " alt="" coords="273,1320,499,1345"/>
+<area shape="poly" id="edge28_Node000001_Node000029" title=" " alt="" coords="633,743,623,868,601,1038,585,1124,565,1202,541,1266,527,1290,513,1309,496,1322,492,1318,509,1305,523,1287,536,1263,560,1200,579,1123,595,1037,617,868,628,742"/>
+<area shape="rect" id="Node000030" href="$classDynamixelMotor.html#a967ad51f51edc6a016434e722dd207a3" title=" " alt="" coords="283,1370,489,1410"/>
+<area shape="poly" id="edge29_Node000001_Node000030" title=" " alt="" coords="634,742,624,876,603,1060,587,1154,567,1240,542,1310,528,1337,513,1359,491,1375,488,1371,509,1355,524,1335,537,1308,562,1238,581,1153,597,1060,619,875,628,742"/>
+<area shape="rect" id="Node000031" href="$classDynamixelMotor.html#ae2e50c83b3cc3d6491a7b7739730dcad" title=" " alt="" coords="304,1435,468,1460"/>
+<area shape="poly" id="edge30_Node000001_Node000031" title=" " alt="" coords="634,742,627,889,608,1093,593,1198,572,1293,546,1371,530,1401,513,1424,492,1439,469,1447,467,1442,490,1434,509,1420,526,1398,541,1369,567,1291,587,1197,603,1093,622,888,629,742"/>
+<area shape="rect" id="Node000018" href="$classDynamixelMotor.html#acfbac3e25761963eab67aa1fdf1be841" title=" " alt="" coords="5,1095,213,1120"/>
+<area shape="poly" id="edge17_Node000017_Node000018" title=" " alt="" coords="278,790,263,800,228,834,199,874,175,917,155,960,128,1040,116,1095,110,1094,123,1039,150,958,170,914,195,871,224,831,260,796,275,786"/>
+<area shape="poly" id="edge31_Node000031_Node000018" title=" " alt="" coords="289,1440,260,1424,223,1389,193,1349,168,1304,148,1259,122,1177,110,1121,115,1119,127,1175,153,1257,173,1302,197,1346,227,1386,263,1420,292,1435"/>
 </map>

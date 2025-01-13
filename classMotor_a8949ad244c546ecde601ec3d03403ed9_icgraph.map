@@ -1,5 +1,7 @@
 <map id="Motor::begin" name="Motor::begin">
-<area shape="rect" id="node1" title="Initialize motors." alt="" coords="303,5,407,32"/>
-<area shape="rect" id="node2" href="$classSmartMotor.html#abe1e015d445ac4c830b446127279bdb1" title="Initialize SmartMotor and necessary components." alt="" coords="112,5,255,32"/>
-<area shape="rect" id="node3" href="$PicoLowLevel_8ino.html#a4fc01d736fe50cf5b977f755b675f11d" title=" " alt="" coords="5,5,64,32"/>
+<area shape="rect" id="Node000001" title="Initialize motors." alt="" coords="303,5,407,31"/>
+<area shape="rect" id="Node000002" href="$classSmartMotor.html#abe1e015d445ac4c830b446127279bdb1" title="Initialize SmartMotor and necessary components." alt="" coords="112,5,255,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="289,21,255,21,255,15,289,15"/>
+<area shape="rect" id="Node000003" href="$PicoLowLevel_8cpp.html#a4fc01d736fe50cf5b977f755b675f11d" title=" " alt="" coords="5,5,64,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="98,21,64,21,64,15,98,15"/>
 </map>

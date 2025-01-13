@@ -1,10 +1,18 @@
 <map id="Filter::filter" name="Filter::filter">
-<area shape="rect" id="node1" title="Virtual filter function, will be replaced by the one from the chosen filter." alt="" coords="783,56,876,83"/>
-<area shape="rect" id="node2" href="$classTractionEncoder.html#a2c414262e6a923fe180d51197fc9bf5b" title="Returns the last detected speed." alt="" coords="540,56,735,83"/>
-<area shape="rect" id="node3" href="$classSmartMotor.html#a3dccbce0a9c9b01c7a3d5f2df239338f" title="Get the current speed of the motor." alt="" coords="324,56,492,83"/>
-<area shape="rect" id="node4" href="$classSmartMotor.html#ad30a82d663ba563d7618fbf0873c9671" title="Calibrate the PID controller." alt="" coords="112,5,276,32"/>
-<area shape="rect" id="node6" href="$PicoLowLevel_8ino.html#a71eeb9677589014e9412c294dafb3102" title=" " alt="" coords="137,56,251,83"/>
-<area shape="rect" id="node8" href="$classSmartMotor.html#a1eb6dc1fd54a13dce1705c7a31b0f9ab" title="Update routine, updating the PID and the motor speed." alt="" coords="118,107,270,133"/>
-<area shape="rect" id="node5" href="$PicoLowLevel_8ino.html#a4fc01d736fe50cf5b977f755b675f11d" title=" " alt="" coords="5,5,64,32"/>
-<area shape="rect" id="node7" href="$PicoLowLevel_8ino.html#afe461d27b9c48d5921c00d521181f12f" title=" " alt="" coords="9,81,60,108"/>
+<area shape="rect" id="Node000001" title="Virtual filter function, will be replaced by the one from the chosen filter." alt="" coords="783,55,876,80"/>
+<area shape="rect" id="Node000002" href="$classTractionEncoder.html#a2c414262e6a923fe180d51197fc9bf5b" title="Returns the last detected speed." alt="" coords="540,55,735,80"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="769,70,735,70,735,65,769,65"/>
+<area shape="rect" id="Node000003" href="$classSmartMotor.html#a3dccbce0a9c9b01c7a3d5f2df239338f" title="Get the current speed of the motor." alt="" coords="324,55,492,80"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="526,70,492,70,492,65,526,65"/>
+<area shape="rect" id="Node000004" href="$classSmartMotor.html#ad30a82d663ba563d7618fbf0873c9671" title="Calibrate the PID controller." alt="" coords="112,5,276,31"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="338,54,249,33,251,28,340,49"/>
+<area shape="rect" id="Node000006" href="$PicoLowLevel_8cpp.html#a71eeb9677589014e9412c294dafb3102" title=" " alt="" coords="137,55,251,80"/>
+<area shape="poly" id="edge5_Node000003_Node000006" title=" " alt="" coords="310,70,252,70,252,65,310,65"/>
+<area shape="rect" id="Node000008" href="$classSmartMotor.html#a1eb6dc1fd54a13dce1705c7a31b0f9ab" title="Update routine, updating the PID and the motor speed." alt="" coords="118,104,270,129"/>
+<area shape="poly" id="edge7_Node000003_Node000008" title=" " alt="" coords="340,86,251,107,249,101,338,81"/>
+<area shape="rect" id="Node000005" href="$PicoLowLevel_8cpp.html#a4fc01d736fe50cf5b977f755b675f11d" title=" " alt="" coords="5,5,64,31"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="98,21,64,21,64,15,98,15"/>
+<area shape="rect" id="Node000007" href="$PicoLowLevel_8cpp.html#afe461d27b9c48d5921c00d521181f12f" title=" " alt="" coords="9,79,60,104"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="123,81,61,90,60,85,122,75"/>
+<area shape="poly" id="edge8_Node000008_Node000007" title=" " alt="" coords="104,105,60,98,61,93,104,100"/>
 </map>

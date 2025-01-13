@@ -1,11 +1,19 @@
 <map id="SmartMotor::update" name="SmartMotor::update">
-<area shape="rect" id="node1" title="Update routine, updating the PID and the motor speed." alt="" coords="5,107,157,133"/>
-<area shape="rect" id="node2" href="$classPID.html#a2d1e271496506301a6f22d0418aa0cc0" title="Main PID routine." alt="" coords="234,5,345,32"/>
-<area shape="rect" id="node3" href="$classPID.html#a266f60cce93632141002987d5d67d0cc" title="Gets output computed from the last iteration of calculate()" alt="" coords="231,56,348,83"/>
-<area shape="rect" id="node4" href="$classSmartMotor.html#a3dccbce0a9c9b01c7a3d5f2df239338f" title="Get the current speed of the motor." alt="" coords="205,107,373,133"/>
-<area shape="rect" id="node8" href="$classPID.html#a33f657a6cce4f57302f90bec9664d294" title="Updates the feedback for PID computation." alt="" coords="210,157,369,184"/>
-<area shape="rect" id="node9" href="$classMotor.html#af98d9cd13add0aacca7cebe13b14103b" title="Sets the motor speed." alt="" coords="239,208,340,235"/>
-<area shape="rect" id="node5" href="$classTractionEncoder.html#a2c414262e6a923fe180d51197fc9bf5b" title="Returns the last detected speed." alt="" coords="421,107,616,133"/>
-<area shape="rect" id="node6" href="$classFilter.html#ab8e25fe3166a547f5c08e6c7b7f019e2" title="Virtual filter function, will be replaced by the one from the chosen filter." alt="" coords="713,81,806,108"/>
-<area shape="rect" id="node7" href="$classTractionEncoder.html#a7d301b140af5e49258d4a8dbebe7776d" title="Returns the number of steps since the class was initialized." alt="" coords="664,132,855,159"/>
+<area shape="rect" id="Node000001" title="Update routine, updating the PID and the motor speed." alt="" coords="5,104,157,129"/>
+<area shape="rect" id="Node000002" href="$classPID.html#a2d1e271496506301a6f22d0418aa0cc0" title="Main PID routine." alt="" coords="234,5,345,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="99,102,145,71,204,40,222,32,224,37,206,44,148,76,102,106"/>
+<area shape="rect" id="Node000003" href="$classPID.html#a266f60cce93632141002987d5d67d0cc" title="Gets output computed from the last iteration of calculate()" alt="" coords="231,55,348,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="135,101,221,81,222,86,136,107"/>
+<area shape="rect" id="Node000004" href="$classSmartMotor.html#a3dccbce0a9c9b01c7a3d5f2df239338f" title="Get the current speed of the motor." alt="" coords="205,104,373,129"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="157,114,192,114,192,119,157,119"/>
+<area shape="rect" id="Node000008" href="$classPID.html#a33f657a6cce4f57302f90bec9664d294" title="Updates the feedback for PID computation." alt="" coords="210,153,369,179"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="136,127,222,147,221,153,135,132"/>
+<area shape="rect" id="Node000009" href="$classMotor.html#af98d9cd13add0aacca7cebe13b14103b" title="Sets the motor speed." alt="" coords="239,203,340,228"/>
+<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="102,127,149,157,206,188,228,196,226,201,204,192,146,162,100,132"/>
+<area shape="rect" id="Node000005" href="$classTractionEncoder.html#a2c414262e6a923fe180d51197fc9bf5b" title="Returns the last detected speed." alt="" coords="421,104,616,129"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="374,114,408,114,408,119,374,119"/>
+<area shape="rect" id="Node000006" href="$classFilter.html#ab8e25fe3166a547f5c08e6c7b7f019e2" title="Virtual filter function, will be replaced by the one from the chosen filter." alt="" coords="713,79,806,104"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="616,104,699,95,699,100,616,109"/>
+<area shape="rect" id="Node000007" href="$classTractionEncoder.html#a7d301b140af5e49258d4a8dbebe7776d" title="Returns the number of steps since the class was initialized." alt="" coords="664,128,855,153"/>
+<area shape="poly" id="edge6_Node000005_Node000007" title=" " alt="" coords="616,124,651,127,650,132,616,129"/>
 </map>

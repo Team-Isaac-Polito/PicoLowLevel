@@ -1,10 +1,18 @@
 <map id="AbsoluteEncoder::begin" name="AbsoluteEncoder::begin">
-<area shape="rect" id="node1" title="Start the encoder at zero with the default direction." alt="" coords="5,115,180,141"/>
-<area shape="rect" id="node2" href="$classAMS__AS5048B.html#ab0d51d2f59926a877e73b17c04db59ee" title="init values and overall behaviors for AS5948B use" alt="" coords="254,60,414,87"/>
-<area shape="rect" id="node6" href="$classSerialDebug.html#a153ed172ea7eefd852292af7561ff961" title="Sends a line to the serial port with a debug level, only if it is lower than the setted one." alt="" coords="259,169,409,196"/>
-<area shape="rect" id="node8" href="$classAMS__AS5048B.html#a2e02b46721e5b2f32fcae3eda6b73368" title="Set / unset clock wise counting &#45; sensor counts CCW natively." alt="" coords="228,115,440,141"/>
-<area shape="rect" id="node3" href="$classAMS__AS5048B.html#a02b3c3054c8cca8c3d8167b835794ff6" title="reads I2C address register value" alt="" coords="488,5,697,32"/>
-<area shape="rect" id="node4" href="$classAMS__AS5048B.html#ac4b8db2e8d36e45d894812aa799cd89e" title=" " alt="" coords="490,107,695,149"/>
-<area shape="rect" id="node5" href="$classAMS__AS5048B.html#a7784bc5f991bb485c2731a7189d277bf" title="reads the 2 bytes Zero position register value" alt="" coords="499,56,686,83"/>
-<area shape="rect" id="node7" href="$classSerialDebug.html#a3d01753681fd740869da197b2fa772b0" title="Sends a string to the Serial port with a debug level, only if it is lower than the setted one." alt="" coords="523,173,662,200"/>
+<area shape="rect" id="Node000001" title="Start the encoder at zero with the default direction." alt="" coords="5,112,180,137"/>
+<area shape="rect" id="Node000002" href="$classAMS__AS5048B.html#ab0d51d2f59926a877e73b17c04db59ee" title="init values and overall behaviors for AS5948B use" alt="" coords="254,59,414,84"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="151,109,262,84,263,90,152,114"/>
+<area shape="rect" id="Node000006" href="$classSerialDebug.html#a153ed172ea7eefd852292af7561ff961" title="Sends a line to the serial port with a debug level, only if it is lower than the setted one." alt="" coords="259,165,409,191"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="152,135,263,160,262,165,151,140"/>
+<area shape="rect" id="Node000008" href="$classAMS__AS5048B.html#a2e02b46721e5b2f32fcae3eda6b73368" title="Set / unset clock wise counting &#45; sensor counts CCW natively." alt="" coords="228,112,440,137"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="180,122,214,122,214,127,180,127"/>
+<area shape="rect" id="Node000003" href="$classAMS__AS5048B.html#a02b3c3054c8cca8c3d8167b835794ff6" title="reads I2C address register value" alt="" coords="488,5,697,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="396,56,517,31,518,36,397,61"/>
+<area shape="rect" id="Node000004" href="$classAMS__AS5048B.html#ac4b8db2e8d36e45d894812aa799cd89e" title=" " alt="" coords="490,105,695,145"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="397,81,482,99,481,104,396,87"/>
+<area shape="rect" id="Node000005" href="$classAMS__AS5048B.html#a7784bc5f991bb485c2731a7189d277bf" title="reads the 2 bytes Zero position register value" alt="" coords="499,55,686,80"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="414,67,486,66,486,72,414,73"/>
+<area shape="rect" id="Node000007" href="$classSerialDebug.html#a3d01753681fd740869da197b2fa772b0" title="Sends a string to the Serial port with a debug level, only if it is lower than the setted one." alt="" coords="523,169,662,195"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="409,176,510,178,510,183,409,182"/>
+<area shape="poly" id="edge8_Node000008_Node000004" title=" " alt="" coords="440,122,476,122,476,127,440,127"/>
 </map>

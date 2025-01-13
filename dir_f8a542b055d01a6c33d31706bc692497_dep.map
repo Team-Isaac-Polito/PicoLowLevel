@@ -1,0 +1,11 @@
+<map id="lib/Battery" name="lib/Battery">
+<area shape="rect" id="node1" href="dir_16b3056ea5a4b7dd24fe79c68bb88bcd.html" title="Debug" alt="" coords="27,136,91,161"/>
+<area shape="rect" id="node3" href="dir_ef4fbcc3fcab546fc2e8728e0fa75610.html" title="src" alt="" coords="38,63,79,88"/>
+<area shape="poly" id="edge1" href="dir_000012_000003.html" alt="" coords="61,88,61,122,56,122,56,88"/>
+<area shape="rect" id="edge1-headlabel" href="dir_000012_000003.html" title="1" alt="" coords="62,110,72,125"/>
+<area shape="rect" id="node4" href="dir_d44c64559bbebec7f509842c48db8b23.html" title="include" alt="" coords="207,136,276,161"/>
+<area shape="poly" id="edge2" href="dir_000012_000006.html" alt="" coords="76,86,93,96,194,131,193,136,91,101,73,91"/>
+<area shape="rect" id="edge2-headlabel" href="dir_000012_000006.html" title="1" alt="" coords="187,117,196,131"/>
+<area shape="rect" id="clust2" href="dir_f8a542b055d01a6c33d31706bc692497.html" alt="" coords="27,52,185,99"/>
+<area shape="rect" id="clust1" href="dir_97aefd0d527b934f1d99a682da8fe6a9.html" title="lib" alt="" coords="16,16,196,172"/>
+</map>

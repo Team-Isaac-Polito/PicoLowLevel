@@ -1,5 +1,7 @@
 <map id="MCP2515::getErrorFlags" name="MCP2515::getErrorFlags">
-<area shape="rect" id="node1" title=" " alt="" coords="231,31,409,57"/>
-<area shape="rect" id="node2" href="$structMCP2515.html#a938a1d282c588e0ee731815acd8d2dda" title=" " alt="" coords="14,5,174,32"/>
-<area shape="rect" id="node3" href="$structMCP2515.html#acf4a67f4ae08c8ccc4f3f86468d8f0a5" title=" " alt="" coords="5,56,183,83"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="231,31,409,56"/>
+<area shape="rect" id="Node000002" href="$structMCP2515.html#a938a1d282c588e0ee731815acd8d2dda" title=" " alt="" coords="14,5,174,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="217,34,174,30,175,24,217,29"/>
+<area shape="rect" id="Node000003" href="$structMCP2515.html#acf4a67f4ae08c8ccc4f3f86468d8f0a5" title=" " alt="" coords="5,55,183,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="217,57,183,61,183,55,217,52"/>
 </map>

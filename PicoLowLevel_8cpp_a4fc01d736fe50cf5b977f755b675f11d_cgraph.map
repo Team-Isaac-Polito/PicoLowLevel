@@ -1,0 +1,66 @@
+<map id="setup" name="setup">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,393,64,419"/>
+<area shape="rect" id="Node000002" href="$classDisplay.html#ab569d31751d87ab3bd70744532d33605" title=" " alt="" coords="152,5,267,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="34,393,41,321,55,215,77,110,92,69,110,40,137,23,140,28,114,44,97,71,82,111,60,216,46,321,40,393"/>
+<area shape="rect" id="Node000003" href="$classSmartMotor.html#abe1e015d445ac4c830b446127279bdb1" title="Initialize SmartMotor and necessary components." alt="" coords="138,55,281,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="35,393,43,329,58,238,80,149,94,114,110,90,124,79,127,83,114,93,99,116,85,150,63,239,48,330,40,393"/>
+<area shape="rect" id="Node000006" href="$classWebManagement.html#a02872e65a699697c243e1dd23a3988c3" title="Initializes the WiFi connection, mDNS, OTA, and HTTP server." alt="" coords="119,104,299,129"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="33,393,35,347,45,282,55,246,69,210,87,177,110,147,128,133,131,137,114,151,91,180,73,212,60,248,51,283,41,348,39,393"/>
+<area shape="rect" id="Node000007" href="$classSerialDebug.html#a153ed172ea7eefd852292af7561ff961" title="Sends a line to the serial port with a debug level, only if it is lower than the setted one." alt="" coords="369,121,519,147"/>
+<area shape="poly" id="edge22_Node000001_Node000007" title=" " alt="" coords="34,393,37,353,49,298,71,240,89,213,110,191,128,180,152,170,215,155,286,144,355,137,356,142,287,149,216,160,154,175,130,184,114,195,93,217,76,242,54,299,43,354,39,393"/>
+<area shape="rect" id="Node000009" href="$classDynamixelInterface.html#a3e4e3332de3d8d675d94a7cd1f6c647c" title=" " alt="" coords="134,205,285,245"/>
+<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="36,392,59,327,81,288,110,255,120,247,123,252,114,259,85,291,64,329,42,394"/>
+<area shape="rect" id="Node000010" href="$classSmartMotor.html#ad30a82d663ba563d7618fbf0873c9671" title="Calibrate the PID controller." alt="" coords="127,269,291,295"/>
+<area shape="poly" id="edge9_Node000001_Node000010" title=" " alt="" coords="40,392,66,348,86,324,110,304,121,298,123,302,114,308,90,328,71,351,44,394"/>
+<area shape="rect" id="Node000018" href="$PicoLowLevel_8cpp.html#a463bd5e2d6006d3d57e5569bd7c8cea4" title=" " alt="" coords="158,319,261,344"/>
+<area shape="poly" id="edge18_Node000001_Node000018" title=" " alt="" coords="50,391,78,371,111,353,143,341,145,346,113,358,81,376,53,395"/>
+<area shape="rect" id="Node000020" href="$PicoLowLevel_8cpp.html#a7e5bd9686428496c0be42f11e557bd2b" title=" " alt="" coords="162,368,257,393"/>
+<area shape="poly" id="edge20_Node000001_Node000020" title=" " alt="" coords="64,399,148,387,149,392,64,405"/>
+<area shape="rect" id="Node000022" href="$structMCP2515.html#acc117f5538fcd2b00a18edf11382175a" title=" " alt="" coords="147,469,271,495"/>
+<area shape="poly" id="edge23_Node000001_Node000022" title=" " alt="" coords="57,416,113,448,151,462,149,467,111,452,54,421"/>
+<area shape="rect" id="Node000023" href="$structMCP2515.html#aac89e9e84bb70719f3af943584efbe0e" title=" " alt="" coords="372,469,516,495"/>
+<area shape="poly" id="edge31_Node000001_Node000023" title=" " alt="" coords="65,409,362,464,361,469,64,414"/>
+<area shape="rect" id="Node000024" href="$structMCP2515.html#ab79662c2b46e623158f5f4119d340d69" title=" " alt="" coords="585,520,773,545"/>
+<area shape="poly" id="edge30_Node000001_Node000024" title=" " alt="" coords="41,418,48,447,62,484,83,520,97,536,113,549,145,566,179,580,249,597,322,603,395,600,465,591,530,577,630,548,632,553,531,583,466,596,396,606,322,609,248,603,177,585,143,571,111,554,93,540,79,524,57,486,43,449,36,420"/>
+<area shape="rect" id="Node000025" href="$structMCP2515.html#a4ecb1f510ead2fee02dcf368fdf18dfd" title=" " alt="" coords="355,520,533,545"/>
+<area shape="poly" id="edge32_Node000001_Node000025" title=" " alt="" coords="44,418,69,462,89,485,113,504,168,526,227,539,286,543,341,543,341,548,286,549,227,544,167,531,111,508,85,489,65,465,39,420"/>
+<area shape="rect" id="Node000026" href="$structMCP2515.html#a18653c6d11e5bba734a1bd3b39268bb2" title=" " alt="" coords="132,645,287,671"/>
+<area shape="poly" id="edge28_Node000001_Node000026" title=" " alt="" coords="41,418,48,453,61,501,83,553,114,600,137,621,163,637,161,641,134,625,110,604,78,555,56,503,43,454,35,419"/>
+<area shape="rect" id="Node000027" href="$classSerialDebug.html#ad55ccd7caae91b050455920991e512e4" title="Sets the level to be used for the debug." alt="" coords="127,695,291,720"/>
+<area shape="poly" id="edge33_Node000001_Node000027" title=" " alt="" coords="38,419,38,468,47,539,56,577,70,615,89,651,114,681,118,685,114,689,110,685,84,654,65,617,51,579,42,540,33,468,33,419"/>
+<area shape="rect" id="Node000028" href="$structMCP2515.html#ac105b61f8336554451a8cb83d7f63548" title=" " alt="" coords="112,744,307,769"/>
+<area shape="poly" id="edge34_Node000001_Node000028" title=" " alt="" coords="40,419,47,484,62,579,84,671,98,707,114,731,118,734,114,738,110,734,94,709,79,673,57,580,42,485,35,419"/>
+<area shape="rect" id="Node000029" href="$classDynamixelInterface.html#a092dd633e40a07b3ae4f06a4617ec0a3" title=" " alt="" coords="134,794,285,834"/>
+<area shape="poly" id="edge35_Node000001_Node000029" title=" " alt="" coords="40,418,46,492,60,601,83,709,97,752,114,780,124,789,121,793,110,784,92,754,77,711,55,602,41,493,34,419"/>
+<area shape="rect" id="Node000004" href="$classMotor.html#a8949ad244c546ecde601ec3d03403ed9" title="Initialize motors." alt="" coords="392,15,496,40"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="280,53,378,36,379,41,281,58"/>
+<area shape="rect" id="Node000005" href="$classTractionEncoder.html#a3b38935e97776ddcebdeb2c394f6d48d" title="Sets the encoder&#39;s pins and attach the interrupt." alt="" coords="359,64,529,89"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="281,67,346,70,346,75,281,73"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="300,121,355,125,355,130,300,126"/>
+<area shape="rect" id="Node000008" href="$classSerialDebug.html#a3d01753681fd740869da197b2fa772b0" title="Sends a string to the Serial port with a debug level, only if it is lower than the setted one." alt="" coords="609,121,748,147"/>
+<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="519,131,596,131,596,137,519,137"/>
+<area shape="poly" id="edge14_Node000010_Node000007" title=" " alt="" coords="284,267,305,255,316,243,322,232,328,207,334,181,341,168,353,156,360,151,363,155,356,160,346,171,339,183,333,208,327,234,320,246,308,259,287,271"/>
+<area shape="rect" id="Node000011" href="$classSmartMotor.html#a3dccbce0a9c9b01c7a3d5f2df239338f" title="Get the current speed of the motor." alt="" coords="360,171,528,196"/>
+<area shape="poly" id="edge10_Node000010_Node000011" title=" " alt="" coords="277,267,305,254,320,243,329,230,338,218,353,205,365,199,368,204,356,210,342,221,333,234,324,246,308,259,279,272"/>
+<area shape="rect" id="Node000015" href="$classPID.html#a51fdda77a492d1a303fbb3ac44bd7e54" title="Sets the integrative gain." alt="" coords="401,220,487,245"/>
+<area shape="poly" id="edge15_Node000010_Node000015" title=" " alt="" coords="270,267,387,242,388,247,271,272"/>
+<area shape="rect" id="Node000016" href="$classPID.html#a96b79772d13f60d161149be254ab6ff5" title="Sets the proportional gain." alt="" coords="399,269,489,295"/>
+<area shape="poly" id="edge16_Node000010_Node000016" title=" " alt="" coords="292,279,385,279,385,285,292,285"/>
+<area shape="rect" id="Node000017" href="$classMotor.html#af98d9cd13add0aacca7cebe13b14103b" title="Sets the motor speed." alt="" coords="393,319,495,344"/>
+<area shape="poly" id="edge17_Node000010_Node000017" title=" " alt="" coords="271,292,381,315,380,321,270,297"/>
+<area shape="rect" id="Node000012" href="$classTractionEncoder.html#a2c414262e6a923fe180d51197fc9bf5b" title="Returns the last detected speed." alt="" coords="581,171,776,196"/>
+<area shape="poly" id="edge11_Node000011_Node000012" title=" " alt="" coords="528,181,567,181,567,186,528,186"/>
+<area shape="rect" id="Node000013" href="$classFilter.html#ab8e25fe3166a547f5c08e6c7b7f019e2" title="Virtual filter function, will be replaced by the one from the chosen filter." alt="" coords="873,147,966,172"/>
+<area shape="poly" id="edge12_Node000012_Node000013" title=" " alt="" coords="776,171,859,163,859,168,776,176"/>
+<area shape="rect" id="Node000014" href="$classTractionEncoder.html#a7d301b140af5e49258d4a8dbebe7776d" title="Returns the number of steps since the class was initialized." alt="" coords="824,196,1015,221"/>
+<area shape="poly" id="edge13_Node000012_Node000014" title=" " alt="" coords="776,191,811,195,810,200,776,196"/>
+<area shape="rect" id="Node000019" href="$classDisplay.html#a5c28101c672878132e2ce5772ed93588" title="NAV button ISR." alt="" coords="365,368,523,393"/>
+<area shape="poly" id="edge19_Node000018_Node000019" title=" " alt="" coords="262,339,370,363,369,368,260,345"/>
+<area shape="rect" id="Node000021" href="$classDisplay.html#aa9a7e82a5611d737c618a2f1cab7812a" title="OK button ISR." alt="" coords="369,417,519,443"/>
+<area shape="poly" id="edge21_Node000020_Node000021" title=" " alt="" coords="258,388,370,412,369,417,257,393"/>
+<area shape="poly" id="edge24_Node000022_Node000023" title=" " alt="" coords="272,479,358,479,358,485,272,485"/>
+<area shape="poly" id="edge26_Node000022_Node000025" title=" " alt="" coords="270,492,372,514,371,520,269,497"/>
+<area shape="poly" id="edge25_Node000023_Node000024" title=" " alt="" coords="504,492,607,514,605,520,503,497"/>
+<area shape="poly" id="edge27_Node000025_Node000024" title=" " alt="" coords="534,530,571,530,571,535,534,535"/>
+<area shape="poly" id="edge29_Node000026_Node000026" title=" " alt="" coords="180,647,174,637,178,627,190,621,209,619,233,622,243,631,240,635,231,627,209,624,191,626,182,631,180,636,185,644"/>
+</map>

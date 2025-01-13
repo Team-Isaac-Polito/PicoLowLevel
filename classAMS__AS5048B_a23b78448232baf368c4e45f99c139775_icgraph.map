@@ -1,6 +1,9 @@
 <map id="AMS_AS5048B::angleR" name="AMS_AS5048B::angleR">
-<area shape="rect" id="node1" title="reads current angle value and converts it into the desired unit" alt="" coords="503,35,672,61"/>
-<area shape="rect" id="node2" href="$classAbsoluteEncoder.html#a487c5f6059e9dd3dbaa485938fda6c80" title="Reads the current measured angle." alt="" coords="243,5,449,32"/>
-<area shape="rect" id="node3" href="$classAMS__AS5048B.html#a20a1cab67cc2ec87135366723893b1aa" title="Performs an exponential moving average on the angle. Works on Sine and Cosine of the angle to avoid i..." alt="" coords="237,57,455,98"/>
-<area shape="rect" id="node4" href="$classAbsoluteEncoder.html#aae25f76ad9e1a21f3d5a08059a003151" title="Updates the computations to keep the angle estimation correct." alt="" coords="5,64,189,91"/>
+<area shape="rect" id="Node000001" title="reads current angle value and converts it into the desired unit" alt="" coords="503,35,672,60"/>
+<area shape="rect" id="Node000002" href="$classAbsoluteEncoder.html#a487c5f6059e9dd3dbaa485938fda6c80" title="Reads the current measured angle." alt="" coords="243,5,449,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="489,38,448,33,449,28,489,33"/>
+<area shape="rect" id="Node000003" href="$classAMS__AS5048B.html#a20a1cab67cc2ec87135366723893b1aa" title="Performs an exponential moving average on the angle. Works on Sine and Cosine of the angle to avoid i..." alt="" coords="237,55,455,95"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="489,61,455,65,454,60,489,56"/>
+<area shape="rect" id="Node000004" href="$classAbsoluteEncoder.html#aae25f76ad9e1a21f3d5a08059a003151" title="Updates the computations to keep the angle estimation correct." alt="" coords="5,63,189,88"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="224,78,189,78,189,73,224,73"/>
 </map>

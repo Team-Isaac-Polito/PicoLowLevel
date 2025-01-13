@@ -1,7 +1,13 @@
-<map id="Battery.cpp" name="Battery.cpp">
-<area shape="rect" id="node1" title=" " alt="" coords="39,5,133,32"/>
-<area shape="rect" id="node2" href="$Battery_8h.html" title=" " alt="" coords="46,80,126,107"/>
-<area shape="rect" id="node3" title=" " alt="" coords="5,229,89,256"/>
-<area shape="rect" id="node4" href="$Debug_8h.html" title=" " alt="" coords="48,155,124,181"/>
-<area shape="rect" id="node5" href="$definitions_8h.html" title=" " alt="" coords="172,155,275,181"/>
+<map id="lib/Battery/src/Battery.cpp" name="lib/Battery/src/Battery.cpp">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,196,31"/>
+<area shape="rect" id="Node000002" href="$Battery_8h.html" title=" " alt="" coords="61,79,141,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="103,31,103,65,98,65,98,31"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="20,225,104,251"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="88,106,68,126,53,153,49,183,55,211,50,212,44,183,47,151,64,123,84,102"/>
+<area shape="rect" id="Node000004" href="$Debug_8h.html" title=" " alt="" coords="63,152,139,177"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="103,104,103,138,98,138,98,104"/>
+<area shape="rect" id="Node000005" href="$definitions_8h.html" title=" " alt="" coords="187,152,289,177"/>
+<area shape="poly" id="edge6_Node000002_Node000005" title=" " alt="" coords="124,102,205,143,202,148,122,106"/>
+<area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="97,179,77,215,72,212,92,176"/>
+<area shape="poly" id="edge5_Node000004_Node000004" title=" " alt="" coords="130,149,153,151,162,156,165,165,159,176,144,181,143,175,156,172,160,164,158,159,152,156,130,155"/>
 </map>

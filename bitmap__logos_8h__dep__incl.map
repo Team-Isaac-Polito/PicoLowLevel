@@ -1,6 +1,9 @@
-<map id="bitmap_logos.h" name="bitmap_logos.h">
-<area shape="rect" id="node1" title=" " alt="" coords="61,5,184,32"/>
-<area shape="rect" id="node2" href="$Display_8h.html" title=" " alt="" coords="82,80,163,107"/>
-<area shape="rect" id="node3" href="$Display_8cpp.html" title=" " alt="" coords="5,155,101,181"/>
-<area shape="rect" id="node4" href="$PicoLowLevel_8ino.html" title=" " alt="" coords="126,155,261,181"/>
+<map id="include/bitmap_logos.h" name="include/bitmap_logos.h">
+<area shape="rect" id="Node000001" title=" " alt="" coords="115,5,288,31"/>
+<area shape="rect" id="Node000002" href="$Display_8h.html" title=" " alt="" coords="113,79,290,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="204,44,204,79,199,79,199,44"/>
+<area shape="rect" id="Node000003" href="$Display_8cpp.html" title=" " alt="" coords="5,152,197,177"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="176,114,119,154,116,150,173,110"/>
+<area shape="rect" id="Node000004" href="$PicoLowLevel_8cpp.html" title=" " alt="" coords="221,152,381,177"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="230,110,287,150,283,154,227,114"/>
 </map>

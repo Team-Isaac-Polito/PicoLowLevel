@@ -1,13 +1,26 @@
 <map id="SerialDebug::print" name="SerialDebug::print">
-<area shape="rect" id="node1" title="Sends a string to the Serial port with a debug level, only if it is lower than the setted one." alt="" coords="603,107,741,133"/>
-<area shape="rect" id="node2" href="$PicoLowLevel_8ino.html#afe461d27b9c48d5921c00d521181f12f" title=" " alt="" coords="181,5,232,32"/>
-<area shape="rect" id="node3" href="$classSerialDebug.html#ad08c02141e413ef16b19ce63968fc7cd" title="Sends a debug string to the serial port, only debug is accepted." alt="" coords="383,81,521,108"/>
-<area shape="rect" id="node4" href="$classSerialDebug.html#a153ed172ea7eefd852292af7561ff961" title="Sends a line to the serial port with a debug level, only if it is lower than the setted one." alt="" coords="377,132,527,159"/>
-<area shape="rect" id="node11" href="$classAbsoluteEncoder.html#a487c5f6059e9dd3dbaa485938fda6c80" title="Reads the current measured angle." alt="" coords="349,183,555,209"/>
-<area shape="rect" id="node5" href="$classAbsoluteEncoder.html#a76e13c75b1976dbc5eac9968d97848fe" title="Start the encoder at zero with the default direction." alt="" coords="119,56,294,83"/>
-<area shape="rect" id="node6" href="$classWebManagement.html#a02872e65a699697c243e1dd23a3988c3" title="Initializes the WiFi connection, mDNS, OTA, and HTTP server." alt="" coords="117,107,297,133"/>
-<area shape="rect" id="node7" href="$PicoLowLevel_8ino.html#a4fc01d736fe50cf5b977f755b675f11d" title=" " alt="" coords="5,157,64,184"/>
-<area shape="rect" id="node8" href="$classSmartMotor.html#ad30a82d663ba563d7618fbf0873c9671" title="Calibrate the PID controller." alt="" coords="125,208,289,235"/>
-<area shape="rect" id="node9" href="$classSerialDebug.html#a12bec7c49d756040fa4f16ce5f1f6cd4" title="Sends a debug line to the serial port, only debug is accepted." alt="" coords="131,259,282,285"/>
-<area shape="rect" id="node10" href="$classAbsoluteEncoder.html#a26b4493f44904d31dab6f5fd3e9c734e" title="Sets the encoder current position to zero." alt="" coords="112,309,301,336"/>
+<area shape="rect" id="Node000001" title="Sends a string to the Serial port with a debug level, only if it is lower than the setted one." alt="" coords="603,119,741,144"/>
+<area shape="rect" id="Node000002" href="$PicoLowLevel_8cpp.html#afe461d27b9c48d5921c00d521181f12f" title=" " alt="" coords="181,5,232,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="633,115,554,83,462,60,370,42,232,23,233,18,371,37,463,54,555,78,635,110"/>
+<area shape="rect" id="Node000003" href="$classSerialDebug.html#ad08c02141e413ef16b19ce63968fc7cd" title="Sends a debug string to the serial port, only debug is accepted." alt="" coords="383,93,521,119"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="589,124,521,117,522,111,589,119"/>
+<area shape="rect" id="Node000004" href="$classSerialDebug.html#a153ed172ea7eefd852292af7561ff961" title="Sends a line to the serial port with a debug level, only if it is lower than the setted one." alt="" coords="377,143,527,168"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="589,143,528,150,527,144,589,138"/>
+<area shape="rect" id="Node000011" href="$classAbsoluteEncoder.html#a487c5f6059e9dd3dbaa485938fda6c80" title="Reads the current measured angle." alt="" coords="349,192,555,217"/>
+<area shape="poly" id="edge13_Node000001_Node000011" title=" " alt="" coords="632,152,556,182,511,194,510,189,554,177,630,147"/>
+<area shape="poly" id="edge9_Node000004_Node000002" title=" " alt="" coords="363,141,348,132,330,110,323,87,316,65,300,44,266,28,232,22,233,16,268,23,303,40,321,62,328,85,334,107,351,128,365,137"/>
+<area shape="rect" id="Node000005" href="$classAbsoluteEncoder.html#a76e13c75b1976dbc5eac9968d97848fe" title="Start the encoder at zero with the default direction." alt="" coords="119,55,294,80"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="368,141,348,132,333,123,323,113,314,103,300,94,272,83,274,78,303,89,317,99,327,109,337,118,351,128,370,136"/>
+<area shape="rect" id="Node000006" href="$classWebManagement.html#a02872e65a699697c243e1dd23a3988c3" title="Initializes the WiFi connection, mDNS, OTA, and HTTP server." alt="" coords="117,104,297,129"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="363,144,287,132,288,127,363,139"/>
+<area shape="rect" id="Node000007" href="$PicoLowLevel_8cpp.html#a4fc01d736fe50cf5b977f755b675f11d" title=" " alt="" coords="5,155,64,180"/>
+<area shape="poly" id="edge11_Node000004_Node000007" title=" " alt="" coords="363,161,64,169,64,164,363,155"/>
+<area shape="rect" id="Node000008" href="$classSmartMotor.html#ad30a82d663ba563d7618fbf0873c9671" title="Calibrate the PID controller." alt="" coords="125,205,289,231"/>
+<area shape="poly" id="edge7_Node000004_Node000008" title=" " alt="" coords="383,174,350,182,254,208,252,203,349,177,382,169"/>
+<area shape="rect" id="Node000009" href="$classSerialDebug.html#a12bec7c49d756040fa4f16ce5f1f6cd4" title="Sends a debug line to the serial port, only debug is accepted." alt="" coords="131,255,282,280"/>
+<area shape="poly" id="edge10_Node000004_Node000009" title=" " alt="" coords="365,174,351,181,336,196,328,212,319,228,303,244,277,257,275,252,300,240,315,225,323,209,331,193,348,177,362,169"/>
+<area shape="rect" id="Node000010" href="$classAbsoluteEncoder.html#a26b4493f44904d31dab6f5fd3e9c734e" title="Sets the encoder current position to zero." alt="" coords="112,304,301,329"/>
+<area shape="poly" id="edge12_Node000004_Node000010" title=" " alt="" coords="365,172,351,181,339,194,333,207,328,236,323,265,316,279,303,293,283,306,280,302,300,289,311,276,318,263,322,235,328,206,335,191,348,177,362,168"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="150,136,65,161,64,156,149,131"/>
+<area shape="poly" id="edge8_Node000008_Node000007" title=" " alt="" coords="149,204,64,178,65,173,150,199"/>
 </map>

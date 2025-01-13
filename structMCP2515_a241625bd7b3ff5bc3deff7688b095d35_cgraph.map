@@ -1,4 +1,5 @@
 <map id="MCP2515::setBitrate" name="MCP2515::setBitrate">
-<area shape="rect" id="node1" title=" " alt="" coords="5,5,160,32"/>
-<area shape="rect" id="node2" href="$structMCP2515.html#ab79662c2b46e623158f5f4119d340d69" title=" " alt="" coords="208,5,396,32"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,160,31"/>
+<area shape="rect" id="Node000002" href="$structMCP2515.html#ab79662c2b46e623158f5f4119d340d69" title=" " alt="" coords="208,5,396,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="160,15,194,15,194,21,160,21"/>
 </map>
