@@ -18,7 +18,7 @@
 #elif defined(MK2_MOD1)
 #define CAN_ID    0x21  // MK2 first module (HEAD)
 
-#elif defined(MK2_MOD1)
+#elif defined(MK2_MOD2)
 #define CAN_ID    0x22  // MK2 second module (MIDDLE)
 #define MODC_YAW
 #endif
