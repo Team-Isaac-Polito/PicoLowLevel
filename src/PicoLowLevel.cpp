@@ -136,7 +136,7 @@ void loop() {
     // Received CAN message with setpoint
     time_data = time_cur;
     handleSetpoint(msg_id, msg_data);
-  } else if (time_cur - time_data > 1000 && time_data != -1) { 
+  } else if (time_cur - time_data > CAN_TIMEOUT && time_data != -1) { 
     //if we do not receive data for more than a second stop motors
     time_data = -1;
     Debug.println("Stopping motors after timeout.", Levels::INFO);

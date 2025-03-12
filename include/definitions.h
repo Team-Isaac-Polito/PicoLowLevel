@@ -7,6 +7,9 @@
 #define DT_TEL 10     // 1000ms / 10   = 100 Hz
 #define DT_ENC 20     // 1000ms / 20   = 50 Hz
 
+// Timeouts
+#define CAN_TIMEOUT 1000
+
 // PWM configuration
 #define PWM_MAX_VALUE 1023
 #define PWM_FREQUENCY 15000
