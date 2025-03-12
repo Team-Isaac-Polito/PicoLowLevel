@@ -2,6 +2,7 @@
 #define module_configuration_h
 
 // MOD_HEAD, MOD_MIDDLE, MOD_TAIL are defined in the makefile
+#define MOD_HEAD
 
 #if defined(MOD_HEAD)
 #define CAN_ID    0x11  // HEAD

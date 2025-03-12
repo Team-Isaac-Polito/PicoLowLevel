@@ -1,7 +1,6 @@
 #ifndef MOVING_AVG_FILTER_H
 #define MOVING_AVG_FILTER_H
 
-#include "Filter.h"
 
 /**
  * Class for a moving average filter implementing the Filter interface.
@@ -24,7 +23,7 @@ class MovingAvgFilter: public Filter<T> {
 
     /**
      * Computes the filtered output taking into consideration the last nsamples values.
-     * @param value to be filtered. 
+     * @param value to be filtered.
      * @return T filtered output.
      */
     T filter(T value) {
@@ -36,7 +35,7 @@ class MovingAvgFilter: public Filter<T> {
 
         return (T)(total/nsamples);
     }
-    
+
   private:
     T total;
     T *samples;

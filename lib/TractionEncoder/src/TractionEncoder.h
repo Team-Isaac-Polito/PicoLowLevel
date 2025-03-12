@@ -4,13 +4,13 @@
 #include <Arduino.h>
 #include <functional>
 #include "Filter.h"
-#include "definitions.h"
-#include "quadrature_encoder.pio.h"
+#include "../../../include/definitions.h"
+#include "../../../include/quadrature_encoder.pio.h"
 
 /**
  * Class used to read data from traction rotary encoders.
  */
-class TractionEncoder { 
+class TractionEncoder {
   public:
     TractionEncoder(byte pin_a, byte pin_b, Filter<int> *filter = NULL, bool invert = false, PIO pio = pio0);
     void begin();
@@ -21,7 +21,7 @@ class TractionEncoder {
     byte pin_a, pin_b;
     bool invert;
     Filter<int> *filter;
-    
+
     unsigned long last_time;
     int last_steps;
 

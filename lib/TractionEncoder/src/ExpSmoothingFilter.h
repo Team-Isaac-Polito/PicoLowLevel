@@ -1,6 +1,6 @@
 #ifndef EXP_SMOOTHING_FILTER_H
 #define EXP_SMOOTHING_FILTER_H
-
+#include <Arduino.h>
 #include "Filter.h"
 
 /**
@@ -24,13 +24,13 @@ class ExpSmoothingFilter: public Filter<T> {
 
     /**
      * Computes the filtered output using an exponential filter, giving the passed value a weight of a/b.
-     * @param value to be filtered. 
+     * @param value to be filtered.
      * @return T filtered output.
      */
     T filter(T value) {
         return previous = (value*a + previous*(b-a))/b;
     }
-    
+
   private:
     T previous;
     int a, b;

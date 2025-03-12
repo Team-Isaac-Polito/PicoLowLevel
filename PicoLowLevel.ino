@@ -1,17 +1,31 @@
+
 #include <Arduino.h>
 #include <Wire.h>
 #include <SPI.h>
-#include "SmartMotor.h"
 #include "AbsoluteEncoder.h"
 #include "Battery.h"
 #include "DynamixelSerial.h"
-#include "definitions.h"
-#include "mod_config.h"
+#include "TractionEncoder.h"
+#include "MovingAvgFilter.h"
+#include "ExpSmoothingFilter.h"
 #include "Debug.h"
 #include "mcp2515.h"
-#include "communication.h"
-#include "WebManagement.h"
 #include "Display.h"
+#include "SmartMotor.h"
+#include "Motor.h"
+#include "PID.h"
+
+
+#include "include/definitions.h"
+#include "include/mod_config.h"
+#include "include/communication.h"
+
+
+
+
+//#include "WebManagement.h"
+
+
 
 int time_bat = 0;
 int time_tel = 0;
@@ -43,7 +57,7 @@ DynamixelMotor motorPitchB(SERVO_B_ID);
 
 float oldAngle;
 
-WebManagement wm(CONF_PATH);
+//WebManagement wm(CONF_PATH);
 
 Display display;
 
@@ -56,7 +70,6 @@ void navInterrupt() {
 }
 
 void sendFeedback() {
-  canMsg = {0};
   canMsg.can_id = CAN_ID | CAN_EFF_FLAG; // source
 
   // send motor feedback as float
@@ -75,13 +88,12 @@ void sendFeedback() {
   canMsg.data[7] = ((uint8_t*)&speedR)[3];
   mcp2515.sendMessage(&canMsg);
 
+
   // send yaw angle of the joint if this module has one
 #ifdef MODC_YAW
   encoderYaw.update();
   float angle = encoderYaw.readAngle();
 
-  canMsg = {0};
-  canMsg.can_id = CAN_ID | CAN_EFF_FLAG;
   canMsg.can_dlc = 4;
   canMsg.can_id |= JOINT_YAW_FEEDBACK << 16;
   canMsg.data[0] = ((uint8_t*)&angle)[0];
@@ -94,32 +106,25 @@ void sendFeedback() {
   // send end effector data (if module has it)
 #ifdef MODC_EE
   int pitch = motorEEPitch.readPosition();
-  int headPitch = motorEEHeadPitch.readPosition();
-  int headRoll = motorEEHeadRoll.readPosition();
-
-  canMsg = {0};
-  canMsg.can_id = CAN_ID | CAN_EFF_FLAG;
   canMsg.can_dlc = 4;
   canMsg.can_id |= DATA_EE_PITCH_FEEDBACK << 16;
   memcpy(canMsg.data, &pitch, 4);
   mcp2515.sendMessage(&canMsg);
 
-  canMsg = {0};
-  canMsg.can_id = CAN_ID | CAN_EFF_FLAG;
+
+  int headPitch = motorEEHeadPitch.readPosition();
   canMsg.can_dlc = 4;
   canMsg.can_id |= DATA_EE_HEAD_PITCH_FEEDBACK << 16;
   memcpy(canMsg.data, &headPitch, 4);
   mcp2515.sendMessage(&canMsg);
 
-  canMsg = {0};
-  canMsg.can_id = CAN_ID | CAN_EFF_FLAG;
+
+  int headRoll = motorEEHeadRoll.readPosition();
   canMsg.can_dlc = 4;
   canMsg.can_id |= DATA_EE_HEAD_ROLL_FEEDBACK << 16;
   memcpy(canMsg.data, &headRoll, 4);
   mcp2515.sendMessage(&canMsg);
 #endif
-
-  canMsg = {0};
 }
 
 void setup() {
@@ -134,11 +139,11 @@ void setup() {
   SPI.setSCK(6);
   SPI.setTX(7);
   SPI.begin();
-  
-  LittleFS.begin();
 
-  String hostname = WIFI_HOSTBASE+String(CAN_ID);
-  wm.begin(WIFI_SSID, WIFI_PWD, hostname.c_str());
+ // LittleFS.begin();
+
+ // String hostname = WIFI_HOSTBASE+String(CAN_ID);
+ // wm.begin(WIFI_SSID, WIFI_PWD, hostname.c_str());
 
   // CAN initialization
   mcp2515.reset();
@@ -168,8 +173,8 @@ void setup() {
   motorTrLeft.begin();
   motorTrRight.begin();
 
-  motorTrLeft.calibrate();
-  motorTrRight.calibrate();
+  //motorTrLeft.calibrate();
+ // motorTrRight.calibrate();
 
 #if defined MODC_PITCH || defined MODC_EE
   Serial1.setRX(1);
@@ -180,7 +185,7 @@ void setup() {
 
   Debug.println("BEGIN", Levels::INFO);
 
-#ifdef MODC_YAW    
+#ifdef MODC_YAW
   encoderYaw.update();
   oldAngle = encoderYaw.readAngle();
   encoderYaw.setZero();
@@ -195,7 +200,7 @@ void setup() {
   attachInterrupt(digitalPinToInterrupt(BTNOK), okInterrupt, FALLING);
   attachInterrupt(digitalPinToInterrupt(BTNNAV), navInterrupt, FALLING);
 
-}
+};
 
 void loop() {
   int time_cur = millis();
@@ -217,7 +222,7 @@ void loop() {
   if (time_cur - time_tel >= DT_TEL) {
     time_tel_avg = (time_tel_avg + (time_cur - time_tel)) / 2;
     time_tel = time_cur;
-    
+
     sendFeedback();
   }
 
@@ -282,7 +287,7 @@ void loop() {
         Debug.println(data);
         break;
     }
-    
+
   } else if (time_cur - time_data > 1000 && time_data != -1) { //if we do not receive data for more than a second stop motors
     time_data = -1;
     Debug.println("Stopping motors after timeout.", Levels::INFO);
@@ -290,6 +295,8 @@ void loop() {
     motorTrRight.stop();
   }
 
-  wm.handle();
+ // wm.handle();
   display.handleGUI();
-}
+
+
+};

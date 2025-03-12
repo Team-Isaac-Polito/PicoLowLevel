@@ -2,12 +2,12 @@
 #define SMART_MOTOR_H
 
 #include <Arduino.h>
-#include "Debug.h"
+
 #include "Motor.h"
 #include "TractionEncoder.h"
 #include "PID.h"
 #include "MovingAvgFilter.h"
-
+#include "Debug.h"
 /**
  * Class used to control DC motors at a constant speed.
  * Relies on a PID controller receiving data from a rotary encoder that uses a PIO state machine to reduce CPU usage and increase reliability.
@@ -23,7 +23,7 @@ class SmartMotor {
     void stop();
 
     void calibrate(float target = 45.f);
-        
+
   private:
     int speedToPower(float speed);
 
