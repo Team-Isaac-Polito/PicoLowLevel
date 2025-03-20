@@ -58,7 +58,35 @@ You can download and install it from [here](https://github.com/arduino/arduino-c
 Before using the Makefile, ensure that you have installed the correct rp2040 core. You can do this by running the following command in your command prompt:
 
 ```bash
-arduino-cli core install rp2040:rp2040
+arduino-cli core update-index
+arduino-cli core install rp2040:rp2040@4.5.0
 ```
 
 Additionally, to run the Makefile on Windows, you need to install MinGW-w64. MinGW-w64 provides a complete toolchain including the GNU Compiler Collection (GCC) and other essential tools for compiling code on Windows. You can download it from the official [ MinGW-w64 website](https://github.com/niXman/mingw-builds-binaries/releases).
+
+Once downloaded, add the folder
+`C:\...\mingw64\bin`
+to your environment variables as a new PATH entry.
+
+
+Next, you need to install GnuWin32 Make from [SourceForge](https://sourceforge.net/projects/gnuwin32/). After installing, add the binary folder:
+
+`C:\Program Files (x86)\GnuWin32\bin`
+
+to your PATH.
+
+Then restart the PC
+
+
+To verify that the installation of MinGW-w64 was successful, open a new command prompt and type:
+
+```bash
+gcc --version
+```
+
+To verify that the installation of GnuWin32 was successful, open a new command prompt and run:
+
+```bash
+make --version
+```
+
