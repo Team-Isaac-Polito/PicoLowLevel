@@ -1,103 +1,124 @@
-# Impostazioni di base
+# Basic settings
 SKETCH_PATH = $(CURDIR)
 SKETCH_NAME = $(notdir $(SKETCH_PATH))
 
-# Configurazione board
-BOARD_FQBN = rp2040:rp2040:rpipico
+# Board configuration
+BOARD_FQBN ?= rp2040:rp2040:rpipico
 OUTPUT_DIR = $(CURDIR)/build/output
 BUILD_DIR = $(CURDIR)/build
 LIBS_DIR = $(CURDIR)/lib
 INCLUDE_DIR = $(CURDIR)/include
 
-# Rilevamento OS
-ifeq ($(OS),Windows_NT)
-    DETECT_OS = Windows
-    BOOTSEL_PATH = E:
-else
-    UNAME_S := $(shell uname -s)
-    ifeq ($(UNAME_S),Darwin)
-        DETECT_OS = macOS
-        BOOTSEL_PATH = /Volumes/RPI-RP2
-    else
-        DETECT_OS = Linux
-        BOOTSEL_PATH = /media/$(USER)/RPI-RP2
-    endif
-endif
-
-# Comandi PowerShell
-PS_CMD = pwsh -Command
-
-# Percorsi librerie
 LIBRARY_PATHS = $(wildcard $(LIBS_DIR)/*/src)
 LIBRARY_FLAGS = $(addprefix --library ,$(LIBRARY_PATHS))
+
 INCLUDE_PATHS = $(INCLUDE_DIR) $(LIBRARY_PATHS)
+CFLAGS += $(foreach dir, $(INCLUDE_PATHS), -I$(dir))
+CXXFLAGS += $(foreach dir, $(INCLUDE_PATHS), -I$(dir))
 
-# Simboli per output
-SUCCESS_MSG = "✅ Compilazione completata!"
-ERROR_MSG = "❌ Errore durante la compilazione!"
-CLEAN_MSG = "🧹 Pulizia completata!"
+SUCCESS_SYMBOL = " Compilation completed successfully! "
+ERROR_SYMBOL = " Compilation error! "
+COMPILATION_SYMBOL = " Compilation in progress... "
 
-# Rilevamento porta COM
-PORT = $(shell $(PS_CMD) "(arduino-cli board list --format json | ConvertFrom-Json | Where-Object { $$_.matching_boards.name -match 'Pico' } | Select-Object -First 1).port.address")
+MODULE_DEFINE ?= "MK1_MOD1"
+DESTINATION ?=  'E:\'
 
-# Funzioni di output
-define print
-	@$(PS_CMD) "Write-Host $1 -ForegroundColor $2"
+MODULE =
+define print_green
+	@pwsh  -Command "Write-Host '$1' -ForegroundColor Green"
 endef
 
-# Target principali
-.PHONY: all compile upload clean help
+define print_red
+	@pwsh  -Command "Write-Host '$1' -ForegroundColor Red"
+endef
 
-all: clean compile upload
+PORT ?= $(shell arduino-cli board list | findstr "Raspberry Pi Pico" | for /f "tokens=1" %%a in ('more') do @echo %%a)
 
-compile:
-	$(call print,$(SUCCESS_MSG),Green)
-	@arduino-cli compile --fqbn $(BOARD_FQBN) --build-path $(BUILD_DIR) --output-dir $(OUTPUT_DIR) \
-		$(LIBRARY_FLAGS) --build-property "compiler.cpp.extra_flags=$(foreach dir,$(INCLUDE_PATHS),-I$(dir))"
+.DEFAULT:
+	@echo "Invalid command: '$@'"
+	@echo "Use 'make help' to see the list of available commands."
+	@$(MAKE) help
 
+# Compilation
+compile: clean_all
+	$(call print_green, $(COMPILATION_SYMBOL))
+	@arduino-cli compile --fqbn $(BOARD_FQBN) --build-path $(BUILD_DIR) $(SKETCH_PATH) --output-dir $(OUTPUT_DIR) $(LIBRARY_FLAGS) \
+		$(foreach dir, $(INCLUDE_PATHS), --build-property "compiler.cpp.extra_flags=-I$(dir) -D$(MODULE_DEFINE)")
+
+compile_fast:
+	@arduino-cli compile --fqbn $(BOARD_FQBN) "$(SKETCH_PATH)"
+
+# Upload .bin file
 upload:
-ifeq ($(PORT),)
-	$(call print,"❌ Nessuna board Pico rilevata!",Red)
-else
-	@$(PS_CMD) "if (Test-Path '$(OUTPUT_DIR)/$(SKETCH_NAME).ino.bin') { \
-		arduino-cli upload -p $(PORT) --fqbn $(BOARD_FQBN) --input-dir $(OUTPUT_DIR) } \
-		else { Write-Host 'File .bin non trovato!' -ForegroundColor Red }"
-endif
+	@echo "Check that you have entered the correct COM port. The current COM port is: $(PORT)"
+	@if exist "$(OUTPUT_DIR)/$(SKETCH_NAME).ino.bin" ( \
+		echo "Uploading .bin file to Raspberry Pi Pico..." & \
+		arduino-cli upload -p $(PORT) --fqbn $(BOARD_FQBN) --input-dir $(OUTPUT_DIR) $(SKETCH_NAME).ino.bin \
+	) else ( \
+		echo " .bin file not found. Run 'make compile' before uploading the code." \
+	)
 
-upload-bootsel:
-	@$(PS_CMD) "if (Test-Path '$(OUTPUT_DIR)/$(SKETCH_NAME).ino.uf2') { \
-		try { \
-			Copy-Item '$(OUTPUT_DIR)/$(SKETCH_NAME).ino.uf2' '$(BOOTSEL_PATH)' -Force -ErrorAction Stop; \
-			Write-Host 'File UF2 copiato in $(BOOTSEL_PATH)' -ForegroundColor Green; \
-		} catch { \
-			Write-Host 'Errore durante la copia del file UF2!' -ForegroundColor Red; \
-		} \
-	} else { \
-		Write-Host 'File UF2 non trovato!' -ForegroundColor Red; \
-	}"
+# Upload .uf2 file in BOOTSEL mode
+upload_bootsel:
+	@if exist "$(OUTPUT_DIR)/$(SKETCH_NAME).ino.uf2" ( \
+		echo "Uploading .uf2 file to Raspberry Pi Pico..." && \
+		powershell -Command "Copy-Item '$(OUTPUT_DIR)/$(SKETCH_NAME).ino.uf2' -Destination  $(DESTINATION)  -Force" || ( \
+		    echo "Error while uploading, please make sure the pico is in BOOTSEL mode and is recognized as $(DESTINATION) storage drive. If it is recognized as another drive, please change the 'Destination' field of the upload_bootsel command"; \
+		) \
+	) else ( \
+		echo ".uf2 file not found. Run 'make compile' before uploading the code." \
+	)
 
 
-clean:
-	@$(PS_CMD) "if (Test-Path $(BUILD_DIR)) { Remove-Item -Recurse -Force $(BUILD_DIR) }"
-	$(call print,$(CLEAN_MSG),Green)
+# Clean the build folder
+clean_all:
+	@echo BUILD_DIR is: "$(BUILD_DIR)"
+	@if exist "$(BUILD_DIR)\output" ( \
+		echo The build folder exists. & \
+		rd /s /q "$(BUILD_DIR)" & \
+		echo Build folder content removed. \
+	) else ( \
+		echo The output folder does not exist. \
+	)
 
+
+clean_output:
+	@echo "Cleaning in progress..."
+	@if exist "$(BUILD_DIR)/output" ( \
+		echo "Removing files in the build folder..." \
+		rd /s /q "$(BUILD_DIR)/output" \
+		echo "Content of the output folder removed." \
+	) else ( \
+		echo "The output folder does not exist." \
+	)
+	$(call print_green, "Content of the output folder cleaned.")
+
+
+
+
+# Serial monitor
 monitor:
-	@arduino-cli monitor -p $(PORT) -c baudrate=115200
+	arduino-cli monitor -p $(PORT) -c baudrate=115200
 
+# Command guide
 help:
-	@$(PS_CMD) "Write-Host 'Comandi disponibili:' -ForegroundColor Cyan; \
-		Write-Host '  make all          - Compila e carica il progetto'; \
-		Write-Host '  make compile      - Compila il progetto'; \
-		Write-Host '  make upload       - Carica il firmware via USB'; \
-		Write-Host '  make upload-bootsel - Carica via modalità BOOTSEL'; \
-		Write-Host '  make monitor      - Avvia il monitor seriale'; \
-		Write-Host '  make clean        - Pulisci i file di build'; \
-		Write-Host '  make help         - Mostra questo aiuto'"
+	@echo "Available commands:"
+	@echo "  make compile       - Compile the project. E possibile aggiungere il parametro MODULE_DEFINE per definire un modulo specifico"
+	@echo "  make compile_fast  - Fast compilation without additional libraries"
+	@echo "  make upload        - Upload the project to Raspberry Pi Pico"
+	@echo "  make upload_bootsel - Upload the .uf2 file manually to E:/"
+	@echo "  make monitor       - Start the serial monitor"
+	@echo "  make all           - Compile and upload the project in one step"
+	@echo "  make clean         - Clean compilation files"
+	@echo "  make help          - Show this guide"
+	@echo "  make auto_com_port - Automatically detect the list of COM port of the Raspberry Pi Pico"
+	@echo "  make port          - List all available COM ports"
 
+# Print detected COM port
 auto_com_port:
 	@echo "The automatically detected COM port is: $(PORT)"
 
 # List all available COM ports
 port:
 	@echo "List of COM ports detected by the system:"
-	@arduino-cli board list
+	@arduino-cli board list

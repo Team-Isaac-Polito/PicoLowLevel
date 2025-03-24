@@ -53,11 +53,37 @@ In the **Arduino IDE**, select:
 
 🔹 **Before executing any Makefile command, ensure you have installed `arduino-cli`.**
 
-You can download and install it from [here](https://github.com/arduino/arduino-cli).
+
+#### 1. Download Arduino CLI
+- Go to the official release page:
+  🔗 [Arduino CLI Releases](https://github.com/arduino/arduino-cli/releases)
+- Download the **ZIP file** for Windows (e.g., `arduino-cli_latest_Windows_64bit.zip`).
+- Extract the contents to a folder, such as `C:\arduino-cli`.
+
+---
+
+#### 2. Add Arduino CLI to the System PATH (Optional, but Recommended)
+If you want to use `arduino-cli` from any directory, add it to the **system PATH**:
+
+1. Press `Win + R`, type `sysdm.cpl`, and press `Enter`.
+2. Go to the **Advanced** tab → click **Environment Variables**.
+3. In the **System Variables** section, find `Path` and click **Edit**.
+4. Click **New** and enter the path to the folder where you extracted Arduino CLI (e.g., `C:\arduino-cli`).
+5. Click **OK** to save the changes.
+
+---
+
+####  3. Verify the Installation
+Open **Command Prompt (cmd)** and type:
+```bash
+arduino-cli version
+```
+
 
 Before using the Makefile, ensure that you have installed the correct rp2040 core. You can do this by running the following command in your command prompt:
 
 ```bash
+arduino-cli config init
 arduino-cli core update-index
 arduino-cli core install rp2040:rp2040@4.5.0
 ```
