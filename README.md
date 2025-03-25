@@ -96,11 +96,17 @@ Once downloaded, add the folder
 to your environment variables as a new PATH entry.
 
 
-Next, you need to install GnuWin32 Make from [SourceForge](https://sourceforge.net/projects/gnuwin32/). After installing, add the binary folder:
+Next, you need to install GnuWin32 Make from a new cmd
 
-`C:\Program Files (x86)\GnuWin32\bin`
+```bash
+winget install GnuWin32.Make
+```
 
-to your PATH.
+Next,you need to install Powershell from cmd
+
+```bash
+winget install Microsoft.Powershell --source winget
+```
 
 Then restart the PC
 
@@ -116,4 +122,13 @@ To verify that the installation of GnuWin32 was successful, open a new command p
 ```bash
 make --version
 ```
+If there are no errors and the respective versions of both tools are displayed, proceed with the installation of the libraries.
 
+Regarding the libraries, you can install the necessary ones using Arduino CLI with the following commands.
+
+
+```bash
+arduino-cli lib update-index
+arduino-cli lib install "Adafruit GFX Library"
+arduino-cli lib install "Adafruit SH110X"
+```
