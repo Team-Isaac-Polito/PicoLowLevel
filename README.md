@@ -84,8 +84,9 @@ Before using the Makefile, ensure that you have installed the correct rp2040 cor
 
 ```bash
 arduino-cli config init
+arduino-cli config add board_manager.additional_urls https://github.com/earlephilhower/arduino-pico/releases/download/global/package_rp2040_index.json
 arduino-cli core update-index
-arduino-cli core install rp2040:rp2040@4.5.0
+arduino-cli core install rp2040:rp2040
 ```
 
 Additionally, to run the Makefile on Windows, you need to install MinGW-w64. MinGW-w64 provides a complete toolchain including the GNU Compiler Collection (GCC) and other essential tools for compiling code on Windows. You can download it from the official [ MinGW-w64 website](https://github.com/niXman/mingw-builds-binaries/releases).
