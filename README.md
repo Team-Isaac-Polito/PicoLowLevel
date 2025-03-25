@@ -132,3 +132,4 @@ arduino-cli lib update-index
 arduino-cli lib install "Adafruit GFX Library"
 arduino-cli lib install "Adafruit SH110X"
 ```
+To test that everything is working correctly, open a terminal in Visual Studio and run "make help". If there are no errors, you can run "make compile" to compile.
