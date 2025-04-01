@@ -8,6 +8,7 @@ var definitions_8h =
     [ "BAT_R2", "definitions_8h.html#a20b253193d688ee7dd45d76b238da77d", null ],
     [ "BTNNAV", "definitions_8h.html#ad5ee19d412e181a4569f1697d399ca24", null ],
     [ "BTNOK", "definitions_8h.html#a22418126363f1ddcc0322b0748f1dd6e", null ],
+    [ "CAN_TIMEOUT", "definitions_8h.html#a83d522ae7427afd054b48e4a0ade43cd", null ],
     [ "CONF_PATH", "definitions_8h.html#ab554e60c60569e439b8e0e1901d5754c", null ],
     [ "DEBOUNCE", "definitions_8h.html#a171ef18ea7b584f85234640a918da857", null ],
     [ "DISPLAY_ADDR", "definitions_8h.html#a6e6d94e18edcf2cac8cb2b110a5dfed8", null ],

@@ -9,7 +9,6 @@ var communication_8h =
     [ "DATA_EE_HEAD_ROLL_SETPOINT", "communication_8h.html#a71f80366102aa794713c01c28fd9e1ee", null ],
     [ "DATA_EE_PITCH_FEEDBACK", "communication_8h.html#abc9d311da086e03798e4cd0df16248b0", null ],
     [ "DATA_EE_PITCH_SETPOINT", "communication_8h.html#aa04b01755488a49c2969c77eed50243f", null ],
-    [ "DATA_PITCH", "communication_8h.html#a9b697cbcbce7011c74089a8a058dfeda", null ],
     [ "JOINT_YAW_FEEDBACK", "communication_8h.html#a27735970e30fbc64a8d664837fc69e94", null ],
     [ "MOTOR_FEEDBACK", "communication_8h.html#acef9b64c6ea1fca69a26c58efbe8c3d3", null ],
     [ "MOTOR_SETPOINT", "communication_8h.html#ab9c7688d16baf9318aca8eaa549a6169", null ]

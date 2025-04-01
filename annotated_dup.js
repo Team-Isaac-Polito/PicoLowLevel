@@ -4,6 +4,7 @@ var annotated_dup =
     [ "AMS_AS5048B", "classAMS__AS5048B.html", "classAMS__AS5048B" ],
     [ "Battery", "classBattery.html", "classBattery" ],
     [ "can_frame", "structcan__frame.html", "structcan__frame" ],
+    [ "CanWrapper", "classCanWrapper.html", "classCanWrapper" ],
     [ "Display", "classDisplay.html", "classDisplay" ],
     [ "DynamixelInterface", "classDynamixelInterface.html", "classDynamixelInterface" ],
     [ "DynamixelMotor", "classDynamixelMotor.html", "classDynamixelMotor" ],

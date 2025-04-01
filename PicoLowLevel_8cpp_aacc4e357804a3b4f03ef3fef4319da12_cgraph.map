@@ -1,0 +1,12 @@
+<map id="handleSetpoint" name="handleSetpoint">
+<area shape="rect" id="Node000001" title="Handles the setpoint messages received via CAN bus." alt="" coords="5,31,125,56"/>
+<area shape="rect" id="Node000002" href="$classSerialDebug.html#a3d01753681fd740869da197b2fa772b0" title="Sends a string to the Serial port with a debug level, only if it is lower than the setted one." alt="" coords="418,5,557,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="109,28,173,15,294,8,404,10,404,15,294,14,174,21,110,33"/>
+<area shape="rect" id="Node000003" href="$classSerialDebug.html#a153ed172ea7eefd852292af7561ff961" title="Sends a line to the serial port with a debug level, only if it is lower than the setted one." alt="" coords="181,31,332,56"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="126,41,168,41,168,46,126,46"/>
+<area shape="rect" id="Node000004" href="$classSmartMotor.html#aa27c9f4fb2be24193947b1bd141f513a" title="Set the desired speed of the motor." alt="" coords="173,80,340,105"/>
+<area shape="poly" id="edge4_Node000001_Node000004" title=" " alt="" coords="116,53,194,74,192,79,115,59"/>
+<area shape="poly" id="edge3_Node000003_Node000002" title=" " alt="" coords="332,32,404,24,404,30,332,38"/>
+<area shape="rect" id="Node000005" href="$classPID.html#ab6c2a366f39cf53149b50216b300bdcd" title="Sets the reference value." alt="" coords="388,80,587,105"/>
+<area shape="poly" id="edge5_Node000004_Node000005" title=" " alt="" coords="340,90,374,90,374,95,340,95"/>
+</map>

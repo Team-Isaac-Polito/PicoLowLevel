@@ -1,0 +1,7 @@
+<map id="CanWrapper::sendMessage" name="CanWrapper::sendMessage">
+<area shape="rect" id="Node000001" title="Sends a CAN message." alt="" coords="267,5,465,31"/>
+<area shape="rect" id="Node000002" href="$PicoLowLevel_8cpp.html#a71eeb9677589014e9412c294dafb3102" title="Sends feedback data over CAN bus." alt="" coords="104,5,219,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="253,21,219,21,219,15,253,15"/>
+<area shape="rect" id="Node000003" href="$PicoLowLevel_8cpp.html#afe461d27b9c48d5921c00d521181f12f" title=" " alt="" coords="5,5,56,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="91,21,56,21,56,15,91,15"/>
+</map>

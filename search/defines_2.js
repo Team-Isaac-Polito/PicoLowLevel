@@ -10,5 +10,6 @@ var searchData=
   ['can_5frtr_5fflag_7',['CAN_RTR_FLAG',['../can_8h.html#af324d65226057755175038a15d9bbd75',1,'can.h']]],
   ['can_5fsff_5fid_5fbits_8',['CAN_SFF_ID_BITS',['../can_8h.html#a7c85404d7b39da634ad02d2fa1e360ad',1,'can.h']]],
   ['can_5fsff_5fmask_9',['CAN_SFF_MASK',['../can_8h.html#afe4fc3f9cab58aeeb463861289e8ce93',1,'can.h']]],
-  ['conf_5fpath_10',['CONF_PATH',['../definitions_8h.html#ab554e60c60569e439b8e0e1901d5754c',1,'definitions.h']]]
+  ['can_5ftimeout_10',['CAN_TIMEOUT',['../definitions_8h.html#a83d522ae7427afd054b48e4a0ade43cd',1,'definitions.h']]],
+  ['conf_5fpath_11',['CONF_PATH',['../definitions_8h.html#ab554e60c60569e439b8e0e1901d5754c',1,'definitions.h']]]
 ];

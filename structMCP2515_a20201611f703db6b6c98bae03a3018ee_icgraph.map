@@ -1,9 +1,11 @@
 <map id="MCP2515::sendMessage" name="MCP2515::sendMessage">
-<area shape="rect" id="Node000001" title=" " alt="" coords="332,31,512,56"/>
-<area shape="rect" id="Node000002" href="$PicoLowLevel_8cpp.html#a71eeb9677589014e9412c294dafb3102" title=" " alt="" coords="137,5,251,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="318,34,251,27,252,22,318,29"/>
-<area shape="rect" id="Node000004" href="$structMCP2515.html#a077ee25001aa82309f2c1b7b7303b4c4" title=" " alt="" coords="104,55,284,80"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="319,57,284,61,284,55,318,52"/>
-<area shape="rect" id="Node000003" href="$PicoLowLevel_8cpp.html#afe461d27b9c48d5921c00d521181f12f" title=" " alt="" coords="5,5,56,31"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="123,21,56,21,56,15,123,15"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="513,31,693,56"/>
+<area shape="rect" id="Node000002" href="$structMCP2515.html#a077ee25001aa82309f2c1b7b7303b4c4" title=" " alt="" coords="276,5,456,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="500,35,456,30,456,25,500,30"/>
+<area shape="rect" id="Node000003" href="$classCanWrapper.html#aa9aaa45a4369a95373ee025dedb38927" title="Sends a CAN message." alt="" coords="267,55,465,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="500,56,466,60,465,55,500,51"/>
+<area shape="rect" id="Node000004" href="$PicoLowLevel_8cpp.html#a71eeb9677589014e9412c294dafb3102" title="Sends feedback data over CAN bus." alt="" coords="104,55,219,80"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="253,70,219,70,219,65,253,65"/>
+<area shape="rect" id="Node000005" href="$PicoLowLevel_8cpp.html#afe461d27b9c48d5921c00d521181f12f" title=" " alt="" coords="5,55,56,80"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="91,70,56,70,56,65,91,65"/>
 </map>

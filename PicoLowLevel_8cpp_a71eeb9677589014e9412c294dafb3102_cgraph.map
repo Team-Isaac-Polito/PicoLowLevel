@@ -1,13 +1,15 @@
 <map id="sendFeedback" name="sendFeedback">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,56,120,81"/>
-<area shape="rect" id="Node000002" href="$classSmartMotor.html#a3dccbce0a9c9b01c7a3d5f2df239338f" title="Get the current speed of the motor." alt="" coords="174,31,342,56"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="120,59,160,53,161,59,121,64"/>
-<area shape="rect" id="Node000006" href="$structMCP2515.html#a20201611f703db6b6c98bae03a3018ee" title=" " alt="" coords="168,80,348,105"/>
-<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="121,73,155,77,154,83,120,78"/>
-<area shape="rect" id="Node000003" href="$classTractionEncoder.html#a2c414262e6a923fe180d51197fc9bf5b" title="Returns the last detected speed." alt="" coords="396,31,591,56"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="342,41,382,41,382,46,342,46"/>
-<area shape="rect" id="Node000004" href="$classFilter.html#ab8e25fe3166a547f5c08e6c7b7f019e2" title="Virtual filter function, will be replaced by the one from the chosen filter." alt="" coords="687,5,781,31"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="591,30,673,22,674,27,591,36"/>
-<area shape="rect" id="Node000005" href="$classTractionEncoder.html#a7d301b140af5e49258d4a8dbebe7776d" title="Returns the number of steps since the class was initialized." alt="" coords="639,55,829,80"/>
-<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="591,50,625,54,625,59,591,56"/>
+<area shape="rect" id="Node000001" title="Sends feedback data over CAN bus." alt="" coords="5,55,120,80"/>
+<area shape="rect" id="Node000002" href="$classSmartMotor.html#a3dccbce0a9c9b01c7a3d5f2df239338f" title="Get the current speed of the motor." alt="" coords="183,29,351,55"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="120,58,169,51,170,57,121,63"/>
+<area shape="rect" id="Node000006" href="$classCanWrapper.html#aa9aaa45a4369a95373ee025dedb38927" title="Sends a CAN message." alt="" coords="168,79,367,104"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="121,71,155,75,154,81,120,77"/>
+<area shape="rect" id="Node000003" href="$classTractionEncoder.html#a2c414262e6a923fe180d51197fc9bf5b" title="Returns the last detected speed." alt="" coords="415,29,609,55"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="352,39,401,39,401,45,352,45"/>
+<area shape="rect" id="Node000004" href="$classFilter.html#ab8e25fe3166a547f5c08e6c7b7f019e2" title="Virtual filter function, will be replaced by the one from the chosen filter." alt="" coords="706,5,799,31"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="609,30,692,21,693,27,610,35"/>
+<area shape="rect" id="Node000005" href="$classTractionEncoder.html#a7d301b140af5e49258d4a8dbebe7776d" title="Returns the number of steps since the class was initialized." alt="" coords="657,55,848,80"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="610,50,644,53,644,59,609,55"/>
+<area shape="rect" id="Node000007" href="$structMCP2515.html#a20201611f703db6b6c98bae03a3018ee" title=" " alt="" coords="422,79,602,104"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="367,89,408,89,408,94,367,94"/>
 </map>

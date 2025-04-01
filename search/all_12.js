@@ -1,7 +1,7 @@
 var searchData=
 [
   ['sendfeedback_0',['sendFeedback',['../PicoLowLevel_8cpp.html#a71eeb9677589014e9412c294dafb3102',1,'PicoLowLevel.cpp']]],
-  ['sendmessage_1',['sendmessage',['../structMCP2515.html#a20201611f703db6b6c98bae03a3018ee',1,'MCP2515::sendMessage(const TXBn txbn, const struct can_frame *frame)'],['../structMCP2515.html#a077ee25001aa82309f2c1b7b7303b4c4',1,'MCP2515::sendMessage(const struct can_frame *frame)']]],
+  ['sendmessage_1',['sendmessage',['../classCanWrapper.html#aa9aaa45a4369a95373ee025dedb38927',1,'CanWrapper::sendMessage()'],['../structMCP2515.html#a20201611f703db6b6c98bae03a3018ee',1,'MCP2515::sendMessage(const TXBn txbn, const struct can_frame *frame)'],['../structMCP2515.html#a077ee25001aa82309f2c1b7b7303b4c4',1,'MCP2515::sendMessage(const struct can_frame *frame)']]],
   ['serialdebug_2',['serialdebug',['../classSerialDebug.html',1,'SerialDebug'],['../classSerialDebug.html#ae3855dcae6770bb1928ed34eb799d2f7',1,'SerialDebug::SerialDebug()']]],
   ['setanglelimit_3',['setAngleLimit',['../classDynamixelMotor.html#ab2a030d503705b820383bdccd5cfd7b8',1,'DynamixelMotor']]],
   ['setbd_4',['setBD',['../classDynamixelMotor.html#af948e3e04fad44d665292f416b9cc99b',1,'DynamixelMotor']]],

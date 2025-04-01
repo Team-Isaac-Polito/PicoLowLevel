@@ -1,7 +1,9 @@
 <map id="MCP2515::readMessage" name="MCP2515::readMessage">
-<area shape="rect" id="Node000001" title=" " alt="" coords="232,31,411,56"/>
-<area shape="rect" id="Node000002" href="$PicoLowLevel_8cpp.html#afe461d27b9c48d5921c00d521181f12f" title=" " alt="" coords="69,5,120,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="218,34,120,23,121,18,218,29"/>
-<area shape="rect" id="Node000003" href="$structMCP2515.html#a2cc6c3841b6f5c529a2d064f5d04bd24" title=" " alt="" coords="5,55,184,80"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="218,57,185,61,184,55,218,52"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="349,31,528,56"/>
+<area shape="rect" id="Node000002" href="$structMCP2515.html#a2cc6c3841b6f5c529a2d064f5d04bd24" title=" " alt="" coords="113,5,292,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="335,35,292,30,293,25,336,30"/>
+<area shape="rect" id="Node000003" href="$classCanWrapper.html#ae9760f501abacce0777d4ae04d684555" title="Reads a CAN message." alt="" coords="104,55,301,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="336,56,302,60,301,55,335,51"/>
+<area shape="rect" id="Node000004" href="$PicoLowLevel_8cpp.html#afe461d27b9c48d5921c00d521181f12f" title=" " alt="" coords="5,55,56,80"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="90,70,56,70,56,65,90,65"/>
 </map>

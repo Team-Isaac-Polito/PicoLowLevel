@@ -1,0 +1,5 @@
+<map id="CanWrapper::sendMessage" name="CanWrapper::sendMessage">
+<area shape="rect" id="Node000001" title="Sends a CAN message." alt="" coords="5,5,204,31"/>
+<area shape="rect" id="Node000002" href="$structMCP2515.html#a20201611f703db6b6c98bae03a3018ee" title=" " alt="" coords="252,5,432,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="204,15,238,15,238,21,204,21"/>
+</map>

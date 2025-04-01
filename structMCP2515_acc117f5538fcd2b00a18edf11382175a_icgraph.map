@@ -1,5 +1,7 @@
 <map id="MCP2515::reset" name="MCP2515::reset">
-<area shape="rect" id="Node000001" title=" " alt="" coords="112,5,236,31"/>
-<area shape="rect" id="Node000002" href="$PicoLowLevel_8cpp.html#a4fc01d736fe50cf5b977f755b675f11d" title=" " alt="" coords="5,5,64,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="99,21,64,21,64,15,99,15"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="307,5,431,31"/>
+<area shape="rect" id="Node000002" href="$classCanWrapper.html#a747ec7871303bd45abc0e646a7b43d88" title="Initializes the CAN module." alt="" coords="112,5,259,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="293,21,259,21,259,15,293,15"/>
+<area shape="rect" id="Node000003" href="$PicoLowLevel_8cpp.html#a4fc01d736fe50cf5b977f755b675f11d" title=" " alt="" coords="5,5,64,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="98,21,64,21,64,15,98,15"/>
 </map>
