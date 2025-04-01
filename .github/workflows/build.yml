@@ -37,9 +37,10 @@ jobs:
     - name: Move firmware
       run: | 
         mkdir upload
-        mv .pio/build/mod1/firmware.uf2 upload/mod1.uf2
-        mv .pio/build/mod2/firmware.uf2 upload/mod2.uf2
-        mv .pio/build/mod3/firmware.uf2 upload/mod3.uf2
+        mv .pio/build/mk1_mod1/firmware.uf2 upload/mk1_mod1.uf2
+        mv .pio/build/mk2_mod1/firmware.uf2 upload/mk2_mod1.uf2
+        mv .pio/build/mk1_mod2/firmware.uf2 upload/mk1_mod2.uf2
+        mv .pio/build/mk2_mod2/firmware.uf2 upload/mk2_mod2.uf2
     
     - uses: actions/upload-artifact@v4
       if: github.ref == 'refs/heads/main'

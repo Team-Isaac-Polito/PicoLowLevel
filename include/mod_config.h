@@ -1,29 +1,26 @@
 #ifndef module_configuration_h
 #define module_configuration_h
 
-// MOD_HEAD, MOD_MIDDLE, MOD_TAIL are defined in the makefile
+// MK1_MOD1, MK1_MOD2, MK2_MOD1, MK2_MOD2 are defined at build time
 
-#if defined(MOD_HEAD)
-#define CAN_ID    0x11  // HEAD
+#if defined(MK1_MOD1)
+#define CAN_ID    0x11  // MK1 first module (HEAD)
 #define MODC_EE
 #define SERVO_EE_PITCH_ID 6
 #define SERVO_EE_HEAD_ROLL_ID 4
 #define SERVO_EE_HEAD_PITCH_ID 2
 #define SERVO_SPEED 200
 
-#elif defined(MOD_MIDDLE)
-#define CAN_ID    0x12  // MIDDLE
+#elif defined(MK1_MOD2)
+#define CAN_ID    0x12  // MK1 second module (MIDDLE)
 #define MODC_YAW
 
-#elif defined(MOD_TAIL)
-#define CAN_ID    0x13  // TAIL
+#elif defined(MK2_MOD1)
+#define CAN_ID    0x21  // MK2 first module (HEAD)
+
+#elif defined(MK2_MOD2)
+#define CAN_ID    0x22  // MK2 second module (MIDDLE)
 #define MODC_YAW
-#define MODC_PITCH
-#define SERVO_A_ID 5
-#define SERVO_B_ID 1
-#define SERVO_MIN 200
-#define SERVO_MAX 800
-#define SERVO_SPEED 200
 #endif
 
 #endif

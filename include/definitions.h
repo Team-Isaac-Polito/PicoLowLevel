@@ -7,6 +7,9 @@
 #define DT_TEL 10     // 1000ms / 10   = 100 Hz
 #define DT_ENC 20     // 1000ms / 20   = 50 Hz
 
+// Timeouts
+#define CAN_TIMEOUT 1000
+
 // PWM configuration
 #define PWM_MAX_VALUE 1023
 #define PWM_FREQUENCY 15000
@@ -15,7 +18,7 @@
 #define I2C_SENS_SDA   18
 #define I2C_SENS_SCL   19
 
-#define ABSOLUTE_ENCODER_ADDRESS 0x40 // ToDo check, maybe 0x44
+#define ABSOLUTE_ENCODER_ADDRESS 0x40
 
 // Battery configuration
 #define BAT_LOW 11.1f

@@ -8,18 +8,22 @@
 #include "definitions.h"
 #include "mod_config.h"
 #include "Debug.h"
-#include "mcp2515.h"
 #include "communication.h"
 #include "WebManagement.h"
 #include "Display.h"
+#include "CanWrapper.h"
+
+void okInterrupt();
+void navInterrupt();
+void sendFeedback();
+void handleSetpoint(uint8_t msg_id, const byte* msg_data);
 
 int time_bat = 0;
 int time_tel = 0;
 int time_data = 0;
 int time_tel_avg = DT_TEL;
 
-struct can_frame canMsg;
-MCP2515 mcp2515(5, 10000000UL, &SPI); // passing all parameters avoids premature initialization of SPI, which should be done in setup()
+CanWrapper canW(5, 10000000UL, &SPI);
 
 SmartMotor motorTrLeft(DRV_TR_LEFT_PWM, DRV_TR_LEFT_DIR, ENC_TR_LEFT_A, ENC_TR_LEFT_B, false);
 SmartMotor motorTrRight(DRV_TR_RIGHT_PWM, DRV_TR_RIGHT_DIR, ENC_TR_RIGHT_A, ENC_TR_RIGHT_B, true);
@@ -36,91 +40,9 @@ DynamixelMotor motorEEHeadPitch(SERVO_EE_HEAD_PITCH_ID);
 DynamixelMotor motorEEHeadRoll(SERVO_EE_HEAD_ROLL_ID);
 #endif
 
-#ifdef MODC_PITCH
-DynamixelMotor motorPitchA(SERVO_A_ID);
-DynamixelMotor motorPitchB(SERVO_B_ID);
-#endif
-
-float oldAngle;
-
 WebManagement wm(CONF_PATH);
 
 Display display;
-
-void okInterrupt() {
-  display.okInterrupt();
-}
-
-void navInterrupt() {
-  display.navInterrupt();
-}
-
-void sendFeedback() {
-  canMsg = {0};
-  canMsg.can_id = CAN_ID | CAN_EFF_FLAG; // source
-
-  // send motor feedback as float
-  float speedR = motorTrRight.getSpeed();
-  float speedL = motorTrLeft.getSpeed();
-
-  canMsg.can_dlc = 8;
-  canMsg.can_id |= MOTOR_FEEDBACK << 16;
-  canMsg.data[0] = ((uint8_t*)&speedL)[0];
-  canMsg.data[1] = ((uint8_t*)&speedL)[1];
-  canMsg.data[2] = ((uint8_t*)&speedL)[2];
-  canMsg.data[3] = ((uint8_t*)&speedL)[3];
-  canMsg.data[4] = ((uint8_t*)&speedR)[0];
-  canMsg.data[5] = ((uint8_t*)&speedR)[1];
-  canMsg.data[6] = ((uint8_t*)&speedR)[2];
-  canMsg.data[7] = ((uint8_t*)&speedR)[3];
-  mcp2515.sendMessage(&canMsg);
-
-  // send yaw angle of the joint if this module has one
-#ifdef MODC_YAW
-  encoderYaw.update();
-  float angle = encoderYaw.readAngle();
-
-  canMsg = {0};
-  canMsg.can_id = CAN_ID | CAN_EFF_FLAG;
-  canMsg.can_dlc = 4;
-  canMsg.can_id |= JOINT_YAW_FEEDBACK << 16;
-  canMsg.data[0] = ((uint8_t*)&angle)[0];
-  canMsg.data[1] = ((uint8_t*)&angle)[1];
-  canMsg.data[2] = ((uint8_t*)&angle)[2];
-  canMsg.data[3] = ((uint8_t*)&angle)[3];
-  mcp2515.sendMessage(&canMsg);
-#endif
-
-  // send end effector data (if module has it)
-#ifdef MODC_EE
-  int pitch = motorEEPitch.readPosition();
-  int headPitch = motorEEHeadPitch.readPosition();
-  int headRoll = motorEEHeadRoll.readPosition();
-
-  canMsg = {0};
-  canMsg.can_id = CAN_ID | CAN_EFF_FLAG;
-  canMsg.can_dlc = 4;
-  canMsg.can_id |= DATA_EE_PITCH_FEEDBACK << 16;
-  memcpy(canMsg.data, &pitch, 4);
-  mcp2515.sendMessage(&canMsg);
-
-  canMsg = {0};
-  canMsg.can_id = CAN_ID | CAN_EFF_FLAG;
-  canMsg.can_dlc = 4;
-  canMsg.can_id |= DATA_EE_HEAD_PITCH_FEEDBACK << 16;
-  memcpy(canMsg.data, &headPitch, 4);
-  mcp2515.sendMessage(&canMsg);
-
-  canMsg = {0};
-  canMsg.can_id = CAN_ID | CAN_EFF_FLAG;
-  canMsg.can_dlc = 4;
-  canMsg.can_id |= DATA_EE_HEAD_ROLL_FEEDBACK << 16;
-  memcpy(canMsg.data, &headRoll, 4);
-  mcp2515.sendMessage(&canMsg);
-#endif
-
-  canMsg = {0};
-}
 
 void setup() {
   Serial.begin(115200);
@@ -141,21 +63,7 @@ void setup() {
   wm.begin(WIFI_SSID, WIFI_PWD, hostname.c_str());
 
   // CAN initialization
-  mcp2515.reset();
-  mcp2515.setBitrate(CAN_125KBPS, MCP_8MHZ);
-
-  mcp2515.setConfigMode(); // tell the MCP2515 next instructions are for configuration
-  // enable filtering for 29 bit address on both RX buffers
-  mcp2515.setFilterMask(MCP2515::MASK0, true, 0xFF00);
-  mcp2515.setFilterMask(MCP2515::MASK1, true, 0xFF00);
-  // set all filters to module's ID, so only packets for us get through
-  mcp2515.setFilter(MCP2515::RXF0, true, CAN_ID<<8);
-  mcp2515.setFilter(MCP2515::RXF1, true, CAN_ID<<8);
-  mcp2515.setFilter(MCP2515::RXF2, true, CAN_ID<<8);
-  mcp2515.setFilter(MCP2515::RXF3, true, CAN_ID<<8);
-  mcp2515.setFilter(MCP2515::RXF4, true, CAN_ID<<8);
-  mcp2515.setFilter(MCP2515::RXF5, true, CAN_ID<<8);
-  mcp2515.setNormalMode();
+  canW.begin();
 
   // initializing PWM
   analogWriteFreq(PWM_FREQUENCY); // switching frequency to 15kHz
@@ -171,7 +79,7 @@ void setup() {
   motorTrLeft.calibrate();
   motorTrRight.calibrate();
 
-#if defined MODC_PITCH || defined MODC_EE
+#if defined MODC_EE
   Serial1.setRX(1);
   Serial1.setTX(0);
   Dynamixel.setSerial(&Serial1);
@@ -182,7 +90,7 @@ void setup() {
 
 #ifdef MODC_YAW    
   encoderYaw.update();
-  oldAngle = encoderYaw.readAngle();
+  encoderYaw.readAngle();
   encoderYaw.setZero();
 #endif
 
@@ -199,6 +107,8 @@ void setup() {
 
 void loop() {
   int time_cur = millis();
+  uint8_t msg_id;
+  byte msg_data[8];
 
   // update motors
   motorTrLeft.update();
@@ -221,69 +131,13 @@ void loop() {
     sendFeedback();
   }
 
-  if (mcp2515.readMessage(&canMsg) == MCP2515::ERROR_OK) {
+  if (canW.readMessage(&msg_id, msg_data)) {
+
+    // Received CAN message with setpoint
     time_data = time_cur;
-
-    Debug.println("RECEIVED CANBUS DATA");
-    int16_t data;
-    byte buf[4];
-
-    byte type = canMsg.can_id >> 16;
-
-    switch (type) {
-      case MOTOR_SETPOINT:
-        // take the first four bytes from the array and and put them in a float
-        float leftSpeed, rightSpeed;
-        memcpy(&leftSpeed, canMsg.data, 4);
-        memcpy(&rightSpeed, canMsg.data+4, 4);
-        motorTrLeft.setSpeed(leftSpeed);
-        motorTrRight.setSpeed(rightSpeed);
-
-        Debug.print("TRACTION DATA :\tleft: \t");
-        Debug.print(leftSpeed);
-        Debug.print("\tright: \t");
-        Debug.println(rightSpeed);
-        break;
-      case DATA_PITCH:
-        data = canMsg.data[1] | canMsg.data[2]<<8;
-#ifdef MODC_PITCH
-        data = map(data, 0, 1023, SERVO_MIN, SERVO_MAX);
-        motorPitchA.moveSpeed(data, SERVO_SPEED);
-        motorPitchB.moveSpeed(motorPitchB.readPosition() + motorPitchA.readPosition() - data, SERVO_SPEED);
-#endif
-        Debug.print("PITCH MOTOR DATA : \t");
-        Debug.println(data);
-        break;
-
-      case DATA_EE_PITCH_SETPOINT:
-        memcpy(&data, canMsg.data, 2);
-#ifdef MODC_EE
-        motorEEPitch.moveSpeed(data, SERVO_SPEED);
-#endif
-        Debug.print("PITCH END EFFECTOR MOTOR DATA : \t");
-        Debug.println(data);
-        break;
-
-      case DATA_EE_HEAD_PITCH_SETPOINT:
-        memcpy(&data, canMsg.data, 2);
-#ifdef MODC_EE
-        motorEEHeadPitch.moveSpeed(data, SERVO_SPEED);
-#endif
-        Debug.print("HEAD PITCH END EFFECTOR MOTOR DATA : \t");
-        Debug.println(data);
-        break;
-
-      case DATA_EE_HEAD_ROLL_SETPOINT:
-        memcpy(&data, canMsg.data, 2);
-#ifdef MODC_EE
-        motorEEHeadRoll.moveSpeed(data, SERVO_SPEED);
-#endif
-        Debug.print("HEAD ROLL END EFFECTOR MOTOR DATA : \t");
-        Debug.println(data);
-        break;
-    }
-    
-  } else if (time_cur - time_data > 1000 && time_data != -1) { //if we do not receive data for more than a second stop motors
+    handleSetpoint(msg_id, msg_data);
+  } else if (time_cur - time_data > CAN_TIMEOUT && time_data != -1) { 
+    //if we do not receive data for more than a second stop motors
     time_data = -1;
     Debug.println("Stopping motors after timeout.", Levels::INFO);
     motorTrLeft.stop();
@@ -292,4 +146,94 @@ void loop() {
 
   wm.handle();
   display.handleGUI();
+}
+
+/**
+ * @brief Handles the setpoint messages received via CAN bus.
+ * @param msg_id ID of the received message.
+ * @param msg_data Pointer to the message data.
+ */
+void handleSetpoint(uint8_t msg_id, const byte* msg_data) {
+  int16_t servo_data;
+  Debug.println("RECEIVED CANBUS DATA");
+
+  switch (msg_id) {
+    case MOTOR_SETPOINT:
+      float leftSpeed, rightSpeed;
+      memcpy(&leftSpeed, msg_data, 4);
+      memcpy(&rightSpeed, msg_data + 4, 4);
+      motorTrLeft.setSpeed(leftSpeed);
+      motorTrRight.setSpeed(rightSpeed);
+
+      Debug.println("TRACTION DATA :\tleft: \t" + String(leftSpeed) + "\tright: \t" + String(rightSpeed));
+      break;
+
+    case DATA_EE_PITCH_SETPOINT:
+      memcpy(&servo_data, msg_data, 2);
+#ifdef MODC_EE
+      motorEEPitch.moveSpeed(servo_data, SERVO_SPEED);
+#endif
+      Debug.print("PITCH END EFFECTOR MOTOR DATA : \t");
+      Debug.println(servo_data);
+      break;
+
+    case DATA_EE_HEAD_PITCH_SETPOINT:
+      memcpy(&servo_data, msg_data, 2);
+#ifdef MODC_EE
+      motorEEHeadPitch.moveSpeed(servo_data, SERVO_SPEED);
+#endif
+      Debug.print("HEAD PITCH END EFFECTOR MOTOR DATA : \t");
+      Debug.println(servo_data);
+      break;
+
+    case DATA_EE_HEAD_ROLL_SETPOINT:
+      memcpy(&servo_data, msg_data, 2);
+#ifdef MODC_EE
+      motorEEHeadRoll.moveSpeed(servo_data, SERVO_SPEED);
+#endif
+      Debug.print("HEAD ROLL END EFFECTOR MOTOR DATA : \t");
+      Debug.println(servo_data);
+      break;
+  }
+}
+
+/**
+ * @brief Sends feedback data over CAN bus.
+ *
+ * This function sends various feedback data including motor speeds, yaw angle, and end effector positions
+ * if the respective modules are enabled.
+ *
+ * @note The function uses conditional compilation to include/exclude parts of the code based on the presence of specific modules.
+ */
+void sendFeedback() {
+
+  // send motor data
+  float speeds[2] = {motorTrLeft.getSpeed(), motorTrRight.getSpeed()};
+  canW.sendMessage(MOTOR_FEEDBACK, speeds, 8);
+
+  // send yaw angle of the joint if this module has one
+#ifdef MODC_YAW
+  encoderYaw.update();
+  float angle = encoderYaw.readAngle();
+  canW.sendMessage(JOINT_YAW_FEEDBACK, &angle, 4);
+#endif
+
+  // send end effector data (if module has it)
+#ifdef MODC_EE
+  int pitch = motorEEPitch.readPosition();
+  int headPitch = motorEEHeadPitch.readPosition();
+  int headRoll = motorEEHeadRoll.readPosition();
+
+  canW.sendMessage(DATA_EE_PITCH_FEEDBACK, &pitch, 4);
+  canW.sendMessage(DATA_EE_HEAD_PITCH_FEEDBACK, &headPitch, 4);
+  canW.sendMessage(DATA_EE_HEAD_ROLL_FEEDBACK, &headRoll, 4);
+#endif
+}
+
+void okInterrupt() {
+  display.okInterrupt();
+}
+
+void navInterrupt() {
+  display.navInterrupt();
 }
