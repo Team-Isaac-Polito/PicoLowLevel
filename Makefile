@@ -21,7 +21,7 @@ ERROR_SYMBOL = " Compilation error! "
 COMPILATION_SYMBOL = " Compilation in progress... "
 
 MODULE_DEFINE ?= "MK1_MOD1"
-DESTINATION ?=  'E:\'
+DESTINATION ?=  'D:\'
 
 MODULE =
 define print_green

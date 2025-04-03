@@ -27,6 +27,8 @@ public:
 
   void showVersion();
 
+  void printE(const char* st);
+
 private:
 
   void showWifi();

@@ -21,7 +21,6 @@
 #include "include/communication.h"
 
 
-
 void okInterrupt();
 void navInterrupt();
 void sendFeedback();
@@ -54,6 +53,7 @@ DynamixelMotor motorEEHeadRoll(SERVO_EE_HEAD_ROLL_ID);
 Display display;
 
 void setup() {
+
   Serial.begin(115200);
   Debug.setLevel(Levels::INFO); // comment to set debug verbosity to debug
   Wire1.setSDA(I2C_SENS_SDA);
@@ -85,8 +85,27 @@ void setup() {
   motorTrLeft.begin();
   motorTrRight.begin();
 
-  motorTrLeft.calibrate();
-  motorTrRight.calibrate();
+  unsigned long startTimeLeft = millis();
+  while (!motorTrLeft.isCalibrated()) {
+    motorTrLeft.calibrate();
+    if (millis() - startTimeLeft > 5000) { // Timeout after 5 seconds
+      display.printE("Timeout: Left Motor calibration failed.");
+      break;
+    }
+    display.printE("Left Motor has not reached the target speed yet.\n");
+  }
+  
+
+  // check if motors are calibrated
+  unsigned long startTimeRight = millis();
+  while (!motorTrRight.isCalibrated()) {
+    motorTrRight.calibrate();
+    if (millis() - startTimeRight > 5000) { // Timeout after 5 seconds
+      display.printE("Timeout: Left Motor calibration failed.");
+      break;
+    }
+    display.printE("Left Motor has not reached the target speed yet.\n");
+  }
 
 #if defined MODC_EE
   Serial1.setRX(1);
@@ -115,9 +134,11 @@ void setup() {
 }
 
 void loop() {
+  display.printE("Waiting for something...\n");
   int time_cur = millis();
   uint8_t msg_id;
   byte msg_data[8];
+
 
   // update motors
   motorTrLeft.update();

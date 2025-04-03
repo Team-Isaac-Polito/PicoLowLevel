@@ -119,3 +119,10 @@ void Display::okInterrupt() {
     lastok = now;
   }
 }
+
+void Display::printE(const char* st) {
+  display.clearDisplay();
+  display.setCursor(0, 16);
+  display.printf(st);
+  display.display();
+}

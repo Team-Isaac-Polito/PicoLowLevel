@@ -82,7 +82,15 @@ void SmartMotor::calibrate(float target) {
     float tl = target - 5.f;
 
     motor.write(PWM_MAX_VALUE);
-    while(getSpeed() < th) delay(DT_ENC);
+    
+    while(getSpeed() < th) {
+        delay(DT_ENC);
+        if (getSpeed() > tl) {
+            isReached = true;
+            break;
+        }
+    }
+
     int t_high = millis();
     float val_high = getSpeed();
     motor.write(0);
@@ -113,4 +121,8 @@ void SmartMotor::calibrate(float target) {
  */
 int SmartMotor::speedToPower(float speed) {
     return (speed/MAX_SPEED)*PWM_MAX_VALUE;
+}
+
+bool SmartMotor::isCalibrated() {
+    return isReached;
 }

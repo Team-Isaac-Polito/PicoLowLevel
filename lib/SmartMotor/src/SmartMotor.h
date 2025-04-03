@@ -24,6 +24,8 @@ class SmartMotor {
 
     void calibrate(float target = 45.f);
 
+    bool isCalibrated();
+
   private:
     int speedToPower(float speed);
 
@@ -35,6 +37,7 @@ class SmartMotor {
     float speed;
     unsigned long enc_last;
     unsigned long pid_last;
+    bool isReached = false;;
 };
 
 #endif
