@@ -82,11 +82,23 @@ void SmartMotor::calibrate(float target) {
     float tl = target - 5.f;
 
     motor.write(PWM_MAX_VALUE);
-    while(getSpeed() < th) delay(DT_ENC);
+    unsigned long start = millis();
+    while(getSpeed() < th){
+        if(start > 5000) {
+            break;
+        }
+        delay(DT_ENC);
+    } 
     int t_high = millis();
     float val_high = getSpeed();
     motor.write(0);
-    while(getSpeed() > tl) delay(DT_ENC);
+    unsigned long start2 = millis();
+    while(getSpeed() > tl) {
+        if(start2 > 5000) {
+            break;
+        }
+        delay(DT_ENC);
+    }
     int t_low = millis();
     float val_low = getSpeed();
 
