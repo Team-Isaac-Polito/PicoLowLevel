@@ -16,6 +16,9 @@
 #define DATA_EE_HEAD_PITCH_FEEDBACK     0x44
 #define DATA_EE_HEAD_ROLL_FEEDBACK      0x46
 
+#define MOTOR_TEMPERATURE               0x23
+#define MOTOR_CURRENT                   0x24
+
 // TODO: update to ROS2 equivalent
 #define DATA_PITCH                      0x04 // Deprecated?
 

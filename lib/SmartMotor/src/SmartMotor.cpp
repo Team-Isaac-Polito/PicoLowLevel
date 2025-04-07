@@ -61,6 +61,42 @@ float SmartMotor::getSpeed() {
 }
 
 /**
+ * Get the current flowing in the motor.
+ *
+ * @return float Current
+ */
+float SmartMotor::getCurrent() {
+    unsigned long now = millis();
+    float current = 0.f;
+    if(now - enc_last > DT_MOTOR_CURR) {
+        int rawValue = analogRead(MOTOR_CURR);  // Read the ADC value once
+        float voltage = (rawValue * 3.3)/4096.0;  
+        current = (voltage-2.5)/0.185; // Calculate current in amperes
+        enc_last = now;
+    }
+    return current;
+}
+
+/**
+ * Get the temperature of the motor.
+ *
+ * @return int temperature in Celsius
+ */
+float SmartMotor::getTemperature() {
+    unsigned long now = millis();
+    float temperature = 0.0;
+    if(now - enc_last > DT_MOTOR_TEMP) {
+        int raw = analogRead(MOTOR_TEMP); 
+        float vout = (raw * 3.3) / 4096.0; 
+        float Rntc = vout * 100000 / (5.0 - vout); //  Rntc = vout * Rf / (vin - vout);
+        temperature = 4450 / (log(Rntc / 100000) + (4450 / 298.15)); // B / (log(Rntc / R0) + (B / T0));
+        temperature = temperature - 273.15; 
+        enc_last = now;
+    }
+    return temperature;
+}
+
+/**
  * Stop the motor.
  * This function will stop the motor and reset the PID.
  */

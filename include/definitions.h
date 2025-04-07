@@ -6,6 +6,8 @@
 #define DT_PID 10     // 1000ms / 100   = 100 Hz
 #define DT_TEL 10     // 1000ms / 10   = 100 Hz
 #define DT_ENC 20     // 1000ms / 20   = 50 Hz
+#define DT_MOTOR_CURR 10 // 1000ms / 10 = 100 Hz
+#define DT_MOTOR_TEMP 1000 // 1000ms / 1000 = 1 Hz
 
 // PWM configuration
 #define PWM_MAX_VALUE 1023
@@ -32,6 +34,9 @@
 
 #define DRV_TR_RIGHT_DIR  9
 #define DRV_TR_RIGHT_PWM  8
+
+#define MOTOR_CURR 27
+#define MOTOR_TEMP 26
 
 // Motor configuration
 #define MAX_SPEED 65.f

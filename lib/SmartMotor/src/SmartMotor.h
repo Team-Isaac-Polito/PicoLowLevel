@@ -20,6 +20,8 @@ class SmartMotor {
 
     void setSpeed(float value);
     float getSpeed();
+    float getCurrent();
+    float getTemperature();
     void stop();
 
     void calibrate(float target = 45.f);

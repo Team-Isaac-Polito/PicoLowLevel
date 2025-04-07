@@ -216,9 +216,13 @@ void handleSetpoint(uint8_t msg_id, const byte* msg_data) {
  */
 void sendFeedback() {
 
-  // send motor data
+  // send motor data: speeds, currents and temperatures
   float speeds[2] = {motorTrLeft.getSpeed(), motorTrRight.getSpeed()};
+  float currents[2]  = {motorTrLeft.getCurrent(), motorTrRight.getCurrent()};
+  float temperatures[2] = {motorTrLeft.getTemperature(), motorTrRight.getTemperature()};
   canW.sendMessage(MOTOR_FEEDBACK, speeds, 8);
+  canW.sendMessage(MOTOR_CURRENT, currents, 8);
+  canW.sendMessage(MOTOR_TEMPERATURE, temperatures, 8);
 
   // send yaw angle of the joint if this module has one
 #ifdef MODC_YAW
@@ -236,6 +240,8 @@ void sendFeedback() {
   canW.sendMessage(DATA_EE_PITCH_FEEDBACK, &pitch, 4);
   canW.sendMessage(DATA_EE_HEAD_PITCH_FEEDBACK, &headPitch, 4);
   canW.sendMessage(DATA_EE_HEAD_ROLL_FEEDBACK, &headRoll, 4);
+
+  // AGGIUNGERE CURRENTE TEMPERATURA. CURRENT DAL SENSORE. TEMPERATURA ??
 #endif
 }
 
