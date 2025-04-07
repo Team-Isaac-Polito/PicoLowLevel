@@ -1,14 +1,16 @@
 #include "DynamixelSerial.h"
 
-unsigned long startTime = millis()
+unsigned long startTime = millis();
 void DynamixelInterface::writeByte(byte b) {
   serialPort->write(b);
-  while (serialPort->available() < 1);
+  while (serialPort->available() < 1) {
+    if (millis() - startTime > 500) {
+      break;
+    }
+  }
   serialPort->read();
 
-  if (startTime > 5000) {
-    break;
-  }
+ 
 }
 
 bool DynamixelInterface::waitBytes(int n) {
@@ -16,7 +18,7 @@ bool DynamixelInterface::waitBytes(int n) {
   unsigned long startTime2 = millis();
   while ((serialPort->available() < n) && (tc < AX_TIME_OUT)) {
     tc++;
-    if (startTime2 > 5000) {
+    if (millis() - startTime2 > 500) {
       break;
     }
     delayMicroseconds(1000);
@@ -48,15 +50,11 @@ void DynamixelInterface::writeBuf(byte id, byte* buf, int len) {
   serialPort->write(out, n);
   unsigned long startTime3 = millis();
   while (serialPort->available() < n) {
-    if (startTime3 > 5000) {
+    if (millis() - startTime3 > 5000) {
       break;
     }
   }
   for (int i = 0; i < n; i++) {
-    if (startTime3 > 5000) {
-      break;
-    }
-
     serialPort->read();
   }
   readMode();
@@ -68,7 +66,7 @@ int DynamixelInterface::readWord() {
 
   unsigned long startTime4 = millis();
   while (serialPort->available() > 0) {
-    if (startTime4 > 5000) {
+    if (millis() - startTime4 > 5000) {
       break;
     }
     byte in = serialPort->read();
@@ -91,7 +89,7 @@ int DynamixelInterface::readDWord() {
 
   unsigned long startTime5 = millis();
   while (serialPort->available() > 0) {
-    if (startTime5 > 5000) {
+    if (millis() - startTime5 > 5000) {
       break;
     }
     byte in = serialPort->read();
@@ -114,7 +112,7 @@ int DynamixelInterface::readStatus() {
   
   unsigned long startTime6 = millis();
   while (serialPort->available() > 0) {
-    if (startTime6 > 5000) {
+    if (millis() - startTime6 > 5000) {
       break;
     }
     byte in = serialPort->read();

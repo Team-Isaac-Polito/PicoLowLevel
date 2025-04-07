@@ -26,6 +26,7 @@ public:
   void showBattery();
 
   void showVersion();
+  void showError(const char* errorMsg, int cursorY, const unsigned char* errorMsgCan);
 
 private:
 

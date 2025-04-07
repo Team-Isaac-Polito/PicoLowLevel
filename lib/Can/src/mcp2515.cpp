@@ -185,7 +185,7 @@ MCP2515::ERROR MCP2515::setMode(const CANCTRL_REQOP_MODE mode)
 
         modeMatch = newmode == mode;
 
-        if (startTime > 5000) {
+        if (millis() - startTime > 5000) {
             break;
         }
 

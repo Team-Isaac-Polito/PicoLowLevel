@@ -74,6 +74,9 @@ void setup() {
   // CAN initialization
   canW.begin();
 
+  // Display initialization
+  display.begin(); // has showLogo
+
   // initializing PWM
   analogWriteFreq(PWM_FREQUENCY); // switching frequency to 15kHz
   analogWriteRange(PWM_MAX_VALUE); // analogWrite range from 0 to 512, default is 255
@@ -86,7 +89,18 @@ void setup() {
   motorTrRight.begin();
 
   motorTrLeft.calibrate();
-  motorTrRight.calibrate();
+
+  unsigned long startC = millis();
+  while (!motorTrLeft.isCalibrated()) {
+    display.showError("Left motor not calibrated!", 16, nullptr);
+    Debug.println("Left motor not calibrated!", Levels::WARN);
+    if (millis() - startC > 5000) {
+      break;
+    }
+  }
+
+  //motorTrRight.calibrate();
+
 
 #if defined MODC_EE
   Serial1.setRX(1);
@@ -94,8 +108,7 @@ void setup() {
   Dynamixel.setSerial(&Serial1);
   Dynamixel.begin(19200);
 #endif
-
-  Debug.println("BEGIN", Levels::INFO);
+  // Debug.println("BEGIN", Levels::INFO);
 
 #ifdef MODC_YAW
   encoderYaw.update();
@@ -103,25 +116,28 @@ void setup() {
   encoderYaw.setZero();
 #endif
 
-  // Display initialization
-  display.begin();
-
-  // Buttons initialization
-  pinMode(BTNOK, INPUT_PULLUP);
-  pinMode(BTNNAV, INPUT_PULLUP);
-  attachInterrupt(digitalPinToInterrupt(BTNOK), okInterrupt, FALLING);
-  attachInterrupt(digitalPinToInterrupt(BTNNAV), navInterrupt, FALLING);
+// Buttons initialization
+pinMode(BTNOK, INPUT_PULLUP);
+pinMode(BTNNAV, INPUT_PULLUP);
+attachInterrupt(digitalPinToInterrupt(BTNOK), okInterrupt, FALLING);
+attachInterrupt(digitalPinToInterrupt(BTNNAV), navInterrupt, FALLING);
 
 }
 
 void loop() {
+  /* while (!motorTrRight.isCalibrated()) {
+    display.showError("Right motor not calibrated!");
+    Debug.println("Right motor not calibrated!", Levels::WARN);
+    delay(1000);
+  } */
+
   int time_cur = millis();
   uint8_t msg_id;
   byte msg_data[8];
 
   // update motors
-  motorTrLeft.update();
-  motorTrRight.update();
+  /* motorTrLeft.update();
+  motorTrRight.update(); */
 
   // health checks
   if (time_cur - time_bat >= DT_BAT) {
@@ -151,6 +167,15 @@ void loop() {
     Debug.println("Stopping motors after timeout.", Levels::INFO);
     motorTrLeft.stop();
     motorTrRight.stop();
+  }
+
+  
+  while (canW.readMessage(&msg_id, msg_data) != MCP2515::ERROR_OK) {
+    display.showError("CANBUS ERROR!", 16, nullptr);
+    delay(200);
+    display.showError(nullptr, 16, &msg_id); // Display error message on the screen
+    Debug.println("CANBUS ERROR!", Levels::WARN);
+    delay(1000);
   }
 
   //wm.handle();

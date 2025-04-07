@@ -108,7 +108,6 @@ static inline int32_t quadrature_encoder_fetch_count(PIO pio, uint sm)
             break;
         }
     }
-    }
 	return pio->rxf[sm];
 }
 static inline int32_t quadrature_encoder_get_count(PIO pio, uint sm)

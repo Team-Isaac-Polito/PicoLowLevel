@@ -15,7 +15,9 @@ void Display::begin() {
   display.setTextColor(SH110X_WHITE);
   display.clearDisplay();
   display.display();
-  showLogo();
+  Serial.println("Display initialized.");
+  // showError("Initializing...", 8, nullptr); // Clear any previous error message
+  showLogo(); // Show the logo on startup
 }
 
 /**
@@ -119,3 +121,16 @@ void Display::okInterrupt() {
     lastok = now;
   }
 }
+
+void Display::showError(const char* errorMsg, int cursorY, const unsigned char* errorMsgCan) {
+  display.clearDisplay();
+  display.setTextSize(1);
+  display.setCursor(0, cursorY);
+  if (errorMsg != nullptr) {
+    display.printf("Error: %s\n", errorMsg);
+  } else if (errorMsgCan != nullptr) {
+    display.printf("Error CAN ID: %#04X\n", *errorMsgCan);
+  }
+  display.display();
+}
+
