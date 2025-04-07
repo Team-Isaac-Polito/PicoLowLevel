@@ -22,6 +22,7 @@ SmartMotor::SmartMotor(byte pwm, byte dir, byte enc_a, byte enc_b, bool invert, 
 void SmartMotor::begin() {
     motor.begin();
     encoder.begin();
+    analogReadResolution(12); 
 }
 
 /**
@@ -53,9 +54,9 @@ void SmartMotor::setSpeed(float value) {
  */
 float SmartMotor::getSpeed() {
     unsigned long now = millis();
-    if(now - enc_last > DT_ENC) {
+    if(now - enc_last_speed > DT_ENC) {
         speed = (float)(encoder.getSpeed())/100.f;
-        enc_last = now;
+        enc_last_speed = now;
     }
     return speed;
 }
@@ -67,12 +68,11 @@ float SmartMotor::getSpeed() {
  */
 float SmartMotor::getCurrent() {
     unsigned long now = millis();
-    float current = 0.f;
-    if(now - enc_last > DT_MOTOR_CURR) {
+    if(now - current_last > DT_MOTOR_CURR) {
         int rawValue = analogRead(MOTOR_CURR);  // Read the ADC value once
         float voltage = (rawValue * 3.3)/4096.0;  
-        current = (voltage-2.5)/0.185; // Calculate current in amperes
-        enc_last = now;
+        current = (float)(voltage-2.5)/0.185; // Calculate current in amperes
+        current_last = now;
     }
     return current;
 }
@@ -80,18 +80,17 @@ float SmartMotor::getCurrent() {
 /**
  * Get the temperature of the motor.
  *
- * @return int temperature in Celsius
+ * @return float temperature in Celsius
  */
 float SmartMotor::getTemperature() {
     unsigned long now = millis();
-    float temperature = 0.0;
-    if(now - enc_last > DT_MOTOR_TEMP) {
+    if(now - temperature_last > DT_MOTOR_TEMP) {
         int raw = analogRead(MOTOR_TEMP); 
         float vout = (raw * 3.3) / 4096.0; 
-        float Rntc = vout * 100000 / (5.0 - vout); //  Rntc = vout * Rf / (vin - vout);
-        temperature = 4450 / (log(Rntc / 100000) + (4450 / 298.15)); // B / (log(Rntc / R0) + (B / T0));
+        float Rntc = vout * 100000 / (3.3 - vout); //  Rntc = vout * Rf / (vin - vout);
+        temperature = (float)(4450 / (log(Rntc / 100000) + (4450 / 298.15))); // B / (log(Rntc / R0) + (B / T0));
         temperature = temperature - 273.15; 
-        enc_last = now;
+        temperature_last = now;
     }
     return temperature;
 }

@@ -85,8 +85,8 @@ void setup() {
   motorTrLeft.begin();
   motorTrRight.begin();
 
-  motorTrLeft.calibrate();
-  motorTrRight.calibrate();
+  //motorTrLeft.calibrate();
+  //motorTrRight.calibrate();
 
 #if defined MODC_EE
   Serial1.setRX(1);
@@ -220,6 +220,9 @@ void sendFeedback() {
   float speeds[2] = {motorTrLeft.getSpeed(), motorTrRight.getSpeed()};
   float currents[2]  = {motorTrLeft.getCurrent(), motorTrRight.getCurrent()};
   float temperatures[2] = {motorTrLeft.getTemperature(), motorTrRight.getTemperature()};
+  
+  Serial.println("CURRENTS: " + String(currents[0]) + " " + String(currents[1]));
+  Serial.println("TEMPERATURES: " + String(temperatures[0]) + " " + String(temperatures[1]));
   canW.sendMessage(MOTOR_FEEDBACK, speeds, 8);
   canW.sendMessage(MOTOR_CURRENT, currents, 8);
   canW.sendMessage(MOTOR_TEMPERATURE, temperatures, 8);

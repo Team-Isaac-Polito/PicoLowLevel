@@ -35,7 +35,11 @@ class SmartMotor {
 
     bool invert;
     float speed;
-    unsigned long enc_last;
+    float current;
+    float temperature;
+    unsigned long enc_last_speed;
+    unsigned long current_last;
+    unsigned long temperature_last;
     unsigned long pid_last;
 };
 
