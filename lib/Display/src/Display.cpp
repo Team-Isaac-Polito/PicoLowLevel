@@ -16,8 +16,8 @@ void Display::begin() {
   display.clearDisplay();
   display.display();
   Serial.println("Display initialized.");
-  // showError("Initializing...", 8, nullptr); // Clear any previous error message
-  showLogo(); // Show the logo on startup
+  showError("Initializing...", 8, nullptr); // Clear any previous error message
+  //showLogo(); // Show the logo on startup
 }
 
 /**
@@ -122,15 +122,15 @@ void Display::okInterrupt() {
   }
 }
 
-void Display::showError(const char* errorMsg, int cursorY, const unsigned char* errorMsgCan) {
+void Display::showError(const char* errorMsg, int cursorY, const unsigned char* errorMsgCAN) {
   display.clearDisplay();
-  display.setTextSize(1);
   display.setCursor(0, cursorY);
   if (errorMsg != nullptr) {
     display.printf("Error: %s\n", errorMsg);
-  } else if (errorMsgCan != nullptr) {
-    display.printf("Error CAN ID: %#04X\n", *errorMsgCan);
+  } else if (errorMsgCAN != nullptr) {
+    display.printf("Error CAN ID: %#04X\n", *errorMsgCAN);
   }
+  Serial.println(errorMsg);
   display.display();
 }
 

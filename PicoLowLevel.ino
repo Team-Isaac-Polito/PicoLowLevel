@@ -94,7 +94,7 @@ void setup() {
   while (!motorTrLeft.isCalibrated()) {
     display.showError("Left motor not calibrated!", 16, nullptr);
     Debug.println("Left motor not calibrated!", Levels::WARN);
-    if (millis() - startC > 5000) {
+    if (millis() - startC > 1000) {
       break;
     }
   }
