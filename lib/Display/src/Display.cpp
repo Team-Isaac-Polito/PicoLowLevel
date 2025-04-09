@@ -15,8 +15,7 @@ void Display::begin() {
   display.setTextColor(SH110X_WHITE);
   display.clearDisplay();
   display.display();
-  Serial.println("Display initialized.");
-  showError("Initializing...", 8, nullptr); // Clear any previous error message
+  showError("Initializing...", 16, nullptr, nullptr); // Display initializing message
   //showLogo(); // Show the logo on startup
 }
 
@@ -122,15 +121,26 @@ void Display::okInterrupt() {
   }
 }
 
-void Display::showError(const char* errorMsg, int cursorY, const unsigned char* errorMsgCAN) {
+void Display::showError(const char* errorMsg, int cursorY, const unsigned char* errorMsgCANID, const byte* errorMsgCANData) {
   display.clearDisplay();
   display.setCursor(0, cursorY);
-  if (errorMsg != nullptr) {
-    display.printf("Error: %s\n", errorMsg);
-  } else if (errorMsgCAN != nullptr) {
-    display.printf("Error CAN ID: %#04X\n", *errorMsgCAN);
+  display.print(errorMsg);
+
+  if (errorMsgCANID != nullptr) {
+      display.setCursor(0, cursorY + 10);
+      display.print("CAN ID: ");
+      display.print(*errorMsgCANID, HEX);
   }
-  Serial.println(errorMsg);
+
+  if (errorMsgCANData != nullptr) {
+      display.setCursor(0, cursorY + 20);
+      display.print("CAN Data: ");
+      for (int i = 0; i < 8; i++) {
+          display.print(errorMsgCANData[i], HEX);
+          display.print(" ");
+      }
+  }
+
   display.display();
 }
 

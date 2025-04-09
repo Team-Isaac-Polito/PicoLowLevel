@@ -90,54 +90,60 @@ void setup() {
 
   motorTrLeft.calibrate();
 
-  unsigned long startC = millis();
+  unsigned long start1 = millis();
   while (!motorTrLeft.isCalibrated()) {
-    display.showError("Left motor not calibrated!", 16, nullptr);
+    display.showError("Left motor not calibrated!", 16, nullptr, nullptr);
     Debug.println("Left motor not calibrated!", Levels::WARN);
-    if (millis() - startC > 1000) {
+    if (millis() - start1 > 1000) {
       break;
     }
   }
 
-  //motorTrRight.calibrate();
+  // motorTrRight.calibrate();
 
+  /*
+  unsigned long start2 = millis();
+  while (!motorTrRight.isCalibrated()) {
+    display.showError("Right motor not calibrated!", 20, nullptr, nullptr);
+    Debug.println("Right motor not calibrated!", Levels::WARN);
+    if (millis() - start2 > 1000) {
+      break;
+    }
+    */
 
-#if defined MODC_EE
-  Serial1.setRX(1);
-  Serial1.setTX(0);
-  Dynamixel.setSerial(&Serial1);
-  Dynamixel.begin(19200);
-#endif
-  // Debug.println("BEGIN", Levels::INFO);
+  #if defined MODC_EE
+    Serial1.setRX(1);
+    Serial1.setTX(0);
+    Dynamixel.setSerial(&Serial1);
+    Dynamixel.begin(19200);
+  #endif
+    // Debug.println("BEGIN", Levels::INFO);
 
-#ifdef MODC_YAW
-  encoderYaw.update();
-  encoderYaw.readAngle();
-  encoderYaw.setZero();
-#endif
+  #ifdef MODC_YAW
+    encoderYaw.update();
+    encoderYaw.readAngle();
+    encoderYaw.setZero();
+  #endif
 
-// Buttons initialization
-pinMode(BTNOK, INPUT_PULLUP);
-pinMode(BTNNAV, INPUT_PULLUP);
-attachInterrupt(digitalPinToInterrupt(BTNOK), okInterrupt, FALLING);
-attachInterrupt(digitalPinToInterrupt(BTNNAV), navInterrupt, FALLING);
+  // Buttons initialization
+  pinMode(BTNOK, INPUT_PULLUP);
+  pinMode(BTNNAV, INPUT_PULLUP);
+  attachInterrupt(digitalPinToInterrupt(BTNOK), okInterrupt, FALLING);
+  attachInterrupt(digitalPinToInterrupt(BTNNAV), navInterrupt, FALLING);
 
 }
 
 void loop() {
-  /* while (!motorTrRight.isCalibrated()) {
-    display.showError("Right motor not calibrated!");
-    Debug.println("Right motor not calibrated!", Levels::WARN);
-    delay(1000);
-  } */
 
   int time_cur = millis();
   uint8_t msg_id;
   byte msg_data[8];
 
   // update motors
-  /* motorTrLeft.update();
-  motorTrRight.update(); */
+  /* 
+  motorTrLeft.update();
+  motorTrRight.update(); 
+  */
 
   // health checks
   if (time_cur - time_bat >= DT_BAT) {
@@ -171,9 +177,8 @@ void loop() {
 
   
   while (canW.readMessage(&msg_id, msg_data) != MCP2515::ERROR_OK) {
-    display.showError("CANBUS ERROR!", 16, nullptr);
+    display.showError("CANBUS ERROR!", 16, &msg_id, msg_data); // Display error message on the screen
     delay(200);
-    display.showError(nullptr, 16, &msg_id); // Display error message on the screen
     Debug.println("CANBUS ERROR!", Levels::WARN);
     delay(1000);
   }
