@@ -6,12 +6,15 @@
  * @param dir Direction pin.
  * @param enc_a Pin A of the encoder.
  * @param enc_b Pin B of the encoder.
+ * @param adc ADC object to use for current and temperature reading.
+ * @param base_adc_channel Base ADC channel to use for current and temperature reading (0 left motor, 2 for right motor).
  * @param invert Invert motor direction, usuful when motors are mounted opposite to one another.
  * @param pio PIO to use for the encoder. Each PIO can handle up to 4 encoders.
  */
-SmartMotor::SmartMotor(byte pwm, byte dir, byte enc_a, byte enc_b, bool invert, PIO pio)
+SmartMotor::SmartMotor(byte pwm, byte dir, byte enc_a, byte enc_b, Adafruit_ADS1115& adc, int base_adc_channel, bool invert, PIO pio)
     : motor(pwm, dir, invert),
       encoder(enc_a, enc_b, new MovingAvgFilter<int>(ENC_TR_SAMPLES), invert, pio),
+      adc(adc),
       pid(0.f, 0.f, 0.f, MAX_SPEED, 1.f),
       invert(invert)
 {}
@@ -69,7 +72,7 @@ float SmartMotor::getSpeed() {
 float SmartMotor::getCurrent() {
     unsigned long now = millis();
     if(now - current_last > DT_MOTOR_CURR) {
-        int rawValue = analogRead(MOTOR_CURR);  // Read the ADC value once
+        int rawValue = adc.readADC_SingleEnded(base_adc_channel+1);  // Read the ADC value once
         float voltage = (rawValue * 3.3)/4096.0;  
         current = (float)(voltage-2.5)/0.185; // Calculate current in amperes
         current_last = now;
@@ -85,8 +88,8 @@ float SmartMotor::getCurrent() {
 float SmartMotor::getTemperature() {
     unsigned long now = millis();
     if(now - temperature_last > DT_MOTOR_TEMP) {
-        int raw = analogRead(MOTOR_TEMP); 
-        float vout = (raw * 3.3) / 4096.0; 
+        int rawValue = adc.readADC_SingleEnded(base_adc_channel); 
+        float vout = (rawValue * 3.3) / 4096.0; 
         float Rntc = vout * 100000 / (3.3 - vout); //  Rntc = vout * Rf / (vin - vout);
         temperature = (float)(4450 / (log(Rntc / 100000) + (4450 / 298.15))); // B / (log(Rntc / R0) + (B / T0));
         temperature = temperature - 273.15; 

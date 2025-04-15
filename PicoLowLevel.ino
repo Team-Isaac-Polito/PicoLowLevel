@@ -2,6 +2,7 @@
 #include <Arduino.h>
 #include <Wire.h>
 #include <SPI.h>
+#include <Adafruit_ADS1X15.h>
 #include "AbsoluteEncoder.h"
 #include "Battery.h"
 #include "DynamixelSerial.h"
@@ -34,8 +35,10 @@ int time_tel_avg = DT_TEL;
 
 CanWrapper canW(5, 10000000UL, &SPI);
 
-SmartMotor motorTrLeft(DRV_TR_LEFT_PWM, DRV_TR_LEFT_DIR, ENC_TR_LEFT_A, ENC_TR_LEFT_B, false);
-SmartMotor motorTrRight(DRV_TR_RIGHT_PWM, DRV_TR_RIGHT_DIR, ENC_TR_RIGHT_A, ENC_TR_RIGHT_B, true);
+Adafruit_ADS1115 adc;
+
+SmartMotor motorTrLeft(DRV_TR_LEFT_PWM, DRV_TR_LEFT_DIR, ENC_TR_LEFT_A, ENC_TR_LEFT_B, adc, ADC_BASE_CHANNEL_LEFT, false);
+SmartMotor motorTrRight(DRV_TR_RIGHT_PWM, DRV_TR_RIGHT_DIR, ENC_TR_RIGHT_A, ENC_TR_RIGHT_B, adc, ADC_BASE_CHANNEL_RIGHT, true);
 
 
 #ifdef MODC_YAW
@@ -56,15 +59,26 @@ Display display;
 void setup() {
   Serial.begin(115200);
   Debug.setLevel(Levels::INFO); // comment to set debug verbosity to debug
+  Wire.setSDA(I2C_ADC_SDA);
+  Wire.setSCL(I2C_ADC_SCL);
+  Wire.begin();
   Wire1.setSDA(I2C_SENS_SDA);
   Wire1.setSCL(I2C_SENS_SCL);
   Wire1.begin();
+ 
+  if (!adc.begin(ADC_ADDR, &Wire)) { // Usa l'indirizzo corretto
+    Serial.println("Errore: ADS1115 non trovato!");
+    while (1);
+  }
+  
+
 
   SPI.setRX(4);
   SPI.setCS(5);
   SPI.setSCK(6);
   SPI.setTX(7);
   SPI.begin();
+
 
   //LittleFS.begin();
 

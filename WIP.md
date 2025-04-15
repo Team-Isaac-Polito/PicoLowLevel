@@ -6,14 +6,16 @@
 - [x] Transmitting data from the new methods via CAN
 - [x] Possible adjustments after on-field testing
 - [ ] Set current and temperature limits and stop motors when exceeded
-- [ ] Add external ADC
+- [x] Add external ADC
 - [ ] Implement error codes for different scenarios
 - [ ] Possible adjustments after on-field testing
 
 ## Notes
 - A redundant `analogReadResolution` was necessary in `SmartMotor` because `analogRead` in the methods of `SmartMotor` did not use the resolution set in the `.ino` file.
 - I am printing the current and temperature values sent over CAN to the serial monitor. Currently, they are coming from the same sensors referring to the same motor.
-- Currently, I am testing only one motor, so the Raspberry Pi Pico's ADC is sufficient. Since 4 ADC channels are needed (one thermistor and one current sensor for each motor), the idea is to use an external ADC. One possibility is the ADS1115, which is I2C, has 4 single-ended channels, and a comparator. There is an ALERT output pin that is interesting because it activates if the analog value exceeds a certain threshold.
+> ⚠️ **This code is not tested** because, after the upload, the USB is no longer recognized in BOOTSEL mode. The reason for this needs to be investigated.
+
+ 
 
 
 

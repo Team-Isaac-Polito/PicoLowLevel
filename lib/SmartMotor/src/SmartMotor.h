@@ -8,13 +8,15 @@
 #include "PID.h"
 #include "MovingAvgFilter.h"
 #include "Debug.h"
+#include <Adafruit_ADS1X15.h>
+
 /**
  * Class used to control DC motors at a constant speed.
  * Relies on a PID controller receiving data from a rotary encoder that uses a PIO state machine to reduce CPU usage and increase reliability.
  */
 class SmartMotor {
   public:
-    SmartMotor(byte pwm, byte dir, byte enc_a, byte enc_b, bool invert = false, PIO pio = pio0);
+    SmartMotor(byte pwm, byte dir, byte enc_a, byte enc_b, Adafruit_ADS1115& adc, int base_adc_channel, bool invert = false,  PIO pio = pio0);
     void begin();
     void update();
 
@@ -33,6 +35,8 @@ class SmartMotor {
     TractionEncoder encoder;
     PID pid;
 
+    Adafruit_ADS1115& adc;
+    int base_adc_channel;
     bool invert;
     float speed;
     float current;

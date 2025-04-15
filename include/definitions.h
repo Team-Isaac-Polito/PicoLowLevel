@@ -16,6 +16,8 @@
 // I²C configuration
 #define I2C_SENS_SDA   18
 #define I2C_SENS_SCL   19
+#define I2C_ADC_SDA   2
+#define I2C_ADC_SCL   3
 
 #define ABSOLUTE_ENCODER_ADDRESS 0x40
 //
@@ -35,8 +37,6 @@
 #define DRV_TR_RIGHT_DIR  9
 #define DRV_TR_RIGHT_PWM  8
 
-#define MOTOR_CURR 27
-#define MOTOR_TEMP 26
 
 // Motor configuration
 #define MAX_SPEED 65.f
@@ -47,6 +47,12 @@
 
 #define ENC_TR_RIGHT_A  10
 #define ENC_TR_RIGHT_B  11
+
+// ADC configuration
+#define ADC_BASE_CHANNEL_LEFT 0
+#define ADC_BASE_CHANNEL_RIGHT 2
+#define ADC_ADDR 0x49  // 0x49 to be specified because currently the addr pin is connected to 3.3 V 
+
 
 // Encoder conversion constant
 // K = 100          *       10^6        *       60      / (     48   *             74,83                    *       2 )
