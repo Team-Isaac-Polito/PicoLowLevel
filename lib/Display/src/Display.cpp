@@ -15,8 +15,7 @@ void Display::begin() {
   display.setTextColor(SH110X_WHITE);
   display.clearDisplay();
   display.display();
-  showError("Initializing...", 16, nullptr, nullptr); // Display initializing message
-  //showLogo(); // Show the logo on startup
+  showLogo(); // Show the logo on startup
 }
 
 /**
@@ -95,6 +94,9 @@ void Display::handleGUI() {
     case 3:
       if (change) showVersion();
       break;
+    case 4:
+      if (change) showCurrentError();
+      break;
   }
 }
 
@@ -104,7 +106,12 @@ void Display::handleGUI() {
 void Display::navInterrupt() {
   int now = millis();
   if (now - lastnav > DEBOUNCE) {
-    nav++;
+    if (menupos == 4 && errorCount > 0) { // in the error menu
+      errorIndex = (errorIndex + 1) % errorCount; // cycle through errors
+      showCurrentError(); // Show the next error message
+    } else {
+      nav++;
+    }
     lastnav = now;
   }
 }
@@ -116,31 +123,68 @@ void Display::navInterrupt() {
 void Display::okInterrupt() {
   int now = millis();
   if (now - lastok > DEBOUNCE) {
+    if (menupos == 4 && errorCount > 0) { // in the error menu
+      errorIndex = (errorIndex + 1) % errorCount; // cycle through errors
+      showCurrentError(); // Show the next error message
+    } else {
     ok++;
+    }
     lastok = now;
   }
 }
 
 void Display::showError(const char* errorMsg, int cursorY, const unsigned char* errorMsgCANID, const byte* errorMsgCANData) {
-  display.clearDisplay();
-  display.setCursor(0, cursorY);
-  display.print(errorMsg);
+  static int currentY = 0; // Keeps track of the current Y position for the next error message
+
+  if (currentY + 30 > display.height()) { // If the display is full, clear it and reset the position
+    display.clearDisplay();
+    currentY = 0;
+  }
+
+  display.setCursor(0, currentY);
+  display.printf(errorMsg);
 
   if (errorMsgCANID != nullptr) {
-      display.setCursor(0, cursorY + 10);
-      display.print("CAN ID: ");
+      display.setCursor(0, currentY + 10);
+      display.printf("CAN ID: ");
       display.print(*errorMsgCANID, HEX);
   }
 
   if (errorMsgCANData != nullptr) {
-      display.setCursor(0, cursorY + 20);
+      display.setCursor(0, currentY + 20);
       display.print("CAN Data: ");
       for (int i = 0; i < 8; i++) {
           display.print(errorMsgCANData[i], HEX);
-          display.print(" ");
+          display.printf(" ");
       }
   }
 
+  currentY += 30; // Move to the next line for the next error message
   display.display();
 }
 
+void Display::showCurrentError() {
+  if (errorCount > 0) {
+    const Error& currentError = errorList[errorIndex];
+    showError(currentError.errorMsg, currentError.cursorY, currentError.errorMsgCANID, currentError.errorMsgCANData);
+  } else {
+    display.clearDisplay();
+    display.setCursor(0, 16);
+    display.print("No errors.");
+    display.display();
+  }
+}
+
+void Display::addError(const char* errorMsg, int cursorY, const unsigned char* errorMsgCANID, const byte* errorMsgCANData) {
+  if (errorCount < 10) { // Check if there's space for a new error
+    errorList[errorCount].errorMsg = errorMsg;
+    errorList[errorCount].cursorY = cursorY;
+    errorList[errorCount].errorMsgCANID = errorMsgCANID;
+    errorList[errorCount].errorMsgCANData = errorMsgCANData;
+    errorCount++;
+  } else {
+    // Handle the case where the error list is full (e.g., overwrite the oldest error or ignore the new one)
+    // we'll just ignore the new error in this example.
+    Serial.println("Error list is full. Cannot add new error.");
+  }
+}

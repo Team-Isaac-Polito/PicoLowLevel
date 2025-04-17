@@ -27,9 +27,21 @@ public:
 
   void showVersion();
 
+  void showCurrentError();
+  void addError(const char* errorMsg, int cursorY, const unsigned char* errorMsgCANID, const byte* errorMsgCANData);
   void showError(const char* errorMsg, int cursorY, const unsigned char* errorMsgCANID, const byte* errorMsgCANData);
 
 private:
+  struct Error {
+    const char* errorMsg;
+    int cursorY;
+    const unsigned char* errorMsgCANID;
+    const byte* errorMsgCANData;
+  };
+
+  Error errorList[10]; // max 10 errors
+  int errorCount = 0;  // error count
+  int errorIndex = 0;  // index of shown error
 
   void showWifi();
 

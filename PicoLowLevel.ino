@@ -32,6 +32,8 @@ int time_tel = 0;
 int time_data = 0;
 int time_tel_avg = DT_TEL;
 
+bool FATAL_STATUS = false;
+
 CanWrapper canW(5, 10000000UL, &SPI);
 
 SmartMotor motorTrLeft(DRV_TR_LEFT_PWM, DRV_TR_LEFT_DIR, ENC_TR_LEFT_A, ENC_TR_LEFT_B, false);
@@ -97,6 +99,21 @@ void setup() {
     if (millis() - start1 > 1000) {
       break;
     }
+    if (battery.readVoltage() < 11.1f) {
+      motorTrLeft.stop();
+      Debug.println("Stopping RIGHT motor due to low battery voltage!", Levels::WARN);
+
+      // can error message
+      const char* lowBatteryMsg = "Low battery voltage!";
+      canW.sendMessage(0x12, lowBatteryMsg, strlen(lowBatteryMsg));
+      display.addError("Low battery voltage!", 16, nullptr, nullptr); // Display error message on the screen
+      
+      FATAL_STATUS = true;
+      while(FATAL_STATUS) {
+        display.showCurrentError();
+        delay(1000);
+      }
+    }
   }
 
   // motorTrRight.calibrate();
@@ -159,7 +176,7 @@ void loop() {
     time_tel_avg = (time_tel_avg + (time_cur - time_tel)) / 2;
     time_tel = time_cur;
 
-    sendFeedback();
+  //  sendFeedback();
   }
 
   if (canW.readMessage(&msg_id, msg_data)) {
@@ -174,13 +191,10 @@ void loop() {
     motorTrLeft.stop();
     motorTrRight.stop();
   }
-
   
   while (canW.readMessage(&msg_id, msg_data) != MCP2515::ERROR_OK) {
-    display.showError("CANBUS ERROR!", 16, &msg_id, msg_data); // Display error message on the screen
-    delay(200);
+    display.addError("CANBUS ERROR!", 8, &msg_id, msg_data); // Display error message on the screen
     Debug.println("CANBUS ERROR!", Levels::WARN);
-    delay(1000);
   }
 
   //wm.handle();
