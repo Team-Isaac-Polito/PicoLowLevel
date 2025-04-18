@@ -77,6 +77,15 @@ float SmartMotor::getCurrent() {
         current = (float)(voltage-2.5)/0.185; // Calculate current in amperes
         current_last = now;
     }
+    // Controlling overcurrent
+    if(current > MAX_CURR) {
+        overCurrentCount++;
+        if(overCurrentCount >= MAX_CURR_READINGS) {
+            MOTOR_CURR_WARNING = 1;
+        }
+    } else {
+        overCurrentCount = 0;
+    }
     return current;
 }
 
@@ -94,6 +103,15 @@ float SmartMotor::getTemperature() {
         temperature = (float)(4450 / (log(Rntc / 100000) + (4450 / 298.15))); // B / (log(Rntc / R0) + (B / T0));
         temperature = temperature - 273.15; 
         temperature_last = now;
+    }
+    // Controlling overtemperature
+    if(temperature > MAX_TEMP) {
+        overTemperatureCount++;
+        if(overTemperatureCount >= MAX_TEMP_READINGS) {
+            MOTOR_TEMP_WARNING = 1;
+        }
+    } else {
+        overTemperatureCount = 0;
     }
     return temperature;
 }

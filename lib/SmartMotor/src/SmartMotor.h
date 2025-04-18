@@ -45,6 +45,10 @@ class SmartMotor {
     unsigned long current_last;
     unsigned long temperature_last;
     unsigned long pid_last;
+    int overCurrentCount = 0;
+    int overTemperatureCount = 0;
+    bool MOTOR_CURR_WARNING = 0;
+    bool MOTOR_TEMP_WARNING = 0;
 };
 
 #endif

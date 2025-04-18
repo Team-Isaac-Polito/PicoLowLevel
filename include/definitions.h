@@ -9,6 +9,12 @@
 #define DT_MOTOR_CURR 10 // 1000ms / 10 = 100 Hz
 #define DT_MOTOR_TEMP 1000 // 1000ms / 1000 = 1 Hz
 
+// Current and temperature thresholds configurations
+#define MAX_CURR 5.0f // 5A
+#define MAX_TEMP 60.0f // 60°C  
+#define MAX_CURR_READINGS 100 // 100 readings
+#define MAX_TEMP_READINGS 5 // 5 readings
+
 // PWM configuration
 #define PWM_MAX_VALUE 1023
 #define PWM_FREQUENCY 15000

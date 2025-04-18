@@ -228,6 +228,7 @@ void handleSetpoint(uint8_t msg_id, const byte* msg_data) {
  *
  * @note The function uses conditional compilation to include/exclude parts of the code based on the presence of specific modules.
  */
+
 void sendFeedback() {
 
   // send motor data: speeds, currents and temperatures
@@ -237,6 +238,7 @@ void sendFeedback() {
   
   Serial.println("CURRENTS: " + String(currents[0]) + " " + String(currents[1]));
   Serial.println("TEMPERATURES: " + String(temperatures[0]) + " " + String(temperatures[1]));
+  /*
   canW.sendMessage(MOTOR_FEEDBACK, speeds, 8);
   canW.sendMessage(MOTOR_CURRENT, currents, 8);
   canW.sendMessage(MOTOR_TEMPERATURE, temperatures, 8);
@@ -257,10 +259,11 @@ void sendFeedback() {
   canW.sendMessage(DATA_EE_PITCH_FEEDBACK, &pitch, 4);
   canW.sendMessage(DATA_EE_HEAD_PITCH_FEEDBACK, &headPitch, 4);
   canW.sendMessage(DATA_EE_HEAD_ROLL_FEEDBACK, &headRoll, 4);
-
-  // AGGIUNGERE CURRENTE TEMPERATURA. CURRENT DAL SENSORE. TEMPERATURA ??
 #endif
+ */
+
 }
+
 
 void okInterrupt() {
   display.okInterrupt();
