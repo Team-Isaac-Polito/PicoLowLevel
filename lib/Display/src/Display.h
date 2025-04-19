@@ -27,7 +27,7 @@ public:
 
   void showVersion();
 
-  void showCurrentError();
+  void showCurrentError(int index);
   void addError(const char* errorMsg, int cursorY, const unsigned char* errorMsgCANID, const byte* errorMsgCANData);
   void showError(const char* errorMsg, int cursorY, const unsigned char* errorMsgCANID, const byte* errorMsgCANData);
 

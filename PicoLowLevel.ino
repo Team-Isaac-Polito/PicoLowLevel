@@ -117,16 +117,7 @@ void setup() {
   }
 
   // motorTrRight.calibrate();
-
-  /*
-  unsigned long start2 = millis();
-  while (!motorTrRight.isCalibrated()) {
-    display.showError("Right motor not calibrated!", 20, nullptr, nullptr);
-    Debug.println("Right motor not calibrated!", Levels::WARN);
-    if (millis() - start2 > 1000) {
-      break;
-    }
-    */
+  // to be added...
 
   #if defined MODC_EE
     Serial1.setRX(1);
@@ -180,7 +171,6 @@ void loop() {
   }
 
   if (canW.readMessage(&msg_id, msg_data)) {
-
     // Received CAN message with setpoint
     time_data = time_cur;
     handleSetpoint(msg_id, msg_data);
@@ -192,7 +182,7 @@ void loop() {
     motorTrRight.stop();
   }
   
-  while (canW.readMessage(&msg_id, msg_data) != MCP2515::ERROR_OK) {
+  if (canW.readMessage(&msg_id, msg_data) != MCP2515::ERROR_OK) {
     display.addError("CANBUS ERROR!", 8, &msg_id, msg_data); // Display error message on the screen
     Debug.println("CANBUS ERROR!", Levels::WARN);
   }

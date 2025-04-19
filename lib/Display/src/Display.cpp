@@ -95,7 +95,7 @@ void Display::handleGUI() {
       if (change) showVersion();
       break;
     case 4:
-      if (change) showCurrentError();
+      if (change) showCurrentError(int index);
       break;
   }
 }
@@ -106,12 +106,7 @@ void Display::handleGUI() {
 void Display::navInterrupt() {
   int now = millis();
   if (now - lastnav > DEBOUNCE) {
-    if (menupos == 4 && errorCount > 0) { // in the error menu
-      errorIndex = (errorIndex + 1) % errorCount; // cycle through errors
-      showCurrentError(); // Show the next error message
-    } else {
-      nav++;
-    }
+    nav++;
     lastnav = now;
   }
 }
@@ -124,8 +119,8 @@ void Display::okInterrupt() {
   int now = millis();
   if (now - lastok > DEBOUNCE) {
     if (menupos == 4 && errorCount > 0) { // in the error menu
-      errorIndex = (errorIndex + 1) % errorCount; // cycle through errors
-      showCurrentError(); // Show the next error message
+      index = (index + 1) % errorCount; // cycle through errors
+      showCurrentError(int index); // Show the next error message
     } else {
     ok++;
     }
@@ -163,9 +158,9 @@ void Display::showError(const char* errorMsg, int cursorY, const unsigned char* 
   display.display();
 }
 
-void Display::showCurrentError() {
-  if (errorCount > 0) {
-    const Error& currentError = errorList[errorIndex];
+void Display::showCurrentError(int index) {
+  if (index >= 0 && index < errorCount) {
+    const Error& currentError = errorList[index];
     showError(currentError.errorMsg, currentError.cursorY, currentError.errorMsgCANID, currentError.errorMsgCANData);
   } else {
     display.clearDisplay();
