@@ -95,7 +95,7 @@ void Display::handleGUI() {
       if (change) showVersion();
       break;
     case 4:
-      if (change) showCurrentError(int index);
+      if (change) showCurrentError(index);
       break;
   }
 }
@@ -120,7 +120,7 @@ void Display::okInterrupt() {
   if (now - lastok > DEBOUNCE) {
     if (menupos == 4 && errorCount > 0) { // in the error menu
       index = (index + 1) % errorCount; // cycle through errors
-      showCurrentError(int index); // Show the next error message
+      showCurrentError(index); // Show the next error message
     } else {
     ok++;
     }
@@ -152,6 +152,13 @@ void Display::showError(const char* errorMsg, int cursorY, const unsigned char* 
           display.print(errorMsgCANData[i], HEX);
           display.printf(" ");
       }
+  }
+
+  if (errorCount > 1) {
+    // left arrow 
+    display.drawBitmap(0, display.height() - 5, bitmap_arrow_left_down, 5, 5, 1);
+    // right arrow
+    display.drawBitmap(display.width() - 5, display.height() - 5, bitmap_arrow_right_down, 5, 5, 1);
   }
 
   currentY += 30; // Move to the next line for the next error message

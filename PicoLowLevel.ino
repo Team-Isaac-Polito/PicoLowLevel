@@ -33,6 +33,7 @@ int time_data = 0;
 int time_tel_avg = DT_TEL;
 
 bool FATAL_STATUS = false;
+int errorCount = 0;
 
 CanWrapper canW(5, 10000000UL, &SPI);
 
@@ -110,7 +111,7 @@ void setup() {
       
       FATAL_STATUS = true;
       while(FATAL_STATUS) {
-        display.showCurrentError();
+        display.showCurrentError(errorCount - 1);
         delay(1000);
       }
     }
