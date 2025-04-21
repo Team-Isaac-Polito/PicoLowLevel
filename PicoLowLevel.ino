@@ -21,7 +21,6 @@
 #include "include/communication.h"
 
 
-
 void okInterrupt();
 void navInterrupt();
 void sendFeedback();
@@ -33,6 +32,7 @@ int time_data = 0;
 int time_tel_avg = DT_TEL;
 
 bool FATAL_STATUS = false;
+bool safeMode = false;
 int errorCount = 0;
 
 CanWrapper canW(5, 10000000UL, &SPI);
@@ -58,6 +58,7 @@ Display display;
 
 void setup() {
   Serial.begin(115200);
+  while(!Serial) { ; }; // wait for serial port to connect. Needed for native USB port only
   Debug.setLevel(Levels::INFO); // comment to set debug verbosity to debug
   Wire1.setSDA(I2C_SENS_SDA);
   Wire1.setSCL(I2C_SENS_SCL);
@@ -69,6 +70,8 @@ void setup() {
   SPI.setTX(7);
   SPI.begin();
 
+  Serial.println("buon giorno!");
+
   //LittleFS.begin();
 
   String hostname = WIFI_HOSTBASE+String(CAN_ID);
@@ -77,8 +80,16 @@ void setup() {
   // CAN initialization
   canW.begin();
 
+  // Buttons initialization
+  pinMode(BTNOK, INPUT_PULLUP);
+  pinMode(BTNNAV, INPUT_PULLUP);
+  attachInterrupt(digitalPinToInterrupt(BTNOK), okInterrupt, FALLING);
+  attachInterrupt(digitalPinToInterrupt(BTNNAV), navInterrupt, FALLING);
+
   // Display initialization
   display.begin(); // has showLogo
+  Serial.println("Display initialized!");
+  display.showLogo(); // show logo
 
   // initializing PWM
   analogWriteFreq(PWM_FREQUENCY); // switching frequency to 15kHz
@@ -90,36 +101,55 @@ void setup() {
   // motor initialization
   motorTrLeft.begin();
   motorTrRight.begin();
+  Serial.println("Display initialized!");
 
   motorTrLeft.calibrate();
+  motorTrRight.calibrate();
 
-  unsigned long start1 = millis();
-  while (!motorTrLeft.isCalibrated()) {
-    display.showError("Left motor not calibrated!", 16, nullptr, nullptr);
-    Debug.println("Left motor not calibrated!", Levels::WARN);
-    if (millis() - start1 > 1000) {
-      break;
-    }
-    if (battery.readVoltage() < 11.1f) {
+  if (motorTrLeft.isCalibrated() && motorTrRight.isCalibrated()) {
+    Debug.println("Motors calibrated!", Levels::INFO);
+  } else {
+    if (!motorTrLeft.isCalibrated()) {
       motorTrLeft.stop();
-      Debug.println("Stopping RIGHT motor due to low battery voltage!", Levels::WARN);
+      canW.sendMessage(MOTOR_FEEDBACK, CALIBRATE_MSG_L, strlen(CALIBRATE_MSG_R));
 
-      // can error message
-      const char* lowBatteryMsg = "Low battery voltage!";
-      canW.sendMessage(0x12, lowBatteryMsg, strlen(lowBatteryMsg));
-      display.addError("Low battery voltage!", 16, nullptr, nullptr); // Display error message on the screen
-      
-      FATAL_STATUS = true;
-      while(FATAL_STATUS) {
-        display.showCurrentError(errorCount - 1);
+      Debug.println("Left motor not calibrated!", Levels::WARN);
+      display.addError("Left motor calibration error!", 16, nullptr, nullptr);
+    }
+    if (!motorTrRight.isCalibrated()) {
+      motorTrRight.stop();
+      canW.sendMessage(MOTOR_FEEDBACK, CALIBRATE_MSG_R, strlen(CALIBRATE_MSG_R));
+
+      Debug.println("Right motor not calibrated!", Levels::WARN);
+      display.addError("Right motor calibration error!", 16, nullptr, nullptr);
+    }
+    FATAL_STATUS = true;
+  }
+
+  if (battery.readVoltage() < 11.1f) {
+    motorTrLeft.stop();
+    motorTrRight.stop();
+
+    Debug.println("Stopping motors due to low battery voltage!", Levels::WARN);
+    display.addError("Low battery voltage!", 16, nullptr, nullptr);
+
+    // CAN error message
+    canW.sendMessage(BATTERY_PERCENT, LOW_BATTERY_MSG, strlen(LOW_BATTERY_MSG));
+
+    FATAL_STATUS = true;
+  }
+
+  if (safeMode) {
+    if (FATAL_STATUS) {
+      // canW.sendMessage(.., ..., strlen(...));
+      while (true) {
+        display.showError("FATAL ERROR!", 16, nullptr, nullptr);
         delay(1000);
       }
     }
   }
-
-  // motorTrRight.calibrate();
-  // to be added...
-
+    
+  // Dynamixel initialization
   #if defined MODC_EE
     Serial1.setRX(1);
     Serial1.setTX(0);
@@ -133,12 +163,6 @@ void setup() {
     encoderYaw.readAngle();
     encoderYaw.setZero();
   #endif
-
-  // Buttons initialization
-  pinMode(BTNOK, INPUT_PULLUP);
-  pinMode(BTNNAV, INPUT_PULLUP);
-  attachInterrupt(digitalPinToInterrupt(BTNOK), okInterrupt, FALLING);
-  attachInterrupt(digitalPinToInterrupt(BTNNAV), navInterrupt, FALLING);
 
 }
 
@@ -160,7 +184,13 @@ void loop() {
 
     if (time_tel_avg > DT_TEL) Debug.println("Telemetry frequency below required: " + String(1000/time_tel_avg) + " Hz", Levels::WARN);
 
-    if(!battery.charged()) Debug.println("Battery voltage low! " + String(battery.readVoltage()) + "v", Levels::WARN);
+    if(!battery.charged()) {
+      Debug.println("Battery voltage low! " + String(battery.readVoltage()) + "v", Levels::WARN);
+      display.addError("Low battery voltage!", 16, nullptr, nullptr);
+      canW.sendMessage(BATTERY_VOLTAGE, LOW_BATTERY_MSG, strlen(LOW_BATTERY_MSG));
+
+      FATAL_STATUS = true;
+    }
   }
 
   // send telemetry
@@ -184,8 +214,17 @@ void loop() {
   }
   
   if (canW.readMessage(&msg_id, msg_data) != MCP2515::ERROR_OK) {
-    display.addError("CANBUS ERROR!", 8, &msg_id, msg_data); // Display error message on the screen
+    display.addError("CANBUS ERROR!", 8, &msg_id, msg_data);
     Debug.println("CANBUS ERROR!", Levels::WARN);
+  }
+
+  if (safeMode) {
+    if (FATAL_STATUS) {
+      // canW.sendMessage(.., ..., strlen(...));
+      while (true) {
+        display.showError("FATAL ERROR!", 16, nullptr, nullptr);
+      }
+    }
   }
 
   //wm.handle();

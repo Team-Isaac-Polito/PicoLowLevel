@@ -75,5 +75,10 @@
 #define WIFI_HOSTBASE "picow-"
 #define CONF_PATH "/config.txt"
 
+// CAN messages
+#define CALIBRATE_MSG_R "Calibration of right motor failed!"
+#define CALIBRATE_MSG_L "Calibration of left motor failed!"
+#define LOW_BATTERY_MSG "Low battery voltage!"  
+
 
 #endif
