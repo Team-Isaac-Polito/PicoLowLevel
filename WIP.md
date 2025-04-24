@@ -13,7 +13,6 @@
 ## Notes
 
 - A redundant call to `analogReadResolution` was necessary in the `SmartMotor` class because `analogRead()` inside class methods did not inherit the resolution set in the `.ino` file. This may be removed if it's confirmed to be unnecessary when using ADS1115 methods.
-- I am currently logging the current and temperature values transmitted over CAN to the serial monitor.
 - The ADS1115 also features an ALERT pin that can be triggered when a threshold is exceeded, either immediately or after a defined time window. This pin can be used as an interrupt, which is an interesting feature. However, it can only be assigned to one channel at a time. For this reason, I am currently managing threshold checks directly within the `getTemperature()` and `getCurrent()` methods.
 - After the latest update, current and temperature values are printed during each update cycle in the `SmartMotor` class for debugging purposes. The current thresholds are now set to 5 A, 4 A, and 3 A, while the temperature threshold is 50 °C.
 - The `safe_mode` variable indicates whether a safety mechanism is active and, if so, which one. If `safe_mode` is set to 1 (overheating), the reference passed to the PID is zeroed. If it is set to 2 (overcurrent), the reference value is scaled down (through  `division_factor`) based on the severity of the current:

@@ -151,7 +151,7 @@ void loop() {
     time_tel_avg = (time_tel_avg + (time_cur - time_tel)) / 2;
     time_tel = time_cur;
 
-    sendFeedback();
+    // sendFeedback();
   }
 
   if (canW.readMessage(&msg_id, msg_data)) {
@@ -236,9 +236,9 @@ void sendFeedback() {
   float currents[2]  = {motorTrLeft.getCurrent(), motorTrRight.getCurrent()};
   float temperatures[2] = {motorTrLeft.getTemperature(), motorTrRight.getTemperature()};
   
-  Serial.println("CURRENTS: " + String(currents[0]) + " " + String(currents[1]));
-  Serial.println("TEMPERATURES: " + String(temperatures[0]) + " " + String(temperatures[1]));
-  /*
+  Debug.println("CURRENTS: " + String(currents[0]) + " " + String(currents[1]), Levels::INFO);
+  Debug.println("TEMPERATURES: " + String(temperatures[0]) + " " + String(temperatures[1]), Levels::INFO);
+  
   canW.sendMessage(MOTOR_FEEDBACK, speeds, 8);
   canW.sendMessage(MOTOR_CURRENT, currents, 8);
   canW.sendMessage(MOTOR_TEMPERATURE, temperatures, 8);
@@ -260,7 +260,7 @@ void sendFeedback() {
   canW.sendMessage(DATA_EE_HEAD_PITCH_FEEDBACK, &headPitch, 4);
   canW.sendMessage(DATA_EE_HEAD_ROLL_FEEDBACK, &headRoll, 4);
 #endif
- */
+
 
 }
 

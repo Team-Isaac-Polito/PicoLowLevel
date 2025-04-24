@@ -39,7 +39,7 @@ void SmartMotor::update() {
         pid.calculate();
         motor.write(speedToPower(pid.getOutput()));
         pid_last = now;
-        Serial.println("Current\t" + String(getCurrent()) + "\tTemperature\t" + String(getTemperature()));
+        Debug.println("Current\t" + String(getCurrent()) + "\tTemperature\t" + String(getTemperature()), Levels::INFO);
     }
 }
 
