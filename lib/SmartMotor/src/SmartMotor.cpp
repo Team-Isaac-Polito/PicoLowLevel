@@ -39,16 +39,34 @@ void SmartMotor::update() {
         pid.calculate();
         motor.write(speedToPower(pid.getOutput()));
         pid_last = now;
+        Serial.println("Current\t" + String(getCurrent()) + "\tTemperature\t" + String(getTemperature()));
     }
 }
+
+
 
 /**
  * Set the desired speed of the motor.
  * @param value Desired motor speed between -MAX_SPEED and MAX_SPEED.
  */
 void SmartMotor::setSpeed(float value) {
-    pid.updateReferenceValue(value);
+    float safe_value;
+    switch (safe_mode) {
+    {
+    case 0: // No safe mode, set the speed directly
+        safe_value = value;
+        break;
+    case 1: // Temperature is too high, set the speed to 0
+        safe_value = 0.f;
+        break;
+    case 2:  // Current is too high, set the speed to a reduced value
+        safe_value = value/division_factor;
+        break;
+    }
+    pid.updateReferenceValue(safe_value);
+    }
 }
+
 
 /**
  * Get the current speed of the motor.
@@ -82,9 +100,32 @@ float SmartMotor::getCurrent() {
         overCurrentCount++;
         if(overCurrentCount >= MAX_CURR_READINGS) {
             MOTOR_CURR_WARNING = 1;
+            safe_mode = 2;
+            division_factor = 2.f; // Reduce the speed by half
+        }
+    } else if (current > MAX_CURR-1) 
+     {
+        overCurrentCount++;
+        if(overCurrentCount >= MAX_CURR_READINGS*2) {
+            MOTOR_CURR_WARNING = 1;
+            safe_mode = 2;
+            division_factor = 1.5f; // Reduce the speed by 1/3
+        }
+    } else if (current > MAX_CURR-2) {
+        overCurrentCount++;
+        if(overCurrentCount >= MAX_CURR_READINGS*3) {
+            MOTOR_CURR_WARNING = 1;
+            safe_mode = 2;
+            division_factor = 1.25f; // Reduce the speed by 1/4
         }
     } else {
         overCurrentCount = 0;
+    }
+    if (MOTOR_CURR_WARNING==1) {
+        if (current < MAX_CURR-2.3) {
+            MOTOR_CURR_WARNING = 0;
+            safe_mode = 0;
+        }
     }
     return current;
 }
@@ -109,12 +150,20 @@ float SmartMotor::getTemperature() {
         overTemperatureCount++;
         if(overTemperatureCount >= MAX_TEMP_READINGS) {
             MOTOR_TEMP_WARNING = 1;
+            safe_mode = 1;
         }
     } else {
         overTemperatureCount = 0;
     }
+    if (MOTOR_TEMP_WARNING==1) {
+        if (temperature < MAX_TEMP-15) {
+            MOTOR_TEMP_WARNING = 0;
+            safe_mode = 0;
+        }
+    }
     return temperature;
 }
+
 
 /**
  * Stop the motor.

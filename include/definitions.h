@@ -11,7 +11,7 @@
 
 // Current and temperature thresholds configurations
 #define MAX_CURR 5.0f // 5A
-#define MAX_TEMP 60.0f // 60°C  
+#define MAX_TEMP 50.0f // 50°C  
 #define MAX_CURR_READINGS 100 // 100 readings
 #define MAX_TEMP_READINGS 5 // 5 readings
 
