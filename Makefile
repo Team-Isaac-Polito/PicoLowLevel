@@ -32,18 +32,28 @@ define print_red
 	@pwsh  -Command "Write-Host '$1' -ForegroundColor Red"
 endef
 
+define animate_duck
+	@powershell -Command "for ($$i = 0; $$i -lt 30; $$i++) { $$spaces = ' ' * $$i; Write-Host ($$spaces + '<(` )'); Start-Sleep -Milliseconds 60 }"
+endef
+
+
+
+
 PORT ?= $(shell arduino-cli board list | findstr "Raspberry Pi Pico" | for /f "tokens=1" %%a in ('more') do @echo %%a)
 
 .DEFAULT:
 	@echo "Invalid command: '$@'"
 	@echo "Use 'make help' to see the list of available commands."
 	@$(MAKE) help
+.PHONY: all, compile, compile_fast, upload, upload_bootsel, clean_all, clean_output, monitor, help, auto_com_port, port, duck
 
 # Compilation
 compile: clean_all
 	$(call print_green, $(COMPILATION_SYMBOL))
 	@arduino-cli compile --fqbn $(BOARD_FQBN) --build-path $(BUILD_DIR) $(SKETCH_PATH) --output-dir $(OUTPUT_DIR) $(LIBRARY_FLAGS) \
 		$(foreach dir, $(INCLUDE_PATHS), --build-property "compiler.cpp.extra_flags=-I$(dir) -D$(MODULE_DEFINE)")
+
+
 
 compile_fast:
 	@arduino-cli compile --fqbn $(BOARD_FQBN) "$(SKETCH_PATH)"
@@ -122,3 +132,15 @@ auto_com_port:
 port:
 	@echo "List of COM ports detected by the system:"
 	@arduino-cli board list
+
+
+
+
+duck:
+	@powershell -Command "for ($$i = 0; $$i -lt 100; $$i++) { \
+	    $$spaces = ' ' * $$i; \
+	    Write-Host ($$spaces + '<(` )'); \
+	    Write-Host ($$spaces + '  \\_  ._     /\\'); \
+	    Write-Host ($$spaces + '  /  \\  \\   / | \\'); \
+	    Write-Host ($$spaces + ' /      \\  | |  '); \
+		Start-Sleep -Milliseconds 500;}"
