@@ -137,10 +137,23 @@ port:
 
 
 duck:
-	@powershell -Command "for ($$i = 0; $$i -lt 100; $$i++) { \
-	    $$spaces = ' ' * $$i; \
+	@powershell -Command "for ($$i = 10; $$i -ge 0; $$i--) { \
+	    $$spaces = '   ' * $$i; \
+		Clear-Host; \
+		Write-Host ($$spaces + '  __         '); \
 	    Write-Host ($$spaces + '<(` )'); \
-	    Write-Host ($$spaces + '  \\_  ._     /\\'); \
-	    Write-Host ($$spaces + '  /  \\  \\   / | \\'); \
-	    Write-Host ($$spaces + ' /      \\  | |  '); \
-		Start-Sleep -Milliseconds 500;}"
+	    Write-Host ($$spaces + ' /  \______//'); \
+	    Write-Host ($$spaces + ' \  \\     /'); \
+	    Write-Host ($$spaces + '  \_______/ '); \
+		Write-Host ($$spaces + '  _/   _\ '); \
+		Start-Sleep -Milliseconds 500; \
+	} \
+	Clear-Host; \
+	$$spaces = ' ' * 0; \
+	Write-Host ($$spaces + '  __             ________ '); \
+	Write-Host ($$spaces + '<(` )           /        \'); \
+	Write-Host ($$spaces + ' /  \______//  <  QUACK!  |'); \
+	Write-Host ($$spaces + ' \   \\    /    \________/'); \
+	Write-Host ($$spaces + '  \_______/ '); \
+	Write-Host ($$spaces + '  _/   _\ '); \
+	"
