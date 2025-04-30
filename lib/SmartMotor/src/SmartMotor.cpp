@@ -71,7 +71,7 @@ void SmartMotor::setSpeed(float value) {
 /**
  * Get the current speed of the motor.
  * The value is only updated at a fixed rate, defined by DT_ENC, to avoid losing precision.
- * @return float Current speed of the motor between -MAX_SPEED and MAX_SPEED.
+ * @return float speed of the motor between -MAX_SPEED and MAX_SPEED.
  */
 float SmartMotor::getSpeed() {
     unsigned long now = millis();
@@ -99,7 +99,7 @@ float SmartMotor::getCurrent() {
     if(current > MAX_CURR) {
         overCurrentCount++;
         if(overCurrentCount >= MAX_CURR_READINGS) {
-            MOTOR_CURR_WARNING = 1;
+            motorCurrWarning = 1;
             safe_mode = 2;
             division_factor = 2.f; // Reduce the speed by half
         }
@@ -107,23 +107,23 @@ float SmartMotor::getCurrent() {
      {
         overCurrentCount++;
         if(overCurrentCount >= MAX_CURR_READINGS*2) {
-            MOTOR_CURR_WARNING = 1;
+            motorCurrWarning = 1;
             safe_mode = 2;
             division_factor = 1.5f; // Reduce the speed by 1/3
         }
     } else if (current > MAX_CURR-2) {
         overCurrentCount++;
         if(overCurrentCount >= MAX_CURR_READINGS*3) {
-            MOTOR_CURR_WARNING = 1;
+            motorCurrWarning = 1;
             safe_mode = 2;
             division_factor = 1.25f; // Reduce the speed by 1/4
         }
     } else {
         overCurrentCount = 0;
     }
-    if (MOTOR_CURR_WARNING==1) {
+    if (motorCurrWarning==1) {
         if (current < MAX_CURR-2.3) {
-            MOTOR_CURR_WARNING = 0;
+            motorCurrWarning = 0;
             safe_mode = 0;
         }
     }
@@ -149,15 +149,15 @@ float SmartMotor::getTemperature() {
     if(temperature > MAX_TEMP) {
         overTemperatureCount++;
         if(overTemperatureCount >= MAX_TEMP_READINGS) {
-            MOTOR_TEMP_WARNING = 1;
+            motorTempWarning = 1;
             safe_mode = 1;
         }
     } else {
         overTemperatureCount = 0;
     }
-    if (MOTOR_TEMP_WARNING==1) {
+    if (motorTempWarning==1) {
         if (temperature < MAX_TEMP-15) {
-            MOTOR_TEMP_WARNING = 0;
+            motorTempWarning = 0;
             safe_mode = 0;
         }
     }
