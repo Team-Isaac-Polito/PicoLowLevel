@@ -34,7 +34,7 @@
 #define DRV_TR_RIGHT_PWM  8
 
 // Motor configuration
-#define MAX_SPEED 65.f
+#define MAX_SPEED 330.f
 
 // Encoder pins
 #define ENC_TR_LEFT_A   12
@@ -46,7 +46,7 @@
 // Encoder conversion constant
 // K = 100          *       10^6        *       60      / (     48   *             74,83                    *       2 )
 //      centiRPM           microsecToSec        SecToMin       intPerRotation        transmissionRatio             transmissionRatio2
-#define ENC_TR_CONVERSION (835226)
+#define ENC_TR_CONVERSION (3125000)
 
 // Traction encoder filter samples
 #define ENC_TR_SAMPLES 10
