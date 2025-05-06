@@ -32,7 +32,7 @@ bool CanWrapper::sendMessage(uint8_t id, const void* data, uint8_t length) {
 bool CanWrapper::readMessage(uint8_t* id, byte* data) {
     struct can_frame msg = {0};
     if (mcp2515.readMessage(&msg) == MCP2515::ERROR_OK) {
-        *id = msg.can_id;
+        *id = ( msg.can_id >> 16 ) & 0xFF;
         memcpy(data, msg.data, msg.can_dlc);
         return true;
     }
