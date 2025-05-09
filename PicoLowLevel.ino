@@ -31,10 +31,14 @@ int time_tel = 0;
 int time_data = 0;
 int time_tel_avg = DT_TEL;
 
-bool FATAL_STATUS = false;
+bool fatal_status = false;
 bool safeMode = false;
 int errorCount = 0;
-
+uint8_t calibrateMsgR = CALIBRATE_MSG_R;
+uint8_t calibrateMsgL = CALIBRATE_MSG_L;
+uint8_t fatalErrorMsg = FATAL_ERROR_MSG;
+uint8_t lowBatteryMsg = LOW_BATTERY_MSG;
+uint8_t message = 0x00
 CanWrapper canW(5, 10000000UL, &SPI);
 
 SmartMotor motorTrLeft(DRV_TR_LEFT_PWM, DRV_TR_LEFT_DIR, ENC_TR_LEFT_A, ENC_TR_LEFT_B, false);
@@ -89,7 +93,7 @@ void setup() {
   // Display initialization
   display.begin(); // has showLogo
   Serial.println("Display initialized!");
-  display.showLogo(); // show logo
+  // display.showLogo(); // show logo
 
   // initializing PWM
   analogWriteFreq(PWM_FREQUENCY); // switching frequency to 15kHz
@@ -111,19 +115,21 @@ void setup() {
   } else {
     if (!motorTrLeft.isCalibrated()) {
       motorTrLeft.stop();
-      canW.sendMessage(MOTOR_FEEDBACK, CALIBRATE_MSG_L, strlen(CALIBRATE_MSG_R));
+      message |= 1<<0;
+      canW.sendMessage(MOTOR_FEEDBACK, &calibrateMsgL, 1);
 
       Debug.println("Left motor not calibrated!", Levels::WARN);
       display.addError("Left motor calibration error!", 16, nullptr, nullptr);
     }
     if (!motorTrRight.isCalibrated()) {
       motorTrRight.stop();
-      canW.sendMessage(MOTOR_FEEDBACK, CALIBRATE_MSG_R, strlen(CALIBRATE_MSG_R));
+      message |= 1<<1;
+      canW.sendMessage(MOTOR_FEEDBACK, &calibrateMsgR, 1);
 
       Debug.println("Right motor not calibrated!", Levels::WARN);
       display.addError("Right motor calibration error!", 16, nullptr, nullptr);
     }
-    FATAL_STATUS = true;
+    fatal_status = true;
   }
 
   if (battery.readVoltage() < 11.1f) {
@@ -134,16 +140,15 @@ void setup() {
     display.addError("Low battery voltage!", 16, nullptr, nullptr);
 
     // CAN error message
-    canW.sendMessage(BATTERY_PERCENT, LOW_BATTERY_MSG, strlen(LOW_BATTERY_MSG));
+    canW.sendMessage(BATTERY_PERCENT, &lowBatteryMsg, 1);
 
-    FATAL_STATUS = true;
+    fatal_status = true;
   }
 
   if (safeMode) {
-    if (FATAL_STATUS) {
-      // canW.sendMessage(.., ..., strlen(...));
+    if (fatal_status) {
+      canW.sendMessage(FATAL_STOP, &fatalErrorMsg, 1);
       while (true) {
-        display.showError("FATAL ERROR!", 16, nullptr, nullptr);
         delay(1000);
       }
     }
@@ -186,10 +191,15 @@ void loop() {
 
     if(!battery.charged()) {
       Debug.println("Battery voltage low! " + String(battery.readVoltage()) + "v", Levels::WARN);
-      display.addError("Low battery voltage!", 16, nullptr, nullptr);
-      canW.sendMessage(BATTERY_VOLTAGE, LOW_BATTERY_MSG, strlen(LOW_BATTERY_MSG));
 
-      FATAL_STATUS = true;
+      motorTrLeft.stop();
+      motorTrRight.stop();
+
+      display.addError("Low battery voltage!", 16, nullptr, nullptr);
+      // should send the percentage of battery left but it is not implemented yet
+      canW.sendMessage(BATTERY_VOLTAGE, &lowBatteryMsg, 1);
+
+      fatal_status = true;
     }
   }
 
@@ -201,11 +211,16 @@ void loop() {
   //  sendFeedback();
   }
 
-  if (canW.readMessage(&msg_id, msg_data)) {
+  if (canW.readMessage(&msg_id, msg_data)!= MCP2515::ERROR_OK) {
     // Received CAN message with setpoint
     time_data = time_cur;
     handleSetpoint(msg_id, msg_data);
-  } else if (time_cur - time_data > CAN_TIMEOUT && time_data != -1) {
+  } else {
+    display.addError("CANBUS ERROR!", 8, &msg_id, msg_data);
+    Debug.println("CANBUS ERROR!", Levels::WARN);
+  }
+
+  if (time_cur - time_data > CAN_TIMEOUT && time_data != -1) {
     //if we do not receive data for more than a second stop motors
     time_data = -1;
     Debug.println("Stopping motors after timeout.", Levels::INFO);
@@ -213,22 +228,20 @@ void loop() {
     motorTrRight.stop();
   }
   
-  if (canW.readMessage(&msg_id, msg_data) != MCP2515::ERROR_OK) {
-    display.addError("CANBUS ERROR!", 8, &msg_id, msg_data);
-    Debug.println("CANBUS ERROR!", Levels::WARN);
-  }
+  //wm.handle();
+  display.handleGUI();
 
   if (safeMode) {
-    if (FATAL_STATUS) {
-      // canW.sendMessage(.., ..., strlen(...));
-      while (true) {
-        display.showError("FATAL ERROR!", 16, nullptr, nullptr);
+    if (fatal_status) {
+      canW.sendMessage(FATAL_STOP, &fatalErrorMsg, 1);
+      while (true) {  
+        delay(1000);
+        motorTrLeft.stop();
+        motorTrRight.stop();
       }
     }
   }
-
-  //wm.handle();
-  display.handleGUI();
+  
 }
 
 /**
@@ -247,6 +260,24 @@ void handleSetpoint(uint8_t msg_id, const byte* msg_data) {
       memcpy(&rightSpeed, msg_data + 4, 4);
       motorTrLeft.setSpeed(leftSpeed);
       motorTrRight.setSpeed(rightSpeed);
+
+      if (!motorTrLeft.isCalibrated()) {
+        Debug.println("Left motor not calibrated! Ignoring left speed setpoint.", Levels::WARN);
+        display.addError("Ignoring left motor speed setpoint.", 16, nullptr, nullptr);
+        leftSpeed = 0; 
+        motorTrLeft.setSpeed(leftSpeed);
+    } else {
+        motorTrLeft.setSpeed(leftSpeed);
+    }
+    
+    if (!motorTrRight.isCalibrated()) {
+        Debug.println("Right motor not calibrated! Ignoring right speed setpoint.", Levels::WARN);
+        display.addError("Ignoring right motor speed setpoint.", 16, nullptr, nullptr);
+        rightSpeed = 0; 
+        motorTrRight.setSpeed(rightSpeed); 
+    } else {
+        motorTrRight.setSpeed(rightSpeed);
+    }
 
       Debug.println("TRACTION DATA :\tleft: \t" + String(leftSpeed) + "\tright: \t" + String(rightSpeed));
       break;

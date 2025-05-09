@@ -114,13 +114,16 @@ void Display::navInterrupt() {
 
 /**
  * OK button ISR.
+ * Added errors to the list are shown one by one with each button press.
+ * If no error is present, the button press is counted as a menu change.
  */
 void Display::okInterrupt() {
   int now = millis();
   if (now - lastok > DEBOUNCE) {
-    if (menupos == 4 && errorCount > 0) { // in the error menu
-      index = (index + 1) % errorCount; // cycle through errors
-      showCurrentError(index); // Show the next error message
+    if (menupos == 4 && errorCount > 0) {     // in the error menu and there are errors
+      index = (index + 1) % errorCount;       // cycle through errors with each press
+      showCurrentError(index);                // Show the next error message
+      index++; 
     } else {
     ok++;
     }
@@ -128,24 +131,30 @@ void Display::okInterrupt() {
   }
 }
 
+/*
+ * Displays an error message on the screen.
+ * If the message is too long, it will be split into multiple lines.  
+ * The function also shows the CAN ID and data if provided.
+ */
 void Display::showError(const char* errorMsg, int cursorY, const unsigned char* errorMsgCANID, const byte* errorMsgCANData) {
-  static int currentY = 0; // Keeps track of the current Y position for the next error message
+  static int currentY = 0;                  // Keeps track of the current Y position for 
+                                            // the next error message
 
-  if (currentY + 30 > display.height()) { // If the display is full, clear it and reset the position
-    display.clearDisplay();
+  if (currentY + 30 > display.height()) {   // If the display is full, clear it and reset                                        
+    display.clearDisplay();                 // the position
     currentY = 0;
   }
 
   display.setCursor(0, currentY);
   display.printf(errorMsg);
 
-  if (errorMsgCANID != nullptr) {
+  if (errorMsgCANID != nullptr) {               // check if CAN ID is provided
       display.setCursor(0, currentY + 10);
       display.printf("CAN ID: ");
       display.print(*errorMsgCANID, HEX);
   }
 
-  if (errorMsgCANData != nullptr) {
+  if (errorMsgCANData != nullptr) {             // check if CAN data is provided
       display.setCursor(0, currentY + 20);
       display.print("CAN Data: ");
       for (int i = 0; i < 8; i++) {
@@ -155,6 +164,9 @@ void Display::showError(const char* errorMsg, int cursorY, const unsigned char* 
   }
 
   if (errorCount > 1) {
+    // Drawing arrow to indicate that there are more errors
+    // Meaning: (Need to press OK button) 
+
     // left arrow 
     display.drawBitmap(0, display.height() - 5, bitmap_arrow_left_down, 5, 5, 1);
     // right arrow
@@ -165,6 +177,10 @@ void Display::showError(const char* errorMsg, int cursorY, const unsigned char* 
   display.display();
 }
 
+/*
+ * Displays the current error message based on the index.
+ * If the index is out of bounds, it shows a default message.
+ */
 void Display::showCurrentError(int index) {
   if (index >= 0 && index < errorCount) {
     const Error& currentError = errorList[index];
@@ -172,21 +188,28 @@ void Display::showCurrentError(int index) {
   } else {
     display.clearDisplay();
     display.setCursor(0, 16);
-    display.print("No errors.");
+    display.printf("No errors.");
     display.display();
   }
 }
 
+/*
+ * Adds an error message to the list of errors.
+ */
 void Display::addError(const char* errorMsg, int cursorY, const unsigned char* errorMsgCANID, const byte* errorMsgCANData) {
   if (errorCount < 10) { // Check if there's space for a new error
+                         // Max error is set in display.h, change it if you want more errors
     errorList[errorCount].errorMsg = errorMsg;
     errorList[errorCount].cursorY = cursorY;
     errorList[errorCount].errorMsgCANID = errorMsgCANID;
     errorList[errorCount].errorMsgCANData = errorMsgCANData;
     errorCount++;
   } else {
-    // Handle the case where the error list is full (e.g., overwrite the oldest error or ignore the new one)
-    // we'll just ignore the new error in this example.
+    /* 
+     * Handle the case where the error list is full 
+     * (e.g., overwrite the oldest error or ignore the new one)
+     * we'll just ignore the new error in this example.
+     */
     Serial.println("Error list is full. Cannot add new error.");
   }
 }

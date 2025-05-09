@@ -76,9 +76,10 @@
 #define CONF_PATH "/config.txt"
 
 // CAN messages
-#define CALIBRATE_MSG_R "Calibration of right motor failed!"
-#define CALIBRATE_MSG_L "Calibration of left motor failed!"
-#define LOW_BATTERY_MSG "Low battery voltage!"  
+#define CALIBRATE_MSG_R 0b11011111
+#define CALIBRATE_MSG_L 0b11101111
+#define LOW_BATTERY_MSG 0b11110111
+#define FATAL_ERROR_MSG 0b11111111
 
 
 #endif
