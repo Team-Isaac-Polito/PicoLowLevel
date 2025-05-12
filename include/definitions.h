@@ -75,11 +75,11 @@
 #define WIFI_HOSTBASE "picow-"
 #define CONF_PATH "/config.txt"
 
-// CAN messages
-#define CALIBRATE_MSG_R 0b11011111
-#define CALIBRATE_MSG_L 0b11101111
-#define LOW_BATTERY_MSG 0b11110111
-#define FATAL_ERROR_MSG 0b11111111
-
+#define SAFE_MODE_ON (1<<0)
+#define FATAL_STATUS_ON (1<<1)
+#define ERROR_MOTOR_L_NOT_CALIBRATED (1<<2)
+#define ERROR_MOTOR_R_NOT_CALIBRATED (1<<3)
+#define ERROR_LOW_BATTERY_VOLTAGE (1<<4)
+#define ERROR_CAN (1<<5)
 
 #endif

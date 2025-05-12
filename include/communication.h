@@ -16,6 +16,7 @@
 #define DATA_EE_HEAD_PITCH_FEEDBACK     0x44
 #define DATA_EE_HEAD_ROLL_FEEDBACK      0x46
 #define FATAL_STOP                      0x47
+#define MOTOR_CALIBRATION               0x48  
 
 // TODO: update to ROS2 equivalent
 #define DATA_PITCH                      0x04 // Deprecated?

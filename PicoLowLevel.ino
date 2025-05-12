@@ -34,11 +34,9 @@ int time_tel_avg = DT_TEL;
 bool fatal_status = false;
 bool safeMode = false;
 int errorCount = 0;
-uint8_t calibrateMsgR = CALIBRATE_MSG_R;
-uint8_t calibrateMsgL = CALIBRATE_MSG_L;
-uint8_t fatalErrorMsg = FATAL_ERROR_MSG;
-uint8_t lowBatteryMsg = LOW_BATTERY_MSG;
-uint8_t message = 0x00
+
+uint8_t message = 0x00;
+
 CanWrapper canW(5, 10000000UL, &SPI);
 
 SmartMotor motorTrLeft(DRV_TR_LEFT_PWM, DRV_TR_LEFT_DIR, ENC_TR_LEFT_A, ENC_TR_LEFT_B, false);
@@ -74,8 +72,6 @@ void setup() {
   SPI.setTX(7);
   SPI.begin();
 
-  Serial.println("buon giorno!");
-
   //LittleFS.begin();
 
   String hostname = WIFI_HOSTBASE+String(CAN_ID);
@@ -93,7 +89,6 @@ void setup() {
   // Display initialization
   display.begin(); // has showLogo
   Serial.println("Display initialized!");
-  // display.showLogo(); // show logo
 
   // initializing PWM
   analogWriteFreq(PWM_FREQUENCY); // switching frequency to 15kHz
@@ -105,7 +100,6 @@ void setup() {
   // motor initialization
   motorTrLeft.begin();
   motorTrRight.begin();
-  Serial.println("Display initialized!");
 
   motorTrLeft.calibrate();
   motorTrRight.calibrate();
@@ -115,16 +109,18 @@ void setup() {
   } else {
     if (!motorTrLeft.isCalibrated()) {
       motorTrLeft.stop();
-      message |= 1<<0;
-      canW.sendMessage(MOTOR_FEEDBACK, &calibrateMsgL, 1);
+
+      message |= ERROR_MOTOR_L_NOT_CALIBRATED;
+      canW.sendMessage(MOTOR_CALIBRATION, &message, 1);
 
       Debug.println("Left motor not calibrated!", Levels::WARN);
       display.addError("Left motor calibration error!", 16, nullptr, nullptr);
     }
     if (!motorTrRight.isCalibrated()) {
       motorTrRight.stop();
-      message |= 1<<1;
-      canW.sendMessage(MOTOR_FEEDBACK, &calibrateMsgR, 1);
+
+      message |= ERROR_MOTOR_R_NOT_CALIBRATED;
+      canW.sendMessage(MOTOR_CALIBRATION, &message, 1);
 
       Debug.println("Right motor not calibrated!", Levels::WARN);
       display.addError("Right motor calibration error!", 16, nullptr, nullptr);
@@ -140,14 +136,17 @@ void setup() {
     display.addError("Low battery voltage!", 16, nullptr, nullptr);
 
     // CAN error message
-    canW.sendMessage(BATTERY_PERCENT, &lowBatteryMsg, 1);
+    message |= ERROR_LOW_BATTERY_VOLTAGE;
+    canW.sendMessage(BATTERY_VOLTAGE, &message, 1);
 
     fatal_status = true;
   }
 
   if (safeMode) {
+    message = SAFE_MODE_ON;
     if (fatal_status) {
-      canW.sendMessage(FATAL_STOP, &fatalErrorMsg, 1);
+      message |= FATAL_STATUS_ON;
+      canW.sendMessage(FATAL_STOP, &message, 1);
       while (true) {
         delay(1000);
       }
@@ -177,11 +176,9 @@ void loop() {
   uint8_t msg_id;
   byte msg_data[8];
 
-  // update motors
-  /* 
+  // update motors 
   motorTrLeft.update();
   motorTrRight.update(); 
-  */
 
   // health checks
   if (time_cur - time_bat >= DT_BAT) {
@@ -197,7 +194,8 @@ void loop() {
 
       display.addError("Low battery voltage!", 16, nullptr, nullptr);
       // should send the percentage of battery left but it is not implemented yet
-      canW.sendMessage(BATTERY_VOLTAGE, &lowBatteryMsg, 1);
+      message |= ERROR_LOW_BATTERY_VOLTAGE;
+      canW.sendMessage(BATTERY_VOLTAGE, &message, 1);
 
       fatal_status = true;
     }
@@ -232,16 +230,15 @@ void loop() {
   display.handleGUI();
 
   if (safeMode) {
+    message = SAFE_MODE_ON;
     if (fatal_status) {
-      canW.sendMessage(FATAL_STOP, &fatalErrorMsg, 1);
-      while (true) {  
+      message |= FATAL_STATUS_ON;
+      canW.sendMessage(FATAL_STOP, &message, 1);
+      while (true) {
         delay(1000);
-        motorTrLeft.stop();
-        motorTrRight.stop();
       }
     }
   }
-  
 }
 
 /**
