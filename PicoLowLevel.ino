@@ -60,7 +60,7 @@ Display display;
 
 void setup() {
   Serial.begin(115200);
-  while(!Serial) { ; }; // wait for serial port to connect. Needed for native USB port only
+  //while(!Serial) { ; }; // wait for serial port to connect. Needed for native USB port only
   Debug.setLevel(Levels::INFO); // comment to set debug verbosity to debug
   Wire1.setSDA(I2C_SENS_SDA);
   Wire1.setSCL(I2C_SENS_SCL);
@@ -111,19 +111,19 @@ void setup() {
       motorTrLeft.stop();
 
       message |= ERROR_MOTOR_L_NOT_CALIBRATED;
-      canW.sendMessage(MOTOR_CALIBRATION, &message, 1);
+      canW.sendMessage(ERROR_MESSAGE, &message, 1);
 
       Debug.println("Left motor not calibrated!", Levels::WARN);
-      display.addError("Left motor calibration error!", 16, nullptr, nullptr);
+      display.addError("Left motor calibration error!", 16);
     }
     if (!motorTrRight.isCalibrated()) {
       motorTrRight.stop();
 
       message |= ERROR_MOTOR_R_NOT_CALIBRATED;
-      canW.sendMessage(MOTOR_CALIBRATION, &message, 1);
+      canW.sendMessage(ERROR_MESSAGE, &message, 1);
 
       Debug.println("Right motor not calibrated!", Levels::WARN);
-      display.addError("Right motor calibration error!", 16, nullptr, nullptr);
+      display.addError("Right motor calibration error!", 16);
     }
     fatal_status = true;
   }
@@ -133,11 +133,11 @@ void setup() {
     motorTrRight.stop();
 
     Debug.println("Stopping motors due to low battery voltage!", Levels::WARN);
-    display.addError("Low battery voltage!", 16, nullptr, nullptr);
+    display.addError("Low battery voltage!", 16);
 
     // CAN error message
     message |= ERROR_LOW_BATTERY_VOLTAGE;
-    canW.sendMessage(BATTERY_VOLTAGE, &message, 1);
+    canW.sendMessage(ERROR_MESSAGE, &message, 1);
 
     fatal_status = true;
   }
@@ -146,7 +146,7 @@ void setup() {
     message = SAFE_MODE_ON;
     if (fatal_status) {
       message |= FATAL_STATUS_ON;
-      canW.sendMessage(FATAL_STOP, &message, 1);
+      canW.sendMessage(ERROR_MESSAGE, &message, 1);
       while (true) {
         delay(1000);
       }
@@ -192,10 +192,10 @@ void loop() {
       motorTrLeft.stop();
       motorTrRight.stop();
 
-      display.addError("Low battery voltage!", 16, nullptr, nullptr);
+      display.addError("Low battery voltage!", 16);
       // should send the percentage of battery left but it is not implemented yet
       message |= ERROR_LOW_BATTERY_VOLTAGE;
-      canW.sendMessage(BATTERY_VOLTAGE, &message, 1);
+      canW.sendMessage(ERROR_MESSAGE, &message, 1);
 
       fatal_status = true;
     }
@@ -206,7 +206,7 @@ void loop() {
     time_tel_avg = (time_tel_avg + (time_cur - time_tel)) / 2;
     time_tel = time_cur;
 
-  //  sendFeedback();
+    sendFeedback();
   }
 
   if (canW.readMessage(&msg_id, msg_data)!= MCP2515::ERROR_OK) {
@@ -214,7 +214,7 @@ void loop() {
     time_data = time_cur;
     handleSetpoint(msg_id, msg_data);
   } else {
-    display.addError("CANBUS ERROR!", 8, &msg_id, msg_data);
+    display.addError("CANBUS ERROR!", 8);
     Debug.println("CANBUS ERROR!", Levels::WARN);
   }
 
@@ -233,7 +233,7 @@ void loop() {
     message = SAFE_MODE_ON;
     if (fatal_status) {
       message |= FATAL_STATUS_ON;
-      canW.sendMessage(FATAL_STOP, &message, 1);
+      canW.sendMessage(ERROR_MESSAGE, &message, 1);
       while (true) {
         delay(1000);
       }
@@ -260,7 +260,7 @@ void handleSetpoint(uint8_t msg_id, const byte* msg_data) {
 
       if (!motorTrLeft.isCalibrated()) {
         Debug.println("Left motor not calibrated! Ignoring left speed setpoint.", Levels::WARN);
-        display.addError("Ignoring left motor speed setpoint.", 16, nullptr, nullptr);
+        display.addError("Ignoring left motor speed setpoint.", 16);
         leftSpeed = 0; 
         motorTrLeft.setSpeed(leftSpeed);
     } else {
@@ -269,7 +269,7 @@ void handleSetpoint(uint8_t msg_id, const byte* msg_data) {
     
     if (!motorTrRight.isCalibrated()) {
         Debug.println("Right motor not calibrated! Ignoring right speed setpoint.", Levels::WARN);
-        display.addError("Ignoring right motor speed setpoint.", 16, nullptr, nullptr);
+        display.addError("Ignoring right motor speed setpoint.", 16);
         rightSpeed = 0; 
         motorTrRight.setSpeed(rightSpeed); 
     } else {
@@ -318,6 +318,7 @@ void handleSetpoint(uint8_t msg_id, const byte* msg_data) {
  */
 void sendFeedback() {
 
+    canW.sendMessage(ERROR_MESSAGE, &message, 1);
   // send motor data
   float speeds[2] = {motorTrLeft.getSpeed(), motorTrRight.getSpeed()};
   canW.sendMessage(MOTOR_FEEDBACK, speeds, 8);

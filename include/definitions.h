@@ -57,7 +57,7 @@
 #define DISPLAY_HEIGHT 64
 
 // Interface definitions
-#define NMENUS 4
+#define NMENUS 5
 #define MENUTIMEOUT 18
 #define BTNOK 16
 #define BTNNAV 17

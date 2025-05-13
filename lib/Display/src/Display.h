@@ -29,15 +29,13 @@ public:
 
   int errorCount = 0;  // error count
   void showCurrentError(int index);
-  void addError(const char* errorMsg, int cursorY, const unsigned char* errorMsgCANID, const byte* errorMsgCANData);
-  void showError(const char* errorMsg, int cursorY, const unsigned char* errorMsgCANID, const byte* errorMsgCANData);
+  void addError(const char* errorMsg, int cursorY);
+  void showError(const char* errorMsg, int cursorY);
 
 private:
   struct Error {
     const char* errorMsg;
     int cursorY;
-    const unsigned char* errorMsgCANID;
-    const byte* errorMsgCANData;
   };
 
   Error errorList[10]; // max 10 errors

@@ -136,7 +136,7 @@ void Display::okInterrupt() {
  * If the message is too long, it will be split into multiple lines.  
  * The function also shows the CAN ID and data if provided.
  */
-void Display::showError(const char* errorMsg, int cursorY, const unsigned char* errorMsgCANID, const byte* errorMsgCANData) {
+void Display::showError(const char* errorMsg, int cursorY) {
   static int currentY = 0;                  // Keeps track of the current Y position for 
                                             // the next error message
 
@@ -148,27 +148,9 @@ void Display::showError(const char* errorMsg, int cursorY, const unsigned char* 
   display.setCursor(0, currentY);
   display.printf(errorMsg);
 
-  if (errorMsgCANID != nullptr) {               // check if CAN ID is provided
-      display.setCursor(0, currentY + 10);
-      display.printf("CAN ID: ");
-      display.print(*errorMsgCANID, HEX);
-  }
-
-  if (errorMsgCANData != nullptr) {             // check if CAN data is provided
-      display.setCursor(0, currentY + 20);
-      display.print("CAN Data: ");
-      for (int i = 0; i < 8; i++) {
-          display.print(errorMsgCANData[i], HEX);
-          display.printf(" ");
-      }
-  }
-
   if (errorCount > 1) {
     // Drawing arrow to indicate that there are more errors
     // Meaning: (Need to press OK button) 
-
-    // left arrow 
-    display.drawBitmap(0, display.height() - 5, bitmap_arrow_left_down, 5, 5, 1);
     // right arrow
     display.drawBitmap(display.width() - 5, display.height() - 5, bitmap_arrow_right_down, 5, 5, 1);
   }
@@ -183,8 +165,9 @@ void Display::showError(const char* errorMsg, int cursorY, const unsigned char* 
  */
 void Display::showCurrentError(int index) {
   if (index >= 0 && index < errorCount) {
+    display.clearDisplay();
     const Error& currentError = errorList[index];
-    showError(currentError.errorMsg, currentError.cursorY, currentError.errorMsgCANID, currentError.errorMsgCANData);
+    showError(currentError.errorMsg, currentError.cursorY);
   } else {
     display.clearDisplay();
     display.setCursor(0, 16);
@@ -196,13 +179,11 @@ void Display::showCurrentError(int index) {
 /*
  * Adds an error message to the list of errors.
  */
-void Display::addError(const char* errorMsg, int cursorY, const unsigned char* errorMsgCANID, const byte* errorMsgCANData) {
+void Display::addError(const char* errorMsg, int cursorY) {
   if (errorCount < 10) { // Check if there's space for a new error
                          // Max error is set in display.h, change it if you want more errors
     errorList[errorCount].errorMsg = errorMsg;
     errorList[errorCount].cursorY = cursorY;
-    errorList[errorCount].errorMsgCANID = errorMsgCANID;
-    errorList[errorCount].errorMsgCANData = errorMsgCANData;
     errorCount++;
   } else {
     /* 
