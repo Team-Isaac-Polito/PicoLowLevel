@@ -143,7 +143,6 @@ void setup() {
   }
 
   if (safeMode) {
-    message = SAFE_MODE_ON;
     if (fatal_status) {
       message |= FATAL_STATUS_ON;
       canW.sendMessage(ERROR_MESSAGE, &message, 1);

@@ -81,6 +81,8 @@ void Display::handleGUI() {
     menupos = 0;
   }
 
+  
+
   switch (menupos) {
     case 0:
       if(change) showLogo();
@@ -95,7 +97,7 @@ void Display::handleGUI() {
       if (change) showVersion();
       break;
     case 4:
-      if (change) showCurrentError(index);
+      if (change) showCurrentError(idx);
       break;
   }
 }
@@ -121,9 +123,8 @@ void Display::okInterrupt() {
   int now = millis();
   if (now - lastok > DEBOUNCE) {
     if (menupos == 4 && errorCount > 0) {     // in the error menu and there are errors
-      index = (index + 1) % errorCount;       // cycle through errors with each press
-      showCurrentError(index);                // Show the next error message
-      index++; 
+      idx = (idx + 1) % errorCount;       // cycle through errors with each press
+      showCurrentError(idx);                // Show the next error message 
     } else {
     ok++;
     }
@@ -131,7 +132,7 @@ void Display::okInterrupt() {
   }
 }
 
-/*
+/* CURRENTLY UNUSED
  * Displays an error message on the screen.
  * If the message is too long, it will be split into multiple lines.  
  * The function also shows the CAN ID and data if provided.
@@ -152,7 +153,7 @@ void Display::showError(const char* errorMsg, int cursorY) {
     // Drawing arrow to indicate that there are more errors
     // Meaning: (Need to press OK button) 
     // right arrow
-    display.drawBitmap(display.width() - 5, display.height() - 5, bitmap_arrow_right_down, 5, 5, 1);
+    display.drawBitmap(display.width() - 10, display.height() - 10, bitmap_arrow_right, 8, 8, 1);
   }
 
   currentY += 30; // Move to the next line for the next error message
@@ -161,36 +162,72 @@ void Display::showError(const char* errorMsg, int cursorY) {
 
 /*
  * Displays the current error message based on the index.
- * If the index is out of bounds, it shows a default message.
+ * Shows two errors at once: the current and the next one below.
+ * If index is even and there is a next error, shows both; if not, shows only one.
+ * When index reaches the end, wraps around to show from the beginning.
  */
-void Display::showCurrentError(int index) {
-  if (index >= 0 && index < errorCount) {
-    display.clearDisplay();
-    const Error& currentError = errorList[index];
-    showError(currentError.errorMsg, currentError.cursorY);
-  } else {
-    display.clearDisplay();
-    display.setCursor(0, 16);
-    display.printf("No errors.");
-    display.display();
-  }
+void Display::showCurrentError(int idx) {
+    if (errorCount == 0) {
+        display.clearDisplay();
+        display.setCursor(0, 16);
+        display.printf("No errors.");
+        display.display();
+        return;
+    } else if (errorTopPrinted && errorBottomPrinted) {
+        errorTopPrinted = false;
+        errorBottomPrinted = false;
+        display.clearDisplay();
+    } 
+
+
+    // Önce üst error yazılmadıysa yaz ve çık
+    if (!errorTopPrinted) {
+        display.clearDisplay();
+        if (errorCount > 1) {
+          // Draw right arrow to indicate more errors are available
+          display.drawBitmap(display.width() - 10, display.height() - 10, bitmap_arrow_right, 8, 8, 1);
+        }
+        display.setCursor(0, 0);
+        display.printf("[%d] %s", idx, errorList[idx].errorMsg);
+        errorTopPrinted = true;
+        display.display();
+        return;
+    }
+
+    // Sonra alt error yazılmadıysa yaz ve çık
+    if (!errorBottomPrinted && (idx < errorCount)) {
+        display.setCursor(0, 30);
+        display.printf("[%d] %s", idx, errorList[idx].errorMsg);
+        errorBottomPrinted = true;
+        display.display();
+        return;
+    }
+    
 }
 
 /*
  * Adds an error message to the list of errors.
  */
 void Display::addError(const char* errorMsg, int cursorY) {
+  // Check if the error message is a CAN bus error
+  bool isCanBusError = (strstr(errorMsg, "CAN") != nullptr);
+
+  // If it's a CAN bus error, check if one already exists
+  if (isCanBusError) {
+    for (int i = 0; i < errorCount; ++i) {
+      if (strstr(errorList[i].errorMsg, "CAN") != nullptr) {
+        // Already have a CAN bus error, do not add another
+        return;
+      }
+    }
+  }
+
   if (errorCount < 10) { // Check if there's space for a new error
-                         // Max error is set in display.h, change it if you want more errors
     errorList[errorCount].errorMsg = errorMsg;
     errorList[errorCount].cursorY = cursorY;
     errorCount++;
   } else {
-    /* 
-     * Handle the case where the error list is full 
-     * (e.g., overwrite the oldest error or ignore the new one)
-     * we'll just ignore the new error in this example.
-     */
+    // Error list is full, ignore the new error
     Serial.println("Error list is full. Cannot add new error.");
   }
 }

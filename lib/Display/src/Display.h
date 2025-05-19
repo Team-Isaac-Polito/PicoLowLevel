@@ -28,7 +28,7 @@ public:
   void showVersion();
 
   int errorCount = 0;  // error count
-  void showCurrentError(int index);
+  void showCurrentError(int idx);
   void addError(const char* errorMsg, int cursorY);
   void showError(const char* errorMsg, int cursorY);
 
@@ -39,7 +39,9 @@ private:
   };
 
   Error errorList[10]; // max 10 errors
-  int index = 0;  // index of shown error
+  int idx = 0;  // index of shown error
+  bool errorTopPrinted = false;
+  bool errorBottomPrinted = false;
 
   void showWifi();
 
