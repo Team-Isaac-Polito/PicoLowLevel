@@ -82,12 +82,8 @@ void SmartMotor::calibrate(float target) {
     float tl = target - 5.f;
 
     motor.write(PWM_MAX_VALUE);
-    unsigned long start = millis();
     while(getSpeed() < th){
         Serial.println("th loop");
-        if(millis() - start > 500) {
-            break;
-        }
         // delay(DT_ENC);
     } 
     if (getSpeed() >= th) {
@@ -96,12 +92,8 @@ void SmartMotor::calibrate(float target) {
     int t_high = millis();
     float val_high = getSpeed();
     motor.write(0);
-    unsigned long start2 = millis();
     while(getSpeed() > tl) {
         Serial.println("tl loop");
-        if(millis() - start2 > 500) {
-            break;
-        }
         // delay(DT_ENC);
     }
     int t_low = millis();

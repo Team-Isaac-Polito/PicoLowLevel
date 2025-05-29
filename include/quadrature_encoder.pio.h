@@ -102,7 +102,6 @@ static inline void quadrature_encoder_request_count(PIO pio, uint sm)
 }
 static inline int32_t quadrature_encoder_fetch_count(PIO pio, uint sm)
 {
-    unsigned long start = millis();
 	while (pio_sm_is_rx_fifo_empty(pio, sm)){
         if (start > 5000) {
             break;

@@ -178,20 +178,11 @@ MCP2515::ERROR MCP2515::setMode(const CANCTRL_REQOP_MODE mode)
 
     unsigned long endTime = millis() + 10;
     bool modeMatch = false;
-    unsigned long startTime = millis();
     while (millis() < endTime) {
         uint8_t newmode = readRegister(MCP_CANSTAT);
         newmode &= CANSTAT_OPMOD;
 
         modeMatch = newmode == mode;
-
-        if (millis() - startTime > 5000) {
-            break;
-        }
-
-        if (modeMatch) {
-            break;
-        }
     }
 
     return modeMatch ? ERROR_OK : ERROR_FAIL;
