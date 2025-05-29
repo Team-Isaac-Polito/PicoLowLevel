@@ -183,6 +183,10 @@ MCP2515::ERROR MCP2515::setMode(const CANCTRL_REQOP_MODE mode)
         newmode &= CANSTAT_OPMOD;
 
         modeMatch = newmode == mode;
+
+        if (modeMatch) {
+            break;
+        }
     }
 
     return modeMatch ? ERROR_OK : ERROR_FAIL;

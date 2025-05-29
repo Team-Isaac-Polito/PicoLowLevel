@@ -102,11 +102,7 @@ static inline void quadrature_encoder_request_count(PIO pio, uint sm)
 }
 static inline int32_t quadrature_encoder_fetch_count(PIO pio, uint sm)
 {
-	while (pio_sm_is_rx_fifo_empty(pio, sm)){
-        if (start > 5000) {
-            break;
-        }
-    }
+	while (pio_sm_is_rx_fifo_empty(pio, sm));
 	return pio->rxf[sm];
 }
 static inline int32_t quadrature_encoder_get_count(PIO pio, uint sm)
