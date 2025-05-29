@@ -1,26 +1,15 @@
 #include "DynamixelSerial.h"
 
-unsigned long startTime = millis();
 void DynamixelInterface::writeByte(byte b) {
   serialPort->write(b);
-  while (serialPort->available() < 1) {
-    if (millis() - startTime > 500) {
-      break;
-    }
-  }
+  while (serialPort->available() < 1);
   serialPort->read();
-
- 
 }
 
 bool DynamixelInterface::waitBytes(int n) {
   int tc = 0;
-  unsigned long startTime2 = millis();
   while ((serialPort->available() < n) && (tc < AX_TIME_OUT)) {
     tc++;
-    if (millis() - startTime2 > 500) {
-      break;
-    }
     delayMicroseconds(1000);
   }
   
@@ -48,15 +37,8 @@ void DynamixelInterface::writeBuf(byte id, byte* buf, int len) {
 
   writeMode();
   serialPort->write(out, n);
-  unsigned long startTime3 = millis();
-  while (serialPort->available() < n) {
-    if (millis() - startTime3 > 5000) {
-      break;
-    }
-  }
-  for (int i = 0; i < n; i++) {
-    serialPort->read();
-  }
+  while (serialPort->available() < n);
+  for(int i = 0; i < n; i++) serialPort->read();
   readMode();
 }
 
@@ -64,11 +46,7 @@ int DynamixelInterface::readWord() {
   int out = -1;
   waitBytes(7);
 
-  unsigned long startTime4 = millis();
   while (serialPort->available() > 0) {
-    if (millis() - startTime4 > 5000) {
-      break;
-    }
     byte in = serialPort->read();
     if (in==255 && serialPort->peek()==255) {
       serialPort->read();                            // Start Bytes
@@ -87,11 +65,7 @@ int DynamixelInterface::readDWord() {
   int out = -1;
   waitBytes(8);
 
-  unsigned long startTime5 = millis();
   while (serialPort->available() > 0) {
-    if (millis() - startTime5 > 5000) {
-      break;
-    }
     byte in = serialPort->read();
     if (in == 255 && serialPort->peek() == 255) {
       serialPort->read();  // Start Bytes
@@ -110,11 +84,7 @@ int DynamixelInterface::readStatus() {
   int out = -1;
   waitBytes(6);
   
-  unsigned long startTime6 = millis();
   while (serialPort->available() > 0) {
-    if (millis() - startTime6 > 5000) {
-      break;
-    }
     byte in = serialPort->read();
     if ( (in == 255) & (serialPort->peek() == 255) ) {
       serialPort->read();                                    // Start Bytes

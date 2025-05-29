@@ -164,13 +164,7 @@ String WebManagement::readFile(String path) {
   String out = "";
   File file = LittleFS.open(path, "r");
   if (file) {
-    unsigned long start = millis();
-    while (file.available()) {
-      if (start > 1000) {
-        break;
-      }
-      out += (char) file.read();
-    }
+    while (file.available()) out += (char) file.read();
     file.close();
   }
   return out;
