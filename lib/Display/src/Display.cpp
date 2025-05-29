@@ -81,8 +81,6 @@ void Display::handleGUI() {
     menupos = 0;
   }
 
-  
-
   switch (menupos) {
     case 0:
       if(change) showLogo();
@@ -97,6 +95,7 @@ void Display::handleGUI() {
       if (change) showVersion();
       break;
     case 4:
+      // Error menu
       if (change) showCurrentError(idx);
       break;
   }
@@ -132,47 +131,21 @@ void Display::okInterrupt() {
   }
 }
 
-/* CURRENTLY UNUSED
- * Displays an error message on the screen.
- * If the message is too long, it will be split into multiple lines.  
- * The function also shows the CAN ID and data if provided.
- */
-void Display::showError(const char* errorMsg, int cursorY) {
-  static int currentY = 0;                  // Keeps track of the current Y position for 
-                                            // the next error message
-
-  if (currentY + 30 > display.height()) {   // If the display is full, clear it and reset                                        
-    display.clearDisplay();                 // the position
-    currentY = 0;
-  }
-
-  display.setCursor(0, currentY);
-  display.printf(errorMsg);
-
-  if (errorCount > 1) {
-    // Drawing arrow to indicate that there are more errors
-    // Meaning: (Need to press OK button) 
-    // right arrow
-    display.drawBitmap(display.width() - 10, display.height() - 10, bitmap_arrow_right, 8, 8, 1);
-  }
-
-  currentY += 30; // Move to the next line for the next error message
-  display.display();
-}
-
 /*
  * Displays the current error message based on the index.
  * Shows two errors at once: the current and the next one below.
- * If index is even and there is a next error, shows both; if not, shows only one.
- * When index reaches the end, wraps around to show from the beginning.
+ * Writes to both sides of the screen 
  */
 void Display::showCurrentError(int idx) {
+    // Check if there is error
     if (errorCount == 0) {
         display.clearDisplay();
         display.setCursor(0, 16);
         display.printf("No errors.");
         display.display();
         return;
+    // If both screen sider are occupied
+    // cleart he screen
     } else if (errorTopPrinted && errorBottomPrinted) {
         errorTopPrinted = false;
         errorBottomPrinted = false;
@@ -180,7 +153,7 @@ void Display::showCurrentError(int idx) {
     } 
 
 
-    // Önce üst error yazılmadıysa yaz ve çık
+    // First, try to print the error on the upper side of the screen
     if (!errorTopPrinted) {
         display.clearDisplay();
         if (errorCount > 1) {
@@ -194,7 +167,8 @@ void Display::showCurrentError(int idx) {
         return;
     }
 
-    // Sonra alt error yazılmadıysa yaz ve çık
+    // If the upper side of the screen is occupied
+    // try writing error to the bottom
     if (!errorBottomPrinted && (idx < errorCount)) {
         display.setCursor(0, 30);
         display.printf("[%d] %s", idx, errorList[idx].errorMsg);

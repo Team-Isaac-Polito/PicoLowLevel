@@ -28,20 +28,33 @@ public:
   void showVersion();
 
   int errorCount = 0;  // error count
-  void showCurrentError(int idx);
+
+  /**
+   * @brief adds an error message to the list of errors.
+   * @param errorMsg Pointer to the error message string.
+   * @param cursorY Y-coordinate for the cursor position on the display.
+   */
   void addError(const char* errorMsg, int cursorY);
+
+  /**
+   * @brief Shows the current error message based on the index.
+   * @param idx Index of the error to be displayed.
+   * @param errorMsg Pointer to the error message string.
+   * @param cursorY Y-coordinate for the cursor position on the display.
+   */
   void showError(const char* errorMsg, int cursorY);
 
 private:
-  struct Error {
+struct Error { // Structure to hold error information
+    // Pointer to the error message string
     const char* errorMsg;
     int cursorY;
   };
 
-  Error errorList[10]; // max 10 errors
-  int idx = 0;  // index of shown error
-  bool errorTopPrinted = false;
-  bool errorBottomPrinted = false;
+  Error errorList[10];              // max 10 errors
+  int idx = 0;                      // index of shown error
+  bool errorTopPrinted = false;     // flag to indicate if the top error is printed
+  bool errorBottomPrinted = false;  // flag to indicate if the bottom error is printed
 
   void showWifi();
 

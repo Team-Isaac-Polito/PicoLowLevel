@@ -47,7 +47,7 @@ const unsigned char bitmap_logo_isaac [] PROGMEM = {
 	0xff, 0xff, 0xf6, 0xff, 0xff, 0xe0, 0xff, 0xff, 0xef, 0xbf, 0xff, 0xe0
 };
 
-// 'arrow_right', 7x7px
+// 'arrow_right', 7x7px for error menu indicator
 const unsigned char bitmap_arrow_right[7] PROGMEM = {
 	0x10, // 00010000
 	0x18, // 00011000

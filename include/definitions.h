@@ -75,11 +75,11 @@
 #define WIFI_HOSTBASE "picow-"
 #define CONF_PATH "/config.txt"
 
-#define SAFE_MODE_ON (1<<0)
-#define FATAL_STATUS_ON (1<<1)
-#define ERROR_MOTOR_L_NOT_CALIBRATED (1<<2)
-#define ERROR_MOTOR_R_NOT_CALIBRATED (1<<3)
-#define ERROR_LOW_BATTERY_VOLTAGE (1<<4)
-#define ERROR_CAN (1<<5)
+#define SAFE_MODE_ON (1<<0)                   // Safe mode flag
+#define FATAL_STATUS_ON (1<<1)                // Fatal status flag
+#define ERROR_MOTOR_L_NOT_CALIBRATED (1<<2)   // Error flag for left motor not calibrated
+#define ERROR_MOTOR_R_NOT_CALIBRATED (1<<3)   // Error flag for right motor not calibrated
+#define ERROR_LOW_BATTERY_VOLTAGE (1<<4)      // Error flag for low battery voltage
+#define ERROR_CAN (1<<5)                      // Error flag for CAN bus issues
 
 #endif
