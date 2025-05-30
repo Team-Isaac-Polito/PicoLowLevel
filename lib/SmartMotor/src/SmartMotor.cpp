@@ -14,7 +14,8 @@
 SmartMotor::SmartMotor(byte pwm, byte dir, byte enc_a, byte enc_b, Adafruit_ADS1115& adc, int base_adc_channel, bool invert, PIO pio)
     : motor(pwm, dir, invert),
       encoder(enc_a, enc_b, new MovingAvgFilter<int>(ENC_TR_SAMPLES), invert, pio),
-      adc(adc),
+      _adc(adc),
+      base_adc_channel(base_adc_channel),
       pid(0.f, 0.f, 0.f, MAX_SPEED, 1.f),
       invert(invert)
 {}
@@ -39,7 +40,7 @@ void SmartMotor::update() {
         pid.calculate();
         motor.write(speedToPower(pid.getOutput()));
         pid_last = now;
-        Debug.println("Current\t" + String(getCurrent()) + "\tTemperature\t" + String(getTemperature()), Levels::INFO);
+        //Debug.println("Current\t" + String(getCurrent()) + "\tTemperature\t" + String(getTemperature()), Levels::INFO);
     }
 }
 
@@ -90,7 +91,7 @@ float SmartMotor::getSpeed() {
 float SmartMotor::getCurrent() {
     unsigned long now = millis();
     if(now - current_last > DT_MOTOR_CURR) {
-        int rawValue = adc.readADC_SingleEnded(base_adc_channel+1);  // Read the ADC value once
+        int rawValue = _adc.readADC_SingleEnded(base_adc_channel+1);  // Read the ADC value once
         float voltage = (rawValue * 3.3)/4096.0;  
         current = (float)(voltage-2.5)/0.185; // Calculate current in amperes
         current_last = now;
@@ -135,16 +136,18 @@ float SmartMotor::getCurrent() {
  *
  * @return float temperature in Celsius
  */
+
 float SmartMotor::getTemperature() {
     unsigned long now = millis();
-    if(now - temperature_last > DT_MOTOR_TEMP) {
-        int rawValue = adc.readADC_SingleEnded(base_adc_channel); 
-        float vout = (rawValue * 3.3) / 4096.0; 
-        float Rntc = vout * 100000 / (3.3 - vout); //  Rntc = vout * Rf / (vin - vout);
-        temperature = (float)(4450 / (log(Rntc / 100000) + (4450 / 298.15))); // B / (log(Rntc / R0) + (B / T0));
-        temperature = temperature - 273.15; 
+    
+        int rawValue = _adc.readADC_SingleEnded(base_adc_channel); 
+        float vout = (float)(rawValue/ 5502.37f); //  N.B: this value has been found by meausing the voltage on the thermistor  
+        //Serial.println("Raw ADC Value: " + String(rawValue) + ", Vout: " + String(vout));
+        float Rntc = vout * 100000.0f / (3.3f - vout); //  Rntc = vout * Rf / (vin - vout);
+        temperature = (4450.0f / (log(Rntc / 100000.0f) + (4450.0f / 298.15f))); // B / (log(Rntc / R0) + (B / T0));
+        temperature = temperature - 273.15f; 
         temperature_last = now;
-    }
+    
     // Controlling overtemperature
     if(temperature > MAX_TEMP) {
         overTemperatureCount++;

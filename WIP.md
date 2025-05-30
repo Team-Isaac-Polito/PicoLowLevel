@@ -20,11 +20,11 @@
     - slightly over 4 A → ⅓ of the original reference
     - above 5 A → ½ of the original reference
 - All these cases raise the warning flag, with longer persistence required at lower thresholds. Both `getTemperature()` and `getCurrent()` include logic to lower the flag once values return below a safe margin, to prevent mode switching due to small oscillations near the threshold.
+- The value 5505.37 used for the thermistor's Vout was determined experimentally by measuring the actual voltage across it. I don't know how it could be calculated in advance.
 - **All current and temperature limits are indicative and will need to be adjusted based on real-world testing.**
 
 
 
-> ⚠️ **This code has not been tested** because after uploading, the USB is no longer recognized in BOOTSEL mode. Commenting out `sendFeedback()` makes it work.
 
  
 

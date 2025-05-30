@@ -58,15 +58,16 @@ Display display;
 
 void setup() {
   Serial.begin(115200);
+  while()
   Debug.setLevel(Levels::INFO); // comment to set debug verbosity to debug
-  Wire.setSDA(I2C_ADC_SDA);
-  Wire.setSCL(I2C_ADC_SCL);
-  Wire.begin();
-  Wire1.setSDA(I2C_SENS_SDA);
-  Wire1.setSCL(I2C_SENS_SCL);
+  Wire1.setSDA(I2C_ADC_SDA);
+  Wire1.setSCL(I2C_ADC_SCL);
   Wire1.begin();
+  //Wire1.setSDA(I2C_SENS_SDA);
+  //Wire1.setSCL(I2C_SENS_SCL);
+  //Wire1.begin();
  
-  if (!adc.begin(ADC_ADDR, &Wire)) { // Usa l'indirizzo corretto
+  if (!adc.begin(ADC_ADDR, &Wire1)) { // Usa l'indirizzo corretto
     Serial.println("Errore: ADS1115 non trovato!");
     while (1);
   }
@@ -82,7 +83,7 @@ void setup() {
 
   //LittleFS.begin();
 
-  String hostname = WIFI_HOSTBASE+String(CAN_ID);
+ // String hostname = WIFI_HOSTBASE+String(CAN_ID);
   //wm.begin(WIFI_SSID, WIFI_PWD, hostname.c_str());
 
   // CAN initialization
@@ -99,8 +100,8 @@ void setup() {
   motorTrLeft.begin();
   motorTrRight.begin();
 
-  //motorTrLeft.calibrate();
-  //motorTrRight.calibrate();
+  motorTrLeft.calibrate();
+  motorTrRight.calibrate();
 
 #if defined MODC_EE
   Serial1.setRX(1);
@@ -151,7 +152,7 @@ void loop() {
     time_tel_avg = (time_tel_avg + (time_cur - time_tel)) / 2;
     time_tel = time_cur;
 
-    // sendFeedback();
+    sendFeedback();
   }
 
   if (canW.readMessage(&msg_id, msg_data)) {
@@ -236,8 +237,9 @@ void sendFeedback() {
   float currents[2]  = {motorTrLeft.getCurrent(), motorTrRight.getCurrent()};
   float temperatures[2] = {motorTrLeft.getTemperature(), motorTrRight.getTemperature()};
   
-  Debug.println("CURRENTS: " + String(currents[0]) + " " + String(currents[1]), Levels::INFO);
-  Debug.println("TEMPERATURES: " + String(temperatures[0]) + " " + String(temperatures[1]), Levels::INFO);
+
+  Debug.println("CURRENTS: " + String(currents[0]) + " " + String(currents[1]), Levels::DEBUG);
+  Debug.println("TEMPERATURES: " + String(temperatures[0]) + " " + String(temperatures[1]), Levels::DEBUG);
   
   canW.sendMessage(MOTOR_FEEDBACK, speeds, 8);
   canW.sendMessage(MOTOR_CURRENT, currents, 8);

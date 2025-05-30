@@ -35,7 +35,7 @@ class SmartMotor {
     TractionEncoder encoder;
     PID pid;
 
-    Adafruit_ADS1115& adc;
+    Adafruit_ADS1115& _adc;
     int base_adc_channel;
     bool invert;
     float speed;
@@ -47,8 +47,8 @@ class SmartMotor {
     unsigned long pid_last;
     int overCurrentCount = 0;
     int overTemperatureCount = 0;
-    bool MOTOR_CURR_WARNING = 0;
-    bool MOTOR_TEMP_WARNING = 0;
+    bool motorCurrWarning = 0;
+    bool motorTempWarning = 0;
     int safe_mode = 0; // 0: no safe mode, 1: temperature is too high, 2: current is too high
     float division_factor = 1.f; // factor to divide the speed when the current is too high
 };
