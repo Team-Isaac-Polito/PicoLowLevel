@@ -1,0 +1,27 @@
+[
+  {
+    "Sourcefile": null,
+    "Include": "",
+    "Includepath": "C:\\Users\\franc\\AppData\\Local\\Arduino15\\packages\\rp2040\\hardware\\rp2040\\4.6.1\\cores\\rp2040"
+  },
+  {
+    "Sourcefile": null,
+    "Include": "",
+    "Includepath": "C:\\Users\\franc\\AppData\\Local\\Arduino15\\packages\\rp2040\\hardware\\rp2040\\4.6.1\\variants\\rpipico"
+  },
+  {
+    "Sourcefile": "C:\\Users\\franc\\Desktop\\isaac\\RCR\\dxl_get_position\\build\\sketch\\dxl_get_position.ino.cpp",
+    "Include": "Dynamixel_ll.h",
+    "Includepath": "C:\\Users\\franc\\Desktop\\isaac\\RCR\\dxl_get_position\\lib\\Dynamixel_ll\\src"
+  },
+  {
+    "Sourcefile": "C:\\Users\\franc\\Desktop\\isaac\\RCR\\dxl_get_position\\build\\sketch\\dxl_get_position.ino.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\franc\\Desktop\\isaac\\RCR\\dxl_get_position\\lib\\Dynamixel_ll\\src\\Dynamixel_ll.cpp",
+    "Include": "",
+    "Includepath": null
+  }
+]
