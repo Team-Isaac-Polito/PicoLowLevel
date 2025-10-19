@@ -1,9 +1,10 @@
+# Descrizione generale
+questa repo contiene il progetto low level che viene suato sul pico nel caso
+
 ## ⚠️ Important Warning: Motor Zeroing
 
 If the arm motors are disconnected and reconnected, the reference position `0` changes.  
 To correctly set the zero position, follow the steps below before using the main control code.
-
-***
 
 ## 0. Ensure all required dependencies from the start guide are installed
 
