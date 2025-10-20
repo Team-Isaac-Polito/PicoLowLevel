@@ -16,11 +16,11 @@ INCLUDE_PATHS = $(INCLUDE_DIR) $(LIBRARY_PATHS)
 CFLAGS += $(foreach dir, $(INCLUDE_PATHS), -I$(dir))
 CXXFLAGS += $(foreach dir, $(INCLUDE_PATHS), -I$(dir))
 
-SUCCESS_SYMBOL = " Compilation completed successfully! "
-ERROR_SYMBOL = " Compilation error! "
-COMPILATION_SYMBOL = " Compilation in progress... "
+SUCCESS_SYMBOL = "======================================== Compilation completed successfully ========================================="
+ERROR_SYMBOL = "======================================== Compilation error! ========================================"
+COMPILATION_SYMBOL = "======================================== Compilation in progress ========================================"
 
-MODULE_DEFINE ?= "MK2_MOD2"
+MODULE_DEFINE ?= "MK2_MOD1"
 DESTINATION ?=  'D:\'
 
 MODULE =
@@ -32,31 +32,27 @@ define print_red
 	@pwsh  -Command "Write-Host '$1' -ForegroundColor Red"
 endef
 
-define animate_duck
-	@powershell -Command "for ($$i = 0; $$i -lt 30; $$i++) { $$spaces = ' ' * $$i; Write-Host ($$spaces + '<(` )'); Start-Sleep -Milliseconds 60 }"
-endef
-
-
-
-
 PORT ?= $(shell arduino-cli board list | findstr "Raspberry Pi Pico" | for /f "tokens=1" %%a in ('more') do @echo %%a)
 
 .DEFAULT:
 	@echo "Invalid command: '$@'"
 	@echo "Use 'make help' to see the list of available commands."
 	@$(MAKE) help
-.PHONY: all, compile, compile_fast, upload, upload_bootsel, clean_all, clean_output, monitor, help, auto_com_port, port, duck
 
 # Compilation
 compile: clean_all
 	$(call print_green, $(COMPILATION_SYMBOL))
 	@arduino-cli compile --fqbn $(BOARD_FQBN) --build-path $(BUILD_DIR) $(SKETCH_PATH) --output-dir $(OUTPUT_DIR) $(LIBRARY_FLAGS) \
-		$(foreach dir, $(INCLUDE_PATHS), --build-property "compiler.cpp.extra_flags=-I$(dir) -D$(MODULE_DEFINE)")
-
-
+		$(foreach dir, $(INCLUDE_PATHS), --build-property "compiler.cpp.extra_flags=-I$(dir) -D$(MODULE_DEFINE)") && \
+	$(call print_green, $(SUCCESS_SYMBOL)) || \
+	$(call print_red, $(ERROR_SYMBOL))
 
 compile_fast:
 	@arduino-cli compile --fqbn $(BOARD_FQBN) "$(SKETCH_PATH)"
+
+compile_all:
+	$(MAKE) compile BUILD_DIR=$(CURDIR)/build1 OUTPUT_DIR=$(CURDIR)/out_MK2_MOD1 MODULE_DEFINE="MK2_MOD1"
+	$(MAKE) compile BUILD_DIR=$(CURDIR)/build2 OUTPUT_DIR=$(CURDIR)/out_MK2_MOD2 MODULE_DEFINE="MK2_MOD2"
 
 # Upload .bin file
 upload:
@@ -132,9 +128,6 @@ auto_com_port:
 port:
 	@echo "List of COM ports detected by the system:"
 	@arduino-cli board list
-
-
-
 
 duck:
 	@powershell -Command "for ($$i = 10; $$i -ge 0; $$i--) { \

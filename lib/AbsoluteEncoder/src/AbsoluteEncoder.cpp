@@ -28,11 +28,14 @@ void AbsoluteEncoder::setZero() {
 }
 
 /**
- * Reads the current measured angle.
+ * Reads the current measured angle (-180, 180).
  * @return Angle in degrees.
  */
 float AbsoluteEncoder::readAngle() {
   float angle = angleR(U_DEG, false);
+  if (angle > 180.0f) {
+    angle -= 360.0f;
+  }
   Debug.print("ABSOLUTE ENCODER - READ ANGLE ", Levels::DEBUG);
   Debug.print(angle, Levels::DEBUG);
 
