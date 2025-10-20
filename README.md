@@ -1,5 +1,5 @@
-# Descrizione generale
-questa repo contiene il progetto low level che viene suato sul pico nel caso
+# General Description
+This repository contains the low-level project used during the RoboCupRescue 2025 competition. The Dynamixel XM540-W270-T motors were used for traction, while the Dynamixel XL430-W250-T and XM540-W270-T were used for the robotic arm.
 
 ## ⚠️ Important Warning: Motor Zeroing
 
