@@ -1,0 +1,15 @@
+
+PicoLowLevel/build/**
+
+!PicoLowLevel/build/output/
+
+!PicoLowLevel/build/output/**
+
+
+PicoLowLevel/build1/**
+
+
+
+PicoLowLevel/build2/**
+
+
