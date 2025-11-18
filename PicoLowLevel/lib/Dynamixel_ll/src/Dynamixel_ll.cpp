@@ -1,5 +1,5 @@
 #include "Dynamixel_ll.h"
-#define time_delay 0
+//#define time_delay 0
 DynamixelLL::DynamixelLL(HardwareSerial &serial, uint8_t servoID)
     : _serial(serial), _servoID(servoID) {}
 
@@ -16,7 +16,7 @@ DynamixelLL::~DynamixelLL()
 void DynamixelLL::begin_dxl(long baudrate)
 {
     _serial.begin(baudrate);
-    delay(time_delay); // Attendi che la seriale si stabilizzi
+    //delay(time_delay); // Attendi che la seriale si stabilizzi
 }
 void DynamixelLL::ledOff()
 {
@@ -30,7 +30,7 @@ void DynamixelLL::ledOff()
     packet[12] = (crc >> 8) & 0xFF;
 
     sendPacket(packet, 13);
-    delay(time_delay);
+    //delay(time_delay);
 }
 
 
@@ -236,7 +236,7 @@ uint8_t DynamixelLL::writeRegister(uint16_t address, uint32_t value, uint8_t siz
             Serial.println("Error sending Write packet.");
         return 1;
     }
-    delay(time_delay);
+    //delay(time_delay);
 
     // Receive and Process the Response
     StatusPacket response = receivePacket();
@@ -284,7 +284,7 @@ bool DynamixelLL::sendPacket(const uint8_t *packet, uint8_t length)
 StatusPacket DynamixelLL::receivePacket()
 {
     StatusPacket result = {false, 0, 0, {0}, 0};
-
+   
     const uint8_t maxPacketSize = 64;         // Maximum allowed packet size.
     uint8_t buffer[maxPacketSize];           // Buffer for incoming bytes.
     uint16_t index = 0;                      // Index into the buffer.
@@ -298,6 +298,8 @@ StatusPacket DynamixelLL::receivePacket()
         if (_serial.available())
         {
             buffer[index++] = _serial.read();
+            //Serial.print(buffer[index-1], HEX);
+            //Serial.print("  ");
             // When there is at least 4 bytes, check the last 4 bytes.
             if (index >= 4 &&
                 buffer[index - 4] == 0xFF &&
@@ -306,17 +308,34 @@ StatusPacket DynamixelLL::receivePacket()
                 buffer[index - 1] == 0x00)
             {
                 headerFound = true;
+               
+               // Serial.println("fix_error 0");
+                break;
+            } else if (index >= 3 &&
+                buffer[index - 3] == 0xFF &&
+                buffer[index - 2] == 0xFD &&
+                buffer[index - 1] == 0x00)
+            {
+                headerFound = true;
+                buffer[0] == 0xFF;
+                buffer[1] == 0xFF;
+                buffer[2] == 0xFD;
+                buffer[3] == 0x00;
+                index=4;
+               // Serial.println("fix_error 1");
                 break;
             }
         }
     }
+
+   // Serial.println("  ");
     if (!headerFound)
     {
         if (_debug)
             Serial.println("Header not found within timeout");
         return result;
     }
-    uint16_t headerStart = index - 4;
+    uint16_t headerStart = index - 4 ;
 
     // Step 2: Read header extension (ID and LENGTH fields; need 7 bytes total from header start)
     while ((millis() - start) < timeout && (index - headerStart) < 7 && index < maxPacketSize)
@@ -330,10 +349,10 @@ StatusPacket DynamixelLL::receivePacket()
             Serial.println("Timeout waiting for header extension");
         return result;
     }
-    result.id = buffer[headerStart + 4];
+    result.id = buffer[headerStart + 4 ];
 
     // Step 3: Determine total packet length
-    uint16_t lengthField = buffer[headerStart + 5] | (buffer[headerStart + 6] << 8); // LSB | MSB
+    uint16_t lengthField = buffer[headerStart + 5 ] | (buffer[headerStart + 6 ] << 8); // LSB | MSB
     uint16_t totalPacketLength = 7 + lengthField; // (header + ID + length field) + (Instruction + ERR + PARAM + CRC)
 
     // Step 4: Read remaining bytes until full packet is received
@@ -363,23 +382,23 @@ StatusPacket DynamixelLL::receivePacket()
 
     // Step 6: Parse and validate the packet
     // [Header (4) | Packet ID (1) | Length (2) | Instruction (1) | Error (1) | Parameters (paramLength) | CRC (2)]
-    if (buffer[headerStart + 7] != 0x55) // Verify instruction (expecting 0x55 for a status packet)
+    if (buffer[headerStart + 7 ] != 0x55) // Verify instruction (expecting 0x55 for a status packet)
     {
         if (_debug)
             Serial.println("Invalid instruction; expected 0x55. Likely an echo; retrying...");
         return receivePacket();
     }
-    result.error = buffer[headerStart + 8];
+    result.error = buffer[headerStart + 8 ];
     uint8_t paramLength = lengthField - 4;
     result.dataLength = paramLength;
     for (uint8_t i = 0; i < paramLength && i < 4; i++)
     {
-        result.data[i] = buffer[headerStart + 9 + i];
+        result.data[i] = buffer[headerStart + 9 + i ];
     }
 
     // Read the CRC from the packet.
-    uint16_t receivedCRC = buffer[headerStart + 9 + paramLength] | (buffer[headerStart + 10 + paramLength] << 8);
-    uint16_t computedCRC = calculateCRC(&buffer[headerStart], 9 + paramLength);
+    uint16_t receivedCRC = buffer[headerStart + 9 + paramLength ] | (buffer[headerStart + 10 + paramLength ] << 8);
+    uint16_t computedCRC = calculateCRC(&buffer[headerStart ], 9 + paramLength);
     if (receivedCRC != computedCRC)
     {
         if (_debug)
@@ -427,7 +446,7 @@ uint8_t DynamixelLL::ping(uint32_t &value)
             Serial.println("Error sending Ping packet.");
         return 1;
     }
-    delay(time_delay);
+    //delay(time_delay);
 
     // Receive the status packet in response.
     StatusPacket response = receivePacket();
@@ -843,7 +862,7 @@ uint8_t DynamixelLL::reboot()
             Serial.println("Error sending Factory Reset packet.");
         return 1;
     }
-    delay(time_delay);
+    //delay(time_delay);
 
     // Receive and Process the Response
     StatusPacket response = receivePacket();

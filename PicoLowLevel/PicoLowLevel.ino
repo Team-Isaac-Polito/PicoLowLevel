@@ -778,12 +778,12 @@ void MODC_ARM_INIT()
   mot_6.setTorqueEnable(true);
 // Insert here the initial positions
   delay(10);
-getpositions0[0] = 302;
-getpositions0[1] = 515;
-pos0_mot_2 = 2725;
-pos0_mot_3 = 1026;
-pos0_mot_4 = 2019;
-pos0_mot_5 = 1703;
+getpositions0[0] = 806;
+getpositions0[1] = 489;
+pos0_mot_2 = 2647;
+pos0_mot_3 = 2156;
+pos0_mot_4 = 2646;
+pos0_mot_5 = 3017;
 pos0_mot_6 = -1116;
   RESET_ARM_INITIAL_POSITION();
 }
