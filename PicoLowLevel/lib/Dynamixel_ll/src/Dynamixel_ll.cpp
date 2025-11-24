@@ -317,10 +317,10 @@ StatusPacket DynamixelLL::receivePacket()
                 buffer[index - 1] == 0x00)
             {
                 headerFound = true;
-                buffer[0] == 0xFF;
-                buffer[1] == 0xFF;
-                buffer[2] == 0xFD;
-                buffer[3] == 0x00;
+                buffer[0] = 0xFF;
+                buffer[1] = 0xFF;
+                buffer[2] = 0xFD;
+                buffer[3] = 0x00;
                 index=4;
                // Serial.println("fix_error 1");
                 break;

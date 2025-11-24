@@ -22,6 +22,9 @@
 
 #include "Dynamixel_ll.h"
 
+#include "debug_log.h"
+#define DEBUG_LOG_ENABLED
+
 void okInterrupt();
 void navInterrupt();
 void sendFeedback();
@@ -33,7 +36,7 @@ void RESET_ARM_INITIAL_POSITION();
 int32_t getClosestExtendedPosition(int32_t currentPos, int32_t targetPos);
 #endif
 
-#define BaudRateDXL 57600
+#define BaudRateDXL 2000000
 
 int time_bat = 0;
 int time_tel = 0;
@@ -209,6 +212,9 @@ void setup()
 #endif
 
   Serial.println("Setup complete. Waiting for CAN messages...");
+#ifdef DEBUG_LOG_ENABLED
+  dbg("Setup complete. Waiting for CAN messages...\n");
+#endif
 }
 
 void loop()
@@ -236,8 +242,7 @@ void loop()
     time_tel = time_cur;
 
     sendFeedback();
-    
-   }
+  }
 
   if (canW.readMessage(&msg_id, msg_data))
   {
@@ -270,6 +275,7 @@ void loop()
   if (arm_roll_close_6_active)
   {
     mot_6.getCurrentLoad(presentLoad_mot_6);
+    /*
     Serial.print("presentLoad_mot_6 close");
     Serial.println(presentLoad_mot_6);
 
@@ -279,8 +285,7 @@ void loop()
 
     Serial.print("target_pos_mot_6: ");
     Serial.println(target_pos_mot_6_close);
-
-
+*/
     if (end_mot_6)
     {
 
@@ -291,7 +296,7 @@ void loop()
     {
 
       arm_roll_close_6_active = false; // fine movimento
-      arm_roll_open_6_active = false; // fine movimento
+      arm_roll_open_6_active = false;  // fine movimento
       mot_6.setGoalPosition_EPCM(pos_mot_6_actual);
     }
   }
@@ -299,29 +304,30 @@ void loop()
   if (arm_roll_open_6_active)
   {
     mot_6.getCurrentLoad(presentLoad_mot_6);
+    /*
     Serial.print("presentLoad_mot_6 open");
     Serial.println(presentLoad_mot_6);
-
+*/
     mot_6.getPresentPosition(pos_mot_6_actual);
+    /*
     Serial.print("pos_mot_6_actual: ");
     Serial.println(pos_mot_6_actual);
 
     Serial.print("target_pos_mot_6: ");
     Serial.println(target_pos_mot_6_open);
-
-
+*/
     if (end_mot_6)
     {
 
       mot_6.setGoalPosition_EPCM(target_pos_mot_6_open);
       end_mot_6 = 0;
     }
-    else if (presentLoad_mot_6 >= 150 || abs(pos_mot_6_actual - target_pos_mot_6_open) <=20)
+    else if (presentLoad_mot_6 >= 150 || abs(pos_mot_6_actual - target_pos_mot_6_open) <= 20)
     {
 
-      arm_roll_open_6_active = false; // fine movimento
-       arm_roll_close_6_active = false; // fine movimento
-         mot_6.setGoalPosition_EPCM(pos_mot_6_actual);
+      arm_roll_open_6_active = false;  // fine movimento
+      arm_roll_close_6_active = false; // fine movimento
+      mot_6.setGoalPosition_EPCM(pos_mot_6_actual);
     }
   }
 #endif
@@ -400,11 +406,11 @@ void handleSetpoint(uint8_t msg_id, const byte *msg_data)
     phi_dxl = servo_data_1b;
     getpositions[0] = (int32_t)(-((theta_dxl * (4096 / (2.0 * M_PI))) + (phi_dxl * (4096 / (2.0 * M_PI)))) / 2) + getpositions0[0];
     getpositions[1] = (int32_t)(((theta_dxl * (4096 / (2.0 * M_PI))) - (phi_dxl * (4096 / (2.0 * M_PI)))) / 2) + getpositions0[1];
-/*
-    Serial.print("getpositions[0]:\t");
-    Serial.print(getpositions[0]);
-    Serial.print("\tgetpositions[1]:\t");
-    Serial.println(getpositions[1]);*/
+    /*
+        Serial.print("getpositions[0]:\t");
+        Serial.print(getpositions[0]);
+        Serial.print("\tgetpositions[1]:\t");
+        Serial.println(getpositions[1]);*/
 
     dxl.setGoalPosition_EPCM(getpositions);
 
@@ -439,7 +445,6 @@ void handleSetpoint(uint8_t msg_id, const byte *msg_data)
 
     //========================================================
   case ARM_ROLL_3_SETPOINT:
-
 
     memcpy(&servo_data_float, msg_data, 4);
     valueToSend = (int32_t)(servo_data_float * (4096 / (2.0 * M_PI)));
@@ -776,20 +781,21 @@ void MODC_ARM_INIT()
   mot_4.setTorqueEnable(true);
   mot_5.setTorqueEnable(true);
   mot_6.setTorqueEnable(true);
-// Insert here the initial positions
+  // Insert here the initial positions
   delay(10);
-getpositions0[0] = 806;
-getpositions0[1] = 489;
-pos0_mot_2 = 2647;
-pos0_mot_3 = 2156;
-pos0_mot_4 = 2646;
-pos0_mot_5 = 3017;
-pos0_mot_6 = -1116;
+  getpositions0[0] = 790;
+  getpositions0[1] = 592;
+  pos0_mot_2 = 2678;
+  pos0_mot_3 = 3250;
+  pos0_mot_4 = 1937;
+  pos0_mot_5 = 3537;
+
+  pos0_mot_6 = -1116;
   RESET_ARM_INITIAL_POSITION();
 }
 
 void RESET_ARM_INITIAL_POSITION()
-{
+{/*
   // Leggi posizioni correnti
   int32_t posCurr0[2] = {0, 0};
   int32_t posCurr2 = 0;
@@ -815,13 +821,13 @@ void RESET_ARM_INITIAL_POSITION()
   int32_t posTarget6 = getClosestExtendedPosition(posCurr6, pos0_mot_6);
 
   // Ora assegna le posizioni “aggiustate” (assumendo che dxl gestisca 2 motori per esempio)
-  int32_t posTargets0[2] = {posTarget0_0, posTarget0_1};
-  dxl.setGoalPosition_EPCM(posTargets0);
-  mot_2.setGoalPosition_EPCM(posTarget2);
-  mot_3.setGoalPosition_EPCM(posTarget3);
-  mot_4.setGoalPosition_EPCM(posTarget4);
-  mot_5.setGoalPosition_EPCM(posTarget5);
-  mot_6.setGoalPosition_EPCM(posTarget6);
+  int32_t posTargets0[2] = {posTarget0_0, posTarget0_1};*/
+  dxl.setGoalPosition_EPCM(getpositions0);
+  mot_2.setGoalPosition_EPCM(pos0_mot_2);
+  mot_3.setGoalPosition_EPCM(pos0_mot_3);
+  mot_4.setGoalPosition_EPCM(pos0_mot_4);
+  mot_5.setGoalPosition_EPCM(pos0_mot_5);
+  mot_6.setGoalPosition_EPCM(pos0_mot_6);
 }
 
 int32_t getClosestExtendedPosition(int32_t currentPos, int32_t targetPos)
@@ -839,15 +845,14 @@ int32_t getClosestExtendedPosition(int32_t currentPos, int32_t targetPos)
 
 void DXL_TRACTION_INIT()
 {
-  // Initialize Dynamixel motors for the arm
 
   // Set the baud rate for Dynamixel communication
-  dxl_traction.begin_dxl(2000000);
-  mot_Left_traction.begin_dxl(2000000);
-  mot_Right_traction.begin_dxl(2000000);
+  dxl_traction.begin_dxl(BaudRateDXL);
+  mot_Left_traction.begin_dxl(BaudRateDXL);
+  mot_Right_traction.begin_dxl(BaudRateDXL);
 
   mot_Right_traction.setTorqueEnable(false); // Disable torque for safety
-  mot_Left_traction.setTorqueEnable(false);
+                                             // mot_Left_traction.setTorqueEnable(false);
 
   delay(10);
 
@@ -858,9 +863,9 @@ void DXL_TRACTION_INIT()
   delay(10);
 
   // Enable or disable debug mode for troubleshooting
-  mot_Left_traction.setDebug(false);
-  mot_Right_traction.setDebug(false);
-  dxl_traction.setDebug(false);
+  mot_Left_traction.setDebug(true);
+  mot_Right_traction.setDebug(true);
+  dxl_traction.setDebug(true);
 
   // Enable sync mode for multiple motor control.
   dxl_traction.enableSync(motorIDs_traction, numMotors_traction);
