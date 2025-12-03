@@ -4,6 +4,7 @@
 
 // Main loop timings
 #define DT_BAT 1000   // 1000ms / 1000 = 1 Hz
+#define DT_DXL_CHECK 10 // 1000ms / 10 = 1 Hz
 #define DT_PID 10     // 1000ms / 100   = 100 Hz
 #define DT_TEL 10     // 1000ms / 10   = 100 Hz
 #define DT_ENC 20     // 1000ms / 20   = 50 Hz

@@ -898,6 +898,7 @@ uint8_t DynamixelLL::setOperatingMode(uint8_t mode)
 }
 
 
+
 uint8_t DynamixelLL::setHomingOffset(int32_t offset)
 {
     if (offset > 1044479)
@@ -1213,6 +1214,20 @@ uint8_t DynamixelLL::getMovingStatus(MovingStatus &status)
         status.profileOngoing = ((status.raw >> 1) & 0x01) != 0;
         // Decode bit 0 to determine if target position is reached.
         status.inPosition = (status.raw & 0x01) != 0;
+    }
+    return error;
+}
+
+uint8_t DynamixelLL::getHardwareErrorStatus(uint8_t &HardwareErrorStatus)
+{
+    uint8_t error = readRegister(70, HardwareErrorStatus, 1); // RAM address 70, 1 bytes
+    if (error != 0)
+    {
+        if (_debug)
+        {
+            Serial.print("Error reading Current Load: ");
+            Serial.println(error, HEX);
+        }
     }
     return error;
 }

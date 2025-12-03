@@ -15,7 +15,8 @@
  * @struct StatusPacket
  * @brief Represents a response status packet from a Dynamixel servo.
  */
-struct StatusPacket {
+struct StatusPacket
+{
     bool valid;         ///< True if the packet is valid.
     uint8_t id;         ///< Servo ID that sent the response.
     uint8_t error;      ///< Error code from the response.
@@ -27,30 +28,33 @@ struct StatusPacket {
  * @enum VelocityProfileType
  * @brief Enumerates the supported velocity profile types.
  */
-enum VelocityProfileType {
-    PROFILE_NOT_USED = 0,  ///< Step mode (profile not used).
-    RECTANGULAR      = 1,  ///< Rectangular profile.
-    TRIANGULAR       = 2,  ///< Triangular profile.
-    TRAPEZOIDAL      = 3   ///< Trapezoidal profile.
+enum VelocityProfileType
+{
+    PROFILE_NOT_USED = 0, ///< Step mode (profile not used).
+    RECTANGULAR = 1,      ///< Rectangular profile.
+    TRIANGULAR = 2,       ///< Triangular profile.
+    TRAPEZOIDAL = 3       ///< Trapezoidal profile.
 };
 
 /**
  * @struct MovingStatus
  * @brief Holds the decoded status from the servo's moving status register.
  */
-struct MovingStatus {
-    uint8_t raw;                      ///< Requested moving status byte (bits 7-0).
-    VelocityProfileType profileType;  ///< Velocity profile type (from bits 5-4).
-    bool followingError;              ///< True if there's a following error (bit 3).
-    bool profileOngoing;              ///< True if the motion profile is in progress (bit 1).
-    bool inPosition;                  ///< True if the actuator is in position (bit 0).
+struct MovingStatus
+{
+    uint8_t raw;                     ///< Requested moving status byte (bits 7-0).
+    VelocityProfileType profileType; ///< Velocity profile type (from bits 5-4).
+    bool followingError;             ///< True if there's a following error (bit 3).
+    bool profileOngoing;             ///< True if the motion profile is in progress (bit 1).
+    bool inPosition;                 ///< True if the actuator is in position (bit 0).
 };
 
 /**
  * @class DynamixelLL
  * @brief Low-level driver for Dynamixel servos.
  */
-class DynamixelLL {
+class DynamixelLL
+{
 public:
     /**
      * @brief Constructs a DynamixelLL object.
@@ -91,7 +95,7 @@ public:
      * @param motorIDs an array of motor IDs.
      * @param numMotors Number of motors in the array.
      */
-    void enableSync(const uint8_t* motorIDs, uint8_t numMotors);
+    void enableSync(const uint8_t *motorIDs, uint8_t numMotors);
 
     /**
      * @brief Disables synchronization mode.
@@ -102,11 +106,11 @@ public:
      * @brief Sets the operating mode of the servo.
      *
      * - 1: Velocity
-     * 
+     *
      * - 3: Position
-     * 
+     *
      * - 4: Extended Position
-     * 
+     *
      * - 16: PWM.
      * @param mode The desired mode (1, 3, 4, or 16).
      * @return uint8_t 0 on success, nonzero if unsupported.
@@ -470,6 +474,13 @@ public:
     uint8_t getMovingStatus(MovingStatus (&status)[N]);
 
     /**
+     * @brief Retrieves the hardware error status.
+     * @param HardwareErrorStatus Reference to store the hardware error status byte.
+     * @return uint8_t 0 on success, nonzero on error.
+     */
+    uint8_t getHardwareErrorStatus(uint8_t &HardwareErrorStatus);
+
+    /**
      * @brief Sends a ping instruction to the Dynamixel servo.
      * Checks for the device's presence and retrieves basic information via its status packet.
      * @param[out] value Returns the model number (and firmware version bytes) as a 32‐bit value.
@@ -480,11 +491,11 @@ public:
     /**
      * @brief Sends a factory reset instruction to the Dynamixel servo.
      * Factory reset can be performed at different levels:
-     * 
+     *
      * 0xFF : Reset all
-     * 
+     *
      * 0x01 : Reset all except ID
-     * 
+     *
      * 0x02 : Reset all except ID and Baudrate
      * @param level Factory reset level (0xFF, 0x01, or 0x02).
      * @return uint8_t 0 on success, or a nonzero error code if a problem occurs.
@@ -496,17 +507,17 @@ public:
      * @return uint8_t 0 on success, or a nonzero error code if a problem occurs.
      */
     uint8_t reboot();
-    
+
 private:
-    HardwareSerial &_serial;        ///< Reference to the serial interface.
-    uint8_t _servoID;               ///< Servo ID.
+    HardwareSerial &_serial; ///< Reference to the serial interface.
+    uint8_t _servoID;        ///< Servo ID.
 
-    bool _sync = false;             ///< Virtual broadcaster motor flag.
-    uint8_t _numMotors = 1;         ///< Virtual broadcaster number of motors.
-    uint8_t* _motorIDs = nullptr;   ///< Virtual broadcaster motor IDs.
+    bool _sync = false;           ///< Virtual broadcaster motor flag.
+    uint8_t _numMotors = 1;       ///< Virtual broadcaster number of motors.
+    uint8_t *_motorIDs = nullptr; ///< Virtual broadcaster motor IDs.
 
-    bool _debug = false;     ///< Debug mode flag.
-    uint8_t _error;          ///< Last error code.
+    bool _debug = false; ///< Debug mode flag.
+    uint8_t _error;      ///< Last error code.
 
     /**
      * @brief Receives a status packet from the servo.
@@ -553,7 +564,7 @@ private:
      * @param count Number of devices.
      * @return bool True if the packet was sent successfully.
      */
-    bool syncWrite(uint16_t address, uint8_t dataLength, const uint8_t* ids, uint32_t* values, uint8_t count);
+    bool syncWrite(uint16_t address, uint8_t dataLength, const uint8_t *ids, uint32_t *values, uint8_t count);
 
     /**
      * @brief Performs a synchronous read from multiple devices.
@@ -566,7 +577,7 @@ private:
      * @return uint8_t 0 if all responses are received successfully.
      */
     template <typename T>
-    uint8_t syncRead(uint16_t address, uint8_t dataLength, const uint8_t* ids, T(*values), uint8_t count);
+    uint8_t syncRead(uint16_t address, uint8_t dataLength, const uint8_t *ids, T(*values), uint8_t count);
 
     /**
      * @brief Performs a bulk write to multiple devices.
@@ -577,7 +588,7 @@ private:
      * @param count Number of devices.
      * @return bool True if the packet was sent successfully.
      */
-    bool bulkWrite(const uint8_t* ids, uint16_t* addresses, uint8_t* dataLengths, uint32_t* values, uint8_t count);
+    bool bulkWrite(const uint8_t *ids, uint16_t *addresses, uint8_t *dataLengths, uint32_t *values, uint8_t count);
 
     /**
      * @brief Performs a bulk read from multiple devices.
@@ -588,7 +599,7 @@ private:
      * @param count Number of devices.
      * @return uint8_t 0 if all responses are received successfully.
      */
-    uint8_t bulkRead(const uint8_t* ids, uint16_t* addresses, uint8_t* dataLengths, uint32_t* values, uint8_t count);
+    uint8_t bulkRead(const uint8_t *ids, uint16_t *addresses, uint8_t *dataLengths, uint32_t *values, uint8_t count);
 
     /**
      * @brief Sends a packet over the serial interface.
@@ -604,7 +615,7 @@ private:
      * @param parametersLength Length of the parameter block.
      * @return bool True if sent successfully.
      */
-    bool sendSyncWritePacket(const uint8_t* parameters, uint16_t parametersLength);
+    bool sendSyncWritePacket(const uint8_t *parameters, uint16_t parametersLength);
 
     /**
      * @brief Sends a synchronous read command.
@@ -614,7 +625,7 @@ private:
      * @param count Number of devices.
      * @return bool True if sent successfully.
      */
-    bool sendSyncReadPacket(uint16_t address, uint8_t dataLength, const uint8_t* ids, uint8_t count);
+    bool sendSyncReadPacket(uint16_t address, uint8_t dataLength, const uint8_t *ids, uint8_t count);
 
     /**
      * @brief Sends a bulk write command.
@@ -622,7 +633,7 @@ private:
      * @param parametersLength Length of the parameter block.
      * @return bool True if sent successfully.
      */
-    bool sendBulkWritePacket(const uint8_t* parameters, uint16_t parametersLength);
+    bool sendBulkWritePacket(const uint8_t *parameters, uint16_t parametersLength);
 
     /**
      * @brief Sends a bulk read command.
@@ -632,7 +643,7 @@ private:
      * @param count Number of devices.
      * @return bool True if sent successfully.
      */
-    bool sendBulkReadPacket(const uint8_t* ids, uint16_t* addresses, uint8_t* dataLengths, uint8_t count);
+    bool sendBulkReadPacket(const uint8_t *ids, uint16_t *addresses, uint8_t *dataLengths, uint8_t count);
 
     /**
      * @brief A helper function for template overloads. Checks if the array size matches the number of motors.
