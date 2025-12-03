@@ -1,4 +1,4 @@
-#line 1 "C:\\Users\\Utente\\Desktop\\RCR-master\\dxl_get_position\\lib\\AbsoluteEncoder\\src\\AbsoluteEncoder.h"
+#line 1 "C:\\Users\\franc\\Desktop\\isaac\\isaac-repos\\PicoLowLevel\\dxl_get_position\\lib\\AbsoluteEncoder\\src\\AbsoluteEncoder.h"
 #ifndef ABSOLUTE_ENCODER_H
 #define ABSOLUTE_ENCODER_H
 

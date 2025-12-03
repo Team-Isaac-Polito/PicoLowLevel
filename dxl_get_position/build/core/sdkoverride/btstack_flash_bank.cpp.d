@@ -1,2 +1,2 @@
-C:\Users\Utente\Desktop\RCR-master\dxl_get_position\build\core\sdkoverride\btstack_flash_bank.cpp.o: \
- C:\Users\Utente\AppData\Local\Arduino15\packages\rp2040\hardware\rp2040\5.3.0\cores\rp2040\sdkoverride\btstack_flash_bank.cpp
+C:\Users\franc\Desktop\isaac\isaac-repos\PicoLowLevel\dxl_get_position\build\core\sdkoverride\btstack_flash_bank.cpp.o: \
+ C:\Users\franc\AppData\Local\Arduino15\packages\rp2040\hardware\rp2040\4.6.1\cores\rp2040\sdkoverride\btstack_flash_bank.cpp

@@ -1,4 +1,4 @@
-#line 1 "C:\\Users\\Utente\\Desktop\\RCR-master\\dxl_get_position\\lib\\Dynamixel_ll\\src\\Dynamixel_ll.tpp"
+#line 1 "C:\\Users\\franc\\Desktop\\isaac\\isaac-repos\\PicoLowLevel\\dxl_get_position\\lib\\Dynamixel_ll\\src\\Dynamixel_ll.tpp"
 #pragma once
 #define time_delay 0
 

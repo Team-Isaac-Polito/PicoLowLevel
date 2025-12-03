@@ -1,4 +1,4 @@
-#line 1 "C:\\Users\\Utente\\Desktop\\RCR-master\\dxl_get_position\\lib\\Dynamixel_ll\\src\\Dynamixel_ll.h"
+#line 1 "C:\\Users\\franc\\Desktop\\isaac\\isaac-repos\\PicoLowLevel\\dxl_get_position\\lib\\Dynamixel_ll\\src\\Dynamixel_ll.h"
 // e-manual for DYNAMIXEL protocol 2.0: https://emanual.robotis.com/docs/en/dxl/protocol2/
 // e-Manual for DYNAMIXEL XL430-W250: https://emanual.robotis.com/docs/en/dxl/x/xl430-w250/
 

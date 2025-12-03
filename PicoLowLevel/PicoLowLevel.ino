@@ -23,7 +23,7 @@
 #include "Dynamixel_ll.h"
 
 #include "debug_log.h"
-//#define DEBUG_LOG_ENABLED // Uncomment to enable debug logging
+// #define DEBUG_LOG_ENABLED // Uncomment to enable debug logging
 
 void okInterrupt();
 void navInterrupt();
@@ -137,10 +137,9 @@ float servo_data_float = 0.0f;
 
 int16_t presentLoad_mot_6 = 0;
 
-bool first_startup_arm = true;
+bool first_startup_arm = false;
 
 uint8_t ErrorStatusArm[7] = {0, 0, 0, 0, 0, 0, 0};
-
 
 DynamixelLL dxl(Serial1, 0);
 DynamixelLL mot_Left_1(Serial1, motorIDs[0]);
@@ -238,14 +237,13 @@ void loop()
         Debug.println("Battery voltage low! " + String(battery.readVoltage()) + "v", Levels::WARN);
   }
 
-
   if (time_cur - time_DXL_check >= DT_DXL_CHECK)
   {
     time_DXL_check = time_cur;
 
     mot_Right_traction.getHardwareErrorStatus(ErrorStatus_traction[0]);
     mot_Left_traction.getHardwareErrorStatus(ErrorStatus_traction[1]);
-    #ifdef MODC_ARM
+#ifdef MODC_ARM
     mot_Left_1.getHardwareErrorStatus(ErrorStatusArm[0]);
     mot_Right_1.getHardwareErrorStatus(ErrorStatusArm[1]);
     mot_2.getHardwareErrorStatus(ErrorStatusArm[2]);
@@ -254,8 +252,7 @@ void loop()
     mot_5.getHardwareErrorStatus(ErrorStatusArm[5]);
     mot_6.getHardwareErrorStatus(ErrorStatusArm[6]);
 
-    #endif
-  
+#endif
   }
 
   // send telemetry
@@ -284,7 +281,6 @@ void loop()
     speeds_dxl[1] = 0.0f;
 
     dxl_traction.setGoalVelocity_RPM(speeds_dxl); // Stop both motors
-
   }
   else
   {
@@ -399,7 +395,6 @@ void handleSetpoint(uint8_t msg_id, const byte *msg_data)
     pos_mot_1LR[0] = (int32_t)(-((theta_dxl * (4096 / (2.0 * M_PI))) + (phi_dxl * (4096 / (2.0 * M_PI)))) / 2) + pos0_mot_1LR[0];
     pos_mot_1LR[1] = (int32_t)(((theta_dxl * (4096 / (2.0 * M_PI))) - (phi_dxl * (4096 / (2.0 * M_PI)))) / 2) + pos0_mot_1LR[1];
 
-
     dxl.setGoalPosition_EPCM(pos_mot_1LR);
 
     Debug.print("PITCH ARM 1a MOTOR DATA : \t");
@@ -413,7 +408,6 @@ void handleSetpoint(uint8_t msg_id, const byte *msg_data)
     memcpy(&servo_data_float, msg_data, 4);
     valueToSend = (int32_t)(servo_data_float * (4096 / (2.0 * M_PI)));
     pos_mot_2 = valueToSend + pos0_mot_2;
-
 
     mot_2.setGoalPosition_EPCM(pos_mot_2);
 
@@ -526,7 +520,6 @@ void handleSetpoint(uint8_t msg_id, const byte *msg_data)
     mot_Left_traction.reboot();
     mot_Right_traction.reboot();
 
-
     Debug.println("Traction motors rebooted.");
     break;
 
@@ -611,9 +604,7 @@ void sendFeedback()
   canW.sendMessage(ARM_ROLL_5_FEEDBACK, &posf_5_float, sizeof(posf_5));
   canW.sendMessage(ARM_ROLL_6_FEEDBACK, &posf_6_float, sizeof(posf_6));
 
-
   canW.sendMessage(MOTOR_ARM_ERROR_STATUS, ErrorStatusArm, 7);
-
 
 #endif
   /*
@@ -749,19 +740,28 @@ void MODC_ARM_INIT()
     mot_6.getPresentPosition(pos0_mot_6);
   }
 
+  // variabili per la posizione iniziale
+  pos0_mot_1LR[0] = 0;
+  pos0_mot_1LR[1] = 0;
+  pos0_mot_2 = 0;
+  pos0_mot_3 = 0;
+  pos0_mot_4 = 0;
+  pos0_mot_5 = 0;
+  pos0_mot_6 = 0;
+
   RESET_ARM_INITIAL_POSITION();
 }
 
 void RESET_ARM_INITIAL_POSITION()
 {
 
-pos0_mot_1LR[0] = pos0_mot_1LR[0]+delta_pos0_mot_1LR[0];
-pos0_mot_1LR[1] = pos0_mot_1LR[1]+delta_pos0_mot_1LR[1];
-pos0_mot_2 = pos0_mot_2 + delta_pos0_mot_2;
-pos0_mot_3 = pos0_mot_3 + delta_pos0_mot_3;
-pos0_mot_4 = pos0_mot_4 + delta_pos0_mot_4;
-pos0_mot_5 = pos0_mot_5 + delta_pos0_mot_5;
-pos0_mot_6 = pos0_mot_6 + delta_pos0_mot_6;
+  pos0_mot_1LR[0] = pos0_mot_1LR[0] + delta_pos0_mot_1LR[0];
+  pos0_mot_1LR[1] = pos0_mot_1LR[1] + delta_pos0_mot_1LR[1];
+  pos0_mot_2 = pos0_mot_2 + delta_pos0_mot_2;
+  pos0_mot_3 = pos0_mot_3 + delta_pos0_mot_3;
+  pos0_mot_4 = pos0_mot_4 + delta_pos0_mot_4;
+  pos0_mot_5 = pos0_mot_5 + delta_pos0_mot_5;
+  pos0_mot_6 = pos0_mot_6 + delta_pos0_mot_6;
   dxl.setGoalPosition_EPCM(pos0_mot_1LR);
   mot_2.setGoalPosition_EPCM(pos0_mot_2);
   mot_3.setGoalPosition_EPCM(pos0_mot_3);

@@ -1,4 +1,4 @@
-#line 1 "C:\\Users\\Utente\\Desktop\\RCR-master\\dxl_get_position\\DESCRIZIONE.md"
+#line 1 "C:\\Users\\franc\\Desktop\\isaac\\isaac-repos\\PicoLowLevel\\dxl_get_position\\DESCRIZIONE.md"
 # MK2 Robot – Lettura Posizioni Iniziali Braccio Robotico
 
 ## Descrizione

@@ -1,4 +1,4 @@
-#line 1 "C:\\Users\\Utente\\Desktop\\RCR-master\\dxl_get_position\\include\\bitmap_logos.h"
+#line 1 "C:\\Users\\franc\\Desktop\\isaac\\isaac-repos\\PicoLowLevel\\dxl_get_position\\include\\bitmap_logos.h"
 // 'bat', 23x11px
 const unsigned char bitmap_logo_bat [] PROGMEM = {
 	0x00, 0x00, 0x00, 0x3f, 0xff, 0xf0, 0x60, 0x00, 0x18, 0x6d, 0xb6, 0xd8, 0x6d, 0xb6, 0xdc, 0x6d,

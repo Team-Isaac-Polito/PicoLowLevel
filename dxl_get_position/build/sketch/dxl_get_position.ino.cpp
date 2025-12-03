@@ -1,5 +1,5 @@
 #include <Arduino.h>
-#line 1 "C:\\Users\\Utente\\Desktop\\RCR-master\\dxl_get_position\\dxl_get_position.ino"
+#line 1 "C:\\Users\\franc\\Desktop\\isaac\\isaac-repos\\PicoLowLevel\\dxl_get_position\\dxl_get_position.ino"
 #include "Dynamixel_ll.h"
 #include "include/mod_config.h"
 
@@ -20,7 +20,7 @@ int32_t pos0_mot_3 = 0;
 int32_t pos0_mot_4 = 0;
 int32_t pos0_mot_5 = 0;
 int32_t pos0_mot_6 = 0;
-int32_t getpositions0[2] = {0, 0};
+int32_t pos0_mot_1LR[2] = {0, 0};
 
 
 
@@ -44,11 +44,11 @@ DynamixelLL mot_6(Serial1, 216);
 
 
 
-#line 45 "C:\\Users\\Utente\\Desktop\\RCR-master\\dxl_get_position\\dxl_get_position.ino"
+#line 45 "C:\\Users\\franc\\Desktop\\isaac\\isaac-repos\\PicoLowLevel\\dxl_get_position\\dxl_get_position.ino"
 void setup();
-#line 127 "C:\\Users\\Utente\\Desktop\\RCR-master\\dxl_get_position\\dxl_get_position.ino"
+#line 127 "C:\\Users\\franc\\Desktop\\isaac\\isaac-repos\\PicoLowLevel\\dxl_get_position\\dxl_get_position.ino"
 void loop();
-#line 45 "C:\\Users\\Utente\\Desktop\\RCR-master\\dxl_get_position\\dxl_get_position.ino"
+#line 45 "C:\\Users\\franc\\Desktop\\isaac\\isaac-repos\\PicoLowLevel\\dxl_get_position\\dxl_get_position.ino"
 void setup() {
 
    Serial.begin(115200);
@@ -133,29 +133,31 @@ void setup() {
 
 void loop() {
  /*
-   getpositions0[0] = 2695; // Initialize positions to 0
-  getpositions0[1] = 813;  // Initialize positions to 0
+   pos0_mot_1LR[0] = 2695; // Initialize positions to 0
+  pos0_mot_1LR[1] = 813;  // Initialize positions to 0
   pos0_mot_2 = 4851;
   pos0_mot_3 = -1895;
   pos0_mot_4 = 3209;
   pos0_mot_5 = 7181;
   pos0_mot_6 = -1009; // Initialize positions to 0*/
 
-  // dxl.getPresentPosition(getpositions0);
-  mot_Left_1.getPresentPosition(getpositions0[0]);
-  mot_Right_1.getPresentPosition(getpositions0[1]);
+  // dxl.getPresentPosition(pos0_mot_1LR);
+  mot_Left_1.getPresentPosition(pos0_mot_1LR[0]);
+  mot_Right_1.getPresentPosition(pos0_mot_1LR[1]);
   mot_2.getPresentPosition(pos0_mot_2);
   mot_3.getPresentPosition(pos0_mot_3);
   mot_4.getPresentPosition( pos0_mot_4);
   mot_5.getPresentPosition( pos0_mot_5);
   mot_6.getPresentPosition(pos0_mot_6);
 
+ 
+
   Serial.println("initial positions:");
-  Serial.print("getpositions0[0] = ");
-  Serial.print(getpositions0[0]);
+  Serial.print("pos0_mot_1LR[0] = ");
+  Serial.print(pos0_mot_1LR[0]);
   Serial.println(";");
-  Serial.print("getpositions0[1] = ");
-  Serial.print(getpositions0[1]);
+  Serial.print("pos0_mot_1LR[1] = ");
+  Serial.print(pos0_mot_1LR[1]);
   Serial.println(";");
   Serial.print("pos0_mot_2 = ");
   Serial.print(pos0_mot_2);

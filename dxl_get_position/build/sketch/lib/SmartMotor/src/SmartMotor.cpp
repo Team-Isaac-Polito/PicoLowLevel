@@ -1,4 +1,4 @@
-#line 1 "C:\\Users\\Utente\\Desktop\\RCR-master\\dxl_get_position\\lib\\SmartMotor\\src\\SmartMotor.cpp"
+#line 1 "C:\\Users\\franc\\Desktop\\isaac\\isaac-repos\\PicoLowLevel\\dxl_get_position\\lib\\SmartMotor\\src\\SmartMotor.cpp"
 #line 1 "C:\\Users\\PC1\\Desktop\\ISAAC\\test_pid\\PicoLowLevel\\lib\\SmartMotor\\src\\SmartMotor.cpp"
 #include "SmartMotor.h"
 int pr = 0;
