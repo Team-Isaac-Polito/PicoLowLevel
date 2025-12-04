@@ -15,7 +15,7 @@ void Display::begin() {
   display.setTextColor(SH110X_WHITE);
   display.clearDisplay();
   display.display();
-  showLogo();
+  showLogo(); // Show the logo on startup
 }
 
 /**
@@ -94,6 +94,13 @@ void Display::handleGUI() {
     case 3:
       if (change) showVersion();
       break;
+    case 4:
+      // Error menu
+      if (change) showCurrentError(idx);
+      break;
+    case 5:
+      if (change) showMotorStatus(idx_motorStatus);
+      break;
   }
 }
 
@@ -111,11 +118,157 @@ void Display::navInterrupt() {
 
 /**
  * OK button ISR.
+ * Added errors to the list are shown one by one with each button press.
+ * If no error is present, the button press is counted as a menu change.
  */
 void Display::okInterrupt() {
   int now = millis();
   if (now - lastok > DEBOUNCE) {
+    if (menupos == 4 && errorCount > 0) {     // in the error menu and there are errors
+      idx = (idx + 1) % errorCount;       // cycle through errors with each press
+      showCurrentError(idx);                // Show the next error message 
+    } else {
     ok++;
+    }
+
+        if (menupos == 5 && StatusCount > 0) {     // in the error menu and there are errors
+      idx_motorStatus = (idx_motorStatus + 1) % StatusCount;       // cycle through errors with each press
+      showMotorStatus(idx_motorStatus);                // Show the next error message 
+    } else {
+    ok++;
+    }
     lastok = now;
+  }
+}
+
+/*
+ * Displays the current error message based on the index.
+ * Shows two errors at once: the current and the next one below.
+ * Writes to both sides of the screen 
+ */
+void Display::showCurrentError(int idx) {
+    // Check if there is error
+    if (errorCount == 0) {
+        display.clearDisplay();
+        display.setCursor(0, 16);
+        display.printf("No errors.");
+        display.display();
+        return;
+    // If both screen sider are occupied
+    // cleart he screen
+    } else if (errorTopPrinted && errorBottomPrinted) {
+        errorTopPrinted = false;
+        errorBottomPrinted = false;
+        display.clearDisplay();
+    } 
+
+
+    // First, try to print the error on the upper side of the screen
+    if (!errorTopPrinted) {
+        display.clearDisplay();
+        if (errorCount > 1) {
+          // Draw right arrow to indicate more errors are available
+          display.drawBitmap(display.width() - 10, display.height() - 10, bitmap_arrow_right, 8, 8, 1);
+        }
+        display.setCursor(0, 0);
+        display.printf("[%d] %s", idx, errorList[idx].Msg);
+        errorTopPrinted = true;
+        display.display();
+        return;
+    }
+
+    // If the upper side of the screen is occupied
+    // try writing error to the bottom
+    if (!errorBottomPrinted && (idx < errorCount)) {
+        display.setCursor(0, 30);
+        display.printf("[%d] %s", idx, errorList[idx].Msg);
+        errorBottomPrinted = true;
+        display.display();
+        return;
+    }
+    
+}
+
+void Display::showMotorStatus(int idx_motorStatus) {
+    // Check if there is error
+    if (errorCount == 0) {
+        display.clearDisplay();
+        display.setCursor(0, 16);
+        display.printf("No errors.");
+        display.display();
+        return;
+    // If both screen sider are occupied
+    // cleart he screen
+    } else if (errorTopPrintedMotor && errorBottomPrintedMotor) {
+        errorTopPrintedMotor = false;
+        errorBottomPrinted = false;
+        display.clearDisplay();
+    } 
+
+
+    // First, try to print the error on the upper side of the screen
+    if (!errorTopPrintedMotor) {
+        display.clearDisplay();
+        if (errorCount > 1) {
+          // Draw right arrow to indicate more errors are available
+          display.drawBitmap(display.width() - 10, display.height() - 10, bitmap_arrow_right, 8, 8, 1);
+        }
+        display.setCursor(0, 0);
+        display.printf("[%d] %s", idx, motorStatus[idx_motorStatus].Msg);
+        errorTopPrintedMotor = true;
+        display.display();
+        return;
+    }
+
+    // If the upper side of the screen is occupied
+    // try writing error to the bottom
+    if (!errorBottomPrintedMotor && (idx < errorCount)) {
+        display.setCursor(0, 30);
+        display.printf("[%d] %s", idx, errorList[idx].Msg);
+        errorBottomPrintedMotor = true;
+        display.display();
+        return;
+    }
+    
+}
+
+/*
+ * Adds an error message to the list of errors.
+ */
+void Display::addError(const char* Msg, int cursorY) {
+  // Check if the error message is a CAN bus error
+  bool isCanBusError = (strstr(Msg, "CAN") != nullptr);
+
+  // If it's a CAN bus error, check if one already exists
+  if (isCanBusError) {
+    for (int i = 0; i < errorCount; ++i) {
+      if (strstr(errorList[i].Msg, "CAN") != nullptr) {
+        // Already have a CAN bus error, do not add another
+        return;
+      }
+    }
+  }
+
+  if (errorCount < 10) { // Check if there's space for a new error
+    errorList[errorCount].Msg = Msg;
+    errorList[errorCount].cursorY = cursorY;
+    errorCount++;
+  } else {
+    // Error list is full, ignore the new error
+    Serial.println("Error list is full. Cannot add new error.");
+  }
+}
+
+
+void Display::addStatus(const char* Msg, int cursorY) {
+
+
+  if (errorCount < 10) { // Check if there's space for a new error
+    motorStatus[StatusCount].Msg = Msg;
+    motorStatus[StatusCount].cursorY = cursorY;
+    StatusCount++;
+  } else {
+    // Error list is full, ignore the new error
+    Serial.println("StatusCount list is full. Cannot add new error.");
   }
 }

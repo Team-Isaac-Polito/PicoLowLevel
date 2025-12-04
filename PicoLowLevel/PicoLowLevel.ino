@@ -19,6 +19,7 @@
 #include "include/definitions.h"
 #include "include/mod_config.h"
 #include "include/communication.h"
+#include <string.h> // strncpy, strlen
 
 #include "Dynamixel_ll.h"
 
@@ -42,6 +43,8 @@ int time_tel = 0;
 int time_data = 0;
 int time_tel_avg = DT_TEL;
 int time_DXL_check = 0;
+
+int errorCount = 0;
 
 CanWrapper canW(5, 20000000UL, &SPI);
 
@@ -193,13 +196,14 @@ void setup()
 
   // initializing ADC
   analogReadResolution(12); // set precision to 12 bits, 0-4095 input
-  display.begin();
-
   // Buttons initialization
   pinMode(BTNOK, INPUT_PULLUP);
   pinMode(BTNNAV, INPUT_PULLUP);
   attachInterrupt(digitalPinToInterrupt(BTNOK), okInterrupt, FALLING);
   attachInterrupt(digitalPinToInterrupt(BTNNAV), navInterrupt, FALLING);
+
+  // Display initialization
+  display.begin(); // has showLogo
 
   DXL_TRACTION_INIT();
 
@@ -231,10 +235,15 @@ void loop()
     time_bat = time_cur;
 
     if (time_tel_avg > DT_TEL)
-      // Debug.println("Telemetry frequency below required: " + String(1000 / time_tel_avg) + " Hz", Levels::WARN);
-
-      if (!battery.charged())
-        Debug.println("Battery voltage low! " + String(battery.readVoltage()) + "v", Levels::WARN);
+    {
+      Debug.println("Telemetry frequency below required: " + String(1000 / time_tel_avg) + " Hz", Levels::WARN);
+      display.addError("Telemetry frequency below required", 16);
+    }
+    if (!battery.charged())
+    {
+      Debug.println("Battery voltage low! " + String(battery.readVoltage()) + "v", Levels::WARN);
+      display.addError("Low battery voltage!", 16);
+    }
   }
 
   if (time_cur - time_DXL_check >= DT_DXL_CHECK)
@@ -252,7 +261,26 @@ void loop()
     mot_5.getHardwareErrorStatus(ErrorStatusArm[5]);
     mot_6.getHardwareErrorStatus(ErrorStatusArm[6]);
 
+    String motor1A = " motor1A " + String(ErrorStatusArm[0]);
+    String motor1B = " motor1B " + String(ErrorStatusArm[1]);
+    String motor2 = " motor2 " + String(ErrorStatusArm[2]);
+    String motor3 = " motor3 " + String(ErrorStatusArm[3]);
+    String motor4 = " motor4 " + String(ErrorStatusArm[4]);
+    String motor5 = " motor5 " + String(ErrorStatusArm[5]);
+    String motor6 = " motor6 " + String(ErrorStatusArm[6]);
+    display.addStatus(motor1A.c_str(), 16);
+    display.addStatus(motor1B.c_str(), 16);
+    display.addStatus(motor2.c_str(), 16);
+    display.addStatus(motor3.c_str(), 16);
+    display.addStatus(motor4.c_str(), 16);
+    display.addStatus(motor5.c_str(), 16);
+    display.addStatus(motor6.c_str(), 16);
+
 #endif
+    String motorRightTraction = " motorRightTraction " + String(ErrorStatus_traction[0]);
+    String motorLeftTraction = " motorLeftTraction " + String(ErrorStatus_traction[1]);
+    display.addStatus(motorRightTraction.c_str(), 16);
+    display.addStatus(motorLeftTraction.c_str(), 16);
   }
 
   // send telemetry
@@ -261,10 +289,7 @@ void loop()
     time_tel_avg = (time_tel_avg + (time_cur - time_tel)) / 2;
     time_tel = time_cur;
 
-    
     sendFeedback();
-    
-
   }
 
   if (canW.readMessage(&msg_id, msg_data))
@@ -284,6 +309,7 @@ void loop()
     speeds_dxl[1] = 0.0f;
 
     dxl_traction.setGoalVelocity_RPM(speeds_dxl); // Stop both motors
+    display.addError("CANBUS ERROR!", 8);
   }
   else
   {
@@ -744,13 +770,13 @@ void MODC_ARM_INIT()
   }
 
   // variabili per la posizione iniziale
-pos0_mot_1LR[0] = 834;
-pos0_mot_1LR[1] = 536;
-pos0_mot_2 = 2632;
-pos0_mot_3 = 3034;
-pos0_mot_4 = 2154;
-pos0_mot_5 = 3694;
-pos0_mot_6 = 4191;
+  pos0_mot_1LR[0] = 834;
+  pos0_mot_1LR[1] = 536;
+  pos0_mot_2 = 2632;
+  pos0_mot_3 = 3034;
+  pos0_mot_4 = 2154;
+  pos0_mot_5 = 3694;
+  pos0_mot_6 = 4191;
 
   RESET_ARM_INITIAL_POSITION();
 }
@@ -771,7 +797,6 @@ void RESET_ARM_INITIAL_POSITION()
   mot_4.setGoalPosition_EPCM(pos0_mot_4);
   mot_5.setGoalPosition_EPCM(pos0_mot_5);
   mot_6.setGoalPosition_EPCM(pos0_mot_6);
-
 }
 
 #endif
