@@ -4,7 +4,7 @@
 #define ProfileAcceleration 10
 #define ProfileVelocity 20
 
-#define BaudRateDXL 57600
+#define BaudRateDXL 2000000
 
 
 
@@ -164,12 +164,12 @@ void loop() {
   Serial.print("pos0_mot_5 = ");
   Serial.print(pos0_mot_5);
   Serial.println(";");
-  //Serial.print("pos0_mot_6 = ");
-  //Serial.print(pos0_mot_6);
-  //Serial.println(";");
+  Serial.print("pos0_mot_6 = ");
+  Serial.print(pos0_mot_6);
+  Serial.println(";");
 
 
-  delay(1); // Wait for a bit before the next loop.
+  delay(1000); // Wait for a bit before the next loop.
 
   // Repeat loop...
 }

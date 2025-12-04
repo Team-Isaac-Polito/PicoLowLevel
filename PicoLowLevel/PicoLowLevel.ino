@@ -155,8 +155,8 @@ bool arm_roll_open_6_active = false;
 
 //========================================================
 bool end_mot_6 = true; // reset end_mot_6 at each loop
-int32_t target_pos_mot_6_open = -940;
-int32_t target_pos_mot_6_close = -1600;
+int32_t target_pos_mot_6_open = 3686;
+int32_t target_pos_mot_6_close = 4202;
 //========================================================
 
 #endif
@@ -261,7 +261,10 @@ void loop()
     time_tel_avg = (time_tel_avg + (time_cur - time_tel)) / 2;
     time_tel = time_cur;
 
+    
     sendFeedback();
+    
+
   }
 
   if (canW.readMessage(&msg_id, msg_data))
@@ -741,13 +744,13 @@ void MODC_ARM_INIT()
   }
 
   // variabili per la posizione iniziale
-  pos0_mot_1LR[0] = 0;
-  pos0_mot_1LR[1] = 0;
-  pos0_mot_2 = 0;
-  pos0_mot_3 = 0;
-  pos0_mot_4 = 0;
-  pos0_mot_5 = 0;
-  pos0_mot_6 = 0;
+pos0_mot_1LR[0] = 834;
+pos0_mot_1LR[1] = 536;
+pos0_mot_2 = 2632;
+pos0_mot_3 = 3034;
+pos0_mot_4 = 2154;
+pos0_mot_5 = 3694;
+pos0_mot_6 = 4191;
 
   RESET_ARM_INITIAL_POSITION();
 }
@@ -768,6 +771,7 @@ void RESET_ARM_INITIAL_POSITION()
   mot_4.setGoalPosition_EPCM(pos0_mot_4);
   mot_5.setGoalPosition_EPCM(pos0_mot_5);
   mot_6.setGoalPosition_EPCM(pos0_mot_6);
+
 }
 
 #endif
@@ -792,9 +796,9 @@ void DXL_TRACTION_INIT()
   delay(10);
 
   // Enable or disable debug mode for troubleshooting
-  mot_Left_traction.setDebug(true);
-  mot_Right_traction.setDebug(true);
-  dxl_traction.setDebug(true);
+  mot_Left_traction.setDebug(false);
+  mot_Right_traction.setDebug(false);
+  dxl_traction.setDebug(false);
 
   // Enable sync mode for multiple motor control.
   dxl_traction.enableSync(motorIDs_traction, numMotors_traction);
