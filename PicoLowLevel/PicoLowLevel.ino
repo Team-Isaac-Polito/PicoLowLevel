@@ -48,6 +48,9 @@ int errorCount = 0;
 
 CanWrapper canW(5, 20000000UL, &SPI);
 
+bool led_status = false;
+
+uint8_t error_var = 0;
 //================ Traction Motors =================
 DynamixelLL dxl_traction(Serial1, 0);
 const uint8_t motorIDs_traction[] = {212, 114};
@@ -221,6 +224,8 @@ void setup()
 #ifdef DEBUG_LOG_ENABLED
   dbg("Setup complete. Waiting for CAN messages...\n");
 #endif
+
+  pinMode(LED_BUILTIN, OUTPUT);
 }
 
 void loop()
@@ -236,51 +241,18 @@ void loop()
 
     if (time_tel_avg > DT_TEL)
     {
-      Debug.println("Telemetry frequency below required: " + String(1000 / time_tel_avg) + " Hz", Levels::WARN);
+      char buf[64];
+      snprintf(buf, sizeof(buf), "Telemetry frequency below required: %d ms", (int)time_tel_avg);
+      Debug.println(buf, Levels::WARN);
       display.addError("Telemetry frequency below required", 16);
     }
     if (!battery.charged())
     {
-      Debug.println("Battery voltage low! " + String(battery.readVoltage()) + "v", Levels::WARN);
+      char buf[64];
+      snprintf(buf, sizeof(buf), "Battery voltage low! %f v", battery.readVoltage());
+      Debug.println(buf, Levels::WARN);
       display.addError("Low battery voltage!", 16);
     }
-  }
-
-  if (time_cur - time_DXL_check >= DT_DXL_CHECK)
-  {
-    time_DXL_check = time_cur;
-
-    mot_Right_traction.getHardwareErrorStatus(ErrorStatus_traction[0]);
-    mot_Left_traction.getHardwareErrorStatus(ErrorStatus_traction[1]);
-#ifdef MODC_ARM
-    mot_Left_1.getHardwareErrorStatus(ErrorStatusArm[0]);
-    mot_Right_1.getHardwareErrorStatus(ErrorStatusArm[1]);
-    mot_2.getHardwareErrorStatus(ErrorStatusArm[2]);
-    mot_3.getHardwareErrorStatus(ErrorStatusArm[3]);
-    mot_4.getHardwareErrorStatus(ErrorStatusArm[4]);
-    mot_5.getHardwareErrorStatus(ErrorStatusArm[5]);
-    mot_6.getHardwareErrorStatus(ErrorStatusArm[6]);
-
-    String motor1A = " motor1A " + String(ErrorStatusArm[0]);
-    String motor1B = " motor1B " + String(ErrorStatusArm[1]);
-    String motor2 = " motor2 " + String(ErrorStatusArm[2]);
-    String motor3 = " motor3 " + String(ErrorStatusArm[3]);
-    String motor4 = " motor4 " + String(ErrorStatusArm[4]);
-    String motor5 = " motor5 " + String(ErrorStatusArm[5]);
-    String motor6 = " motor6 " + String(ErrorStatusArm[6]);
-    display.addStatus(motor1A.c_str(), 16);
-    display.addStatus(motor1B.c_str(), 16);
-    display.addStatus(motor2.c_str(), 16);
-    display.addStatus(motor3.c_str(), 16);
-    display.addStatus(motor4.c_str(), 16);
-    display.addStatus(motor5.c_str(), 16);
-    display.addStatus(motor6.c_str(), 16);
-
-#endif
-    String motorRightTraction = " motorRightTraction " + String(ErrorStatus_traction[0]);
-    String motorLeftTraction = " motorLeftTraction " + String(ErrorStatus_traction[1]);
-    display.addStatus(motorRightTraction.c_str(), 16);
-    display.addStatus(motorLeftTraction.c_str(), 16);
   }
 
   // send telemetry
@@ -360,6 +332,56 @@ void loop()
     }
   }
 #endif
+
+  if (time_cur - time_DXL_check >= DT_DXL_CHECK)
+  {
+    digitalWrite(LED_BUILTIN, led_status);
+    led_status = !led_status;
+    time_DXL_check = time_cur;
+    char buf[64];
+
+    mot_Right_traction.getHardwareErrorStatus(ErrorStatus_traction[0]);
+    mot_Left_traction.getHardwareErrorStatus(ErrorStatus_traction[1]);
+#ifdef MODC_ARM
+   error_var++;
+    if (error_var == 1)
+    {
+      mot_Left_1.getHardwareErrorStatus(ErrorStatusArm[0]);
+      mot_Right_1.getHardwareErrorStatus(ErrorStatusArm[1]);
+    };
+    if (error_var == 2)
+    {
+      mot_2.getHardwareErrorStatus(ErrorStatusArm[2]);
+      mot_3.getHardwareErrorStatus(ErrorStatusArm[3]);
+    };
+    if (error_var == 3)
+    {
+      mot_4.getHardwareErrorStatus(ErrorStatusArm[4]);
+      mot_5.getHardwareErrorStatus(ErrorStatusArm[5]);
+    }
+    if (error_var = 4)
+    {
+      mot_6.getHardwareErrorStatus(ErrorStatusArm[6]);
+      error_var = 0;
+    };
+ 
+
+    for (int i = 0; i < 7; i++)
+    {
+      snprintf(buf, sizeof(buf), " motor%d %d", i + 1, ErrorStatusArm[i]);
+      display.addStatus(buf, 16, i + 2);
+      memset(buf, 0, sizeof(buf));
+    }
+
+#endif
+    snprintf(buf, sizeof(buf), " motor_tr%d %d", 0, ErrorStatus_traction[0]);
+    display.addStatus(buf, 16, 0);
+    memset(buf, 0, sizeof(buf));
+
+    snprintf(buf, sizeof(buf), " motor%d %d", 1, ErrorStatus_traction[1]);
+    display.addStatus(buf, 16, 1);
+    memset(buf, 0, sizeof(buf));
+  }
 }
 
 /**
@@ -385,35 +407,6 @@ void handleSetpoint(uint8_t msg_id, const byte *msg_data)
     break;
   }
 
-    //========================================================
-  case DATA_EE_PITCH_SETPOINT:
-    memcpy(&servo_data, msg_data, 4);
-#ifdef MODC_EE
-    motorEEPitch.moveSpeed(servo_data, SERVO_SPEED);
-#endif
-    Debug.print("PITCH END EFFECTOR MOTOR DATA : \t");
-    Debug.println(servo_data);
-    break;
-
-    //========================================================
-  case DATA_EE_HEAD_PITCH_SETPOINT:
-    memcpy(&servo_data, msg_data, 2);
-#ifdef MODC_EE
-    motorEEHeadPitch.moveSpeed(servo_data, SERVO_SPEED);
-#endif
-    Debug.print("HEAD PITCH END EFFECTOR MOTOR DATA : \t");
-    Debug.println(servo_data);
-    break;
-
-    //========================================================
-  case DATA_EE_HEAD_ROLL_SETPOINT:
-    memcpy(&servo_data, msg_data, 2);
-#ifdef MODC_EE
-    motorEEHeadRoll.moveSpeed(servo_data, SERVO_SPEED);
-#endif
-    Debug.print("HEAD ROLL END EFFECTOR MOTOR DATA : \t");
-    Debug.println(servo_data);
-    break;
 #ifdef MODC_ARM
   //========================================================
   case ARM_PITCH_1a1b_SETPOINT:
@@ -594,17 +587,6 @@ void sendFeedback()
   encoderYaw.update();
   float angle = encoderYaw.readAngle();
   canW.sendMessage(JOINT_YAW_FEEDBACK, &angle, 4);
-#endif
-
-  // send end effector data (if module has it)
-#ifdef MODC_EE
-  int pitch = motorEEPitch.readPosition();
-  int headPitch = motorEEHeadPitch.readPosition();
-  int headRoll = motorEEHeadRoll.readPosition();
-
-  canW.sendMessage(DATA_EE_PITCH_FEEDBACK, &pitch, 4);
-  canW.sendMessage(DATA_EE_HEAD_PITCH_FEEDBACK, &headPitch, 4);
-  canW.sendMessage(DATA_EE_HEAD_ROLL_FEEDBACK, &headRoll, 4);
 #endif
 
   // Send the present position data of the arm motors

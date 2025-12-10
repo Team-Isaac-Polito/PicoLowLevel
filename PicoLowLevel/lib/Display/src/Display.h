@@ -38,7 +38,7 @@ public:
    */
   void addError(const char* Msg, int cursorY);
 
-  void addStatus(const char* Msg, int cursorY);
+  void addStatus(const char* Msg, int cursorY, int _StatusPointer);
 
   /**
    * @brief Shows the current error message based on the index.
@@ -46,7 +46,7 @@ public:
    * @param errorMsg Pointer to the error message string.
    * @param cursorY Y-coordinate for the cursor position on the display.
    */
-  void showError(const char* errorMsg, int cursorY);
+  void showError(const char* errorMsg, int cursorY );
   void showCurrentError(int idx);
   void showMotorStatus(int idx_motorStatus);
 
@@ -78,6 +78,7 @@ struct Message { // Structure to hold error information
   int lastnav = 0;
   int menupos = 0;
   int menutime = 0;
+  int _StatusPointer=0;
 };
 
 #endif

@@ -131,12 +131,7 @@ void Display::okInterrupt() {
     ok++;
     }
 
-        if (menupos == 5 && StatusCount > 0) {     // in the error menu and there are errors
-      idx_motorStatus = (idx_motorStatus + 1) % StatusCount;       // cycle through errors with each press
-      showMotorStatus(idx_motorStatus);                // Show the next error message 
-    } else {
-    ok++;
-    }
+
     lastok = now;
   }
 }
@@ -255,20 +250,25 @@ void Display::addError(const char* Msg, int cursorY) {
     errorCount++;
   } else {
     // Error list is full, ignore the new error
-    Serial.println("Error list is full. Cannot add new error.");
+    errorCount=0;
   }
 }
 
 
-void Display::addStatus(const char* Msg, int cursorY) {
 
 
-  if (errorCount < 10) { // Check if there's space for a new error
-    motorStatus[StatusCount].Msg = Msg;
-    motorStatus[StatusCount].cursorY = cursorY;
-    StatusCount++;
-  } else {
+
+void Display::addStatus(const char *Msg, int cursorY, int _StatusPointer)
+{
+
+  if (_StatusPointer < 10)
+  { // Check if there's space for a new error
+    motorStatus[_StatusPointer].Msg = Msg;
+    motorStatus[_StatusPointer].cursorY = cursorY;
+  }
+  else
+  {
     // Error list is full, ignore the new error
-    Serial.println("StatusCount list is full. Cannot add new error.");
+     Serial.println("StatusCount list is full. Cannot add new error.");
   }
 }
