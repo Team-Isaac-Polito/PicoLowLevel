@@ -343,7 +343,7 @@ void loop()
     mot_Right_traction.getHardwareErrorStatus(ErrorStatus_traction[0]);
     mot_Left_traction.getHardwareErrorStatus(ErrorStatus_traction[1]);
 #ifdef MODC_ARM
-   error_var++;
+    error_var++;
     if (error_var == 1)
     {
       mot_Left_1.getHardwareErrorStatus(ErrorStatusArm[0]);
@@ -364,7 +364,6 @@ void loop()
       mot_6.getHardwareErrorStatus(ErrorStatusArm[6]);
       error_var = 0;
     };
- 
 
     for (int i = 0; i < 7; i++)
     {
@@ -594,25 +593,23 @@ void sendFeedback()
 #ifdef MODC_ARM
 
   dxl.getPresentPosition(posf_1a1b);
-  mot_2.getPresentPosition(posf_2);
-  mot_3.getPresentPosition(posf_3);
-  mot_4.getPresentPosition(posf_4);
-  mot_5.getPresentPosition(posf_5);
-  mot_6.getPresentPosition(posf_6);
-
   posf_1a1b_float[0] = (float)(posf_1a1b[0] * 1.0f);
   posf_1a1b_float[1] = (float)(posf_1a1b[1] * 1.0f);
-  posf_2_float = (float)(posf_2 * 1.0f);
-  posf_3_float = (float)(posf_3 * 1.0f);
-  posf_4_float = (float)(posf_4 * 1.0f);
-  posf_5_float = (float)(posf_5 * 1.0f);
-  posf_6_float = (float)(posf_6 * 1.0f);
-
   canW.sendMessage(ARM_PITCH_1a1b_FEEDBACK, posf_1a1b_float, sizeof(posf_1a1b));
+  mot_2.getPresentPosition(posf_2);
+  posf_2_float = (float)(posf_2 * 1.0f);
   canW.sendMessage(ARM_PITCH_2_FEEDBACK, &posf_2_float, sizeof(posf_2));
+  mot_3.getPresentPosition(posf_3);
+  posf_3_float = (float)(posf_3 * 1.0f);
   canW.sendMessage(ARM_ROLL_3_FEEDBACK, &posf_3_float, sizeof(posf_3));
+  mot_4.getPresentPosition(posf_4);
+  posf_4_float = (float)(posf_4 * 1.0f);
   canW.sendMessage(ARM_PITCH_4_FEEDBACK, &posf_4_float, sizeof(posf_4));
+  mot_5.getPresentPosition(posf_5);
+  posf_5_float = (float)(posf_5 * 1.0f);
   canW.sendMessage(ARM_ROLL_5_FEEDBACK, &posf_5_float, sizeof(posf_5));
+  mot_6.getPresentPosition(posf_6);
+  posf_6_float = (float)(posf_6 * 1.0f);
   canW.sendMessage(ARM_ROLL_6_FEEDBACK, &posf_6_float, sizeof(posf_6));
 
   canW.sendMessage(MOTOR_ARM_ERROR_STATUS, ErrorStatusArm, 7);
