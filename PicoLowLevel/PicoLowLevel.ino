@@ -104,9 +104,17 @@ int32_t pos_mot_4 = 0;
 int32_t pos_mot_5 = 0;
 int32_t pos_mot_6 = 0;
 int32_t pos_mot_6_actual = 0;
-float theta_dxl;
-float phi_dxl;
+float theta_dxl = 0.0f;
+float phi_dxl = 0.0f;
 int32_t valueToSend = 0;
+
+int32_t old_pos_mot_2 = 0;
+int32_t old_pos_mot_3 = 0;
+int32_t old_pos_mot_4 = 0;
+int32_t old_pos_mot_5 = 0;
+int32_t old_pos_mot_1LR[2] = {0, 0};
+
+#define de_can_dxl 20
 
 // delta from start position
 int32_t delta_pos0_mot_2 = 0;
@@ -413,10 +421,18 @@ void handleSetpoint(uint8_t msg_id, const byte *msg_data)
     memcpy(&servo_data_1b, msg_data + 4, 4);
     theta_dxl = servo_data_1a;
     phi_dxl = servo_data_1b;
-    pos_mot_1LR[0] = (int32_t)(-((theta_dxl * (4096 / (2.0 * M_PI))) + (phi_dxl * (4096 / (2.0 * M_PI)))) / 2) + pos0_mot_1LR[0];
-    pos_mot_1LR[1] = (int32_t)(((theta_dxl * (4096 / (2.0 * M_PI))) - (phi_dxl * (4096 / (2.0 * M_PI)))) / 2) + pos0_mot_1LR[1];
 
-    dxl.setGoalPosition_EPCM(pos_mot_1LR);
+    pos_mot_1LR[0] = (int32_t)(-((theta_dxl * (4096 / (   2))) + (phi_dxl * (4096 / (   2)))) / 2) + pos0_mot_1LR[0];
+    pos_mot_1LR[1] = (int32_t)(((theta_dxl * (4096 / (   2))) - (phi_dxl * (4096 / (   2)))) / 2) + pos0_mot_1LR[1];
+
+    if (abs(pos_mot_1LR[0] - old_pos_mot_1LR[0]) > de_can_dxl || abs(pos_mot_1LR[1] - old_pos_mot_1LR[1]) > de_can_dxl)
+    {
+      dxl.setGoalPosition_EPCM(pos_mot_1LR);
+      Serial.print("time");
+      Serial.println(millis());
+      old_pos_mot_1LR[0] = pos_mot_1LR[0];
+      old_pos_mot_1LR[1] = pos_mot_1LR[1];
+    }
 
     Debug.print("PITCH ARM 1a MOTOR DATA : \t");
     Debug.println(pos_mot_1LR[0]);
@@ -427,11 +443,14 @@ void handleSetpoint(uint8_t msg_id, const byte *msg_data)
     //========================================================
   case ARM_PITCH_2_SETPOINT:
     memcpy(&servo_data_float, msg_data, 4);
-    valueToSend = (int32_t)(servo_data_float * (4096 / (2.0 * M_PI)));
+    valueToSend = (int32_t)(servo_data_float * (4096 / (   2)));
     pos_mot_2 = valueToSend + pos0_mot_2;
 
-    mot_2.setGoalPosition_EPCM(pos_mot_2);
-
+    if (abs(pos_mot_2 - old_pos_mot_2) > de_can_dxl)
+    {
+      mot_2.setGoalPosition_EPCM(pos_mot_2);
+      old_pos_mot_2 = pos_mot_2;
+    }
     Debug.print("PITCH ARM 2 MOTOR DATA : \t");
     Debug.println(pos_mot_2);
     break;
@@ -440,11 +459,14 @@ void handleSetpoint(uint8_t msg_id, const byte *msg_data)
   case ARM_ROLL_3_SETPOINT:
 
     memcpy(&servo_data_float, msg_data, 4);
-    valueToSend = (int32_t)(servo_data_float * (4096 / (2.0 * M_PI)));
+    valueToSend = (int32_t)(servo_data_float * (4096 / (   2)));
     pos_mot_3 = valueToSend + pos0_mot_3;
-
-    mot_3.setGoalPosition_EPCM(pos_mot_3);
-
+    if (abs(pos_mot_3 - old_pos_mot_3) > de_can_dxl)
+    {
+      
+      mot_3.setGoalPosition_EPCM(pos_mot_3);
+      old_pos_mot_3 = pos_mot_3;
+    }
     Debug.print("ROLL ARM 3 MOTOR DATA : \t");
     Debug.println(pos_mot_3);
     break;
@@ -452,11 +474,13 @@ void handleSetpoint(uint8_t msg_id, const byte *msg_data)
     //========================================================
   case ARM_PITCH_4_SETPOINT:
     memcpy(&servo_data_float, msg_data, 4);
-    valueToSend = (int32_t)(servo_data_float * (4096 / (2.0 * M_PI)));
+    valueToSend = (int32_t)(servo_data_float * (4096 / (   2)));
     pos_mot_4 = pos0_mot_4 + valueToSend;
-
-    mot_4.setGoalPosition_EPCM(pos_mot_4);
-
+    if (abs(pos_mot_4 - old_pos_mot_4) > de_can_dxl)
+    {
+      mot_4.setGoalPosition_EPCM(pos_mot_4);
+      old_pos_mot_4 = pos_mot_4;
+    }
     Debug.print("PITCH ARM 4 MOTOR DATA : \t");
     Debug.println(pos_mot_4);
     break;
@@ -464,11 +488,13 @@ void handleSetpoint(uint8_t msg_id, const byte *msg_data)
     //========================================================
   case ARM_ROLL_5_SETPOINT:
     memcpy(&servo_data_float, msg_data, 4);
-    valueToSend = (int32_t)(servo_data_float * (4096 / (2.0 * M_PI)));
+    valueToSend = (int32_t)(servo_data_float * (4096 / (   2)));
     pos_mot_5 = pos0_mot_5 - valueToSend;
-
-    mot_5.setGoalPosition_EPCM(pos_mot_5);
-
+    if (abs(pos_mot_5 - old_pos_mot_5) > de_can_dxl)
+    {
+      mot_5.setGoalPosition_EPCM(pos_mot_5);
+      old_pos_mot_5 = pos_mot_5;
+    }
     Debug.print("ROLL ARM 5 MOTOR DATA : \t");
     Debug.println(pos0_mot_5);
     break;
@@ -481,11 +507,11 @@ void handleSetpoint(uint8_t msg_id, const byte *msg_data)
   case ARM_ROLL_6_SETPOINT:
 
     memcpy(&servo_data_mot_6, msg_data, 4);
-    Serial.print("ARM ROLL 6 SETPOINT  ");
-    Serial.println(servo_data_mot_6);
+    // Serial.print("ARM ROLL 6 SETPOINT  ");
+    // Serial.println(servo_data_mot_6);
     if (servo_data_mot_6 == 0)
     {
-      Serial.println("ARM ROLL 6 SETPOINT 1");
+      // Serial.println("ARM ROLL 6 SETPOINT 1");
 
       arm_roll_close_6_active = true; // attiva la modalità di inseguimento
       arm_roll_open_6_active = false; // attiva la modalità di inseguimento
@@ -493,7 +519,7 @@ void handleSetpoint(uint8_t msg_id, const byte *msg_data)
     }
     if (servo_data_mot_6 == 1)
     {
-      Serial.println("ARM ROLL 6 SETPOINT 0");
+      // Serial.println("ARM ROLL 6 SETPOINT 0");
       arm_roll_close_6_active = false; // attiva la modalità di inseguimento
       arm_roll_open_6_active = true;   // attiva la modalità di inseguimento
       end_mot_6 = true;                // reset end_mot_6 at each loop
