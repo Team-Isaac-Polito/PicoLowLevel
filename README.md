@@ -6,9 +6,9 @@ This repository contains the low-level project used during the RoboCupRescue 202
 If the arm motors are disconnected and reconnected, the reference position `0` changes.  
 To correctly set the zero position, follow the steps below before using the main control code.
 
-## 0. Ensure all required dependencies from the start guide are installed
+### 0. Ensure all required dependencies from the start guide are installed
 
-## 1. Read the Current Positions
+### 1. Read the Current Positions
 
 1. Open the `dxl_get_position` folder in VS Code, then compile by running **make compile** from the terminal in that folder.  
 2. Upload the program to the robot by running **make upload bootsel** from the terminal in the `dxl_get_position` folder after connecting the Pico of the first module in BOOTSEL mode.  
@@ -30,7 +30,7 @@ pos0_mot_6 = 0;
 
 ***
 
-## 2. Copy the Values into the Main Code
+### 2. Copy the Values into the Main Code
 
 1. Open the `picolowlevel` folder and the `picolowlevel.ino` file.  
 2. Locate the `MODC_ARM_INIT()` function.  
