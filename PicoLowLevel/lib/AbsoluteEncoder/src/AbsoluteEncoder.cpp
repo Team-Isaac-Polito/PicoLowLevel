@@ -33,6 +33,11 @@ void AbsoluteEncoder::setZero() {
  */
 float AbsoluteEncoder::readAngle() {
   float angle = angleR(U_DEG, false);
+  //-- TODO -->test
+ if (angle > 180.0f) {
+    angle -= 360.0f; 
+  }
+  //--
   Debug.print("ABSOLUTE ENCODER - READ ANGLE ", Levels::DEBUG);
   Debug.print(angle, Levels::DEBUG);
 

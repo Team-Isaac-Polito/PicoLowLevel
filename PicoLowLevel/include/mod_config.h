@@ -29,7 +29,15 @@
 #elif defined(MK2_MOD2)
 #define CAN_ID    0x22  // MK2 second module (MIDDLE)
 #define MODC_YAW
-//#define MODC_JOINT
+#define MODC_JOINT
+//#define SERVO_JOINT_1d_PITCH_ID 2
+//#define SERVO_JOINT_1s_PITCH_ID 4
+//#define SERVO_JOINT_2_ROLL_ID 6
+
+#elif defined(MK2_MOD3)
+#define CAN_ID    0x23  // MK2 third module 
+#define MODC_YAW
+#define MODC_JOINT
 //#define SERVO_JOINT_1d_PITCH_ID 2
 //#define SERVO_JOINT_1s_PITCH_ID 4
 //#define SERVO_JOINT_2_ROLL_ID 6

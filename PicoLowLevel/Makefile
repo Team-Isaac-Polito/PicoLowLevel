@@ -1,3 +1,5 @@
+MAKE := "C:/Program Files (x86)/GnuWin32/bin/make"
+
 # Basic settings
 SKETCH_PATH = $(CURDIR)
 SKETCH_NAME = $(notdir $(SKETCH_PATH))
@@ -53,6 +55,7 @@ compile_fast:
 compile_all:
 	$(MAKE) compile BUILD_DIR=$(CURDIR)/build1 OUTPUT_DIR=$(CURDIR)/out_MK2_MOD1 MODULE_DEFINE="MK2_MOD1"
 	$(MAKE) compile BUILD_DIR=$(CURDIR)/build2 OUTPUT_DIR=$(CURDIR)/out_MK2_MOD2 MODULE_DEFINE="MK2_MOD2"
+	$(MAKE) compile BUILD_DIR=$(CURDIR)/build3 OUTPUT_DIR=$(CURDIR)/out_MK2_MOD3 MODULE_DEFINE="MK2_MOD3"
 
 # Upload .bin file
 upload:
