@@ -26,6 +26,9 @@
 #include "debug_log.h"
 // #define DEBUG_LOG_ENABLED // Uncomment to enable debug logging
 
+#define DXL_TO_RAD 0.00153398f // Conversion factor: 2pi / 4096
+#define RAD_TO_DXL 651.899f // Conversion factor: 4096 / 2pi
+
 void okInterrupt();
 void navInterrupt();
 void sendFeedback();
@@ -152,7 +155,8 @@ float ARM_posf_4_float = 0.0f;
 float ARM_posf_5_float = 0.0f;
 float ARM_posf_6_float = 0.0f;
 
-
+float ARM_phif_dxl = 0.0f;
+float ARM_thetaf_dxl = 0.0f;
 
 
 
@@ -218,6 +222,9 @@ int32_t JOINT_posf_2 = 0;
 
 float JOINT_pos_mot_1LR_float[2] = {0.0f, 0.0f};
 float JOINT_posf_2_float = 0.0f;
+
+float JOINT_phif_dxl = 0.0f;
+float JOINT_thetaf_dxl = 0.0f;
 #endif
 
 Display display;
@@ -475,8 +482,8 @@ void handleSetpoint(uint8_t msg_id, const byte *msg_data)
     ARM_theta_dxl = servo_data_1a;
     ARM_phi_dxl = servo_data_1b;
 
-    ARM_pos_mot_1LR[0] = (int32_t)(-((ARM_theta_dxl * (4096 / (   2))) + (ARM_phi_dxl * (4096 / (   2)))) / 2) + ARM_pos0_mot_1LR[0];
-    ARM_pos_mot_1LR[1] = (int32_t)(((ARM_theta_dxl * (4096 / (   2))) - (ARM_phi_dxl * (4096 / (   2)))) / 2) + ARM_pos0_mot_1LR[1];
+    ARM_pos_mot_1LR[0] = (int32_t)(-((ARM_theta_dxl * RAD_TO_DXL) + (ARM_phi_dxl * RAD_TO_DXL)) / 2) + ARM_pos0_mot_1LR[0];
+    ARM_pos_mot_1LR[1] = (int32_t)(((ARM_theta_dxl * RAD_TO_DXL) - (ARM_phi_dxl * RAD_TO_DXL)) / 2) + ARM_pos0_mot_1LR[1];
 
     if (abs(ARM_pos_mot_1LR[0] - ARM_old_pos_mot_1LR[0]) > ARM_de_can_dxl || abs(ARM_pos_mot_1LR[1] - ARM_old_pos_mot_1LR[1]) > ARM_de_can_dxl)
     {
@@ -496,7 +503,7 @@ void handleSetpoint(uint8_t msg_id, const byte *msg_data)
     //========================================================
   case ARM_PITCH_2_SETPOINT:
     memcpy(&servo_data_float, msg_data, 4);
-    ARM_valueToSend = (int32_t)(servo_data_float * (4096 / (   2)));
+    ARM_valueToSend = (int32_t)(servo_data_float * RAD_TO_DXL);
     ARM_pos_mot_2 = ARM_valueToSend + ARM_pos0_mot_2;
 
     if (abs(ARM_pos_mot_2 - ARM_old_pos_mot_2) > ARM_de_can_dxl)
@@ -512,7 +519,7 @@ void handleSetpoint(uint8_t msg_id, const byte *msg_data)
   case ARM_ROLL_3_SETPOINT:
 
     memcpy(&servo_data_float, msg_data, 4);
-    ARM_valueToSend = (int32_t)(servo_data_float * (4096 / (   2)));
+    ARM_valueToSend = (int32_t)(servo_data_float * RAD_TO_DXL);
     ARM_pos_mot_3 = ARM_valueToSend + ARM_pos0_mot_3;
     if (abs(ARM_pos_mot_3 - ARM_old_pos_mot_3) > ARM_de_can_dxl)
     {
@@ -527,7 +534,7 @@ void handleSetpoint(uint8_t msg_id, const byte *msg_data)
     //========================================================
   case ARM_PITCH_4_SETPOINT:
     memcpy(&servo_data_float, msg_data, 4);
-    ARM_valueToSend = (int32_t)(servo_data_float * (4096 / (   2)));
+    ARM_valueToSend = (int32_t)(servo_data_float * RAD_TO_DXL);
     ARM_pos_mot_4 = ARM_pos0_mot_4 + ARM_valueToSend;
     if (abs(ARM_pos_mot_4 - ARM_old_pos_mot_4) > ARM_de_can_dxl)
     {
@@ -541,7 +548,7 @@ void handleSetpoint(uint8_t msg_id, const byte *msg_data)
     //========================================================
   case ARM_ROLL_5_SETPOINT:
     memcpy(&servo_data_float, msg_data, 4);
-    ARM_valueToSend = (int32_t)(servo_data_float * (4096 / (   2)));
+    ARM_valueToSend = (int32_t)(servo_data_float * RAD_TO_DXL);
     ARM_pos_mot_5 = ARM_pos0_mot_5 - ARM_valueToSend;
     if (abs(ARM_pos_mot_5 - ARM_old_pos_mot_5) > ARM_de_can_dxl)
     {
@@ -604,15 +611,15 @@ void handleSetpoint(uint8_t msg_id, const byte *msg_data)
     JOINT_theta_dxl = servo_data_1a;
     JOINT_phi_dxl = servo_data_1b;
 
-    JOINT_pos_mot_1LR[0] = (int32_t)(-((JOINT_theta_dxl * (4096 / (   2))) + (JOINT_phi_dxl * (4096 / (   2)))) / 2) + JOINT_pos0_mot_1LR[0];
-    JOINT_pos_mot_1LR[1] = (int32_t)(((JOINT_theta_dxl * (4096 / (   2))) - (JOINT_phi_dxl * (4096 / (   2)))) / 2) + JOINT_pos0_mot_1LR[1];
+    JOINT_pos_mot_1LR[0] = (int32_t)(-((JOINT_theta_dxl * RAD_TO_DXL) + (JOINT_phi_dxl * RAD_TO_DXL)) / 2) + JOINT_pos0_mot_1LR[0];
+    JOINT_pos_mot_1LR[1] = (int32_t)(((JOINT_theta_dxl * RAD_TO_DXL) - (JOINT_phi_dxl * RAD_TO_DXL)) / 2) + JOINT_pos0_mot_1LR[1];
     break;
 
 
 
     case JOINT_ROLL_2_SETPOINT:
     memcpy(&servo_data_float, msg_data, 4);
-    JOINT_valueToSend = (int32_t)(servo_data_float * (4096 / (2)));
+    JOINT_valueToSend = (int32_t)(servo_data_float * RAD_TO_DXL);
     JOINT_pos_mot_2 = JOINT_pos0_mot_2 + JOINT_valueToSend;
    
       JOINT_mot_2.setGoalPosition_EPCM(JOINT_pos_mot_2);
@@ -676,23 +683,25 @@ void sendFeedback()
 #ifdef MODC_ARM
 
   ARM_dxl.getPresentPosition(ARM_posf_1a1b);
-  ARM_posf_1a1b_float[0] = (float)(ARM_posf_1a1b[0] * 1.0f);
-  ARM_posf_1a1b_float[1] = (float)(ARM_posf_1a1b[1] * 1.0f);
+  ARM_phif_dxl = -(float)((ARM_posf_1a1b[0] - ARM_pos0_mot_1LR[0]) + (ARM_posf_1a1b[1] - ARM_pos0_mot_1LR[1])) * DXL_TO_RAD;
+  ARM_thetaf_dxl = (float)(-(ARM_posf_1a1b[0] - ARM_pos0_mot_1LR[0]) + (ARM_posf_1a1b[1] - ARM_pos0_mot_1LR[1])) * DXL_TO_RAD;
+  ARM_posf_1a1b_float[0] = ARM_thetaf_dxl;
+  ARM_posf_1a1b_float[1] = ARM_phif_dxl;
   canW.sendMessage(ARM_PITCH_1a1b_FEEDBACK, ARM_posf_1a1b_float, sizeof(ARM_posf_1a1b));
   ARM_mot_2.getPresentPosition(ARM_posf_2);
-  ARM_posf_2_float = (float)(ARM_posf_2 * 1.0f);
+  ARM_posf_2_float = (float)(ARM_posf_2 - ARM_pos0_mot_2) * DXL_TO_RAD;
   canW.sendMessage(ARM_PITCH_2_FEEDBACK, &ARM_posf_2_float, sizeof(ARM_posf_2));
   ARM_mot_3.getPresentPosition(ARM_posf_3);
-  ARM_posf_3_float = (float)(ARM_posf_3 * 1.0f);
+  ARM_posf_3_float = (float)(ARM_posf_3 - ARM_pos0_mot_3) * DXL_TO_RAD;
   canW.sendMessage(ARM_ROLL_3_FEEDBACK, &ARM_posf_3_float, sizeof(ARM_posf_3));
   ARM_mot_4.getPresentPosition(ARM_posf_4);
-  ARM_posf_4_float = (float)(ARM_posf_4 * 1.0f);
+  ARM_posf_4_float = (float)(ARM_posf_4 - ARM_pos0_mot_4) * DXL_TO_RAD;
   canW.sendMessage(ARM_PITCH_4_FEEDBACK, &ARM_posf_4_float, sizeof(ARM_posf_4));
   ARM_mot_5.getPresentPosition(ARM_posf_5);
-  ARM_posf_5_float = (float)(ARM_posf_5 * 1.0f);
+  ARM_posf_5_float = (float)(ARM_posf_5 - ARM_pos0_mot_5) * DXL_TO_RAD;
   canW.sendMessage(ARM_ROLL_5_FEEDBACK, &ARM_posf_5_float, sizeof(ARM_posf_5));
   ARM_mot_6.getPresentPosition(ARM_posf_6);
-  ARM_posf_6_float = (float)(ARM_posf_6 * 1.0f);
+  ARM_posf_6_float = (float)(ARM_posf_6 - ARM_pos0_mot_6) * DXL_TO_RAD;
   canW.sendMessage(ARM_ROLL_6_FEEDBACK, &ARM_posf_6_float, sizeof(ARM_posf_6));
 
   canW.sendMessage(MOTOR_ARM_ERROR_STATUS, ErrorStatusArm, 7);
@@ -704,11 +713,13 @@ void sendFeedback()
 
 
   JOINT_dxl.getPresentPosition(JOINT_pos_mot_1LR);
-  JOINT_pos_mot_1LR_float[0] = (float)(JOINT_pos_mot_1LR[0] * 1.0f);
-  JOINT_pos_mot_1LR_float[1] = (float)(JOINT_pos_mot_1LR[1] * 1.0f);
+  JOINT_thetaf_dxl = -(float)((JOINT_pos_mot_1LR[0] - JOINT_pos0_mot_1LR[0]) + (JOINT_pos_mot_1LR[1] - JOINT_pos0_mot_1LR[1])) * DXL_TO_RAD;
+  JOINT_phif_dxl = (float)(-(JOINT_pos_mot_1LR[0] - JOINT_pos0_mot_1LR[0]) + (JOINT_pos_mot_1LR[1] - JOINT_pos0_mot_1LR[1])) * DXL_TO_RAD;
+  JOINT_pos_mot_1LR_float[0] = JOINT_thetaf_dxl;
+  JOINT_pos_mot_1LR_float[1] = JOINT_phif_dxl;
   canW.sendMessage(JOINT_PITCH_1a1b_FEEDBACK, JOINT_pos_mot_1LR_float, sizeof(JOINT_pos_mot_1LR));
   JOINT_mot_2.getPresentPosition(JOINT_posf_2);
-  JOINT_posf_2_float = (float)(JOINT_posf_2 * 1.0f);
+  JOINT_posf_2_float = (float)(JOINT_posf_2 - JOINT_pos0_mot_2) * DXL_TO_RAD;
   canW.sendMessage(JOINT_ROLL_2_FEEDBACK, &JOINT_posf_2_float, sizeof(JOINT_posf_2_float));
 #endif
 
