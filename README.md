@@ -1,65 +1,134 @@
-# MK2 Robot – Repository Controllo Braccio Robotico
+# PicoLowLevel
 
-Questa repository contiene il codice per il controllo del robot MK2, nel caso in cui si usino i motori Dynamixel sia per il braccio, sia per la trazione dei moduli. La struttura della repo prevede due cartelle principali:  
+Low-level firmware for the **Rese.Q MK2** modular snake-like rescue robot, running on **Raspberry Pi Pico W** boards inside each module.
 
-1. **dxl_get_position** – Progetto per leggere le posizioni correnti dei motori del braccio.  
-2. **picolowlevel** – Codice principale di controllo del robot e del braccio.  
-
----
-
-## ⚠️ Avvertenza importante: Azzeramento dei motori
-
-Se i motori del braccio vengono disconnessi e ricollegati, la posizione di riferimento `0` cambia.  
-Per impostare correttamente la posizione zero, segui i passaggi sottostanti prima di utilizzare il codice principale.
-
----
-## 0. Assicurarsi di aver installato tutto il necessario presente nella guida start
-
-## 1. Leggere le posizioni correnti
-
-1. Aprire la cartella `dxl_get_position` in VS CODE, compilare lanciando **make compile** da terminale nella cartella dxl_get_position.  
-2. Caricare il programma sul robot lanciando **make upload bootsel** da terminale nella cartella dxl_get_position, dopo aver connesso il pico del primo modulo in bootsel.  
-3. Aprire il monitor seriale.  
-4. I valori correnti dei motori verranno stampati sullo schermo.  
-
-**Esempio di output seriale:**
-```
-getpositions0 = 2209;
-getpositions0 = 1451;[3]
-pos0_mot_2 = 4746;
-pos0_mot_3 = 987;
-pos0_mot_4 = 3121;
-pos0_mot_5 = 1979;
-pos0_mot_6 = 0;
-```
+> **Firmware version:** LL v0.2 (Dynamixel-only traction)
+> **Board revision:** mk_v2.2
+> **Documentation:** [docs.teamisaac.it](https://docs.teamisaac.it/doc/picolowlevel-WnfPCgwOM6)
 
 ---
 
-## 2. Copiare i valori nel codice principale
+## Overview
 
-1. Aprire la cartella `picolowlevel` e il file `piclowlevel.ino`.  
-2. Cercare la funzione `MODC_ARM_INIT()`.  
-3. Incollare i valori letti dal monitor seriale alla fine della funzione, sostituendo eventuali valori precedenti.  
+Each Rese.Q module contains a Pico W that communicates with the high-level stack (`reseq_ros2` on Jetson Orin) over CAN bus. The firmware handles:
 
-**Esempio di inserimento:**
-```
-getpositions0 = 2209;
-getpositions0 = 1451;[3]
-pos0_mot_2 = 4746;
-pos0_mot_3 = 987;
-pos0_mot_4 = 3121;
-pos0_mot_5 = 1979;
-pos0_mot_6 = 0;
-```
+- **Dynamixel motor control** - traction and arm joints via `Dynamixel_ll` library
+- **CAN bus communication** - setpoint reception and feedback transmission (MCP2515 + TJA1050)
+- **Sensor reading** - absolute encoders (AMS AS5048B), battery voltage monitoring
+- **OLED display** - status GUI on SH1106 64x128 display
+- **Safety** - motor timeout, battery low-voltage warning
 
-3. Caricare il codice principale  
-   Dopo aver aggiornato la funzione `modc_arm_init()`, è possibile compilare e caricare `piclowlevel.ino` sul robot. Il braccio sarà ora correttamente azzerato e pronto per l’uso.
+## Module Configurations
+
+The firmware is compiled with a module identifier that enables/disables features via preprocessor defines in `mod_config.h`:
+
+| Module | CAN ID | Features |
+|--------|--------|----------|
+| `MK2_MOD1` | `0x21` | Head module - robotic arm (6 Dynamixel motors) |
+| `MK2_MOD2` | `0x22` | Middle module - yaw encoder, active joint |
+| `MK2_MOD3` | `0x23` | Tail module - yaw encoder, active joint |
+
+Build all three with `make compile_all`, or a single module with `make compile MODULE_DEFINE=MK2_MOD1`.
 
 ---
 
-## 📝 Note
+## Repository Structure
 
-- È fondamentale eseguire prima il passaggio della lettura delle posizioni se i motori sono stati disconnessi, altrimenti il braccio non partirà dalla posizione corretta.
-- Questa procedura serve solo per calibrare la posizione di zero dei motori. Una volta impostata, non è necessario rifarla a meno che i motori vengano nuovamente disconnessi.
+```
+PicoLowLevel/
++-- README.md              This file
++-- START.md               Environment setup guide (Arduino-CLI, toolchain)
++-- TODO.md                Feature tracker
++-- docs/
+|   +-- getting-started.md     Detailed build system guide (Makefile reference)
++-- PicoLowLevel/          Main firmware sketch
+|   +-- PicoLowLevel.ino       Entry point
+|   +-- Makefile                Build/upload/flash commands
+|   +-- TODO.md                 Test notes and open items
+|   +-- include/                Header files (definitions, CAN IDs, mod_config)
+|   +-- lib/                    Custom libraries (13 total)
++-- dxl_get_position/       Arm motor position reader utility
+    +-- dxl_get_position.ino
+    +-- README.md
+    +-- Makefile
+    +-- include/
+    +-- lib/
 ```
 
+---
+
+## Getting Started
+
+See [START.md](START.md) for full environment setup instructions. In summary:
+
+1. Install **Arduino-CLI** and add it to PATH
+2. Install the **RP2040 core** (Earlephilhower arduino-pico)
+3. Install **GnuWin32 Make** and **MinGW-w64** (Windows)
+4. Install the required Arduino library: `Adafruit SH110X`
+
+Then:
+
+```bash
+cd PicoLowLevel
+make compile                    # Build for MK2_MOD1 (default)
+make upload bootsel             # Flash via BOOTSEL mode
+make compile_all                # Build all three module variants
+```
+
+For the full Makefile reference, see [docs/getting-started.md](docs/getting-started.md).
+
+---
+
+## Arm Motor Zeroing Procedure
+
+When arm motors are disconnected and reconnected, their reference position resets. Before using the main firmware on Module 1 (`MK2_MOD1`):
+
+1. Flash the `dxl_get_position` sketch (see [dxl_get_position/README.md](dxl_get_position/README.md))
+2. Open a serial monitor at 115200 baud
+3. Read the printed motor position values
+4. Copy them into the `MODC_ARM_INIT()` function in `PicoLowLevel/PicoLowLevel.ino`
+5. Recompile and flash the main firmware
+
+---
+
+## CAN Bus Protocol
+
+Communication between the Pico and the Jetson uses CAN frames. Key message IDs are defined in `include/definitions.h`. Data is **little-endian**.
+
+For the full protocol specification, see the [CAN Bus Protocol](https://docs.teamisaac.it/doc/can-bus-protocol-t40e2NOEqp) page on the team wiki.
+
+---
+
+## Libraries
+
+| Library | Description |
+|---------|-------------|
+| `AbsoluteEncoder` | AMS AS5048B I2C absolute encoder driver |
+| `Battery` | Battery voltage reading and low-voltage detection |
+| `Can` | CAN bus wrapper around MCP2515 SPI controller |
+| `Debug` | Serial debug output with verbosity levels |
+| `debug_log` | Additional debug logging utilities |
+| `Display` | SH1106 OLED display GUI |
+| `Dynamixel_ll` | Low-level Dynamixel protocol (XL/XM series, 2 Mbps UART) |
+| `DynamixelSerial` | Higher-level Dynamixel serial wrapper |
+| `Motor` | Generic motor abstraction (PWM + direction) |
+| `PID` | PID controller |
+| `SmartMotor` | Motor + encoder + PID combined abstraction |
+| `TractionEncoder` | Quadrature encoder reader (48 ppr, PIO-based) |
+| `WebManagement` | WiFi web interface for configuration and OTA |
+
+---
+
+## Contributing
+
+All development happens on the `develop` branch. Create feature branches from `develop` and submit pull requests back to it. The `main` branch contains tested, stable firmware only.
+
+---
+
+## Links
+
+- [Team Isaac Documentation](https://docs.teamisaac.it)
+- [PicoLowLevel Wiki Page](https://docs.teamisaac.it/doc/picolowlevel-WnfPCgwOM6)
+- [LL v0.2 Architecture](https://docs.teamisaac.it/doc/ll-v02-rO7ew05CEo)
+- [CAN Bus Protocol](https://docs.teamisaac.it/doc/can-bus-protocol-t40e2NOEqp)
+- [MK2 Pico Versions](https://docs.teamisaac.it/doc/mk2-pico-version-lrrgftOA7j)

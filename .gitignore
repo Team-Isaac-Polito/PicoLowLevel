@@ -1,15 +1,19 @@
+# Build outputs
+**/build/
+**/build[0-9]*/
+out_*/
 
-PicoLowLevel/build/**
+# Compiled binaries
+*.elf
+*.bin
+*.uf2
+*.map
+*.hex
 
-!PicoLowLevel/build/output/
+# IDE / Editor
+.vscode/
 
-!PicoLowLevel/build/output/**
-
-
-PicoLowLevel/build1/**
-
-
-
-PicoLowLevel/build2/**
-
+# OS files
+.DS_Store
+Thumbs.db
 
