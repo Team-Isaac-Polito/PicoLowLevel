@@ -1,16 +1,15 @@
-# COMMENTI SUI TEST FATTI E SULLE COSE DA AGGIUNGERE
+# Test Notes and TODO
 
-## TEST EFFETTUATI
-- [x] 'SETGOALVELOCITY' DXL DI TRAZIONE
-- [x] inviare la 'getpresenvelocity' DXL di trazione
+## Tests Completed
+- [x] `setGoalVelocity` for traction Dynamixels
+- [x] Send `getPresentVelocity` for traction Dynamixels
 
-
-## COSE DA TESTARE
-- [] inserire un '-' sul motore corretto affinchè i DXL di trazione si muovino correttamente
-- [x] modificare il valore di RPM che arriva dal telecomando sia corretto secondo il valore massimo di rpm del motore
-- [x] rendere il codice piu leggibile
-- [] inserire la possibilità di reboot a distanza attraverso telecomando dei  DXL di trazione
-- [] fare test su RVIZZ e su come si muove il braccio
-- [] contorllo che la 'getpresenvelocity' dei DXL di trazione sia corretta
-- [] contorllo che la 'getpresenvelocity' dei DXL di trazione venga mandata correttamente su can e ricevuta correttamente
-- [] inserire il display
+## To Test
+- [ ] Add a negative sign to the correct motor so traction Dynamixels move in the right direction
+- [x] Verify that the RPM value from the remote controller matches the motor's max RPM
+- [x] Make the code more readable
+- [ ] Add remote reboot capability for traction Dynamixels via remote controller
+- [ ] Test on RViz and verify arm movement
+- [ ] Verify that `getPresentVelocity` for traction Dynamixels is correct
+- [ ] Verify that `getPresentVelocity` is sent correctly over CAN and received properly
+- [ ] Integrate the display

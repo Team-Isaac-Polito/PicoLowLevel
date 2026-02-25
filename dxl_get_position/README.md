@@ -1,53 +1,50 @@
-# MK2 Robot – Lettura Posizioni Iniziali Braccio Robotico
+# dxl_get_position - Arm Motor Position Reader
 
-## Descrizione
+## Description
 
-Questo programma è pensato per il **robot MK2 modulo 1 con braccio robotico**.  
-Il suo scopo principale è leggere le **posizioni correnti dei motori del braccio** e stamparle sul monitor seriale.  
+This utility sketch is designed for the **MK2 robot module 1 with the robotic arm**.
+Its purpose is to read the **current positions of the arm motors** and print them to the serial monitor.
 
-Questo passaggio è fondamentale quando i motori vengono **disconnessi e ricollegati**, perché la posizione di riferimento `0` potrebbe cambiare. Una volta lette le posizioni, possono essere copiate nel codice principale per calibrare correttamente il braccio.
-
----
-
-## Funzionamento
-
-1. Il codice utilizza la libreria `Dynamixel_ll` per comunicare con i motori Dynamixel tramite **Serial1**.  
-2. Sono definiti i motori principali:
-   - `dxl`, `mot_Left_1`, `mot_Right_1` → motori principali della trazione  
-   - `mot_2` … `mot_6` → motori del braccio robotico  
-3. Durante `setup()`:
-   - Si inizializza la comunicazione seriale con il PC e con i motori a **2 Mbps**  
-   - Si disabilita la coppia sui motori (`TorqueEnable = false`) per sicurezza  
-   - Si impostano i **modi di funzionamento** (Extended Position Mode)  
-   - Si attiva la modalità **sync** per il controllo simultaneo di più motori  
-   - Si disattiva la modalità debug  
-
-4. Durante `loop()`:
-   - Si leggono le posizioni correnti dei motori (`getPresentPosition`)  
-   - Si stampano sul monitor seriale in formato leggibile, ad esempio:
-  
-
-   - Le posizioni lette possono poi essere copiate nella funzione `modc_arm_init()` del codice principale `piclowlevel.ino` per azzerare correttamente il braccio.
+This step is essential whenever the motors are **disconnected and reconnected**, because the reference position `0` may change. Once the positions are read, they can be copied into the main firmware to correctly calibrate the arm.
 
 ---
 
-## Istruzioni per l’uso
+## How It Works
 
-1. Aprire il programma VS CODE.  
-2. Collegare il pico del primo modulo al PC in modalità bootsel.
-3. Modificare il makefile inserendo il nome corretto del pico che si sta usando. In BOARD_FQBN ?= rp2040:rp2040:rpipico o BOARD_FQBN ?= rp2040:rp2040:rpipicow a seconda dell pico.
-4. Modificare il makefile inserendo il nome corretto in DESTINATION ?=  'D:\' in base a come il pc rileva il disco esterno pico.
-5. Nel terminale lanciare **make compile** per compilare e scaricare il programma sul pico con **make upload bootsel**
-6. Aprire il monitor seriale a **115200 baud**.  
-7. Annotare o copiare i valori stampati.  
-8. Inserire i valori nella funzione `MODC_ARM_INIT()` del codice in picolowlevel>picolowlevel.ino prima di eseguire qualsiasi movimento del braccio.
+1. The code uses the `Dynamixel_ll` library to communicate with the Dynamixel motors via **Serial1**.
+2. The motors defined are:
+   - `mot_Left_1`, `mot_Right_1` - traction motors
+   - `mot_2` ... `mot_6` - robotic arm motors
+3. During `setup()`:
+   - Serial communication is initialized with the PC and the motors at **2 Mbps**
+   - Torque is disabled on all motors (`TorqueEnable = false`) for safety
+   - **Operating modes** are set (Extended Position Mode)
+   - **Sync mode** is enabled for simultaneous multi-motor control
+   - Debug mode is disabled
+
+4. During `loop()`:
+   - Current motor positions are read via `getPresentPosition()`
+   - Positions are printed to the serial monitor in a readable format
+   - The printed values can then be copied into the `MODC_ARM_INIT()` function in `PicoLowLevel.ino` to correctly zero the arm
 
 ---
 
-## Note
+## Usage
 
-- Questo programma **non muove i motori**: serve solo per leggere le posizioni iniziali.  
-- È importante eseguirlo ogni volta che i motori vengono disconnessi, per evitare movimenti imprevisti del braccio.  
-- La frequenza di lettura è di 1 secondo (`delay(1000)`), ma può essere modificata se necessario.
+1. Open the `dxl_get_position` folder in **VS Code**.
+2. Connect the Pico of the first module to the PC in **BOOTSEL** mode.
+3. Edit the Makefile:
+   - Set `BOARD_FQBN` to `rp2040:rp2040:rpipico` or `rp2040:rp2040:rpipicow` depending on your board.
+   - Set `DESTINATION` to the drive letter where the PC detects the Pico (e.g., `'D:\'`).
+4. In the terminal, run `make compile` to build, then `make upload bootsel` to flash the Pico.
+5. Open a serial monitor at **115200 baud**.
+6. Note or copy the printed position values.
+7. Paste the values into the `MODC_ARM_INIT()` function in `PicoLowLevel/PicoLowLevel.ino` before running any arm movements.
 
+---
 
+## Notes
+
+- This sketch **does not move the motors** - it only reads initial positions.
+- It should be run every time the motors are disconnected, to prevent unexpected arm movements.
+- The read interval is 1 second (`delay(1000)`) but can be adjusted if needed.
