@@ -128,7 +128,7 @@ int32_t ARM_old_pos_mot_4 = 0;
 int32_t ARM_old_pos_mot_5 = 0;
 int32_t ARM_old_pos_mot_1LR[2] = {0, 0};
 
-#define ARM_de_can_dxl 20
+#define ARM_de_can_dxl 10
 
 // delta from start position
 int32_t ARM_delta_pos0_mot_2 = 0;
@@ -158,7 +158,15 @@ float ARM_posf_6_float = 0.0f;
 float ARM_phif_dxl = 0.0f;
 float ARM_thetaf_dxl = 0.0f;
 
+float ARM_vel_mot1a1b[2] = {0.0f, 0.0f};
+float ARM_vel_mot2 = 0.0f;
+float ARM_vel_mot3 = 0.0f;
+float ARM_vel_mot4 = 0.0f;
+float ARM_vel_mot5 = 0.0f;
+float ARM_vel_mot6 = 0.0f;
 
+float ARM_phif_dxl_vel = 0.0f;
+float ARM_thetaf_dxl_vel = 0.0f;
 
 int16_t ARM_presentLoad_mot_6 = 0;
 
@@ -874,13 +882,13 @@ void MODC_ARM_INIT()
   }
 
   // variabili per la posizione iniziale
-  ARM_pos0_mot_1LR[0] = 834;
-  ARM_pos0_mot_1LR[1] = 536;
-  ARM_pos0_mot_2 = 2632;
-  ARM_pos0_mot_3 = 3034;
-  ARM_pos0_mot_4 = 2154;
-  ARM_pos0_mot_5 = 3694;
-  ARM_pos0_mot_6 = 4191;
+  ARM_pos0_mot_1LR[0] = 1231;
+  ARM_pos0_mot_1LR[1] = 1111;
+  ARM_pos0_mot_2 = 2586;
+  ARM_pos0_mot_3 = 3054;
+  ARM_pos0_mot_4 = 2077;
+  ARM_pos0_mot_5 = 3562;
+  ARM_pos0_mot_6 = 158;
 
   RESET_ARM_INITIAL_POSITION();
 }
