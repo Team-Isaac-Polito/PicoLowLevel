@@ -704,6 +704,36 @@ void sendFeedback()
   ARM_posf_6_float = (float)(ARM_posf_6 - ARM_pos0_mot_6) * DXL_TO_RAD;
   canW.sendMessage(ARM_ROLL_6_FEEDBACK, &ARM_posf_6_float, sizeof(ARM_posf_6));
 
+  // Arm velocity feedback (RPM → rad/s)
+  ARM_dxl.getPresentVelocity_RPM(ARM_vel_mot1a1b);
+
+  ARM_phif_dxl_vel = -(float)((ARM_vel_mot1a1b[0]) + (ARM_vel_mot1a1b[1])) * 2 * M_PI / 60;
+  ARM_thetaf_dxl_vel = (float)(-(ARM_vel_mot1a1b[0]) + (ARM_vel_mot1a1b[1])) * 2 * M_PI / 60;
+  ARM_vel_mot1a1b[0] = ARM_thetaf_dxl_vel;
+  ARM_vel_mot1a1b[1] = ARM_phif_dxl_vel;
+
+  canW.sendMessage(ARM_PITCH_1a1b_FEEDBACK_VEL, &ARM_vel_mot1a1b, sizeof(ARM_vel_mot1a1b));
+
+  ARM_mot_2.getPresentVelocity_RPM(ARM_vel_mot2);
+  ARM_vel_mot2 = ARM_vel_mot2 * 2 * M_PI / 60;
+  canW.sendMessage(ARM_PITCH_2_FEEDBACK_VEL, &ARM_vel_mot2, sizeof(ARM_vel_mot2));
+
+  ARM_mot_3.getPresentVelocity_RPM(ARM_vel_mot3);
+  ARM_vel_mot3 = ARM_vel_mot3 * 2 * M_PI / 60;
+  canW.sendMessage(ARM_PITCH_3_FEEDBACK_VEL, &ARM_vel_mot3, sizeof(ARM_vel_mot3));
+
+  ARM_mot_4.getPresentVelocity_RPM(ARM_vel_mot4);
+  ARM_vel_mot4 = ARM_vel_mot4 * 2 * M_PI / 60;
+  canW.sendMessage(ARM_PITCH_4_FEEDBACK_VEL, &ARM_vel_mot4, sizeof(ARM_vel_mot4));
+
+  ARM_mot_5.getPresentVelocity_RPM(ARM_vel_mot5);
+  ARM_vel_mot5 = ARM_vel_mot5 * 2 * M_PI / 60;
+  canW.sendMessage(ARM_PITCH_5_FEEDBACK_VEL, &ARM_vel_mot5, sizeof(ARM_vel_mot5));
+
+  ARM_mot_6.getPresentVelocity_RPM(ARM_vel_mot6);
+  ARM_vel_mot6 = ARM_vel_mot6 * 2 * M_PI / 60;
+  canW.sendMessage(ARM_PITCH_6_FEEDBACK_VEL, &ARM_vel_mot6, sizeof(ARM_vel_mot6));
+
   canW.sendMessage(MOTOR_ARM_ERROR_STATUS, ErrorStatusArm, 7);
 
 #endif
