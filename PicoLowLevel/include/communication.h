@@ -30,7 +30,8 @@
 #define ARM_ROLL_6_FEEDBACK 0x5C
 
 #define RESET_ARM 0x5D
-#define REBOOT_ARM 0x5C
+#define REBOOT_ARM 0x5E
+
 
 #define MOTOR_TRACTION_ERROR_STATUS 0x72  //TODO implement
 #define MOTOR_ARM_ERROR_STATUS 0x73     //TODO implement

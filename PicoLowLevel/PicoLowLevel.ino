@@ -949,7 +949,7 @@ void DXL_TRACTION_INIT()
   mot_Right_traction.begin_dxl(BaudRateDXL);
 
   mot_Right_traction.setTorqueEnable(false); // Disable torque for safety
-                                             // mot_Left_traction.setTorqueEnable(false);
+  mot_Left_traction.setTorqueEnable(false);
 
   delay(10);
 
