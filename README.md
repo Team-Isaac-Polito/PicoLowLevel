@@ -37,14 +37,11 @@ Build all three with `make compile_all`, or a single module with `make compile M
 ```
 PicoLowLevel/
 +-- README.md              This file
-+-- START.md               Environment setup guide (Arduino-CLI, toolchain)
-+-- TODO.md                Feature tracker
 +-- docs/
-|   +-- getting-started.md     Detailed build system guide (Makefile reference)
+|   +-- getting-started.md     Build system guide (Makefile reference, env setup)
 +-- PicoLowLevel/          Main firmware sketch
 |   +-- PicoLowLevel.ino       Entry point
 |   +-- Makefile                Build/upload/flash commands
-|   +-- TODO.md                 Test notes and open items
 |   +-- include/                Header files (definitions, CAN IDs, mod_config)
 |   +-- lib/                    Custom libraries (13 total)
 +-- dxl_get_position/       Arm motor position reader utility
@@ -59,7 +56,7 @@ PicoLowLevel/
 
 ## Getting Started
 
-See [START.md](START.md) for full environment setup instructions. In summary:
+See [docs/getting-started.md](docs/getting-started.md) for full environment setup and Makefile reference. In summary:
 
 1. Install **Arduino-CLI** and add it to PATH
 2. Install the **RP2040 core** (Earlephilhower arduino-pico)
@@ -74,8 +71,6 @@ make compile                    # Build for MK2_MOD1 (default)
 make upload bootsel             # Flash via BOOTSEL mode
 make compile_all                # Build all three module variants
 ```
-
-For the full Makefile reference, see [docs/getting-started.md](docs/getting-started.md).
 
 ---
 
@@ -111,10 +106,10 @@ For the full protocol specification, see the [CAN Bus Protocol](https://docs.tea
 | `Display` | SH1106 OLED display GUI |
 | `Dynamixel_ll` | Low-level Dynamixel protocol (XL/XM series, 2 Mbps UART) |
 | `DynamixelSerial` | Higher-level Dynamixel serial wrapper |
-| `Motor` | Generic motor abstraction (PWM + direction) |
-| `PID` | PID controller |
-| `SmartMotor` | Motor + encoder + PID combined abstraction |
-| `TractionEncoder` | Quadrature encoder reader (48 ppr, PIO-based) |
+| `Motor` | *(legacy — DC motor version, unused in LL v0.2)* Generic motor abstraction (PWM + direction) |
+| `PID` | *(legacy — DC motor version, unused in LL v0.2)* PID controller |
+| `SmartMotor` | *(legacy — DC motor version, unused in LL v0.2)* Motor + encoder + PID combined abstraction |
+| `TractionEncoder` | *(legacy — DC motor version, unused in LL v0.2)* Quadrature encoder reader (48 ppr, PIO-based) |
 | `WebManagement` | WiFi web interface for configuration and OTA |
 
 ---
