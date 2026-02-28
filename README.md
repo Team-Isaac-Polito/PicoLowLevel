@@ -24,9 +24,9 @@ The firmware is compiled with a module identifier that enables/disables features
 
 | Module | CAN ID | Features |
 |--------|--------|----------|
-| `MK2_MOD1` | `0x21` | Head module - robotic arm (6 Dynamixel motors) |
-| `MK2_MOD2` | `0x22` | Middle module - yaw encoder, active joint |
-| `MK2_MOD3` | `0x23` | Tail module - yaw encoder, active joint |
+| `MK2_MOD1` | `0x21` | Head module — robotic arm (`MODC_ARM`) |
+| `MK2_MOD2` | `0x22` | Middle module — yaw encoder, active joint (`MODC_YAW + MODC_JOINT`) |
+| `MK2_MOD3` | `0x23` | Tail module — yaw encoder, active joint, hosts Jetson Orin Nano (`MODC_YAW + MODC_JOINT`) |
 
 Build all three with `make compile_all`, or a single module with `make compile MODULE_DEFINE=MK2_MOD1`.
 
@@ -68,7 +68,7 @@ Then:
 ```bash
 cd PicoLowLevel
 make compile                    # Build for MK2_MOD1 (default)
-make upload bootsel             # Flash via BOOTSEL mode
+make upload_bootsel          # Flash via BOOTSEL mode
 make compile_all                # Build all three module variants
 ```
 
@@ -116,7 +116,12 @@ For the full protocol specification, see the [CAN Bus Protocol](https://docs.tea
 
 ## Contributing
 
-All development happens on the `develop` branch. Create feature branches from `develop` and submit pull requests back to it. The `main` branch contains tested, stable firmware only.
+All active development happens on `main`. Create feature branches from `main` and submit pull requests back to it.
+
+Branch naming convention:
+- `feat/<description>` — new features
+- `fix/<description>` — bug fixes
+- `docs/<description>` — documentation-only changes
 
 ---
 
