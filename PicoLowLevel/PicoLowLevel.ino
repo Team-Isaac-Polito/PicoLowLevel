@@ -128,7 +128,7 @@ int32_t ARM_old_pos_mot_4 = 0;
 int32_t ARM_old_pos_mot_5 = 0;
 int32_t ARM_old_pos_mot_1LR[2] = {0, 0};
 
-#define ARM_de_can_dxl 20
+#define ARM_de_can_dxl 10
 
 // delta from start position
 int32_t ARM_delta_pos0_mot_2 = 0;
@@ -158,7 +158,15 @@ float ARM_posf_6_float = 0.0f;
 float ARM_phif_dxl = 0.0f;
 float ARM_thetaf_dxl = 0.0f;
 
+float ARM_vel_mot1a1b[2] = {0.0f, 0.0f};
+float ARM_vel_mot2 = 0.0f;
+float ARM_vel_mot3 = 0.0f;
+float ARM_vel_mot4 = 0.0f;
+float ARM_vel_mot5 = 0.0f;
+float ARM_vel_mot6 = 0.0f;
 
+float ARM_phif_dxl_vel = 0.0f;
+float ARM_thetaf_dxl_vel = 0.0f;
 
 int16_t ARM_presentLoad_mot_6 = 0;
 
@@ -704,6 +712,36 @@ void sendFeedback()
   ARM_posf_6_float = (float)(ARM_posf_6 - ARM_pos0_mot_6) * DXL_TO_RAD;
   canW.sendMessage(ARM_ROLL_6_FEEDBACK, &ARM_posf_6_float, sizeof(ARM_posf_6));
 
+  // Arm velocity feedback (RPM → rad/s)
+  ARM_dxl.getPresentVelocity_RPM(ARM_vel_mot1a1b);
+
+  ARM_phif_dxl_vel = -(float)((ARM_vel_mot1a1b[0]) + (ARM_vel_mot1a1b[1])) * 2 * M_PI / 60;
+  ARM_thetaf_dxl_vel = (float)(-(ARM_vel_mot1a1b[0]) + (ARM_vel_mot1a1b[1])) * 2 * M_PI / 60;
+  ARM_vel_mot1a1b[0] = ARM_thetaf_dxl_vel;
+  ARM_vel_mot1a1b[1] = ARM_phif_dxl_vel;
+
+  canW.sendMessage(ARM_PITCH_1a1b_FEEDBACK_VEL, &ARM_vel_mot1a1b, sizeof(ARM_vel_mot1a1b));
+
+  ARM_mot_2.getPresentVelocity_RPM(ARM_vel_mot2);
+  ARM_vel_mot2 = ARM_vel_mot2 * 2 * M_PI / 60;
+  canW.sendMessage(ARM_PITCH_2_FEEDBACK_VEL, &ARM_vel_mot2, sizeof(ARM_vel_mot2));
+
+  ARM_mot_3.getPresentVelocity_RPM(ARM_vel_mot3);
+  ARM_vel_mot3 = ARM_vel_mot3 * 2 * M_PI / 60;
+  canW.sendMessage(ARM_ROLL_3_FEEDBACK_VEL, &ARM_vel_mot3, sizeof(ARM_vel_mot3));
+
+  ARM_mot_4.getPresentVelocity_RPM(ARM_vel_mot4);
+  ARM_vel_mot4 = ARM_vel_mot4 * 2 * M_PI / 60;
+  canW.sendMessage(ARM_PITCH_4_FEEDBACK_VEL, &ARM_vel_mot4, sizeof(ARM_vel_mot4));
+
+  ARM_mot_5.getPresentVelocity_RPM(ARM_vel_mot5);
+  ARM_vel_mot5 = ARM_vel_mot5 * 2 * M_PI / 60;
+  canW.sendMessage(ARM_ROLL_5_FEEDBACK_VEL, &ARM_vel_mot5, sizeof(ARM_vel_mot5));
+
+  ARM_mot_6.getPresentVelocity_RPM(ARM_vel_mot6);
+  ARM_vel_mot6 = ARM_vel_mot6 * 2 * M_PI / 60;
+  canW.sendMessage(ARM_ROLL_6_FEEDBACK_VEL, &ARM_vel_mot6, sizeof(ARM_vel_mot6));
+
   canW.sendMessage(MOTOR_ARM_ERROR_STATUS, ErrorStatusArm, 7);
 
 #endif
@@ -844,13 +882,13 @@ void MODC_ARM_INIT()
   }
 
   // variabili per la posizione iniziale
-  ARM_pos0_mot_1LR[0] = 834;
-  ARM_pos0_mot_1LR[1] = 536;
-  ARM_pos0_mot_2 = 2632;
-  ARM_pos0_mot_3 = 3034;
-  ARM_pos0_mot_4 = 2154;
-  ARM_pos0_mot_5 = 3694;
-  ARM_pos0_mot_6 = 4191;
+  ARM_pos0_mot_1LR[0] = 1231;
+  ARM_pos0_mot_1LR[1] = 1111;
+  ARM_pos0_mot_2 = 2586;
+  ARM_pos0_mot_3 = 3054;
+  ARM_pos0_mot_4 = 2077;
+  ARM_pos0_mot_5 = 3562;
+  ARM_pos0_mot_6 = 158;
 
   RESET_ARM_INITIAL_POSITION();
 }
@@ -949,7 +987,7 @@ void DXL_TRACTION_INIT()
   mot_Right_traction.begin_dxl(BaudRateDXL);
 
   mot_Right_traction.setTorqueEnable(false); // Disable torque for safety
-                                             // mot_Left_traction.setTorqueEnable(false);
+  mot_Left_traction.setTorqueEnable(false);
 
   delay(10);
 
