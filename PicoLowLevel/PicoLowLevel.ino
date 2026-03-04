@@ -58,11 +58,18 @@ uint8_t error_var = 0;
 //================ Traction Motors =================
 DynamixelLL dxl_traction(Serial1, 0);
 const uint8_t motorIDs_traction[] = {212, 114};
-//212 --> motor right
-//114 --> motor left
+// NOTE: variable names mot_Left/mot_Right are swapped relative to physical
+// motor positions (212 = physical right, 114 = physical left).
+// The robot still drives correctly because the memcpy order inside
+// MOTOR_SETPOINT compensates: speeds_dxl[0] receives the CAN "right"
+// value and is sync-written to ID 212 (physical right), speeds_dxl[1]
+// receives "left" and goes to ID 114 (physical left).
+// setDriveMode(reverse=true) on ID 212 only corrects for the opposite
+// motor mounting orientation — it does NOT fix the naming mismatch.
+// The debug print labels ("left: speeds_dxl[0]") are also swapped.
 const uint8_t numMotors_traction = sizeof(motorIDs_traction) / sizeof(motorIDs_traction[0]);
-DynamixelLL mot_Left_traction(Serial1, motorIDs_traction[0]);
-DynamixelLL mot_Right_traction(Serial1, motorIDs_traction[1]);
+DynamixelLL mot_Left_traction(Serial1, motorIDs_traction[0]);   // ID 212 — physical RIGHT motor
+DynamixelLL mot_Right_traction(Serial1, motorIDs_traction[1]);  // ID 114 — physical LEFT motor
 float speeds_dxl[2] = {0.0f, 0.0f};
 float old_speeds_dxl[2] = {0.0f, 0.0f};
 float delta_speeds_dxl = 2.0f;
