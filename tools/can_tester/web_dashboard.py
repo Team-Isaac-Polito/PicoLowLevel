@@ -1,0 +1,541 @@
+#!/usr/bin/env python3
+"""
+Web dashboard for real-time CAN bus monitoring.
+
+Provides a browser-based UI at http://localhost:8080 with:
+- Live message feed via Server-Sent Events (SSE)
+- Message statistics
+- Send command panel
+- Auto-reconnecting real-time display
+
+Usage:
+    python -m can_tester.web_dashboard --interface gs_usb --channel 0
+    python -m can_tester.web_dashboard --interface socketcan --channel can0
+"""
+
+from __future__ import annotations
+
+import argparse
+import json
+import sys
+import threading
+import time
+from queue import Queue, Empty
+
+from flask import Flask, Response, request, jsonify, render_template_string
+
+import can
+
+from .protocol import ModuleAddress, MsgType, decode_can_id, MSG_NAMES
+from .codec import decode_payload, format_decoded
+from .sender import CanSender
+from .monitor import CanMonitor, NAMED_FILTERS
+
+app = Flask(__name__)
+
+# Global state (initialized in main)
+bus: can.BusABC = None  # type: ignore
+sender: CanSender = None  # type: ignore
+monitor: CanMonitor = None  # type: ignore
+event_queues: list[Queue] = []
+event_queues_lock = threading.Lock()
+
+
+# ─── HTML template ───────────────────────────────────────────────────────────
+
+DASHBOARD_HTML = """<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>PicoLowLevel CAN Dashboard</title>
+<style>
+:root { --bg: #1a1a2e; --card: #16213e; --accent: #0f3460; --text: #e0e0e0;
+        --green: #4ecca3; --red: #e74c3c; --yellow: #f1c40f; --blue: #3498db; }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg);
+       color: var(--text); padding: 16px; }
+h1 { color: var(--green); margin-bottom: 16px; font-size: 1.5rem; }
+h2 { color: var(--blue); margin-bottom: 8px; font-size: 1.1rem; }
+.grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.card { background: var(--card); border-radius: 8px; padding: 16px; }
+#feed { height: 400px; overflow-y: auto; font-family: 'Cascadia Code', monospace;
+        font-size: 0.85rem; line-height: 1.5; }
+#feed .msg { padding: 2px 4px; border-bottom: 1px solid rgba(255,255,255,0.05); }
+#feed .msg:hover { background: rgba(255,255,255,0.05); }
+.src { color: var(--green); } .dst { color: var(--yellow); }
+.type { color: var(--blue); font-weight: bold; } .val { color: #ccc; }
+#stats table { width: 100%; border-collapse: collapse; }
+#stats td { padding: 4px 8px; border-bottom: 1px solid rgba(255,255,255,0.05); }
+#stats td:last-child { text-align: right; font-family: monospace; }
+.send-form { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+.send-form input, .send-form select { background: var(--accent); color: var(--text);
+  border: 1px solid rgba(255,255,255,0.1); padding: 6px 10px; border-radius: 4px; }
+.send-form button { background: var(--green); color: var(--bg); border: none;
+  padding: 6px 16px; border-radius: 4px; cursor: pointer; font-weight: bold; }
+.send-form button:hover { opacity: 0.9; }
+.send-form button.danger { background: var(--red); }
+.status-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%;
+  margin-right: 6px; }
+.status-dot.on { background: var(--green); } .status-dot.off { background: var(--red); }
+#connection { font-size: 0.85rem; margin-bottom: 12px; }
+.filter-bar { margin-bottom: 8px; }
+.filter-bar button { background: var(--accent); color: var(--text); border: 1px solid
+  rgba(255,255,255,0.1); padding: 4px 10px; border-radius: 4px; cursor: pointer;
+  margin-right: 4px; font-size: 0.8rem; }
+.filter-bar button.active { background: var(--green); color: var(--bg); }
+</style>
+</head>
+<body>
+<h1>PicoLowLevel CAN Dashboard</h1>
+<div id="connection"><span class="status-dot off" id="connDot"></span>
+  <span id="connText">Waiting for CAN data...</span></div>
+<div class="grid">
+  <div class="card">
+    <h2>Live Feed</h2>
+    <div class="filter-bar" id="filterBar">
+      <button class="active" data-filter="all">All</button>
+      <button data-filter="arm">Arm</button>
+      <button data-filter="traction">Traction</button>
+      <button data-filter="joint">Joint</button>
+      <button data-filter="feedback">Feedback</button>
+    </div>
+    <div id="feed"></div>
+    <div style="font-size:0.75rem;color:#666;margin-top:4px" id="scrollHint"></div>
+  </div>
+  <div>
+    <div class="card" style="margin-bottom:16px">
+      <h2>Send Command</h2>
+      <div style="margin-bottom:12px">
+        <label style="font-size:0.8rem;color:var(--blue);display:block;margin-bottom:4px">Target Module</label>
+        <select id="targetModule" style="width:100%">
+          <option value="0x21">MK2_MOD1 — Head / Arm (CAN 0x21)</option>
+          <option value="0x22">MK2_MOD2 — Middle / Joint (CAN 0x22)</option>
+          <option value="0x23">MK2_MOD3 — Tail / Joint (CAN 0x23)</option>
+          <option value="0x11">MK1_MOD1 — Head / End Effector (CAN 0x11)</option>
+          <option value="0x12">MK1_MOD2 — Middle (CAN 0x12)</option>
+        </select>
+      </div>
+      <div style="margin-bottom:4px">
+        <label style="font-size:0.8rem;color:var(--blue);display:block;margin-bottom:4px">Command</label>
+        <select id="cmdType" onchange="updateForm()" style="width:100%"></select>
+      </div>
+      <p id="cmdDesc" style="font-size:0.8rem;color:#999;margin:4px 0 8px 0"></p>
+      <div class="send-form" id="sendForm">
+        <div id="inputGroup" style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+          <div id="field1" style="display:flex;flex-direction:column;gap:2px">
+            <label id="lbl1" style="font-size:0.75rem;color:var(--green)"></label>
+            <input id="val1" type="number" step="1" value="0" style="width:140px">
+          </div>
+          <div id="field2" style="display:flex;flex-direction:column;gap:2px">
+            <label id="lbl2" style="font-size:0.75rem;color:var(--green)"></label>
+            <input id="val2" type="number" step="1" value="0" style="width:140px">
+          </div>
+        </div>
+        <button onclick="sendCmd()">Send</button>
+        <button class="danger" onclick="stopAll()">STOP ALL</button>
+      </div>
+    </div>
+    <div class="card">
+      <h2 style="cursor:pointer;user-select:none" onclick="toggleStats()">Statistics <span id="statsToggle" style="font-size:0.8rem">▾</span></h2>
+      <div id="stats"><table><tbody id="statsBody"></tbody></table></div>
+    </div>
+  </div>
+</div>
+<script>
+let activeFilter = 'all';
+const feed = document.getElementById('feed');
+const maxLines = 200;
+const stats = {};
+let autoScroll = true;
+let lastMsgTime = 0;
+
+// Detect if user scrolled up — pause auto-scroll
+feed.addEventListener('scroll', () => {
+  const atBottom = feed.scrollHeight - feed.scrollTop - feed.clientHeight < 30;
+  autoScroll = atBottom;
+  document.getElementById('scrollHint').textContent =
+    atBottom ? '' : '⏸ Auto-scroll paused — scroll to bottom to resume';
+});
+
+// Module-specific command sets
+const CMDS_ARM = [
+  { group: 'Traction', items: [
+    { val: 'traction', label: 'Traction Motors — Set wheel speeds' },
+  ]},
+  { group: 'Robotic Arm (MOD1)', items: [
+    { val: 'arm_1a1b', label: 'Arm J1 (Differential Pitch) — Base shoulder pair' },
+    { val: 'arm_j2', label: 'Arm J2 (Elbow Pitch) — Single motor elbow' },
+    { val: 'arm_j3', label: 'Arm J3 (Roll) — Forearm rotation' },
+    { val: 'arm_j4', label: 'Arm J4 (Wrist Pitch) — Wrist up/down' },
+    { val: 'arm_j5', label: 'Arm J5 (Wrist Roll) — Wrist rotation' },
+    { val: 'beak_close', label: 'Beak Close — Gripper close' },
+    { val: 'beak_open', label: 'Beak Open — Gripper open' },
+    { val: 'reset_arm', label: 'Reset Arm — Move to home position' },
+    { val: 'reboot_arm', label: 'Reboot Arm — Restart Dynamixel motors' },
+  ]},
+  { group: 'System', items: [
+    { val: 'reboot_traction', label: 'Reboot Traction — Restart DC motors' },
+    { val: 'stop_all', label: 'Emergency Stop — Zero all motors' },
+  ]},
+];
+
+const CMDS_JOINT = [
+  { group: 'Traction', items: [
+    { val: 'traction', label: 'Traction Motors — Set wheel speeds' },
+  ]},
+  { group: 'Inter-Module Joint', items: [
+    { val: 'joint_1a1b', label: 'Joint Pitch (Differential) — Pitch/yaw pair' },
+    { val: 'joint_roll', label: 'Joint Roll — Axial rotation' },
+  ]},
+  { group: 'System', items: [
+    { val: 'reboot_traction', label: 'Reboot Traction — Restart DC motors' },
+    { val: 'stop_all', label: 'Emergency Stop — Zero all motors' },
+  ]},
+];
+
+// Command metadata: description, field labels, numeric input count, step size
+const CMD_INFO = {
+  traction:    { desc: 'Set traction motor speeds. Positive = forward, negative = reverse. Typical range: -200 to 200 RPM.',
+                 lbl1: 'Right RPM', lbl2: 'Left RPM', inputs: 2, step: 5 },
+  arm_1a1b:   { desc: 'Set arm J1 differential shoulder joint. Theta controls pitch, phi controls the differential offset. Range: approx -1.57 to 1.57 rad.',
+                 lbl1: 'Theta (rad)', lbl2: 'Phi (rad)', inputs: 2, step: 0.05 },
+  arm_j2:     { desc: 'Set arm elbow pitch (J2, Dynamixel XM540). Range: approx -1.57 to 1.57 rad (0 = straight).',
+                 lbl1: 'Angle (rad)', lbl2: '', inputs: 1, step: 0.05 },
+  arm_j3:     { desc: 'Set arm forearm roll (J3, Dynamixel XM540). Range: approx -3.14 to 3.14 rad.',
+                 lbl1: 'Angle (rad)', lbl2: '', inputs: 1, step: 0.05 },
+  arm_j4:     { desc: 'Set arm wrist pitch (J4, Dynamixel XL430). Range: approx -1.57 to 1.57 rad.',
+                 lbl1: 'Angle (rad)', lbl2: '', inputs: 1, step: 0.05 },
+  arm_j5:     { desc: 'Set arm wrist roll (J5, Dynamixel XL430). Range: approx -3.14 to 3.14 rad.',
+                 lbl1: 'Angle (rad)', lbl2: '', inputs: 1, step: 0.05 },
+  beak_close: { desc: 'Close the beak/gripper. No parameters needed — sends close command immediately.', lbl1: '', lbl2: '', inputs: 0, step: 1 },
+  beak_open:  { desc: 'Open the beak/gripper. No parameters needed — sends open command immediately.', lbl1: '', lbl2: '', inputs: 0, step: 1 },
+  reset_arm:  { desc: 'Move all arm joints to their home position. Reads current positions, then slowly returns to zero.', lbl1: '', lbl2: '', inputs: 0, step: 1 },
+  reboot_arm: { desc: 'Reboot all arm Dynamixel motors via protocol command. Use when motors are in error state.', lbl1: '', lbl2: '', inputs: 0, step: 1 },
+  reboot_traction: { desc: 'Reboot traction DC motors. Sends a reboot command to the traction controller.', lbl1: '', lbl2: '', inputs: 0, step: 1 },
+  stop_all:   { desc: 'Emergency stop — sends zero speed to all traction motors on all modules.', lbl1: '', lbl2: '', inputs: 0, step: 1 },
+  joint_1a1b: { desc: 'Set inter-module joint differential pitch/yaw. Theta controls pitch, phi controls yaw offset. Range: approx -1.57 to 1.57 rad.',
+                 lbl1: 'Theta (rad)', lbl2: 'Phi (rad)', inputs: 2, step: 0.05 },
+  joint_roll: { desc: 'Set inter-module joint axial roll. Range: approx -3.14 to 3.14 rad.',
+                 lbl1: 'Angle (rad)', lbl2: '', inputs: 1, step: 0.05 },
+};
+
+// Build command dropdown based on selected module
+function rebuildCommandDropdown() {
+  const mod = document.getElementById('targetModule').value;
+  const isArm = mod === '0x21';  // MK2_MOD1 has arm
+  const cmds = isArm ? CMDS_ARM : CMDS_JOINT;
+  const sel = document.getElementById('cmdType');
+  const prev = sel.value;
+  sel.innerHTML = '';
+  cmds.forEach(g => {
+    const og = document.createElement('optgroup');
+    og.label = g.group;
+    g.items.forEach(it => {
+      const o = document.createElement('option');
+      o.value = it.val; o.textContent = it.label;
+      og.appendChild(o);
+    });
+    sel.appendChild(og);
+  });
+  // Try to preserve previous selection
+  if ([...sel.options].some(o => o.value === prev)) sel.value = prev;
+  updateForm();
+}
+
+document.getElementById('targetModule').addEventListener('change', rebuildCommandDropdown);
+
+function updateForm() {
+  const cmd = document.getElementById('cmdType').value;
+  const info = CMD_INFO[cmd] || { desc: '', lbl1: '', lbl2: '', inputs: 0, step: 1 };
+  document.getElementById('cmdDesc').textContent = info.desc;
+  const f1 = document.getElementById('field1');
+  const f2 = document.getElementById('field2');
+  const l1 = document.getElementById('lbl1');
+  const l2 = document.getElementById('lbl2');
+  const v1 = document.getElementById('val1');
+  const v2 = document.getElementById('val2');
+  const group = document.getElementById('inputGroup');
+  l1.textContent = info.lbl1;
+  l2.textContent = info.lbl2;
+  v1.step = info.step || 1;
+  v2.step = info.step || 1;
+  f1.style.display = info.inputs >= 1 ? '' : 'none';
+  f2.style.display = info.inputs >= 2 ? '' : 'none';
+  group.style.display = info.inputs > 0 ? '' : 'none';
+}
+rebuildCommandDropdown();  // set initial state
+
+// Filter buttons
+document.getElementById('filterBar').addEventListener('click', e => {
+  if (e.target.dataset.filter) {
+    document.querySelectorAll('.filter-bar button').forEach(b => b.classList.remove('active'));
+    e.target.classList.add('active');
+    activeFilter = e.target.dataset.filter;
+  }
+});
+
+// Statistics toggle
+function toggleStats() {
+  const s = document.getElementById('stats');
+  const t = document.getElementById('statsToggle');
+  if (s.style.display === 'none') { s.style.display = ''; t.textContent = '▾'; }
+  else { s.style.display = 'none'; t.textContent = '▸'; }
+}
+
+// Connection status based on actual CAN message flow
+let connTimeout = null;
+function markConnected() {
+  lastMsgTime = Date.now();
+  document.getElementById('connDot').className = 'status-dot on';
+  document.getElementById('connText').textContent = 'Receiving CAN data';
+  clearTimeout(connTimeout);
+  connTimeout = setTimeout(() => {
+    document.getElementById('connDot').className = 'status-dot off';
+    document.getElementById('connText').textContent = 'No CAN data (idle > 5 s)';
+  }, 5000);
+}
+
+// SSE
+function connect() {
+  const es = new EventSource('/stream');
+  es.onopen = () => {
+    // SSE channel open — but don't show "connected" until we get CAN data
+  };
+  es.onmessage = e => {
+    const d = JSON.parse(e.data);
+    markConnected();
+    const typeHex = '0x' + d.msg_type.toString(16).toUpperCase().padStart(2, '0');
+    stats[d.msg_name + ' [' + typeHex + ']'] = (stats[d.msg_name + ' [' + typeHex + ']'] || 0) + 1;
+    updateStats();
+    if (activeFilter !== 'all' && !d.filter_tags.includes(activeFilter)) return;
+    const div = document.createElement('div');
+    div.className = 'msg';
+    div.innerHTML = `<span class="src">${d.source}</span> → `
+      + `<span class="dst">${d.destination}</span> `
+      + `<span class="type">[${typeHex}] ${d.msg_name}</span> `
+      + `<span class="val">${d.payload_str}</span>`;
+    feed.appendChild(div);
+    while (feed.children.length > maxLines) feed.removeChild(feed.firstChild);
+    if (autoScroll) feed.scrollTop = feed.scrollHeight;
+  };
+  es.onerror = () => {
+    document.getElementById('connDot').className = 'status-dot off';
+    document.getElementById('connText').textContent = 'SSE disconnected — reconnecting...';
+    es.close();
+    setTimeout(connect, 2000);
+  };
+}
+connect();
+
+function updateStats() {
+  const body = document.getElementById('statsBody');
+  body.innerHTML = Object.entries(stats).sort((a,b) => b[1]-a[1])
+    .map(([k,v]) => `<tr><td>${k}</td><td>${v}</td></tr>`).join('');
+}
+
+function sendCmd() {
+  const cmd = document.getElementById('cmdType').value;
+  const target = parseInt(document.getElementById('targetModule').value);
+  const v1 = parseFloat(document.getElementById('val1').value) || 0;
+  const v2 = parseFloat(document.getElementById('val2').value) || 0;
+  fetch('/send', {method:'POST', headers:{'Content-Type':'application/json'},
+    body: JSON.stringify({command: cmd, target: target, val1: v1, val2: v2})
+  }).then(r => r.json()).then(d => { if(d.error) alert(d.error); });
+}
+
+function stopAll() {
+  fetch('/stop', {method:'POST'}).then(r => r.json());
+}
+</script>
+</body></html>"""
+
+
+# ─── Determine filter tags for a message type ───────────────────────────────
+
+def get_filter_tags(msg_type: int) -> list[str]:
+    """Return which named filters this message type belongs to."""
+    tags = []
+    for name, filter_set in NAMED_FILTERS.items():
+        if filter_set is None:
+            continue
+        if msg_type in filter_set:
+            tags.append(name)
+    return tags
+
+
+# ─── Routes ──────────────────────────────────────────────────────────────────
+
+@app.route("/")
+def index():
+    return render_template_string(DASHBOARD_HTML)
+
+
+@app.route("/stream")
+def stream():
+    """Server-Sent Events stream for live CAN messages."""
+    q: Queue = Queue(maxsize=100)
+    with event_queues_lock:
+        event_queues.append(q)
+
+    def generate():
+        try:
+            while True:
+                try:
+                    data = q.get(timeout=30)
+                    yield f"data: {json.dumps(data)}\n\n"
+                except Empty:
+                    yield ": keepalive\n\n"
+        except GeneratorExit:
+            pass
+        finally:
+            with event_queues_lock:
+                if q in event_queues:
+                    event_queues.remove(q)
+
+    return Response(generate(), mimetype="text/event-stream")
+
+
+@app.route("/send", methods=["POST"])
+def send_command():
+    """Handle send command from web UI."""
+    data = request.json
+    cmd = data.get("command", "")
+    dest = int(data.get("target", ModuleAddress.MK2_MOD1))
+    v1 = float(data.get("val1", 0))
+    v2 = float(data.get("val2", 0))
+
+    try:
+        if cmd == "traction":
+            sender.traction(v1, v2, destination=dest)
+        elif cmd == "arm_j2":
+            sender.arm_pitch_j2(v1)
+        elif cmd == "arm_j3":
+            sender.arm_roll_j3(v1)
+        elif cmd == "arm_j4":
+            sender.arm_pitch_j4(v1)
+        elif cmd == "arm_j5":
+            sender.arm_roll_j5(v1)
+        elif cmd == "arm_1a1b":
+            sender.arm_pitch_1a1b(v1, v2)
+        elif cmd == "beak_close":
+            sender.arm_beak(close=True)
+        elif cmd == "beak_open":
+            sender.arm_beak(close=False)
+        elif cmd == "reset_arm":
+            sender.reset_arm()
+        elif cmd == "reboot_arm":
+            sender.reboot_arm()
+        elif cmd == "reboot_traction":
+            sender.reboot_traction(destination=dest)
+        elif cmd == "joint_1a1b":
+            sender.joint_pitch_1a1b(v1, v2, destination=dest)
+        elif cmd == "joint_roll":
+            sender.joint_roll(v1, destination=dest)
+        elif cmd == "stop_all":
+            sender.stop_all()
+        else:
+            return jsonify({"error": f"Unknown command: {cmd}"}), 400
+
+        return jsonify({"ok": True})
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+
+@app.route("/stop", methods=["POST"])
+def stop_all():
+    """Emergency stop all motors."""
+    sender.stop_all()
+    return jsonify({"ok": True})
+
+
+# ─── CAN → SSE bridge ───────────────────────────────────────────────────────
+
+def can_to_sse_callback(decoded_id, payload, raw_msg):
+    """Push decoded CAN messages to all SSE clients."""
+    payload_str = "  ".join(
+        f"{k}={v:.4f}" if isinstance(v, float) else f"{k}={v}"
+        for k, v in payload.items()
+        if not k.startswith("_")
+    )
+
+    event = {
+        "source": decoded_id.source_name,
+        "destination": decoded_id.destination_name,
+        "msg_name": decoded_id.msg_name,
+        "msg_type": decoded_id.msg_type,
+        "payload_str": payload_str,
+        "payload": {k: v for k, v in payload.items() if not k.startswith("_")},
+        "filter_tags": get_filter_tags(decoded_id.msg_type),
+        "timestamp": raw_msg.timestamp or time.time(),
+    }
+
+    with event_queues_lock:
+        for q in event_queues:
+            try:
+                q.put_nowait(event)
+            except:
+                pass  # Drop if client is slow
+
+
+# ─── Main ────────────────────────────────────────────────────────────────────
+
+def main():
+    global bus, sender, monitor
+
+    parser = argparse.ArgumentParser(description="PicoLowLevel CAN Web Dashboard")
+    parser.add_argument("--interface", "-i", default="gs_usb")
+    parser.add_argument("--channel", "-c", default="0")
+    parser.add_argument("--bitrate", "-b", type=int, default=125000)
+    parser.add_argument("--port", "-p", type=int, default=8080)
+    parser.add_argument("--host", default="0.0.0.0")
+    parser.add_argument(
+        "--demo", action="store_true",
+        help="Use virtual CAN bus for GUI preview (no hardware needed)",
+    )
+    args = parser.parse_args()
+
+    iface = "virtual" if args.demo else args.interface
+    channel = "demo" if args.demo else args.channel
+
+    print(f"Connecting to CAN bus: interface={iface}, "
+          f"channel={channel}, bitrate={args.bitrate}...")
+    if args.demo:
+        print("  (demo mode — no real CAN hardware required)")
+
+    try:
+        bus = can.Bus(
+            interface=iface,
+            channel=channel,
+            bitrate=args.bitrate,
+        )
+    except Exception as e:
+        print(f"Failed to connect: {e}")
+        sys.exit(1)
+
+    sender = CanSender(bus)
+    monitor = CanMonitor(bus)
+    monitor.add_callback(can_to_sse_callback)
+
+    # Start CAN monitor in background thread
+    monitor_thread = threading.Thread(
+        target=monitor.run,
+        kwargs={"quiet": True},
+        daemon=True,
+    )
+    monitor_thread.start()
+
+    print(f"Dashboard: http://localhost:{args.port}")
+    print("Press Ctrl+C to stop.\n")
+
+    try:
+        app.run(host=args.host, port=args.port, threaded=True)
+    except KeyboardInterrupt:
+        pass
+    finally:
+        monitor.stop()
+        bus.shutdown()
+
+
+if __name__ == "__main__":
+    main()
