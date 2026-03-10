@@ -20,6 +20,7 @@
 #include "include/mod_config.h"
 #include "include/communication.h"
 #include <string.h> // strncpy, strlen
+#include <LittleFS.h>
 
 #include "Dynamixel_ll.h"
 
@@ -37,6 +38,8 @@ void DXL_TRACTION_INIT();
 #ifdef MODC_ARM
 void MODC_ARM_INIT();
 void RESET_ARM_INITIAL_POSITION();
+bool loadHomePositions();
+void saveHomePositions();
 #endif
 
 #define BaudRateDXL 2000000
@@ -177,8 +180,8 @@ float ARM_thetaf_dxl_vel = 0.0f;
 
 int16_t ARM_presentLoad_mot_6 = 0;
 
-// first_startup_arm removed — current positions are now always read before
-// enabling torque in MODC_ARM_INIT() to prevent violent startup motion.
+#define HOME_POSITIONS_FILE "/home_pos.bin"
+static const int32_t ARM_DEFAULT_HOME[] = {1709, 3836, 3537, 3043, 2072, 3647, 141};
 
 uint8_t ErrorStatusArm[7] = {0, 0, 0, 0, 0, 0, 0};
 
@@ -252,6 +255,7 @@ void setup()
 {
 
   Serial.begin(115200);
+  LittleFS.begin();
 
   Debug.setLevel(Levels::INFO); // comment to set debug verbosity to debug
   Debug.println("BEGIN", Levels::INFO);
@@ -617,6 +621,12 @@ void handleSetpoint(uint8_t msg_id, const byte *msg_data)
     MODC_ARM_INIT();
     break;
 
+  case SET_HOME:
+    saveHomePositions();
+    RESET_ARM_INITIAL_POSITION();
+    Debug.println("SET_HOME: new home position saved and applied", Levels::INFO);
+    break;
+
 #endif
 
 #ifdef MODC_JOINT
@@ -782,6 +792,68 @@ void navInterrupt()
 }
 
 #ifdef MODC_ARM
+
+bool loadHomePositions() {
+  File f = LittleFS.open(HOME_POSITIONS_FILE, "r");
+  if (!f) {
+    Debug.println("No saved home positions, using defaults", Levels::INFO);
+    return false;
+  }
+
+  int32_t positions[7];
+  if (f.read((uint8_t*)positions, sizeof(positions)) != sizeof(positions)) {
+    f.close();
+    Debug.println("Corrupted home positions file, using defaults", Levels::WARN);
+    return false;
+  }
+  f.close();
+
+  ARM_pos0_mot_1LR[0] = positions[0];
+  ARM_pos0_mot_1LR[1] = positions[1];
+  ARM_pos0_mot_2 = positions[2];
+  ARM_pos0_mot_3 = positions[3];
+  ARM_pos0_mot_4 = positions[4];
+  ARM_pos0_mot_5 = positions[5];
+  ARM_pos0_mot_6 = positions[6];
+
+  Debug.println("Home positions loaded from flash", Levels::INFO);
+  return true;
+}
+
+void saveHomePositions() {
+  ARM_dxl.getPresentPosition(ARM_pos0_mot_1LR);
+  ARM_mot_2.getPresentPosition(ARM_pos0_mot_2);
+  ARM_mot_3.getPresentPosition(ARM_pos0_mot_3);
+  ARM_mot_4.getPresentPosition(ARM_pos0_mot_4);
+  ARM_mot_5.getPresentPosition(ARM_pos0_mot_5);
+  ARM_mot_6.getPresentPosition(ARM_pos0_mot_6);
+
+  int32_t positions[7] = {
+    ARM_pos0_mot_1LR[0], ARM_pos0_mot_1LR[1],
+    ARM_pos0_mot_2, ARM_pos0_mot_3,
+    ARM_pos0_mot_4, ARM_pos0_mot_5, ARM_pos0_mot_6
+  };
+
+  File f = LittleFS.open(HOME_POSITIONS_FILE, "w");
+  if (!f) {
+    Debug.println("Failed to save home positions", Levels::WARN);
+    return;
+  }
+  f.write((uint8_t*)positions, sizeof(positions));
+  f.close();
+
+  // Reset deltas since current position is the new home
+  ARM_delta_pos0_mot_1LR[0] = 0;
+  ARM_delta_pos0_mot_1LR[1] = 0;
+  ARM_delta_pos0_mot_2 = 0;
+  ARM_delta_pos0_mot_3 = 0;
+  ARM_delta_pos0_mot_4 = 0;
+  ARM_delta_pos0_mot_5 = 0;
+  ARM_delta_pos0_mot_6 = 0;
+
+  Debug.println("Home positions saved to flash", Levels::INFO);
+}
+
 void MODC_ARM_INIT()
 { // Initialize Dynamixel motors for the arm
 
@@ -903,20 +975,18 @@ void MODC_ARM_INIT()
   ARM_mot_4.setTorqueEnable(true);
   ARM_mot_5.setTorqueEnable(true);
   ARM_mot_6.setTorqueEnable(true);
-
+  // Load home positions from flash, fall back to compiled defaults
   delay(10);
+  if (!loadHomePositions()) {
+    ARM_pos0_mot_1LR[0] = ARM_DEFAULT_HOME[0];
+    ARM_pos0_mot_1LR[1] = ARM_DEFAULT_HOME[1];
+    ARM_pos0_mot_2 = ARM_DEFAULT_HOME[2];
+    ARM_pos0_mot_3 = ARM_DEFAULT_HOME[3];
+    ARM_pos0_mot_4 = ARM_DEFAULT_HOME[4];
+    ARM_pos0_mot_5 = ARM_DEFAULT_HOME[5];
+    ARM_pos0_mot_6 = ARM_DEFAULT_HOME[6];
+  }
 
-  // Initial (home) positions for the arm motors 
-  // these can be adjusted as needed given the output from dxl_get_position.ino
-  ARM_pos0_mot_1LR[0] = 1709;
-  ARM_pos0_mot_1LR[1] = 3836;
-  ARM_pos0_mot_2 = 3537;
-  ARM_pos0_mot_3 = 3043;
-  ARM_pos0_mot_4 = 2072;
-  ARM_pos0_mot_5 = 3647;
-  ARM_pos0_mot_6 = 141;
-
-  // Smoothly move to home position (profile velocity/acceleration limits motion)
   RESET_ARM_INITIAL_POSITION();
 }
 
