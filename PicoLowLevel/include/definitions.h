@@ -27,6 +27,9 @@
 #define I2C_ADC_SCL   3
 
 #define ABSOLUTE_ENCODER_ADDRESS 0x40
+
+// Dynamixel XM540 current limit (EEPROM addr 38, 2.69mA/unit, max 2047)
+#define ARM_XM540_CURRENT_LIMIT 1200  // ~3.2A
 //
 // Timeouts
 #define CAN_TIMEOUT 1000

@@ -161,8 +161,38 @@ public:
     template <uint8_t N>
     uint8_t setHomingOffset_A(const float (&offsetAngle)[N]);
 
+    /**     * @brief Sets the current limit for XM-series motors (EEPROM address 38).
+     * @param limit Current limit in servo units (2.69mA per unit, max 2047 ≈ 5.5A).
+     * @return uint8_t 0 on success, nonzero on error.
+     */
+    uint8_t setCurrentLimit(uint16_t limit);
+
     /**
-     * @brief Sets the actuator’s desired output position (pulses) for Position Control Mode.
+     * @brief Sets the current limit for multiple XM-series motors.
+     * @tparam N Size of the input array, must match the number of motors in sync.
+     * @param limits Array of current limits for each motor.
+     * @return uint8_t 0 on success, nonzero on error.
+     */
+    template <uint8_t N>
+    uint8_t setCurrentLimit(const uint16_t (&limits)[N]);
+
+    /**
+     * @brief Reads the current limit setting.
+     * @param limit Reference to store the current limit value.
+     * @return uint8_t 0 on success, nonzero on error.
+     */
+    uint8_t getCurrentLimit(uint16_t &limit);
+
+    /**
+     * @brief Reads the current limit for multiple motors.
+     * @tparam N Size of the input array, must match the number of motors in sync.
+     * @param limits Array to store current limits for each motor.
+     * @return uint8_t 0 on success, nonzero on error.
+     */
+    template <uint8_t N>
+    uint8_t getCurrentLimit(uint16_t (&limits)[N]);
+
+    /**     * @brief Sets the actuator’s desired output position (pulses) for Position Control Mode.
      * @param goalPosition Desired position (0 to 4095 pulses).
      * @return uint8_t 0 on success.
      */

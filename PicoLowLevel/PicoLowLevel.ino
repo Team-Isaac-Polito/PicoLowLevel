@@ -965,6 +965,12 @@ void MODC_ARM_INIT()
   ARM_mot_5.setOperatingMode(4);
   ARM_mot_6.setOperatingMode(4);
 
+  // Current limit for XM540 motors only (IDs 210, 211, 112)
+  // XL430 motors (113, 214, 215, 216) do not have this register
+  mot_Left_1_ARM.setCurrentLimit(ARM_XM540_CURRENT_LIMIT);
+  mot_Right_1_ARM.setCurrentLimit(ARM_XM540_CURRENT_LIMIT);
+  ARM_mot_2.setCurrentLimit(ARM_XM540_CURRENT_LIMIT);
+
   delay(10);
   // Set Profile Velocity and Profile Acceleration for smooth motion.
   mot_Left_1_ARM.setProfileVelocity(ProfileVelocity);
