@@ -42,6 +42,7 @@
 
 #define MOTOR_TRACTION_ERROR_STATUS 0x72  //TODO implement
 #define MOTOR_ARM_ERROR_STATUS 0x73     //TODO implement
+#define DXL_COMM_STATS 0x74
 
 #define JOINT_PITCH_1a1b_SETPOINT 0x61
 #define JOINT_PITCH_1a1b_FEEDBACK 0x62
