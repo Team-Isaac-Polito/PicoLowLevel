@@ -84,6 +84,10 @@ h2 { color: var(--blue); margin-bottom: 8px; font-size: 1.1rem; }
   rgba(255,255,255,0.1); padding: 4px 10px; border-radius: 4px; cursor: pointer;
   margin-right: 4px; font-size: 0.8rem; }
 .filter-bar button.active { background: var(--green); color: var(--bg); }
+#latestValues table { width: 100%; border-collapse: collapse; }
+#latestValues td { padding: 4px 8px; border-bottom: 1px solid rgba(255,255,255,0.05); }
+#latestValues td:first-child { color: var(--blue); white-space: nowrap; }
+#latestValues td:last-child { font-family: monospace; }
 </style>
 </head>
 <body>
@@ -99,6 +103,7 @@ h2 { color: var(--blue); margin-bottom: 8px; font-size: 1.1rem; }
       <button data-filter="traction">Traction</button>
       <button data-filter="joint">Joint</button>
       <button data-filter="feedback">Feedback</button>
+      <button id="pauseBtn" onclick="togglePause()" style="margin-left:12px">⏸ Pause</button>
     </div>
     <div id="feed"></div>
     <div style="font-size:0.75rem;color:#666;margin-top:4px" id="scrollHint"></div>
@@ -140,6 +145,10 @@ h2 { color: var(--blue); margin-bottom: 8px; font-size: 1.1rem; }
       <h2 style="cursor:pointer;user-select:none" onclick="toggleStats()">Statistics <span id="statsToggle" style="font-size:0.8rem">▾</span></h2>
       <div id="stats"><table><tbody id="statsBody"></tbody></table></div>
     </div>
+    <div class="card" style="margin-top:16px">
+      <h2>Latest Values</h2>
+      <div id="latestValues"><table><tbody id="latestBody"></tbody></table></div>
+    </div>
   </div>
 </div>
 <script>
@@ -147,8 +156,12 @@ let activeFilter = 'all';
 const feed = document.getElementById('feed');
 const maxLines = 200;
 const stats = {};
+const latestValues = {};
 let autoScroll = true;
 let lastMsgTime = 0;
+let paused = false;
+let msgBuffer = [];
+let dirty = false;
 
 // Detect if user scrolled up — pause auto-scroll
 feed.addEventListener('scroll', () => {
@@ -308,18 +321,11 @@ function connect() {
     const d = JSON.parse(e.data);
     markConnected();
     const typeHex = '0x' + d.msg_type.toString(16).toUpperCase().padStart(2, '0');
-    stats[d.msg_name + ' [' + typeHex + ']'] = (stats[d.msg_name + ' [' + typeHex + ']'] || 0) + 1;
-    updateStats();
-    if (activeFilter !== 'all' && !d.filter_tags.includes(activeFilter)) return;
-    const div = document.createElement('div');
-    div.className = 'msg';
-    div.innerHTML = `<span class="src">${d.source}</span> → `
-      + `<span class="dst">${d.destination}</span> `
-      + `<span class="type">[${typeHex}] ${d.msg_name}</span> `
-      + `<span class="val">${d.payload_str}</span>`;
-    feed.appendChild(div);
-    while (feed.children.length > maxLines) feed.removeChild(feed.firstChild);
-    if (autoScroll) feed.scrollTop = feed.scrollHeight;
+    const key = d.msg_name + ' [' + typeHex + ']';
+    stats[key] = (stats[key] || 0) + 1;
+    latestValues[d.msg_name] = d.payload_str;
+    msgBuffer.push({...d, typeHex});
+    dirty = true;
   };
   es.onerror = () => {
     document.getElementById('connDot').className = 'status-dot off';
@@ -335,6 +341,44 @@ function updateStats() {
   body.innerHTML = Object.entries(stats).sort((a,b) => b[1]-a[1])
     .map(([k,v]) => `<tr><td>${k}</td><td>${v}</td></tr>`).join('');
 }
+
+function updateLatestValues() {
+  const body = document.getElementById('latestBody');
+  body.innerHTML = Object.entries(latestValues).sort((a,b) => a[0].localeCompare(b[0]))
+    .map(([k,v]) => `<tr><td>${k}</td><td>${v || '\u2014'}</td></tr>`).join('');
+}
+
+function togglePause() {
+  paused = !paused;
+  const btn = document.getElementById('pauseBtn');
+  btn.textContent = paused ? '\u25b6 Resume' : '\u23f8 Pause';
+  btn.classList.toggle('active', paused);
+}
+
+// Batch DOM updates every 100 ms for performance
+setInterval(() => {
+  if (!dirty && msgBuffer.length === 0) return;
+  dirty = false;
+  updateStats();
+  updateLatestValues();
+  if (!paused) {
+    const frag = document.createDocumentFragment();
+    for (const d of msgBuffer) {
+      if (activeFilter !== 'all' && !d.filter_tags.includes(activeFilter)) continue;
+      const div = document.createElement('div');
+      div.className = 'msg';
+      div.innerHTML = `<span class="src">${d.source}</span> \u2192 `
+        + `<span class="dst">${d.destination}</span> `
+        + `<span class="type">[${d.typeHex}] ${d.msg_name}</span> `
+        + `<span class="val">${d.payload_str}</span>`;
+      frag.appendChild(div);
+    }
+    feed.appendChild(frag);
+    while (feed.children.length > maxLines) feed.removeChild(feed.firstChild);
+    if (autoScroll) feed.scrollTop = feed.scrollHeight;
+  }
+  msgBuffer = [];
+}, 100);
 
 function sendCmd() {
   const cmd = document.getElementById('cmdType').value;
