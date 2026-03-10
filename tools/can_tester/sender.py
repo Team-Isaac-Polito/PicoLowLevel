@@ -105,6 +105,10 @@ class CanSender:
         """Reboot all arm Dynamixel motors."""
         self.send(MsgType.REBOOT_ARM)
 
+    def set_home(self) -> None:
+        """Save current arm motor positions as new home (persisted to flash)."""
+        self.send(MsgType.SET_HOME)
+
     def reboot_traction(
         self,
         destination: int = ModuleAddress.MK2_MOD1,

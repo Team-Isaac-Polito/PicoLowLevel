@@ -51,7 +51,7 @@ within ±10%.
 2. Send **Reset Arm** — arm should move to home position.
 3. Monitor `ARM_*_FEEDBACK` messages to confirm positions near zero.
 4. Test each joint individually:
-   - **Arm J1 (1a1b)**: Theta = `0.1`, Phi = `0.0` → shoulder should pitch slightly.
+   - **Arm J1 (1a1b)**: Theta = `0.1`, Phi = `0.0` → shoulder should yaw slightly.
    - **Arm J2**: Angle = `0.2` → elbow should bend slightly.
    - **Arm J3**: Angle = `0.1` → forearm should rotate slightly.
    - **Arm J4**: Angle = `0.1` → wrist should pitch slightly.

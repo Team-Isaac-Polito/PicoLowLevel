@@ -81,6 +81,7 @@ class MsgType(IntEnum):
     ARM_ROLL_6_FEEDBACK = 0x5C
     RESET_ARM = 0x5D
     REBOOT_ARM = 0x5E
+    SET_HOME = 0x5F
 
     # Inter-module joints (MOD2/MOD3)
     JOINT_PITCH_1a1b_SETPOINT = 0x61
@@ -182,6 +183,7 @@ PAYLOAD_FORMATS: dict[int, PayloadFormat] = {
     # Arm commands (no payload)
     MsgType.RESET_ARM: PayloadFormat("", [], ""),
     MsgType.REBOOT_ARM: PayloadFormat("", [], ""),
+    MsgType.SET_HOME: PayloadFormat("", [], ""),
 
     # Arm velocity feedback
     MsgType.ARM_PITCH_1a1b_FEEDBACK_VEL: PayloadFormat("<ff", ["theta_vel", "phi_vel"], "rad/s"),

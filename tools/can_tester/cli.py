@@ -16,6 +16,7 @@ Commands:
     send arm_1a1b <theta> <phi>             Set arm differential J1
     send beak open|close                    Control beak gripper
     send reset_arm                          Move arm to home position
+    send set_home                           Save current arm position as home
     send reboot_arm                         Reboot arm motors
     send reboot_traction                    Reboot traction motors
     stop                                    Emergency stop all motors
@@ -177,6 +178,10 @@ class CLI:
             self.sender.reset_arm()
             print("Reset arm to home position.")
 
+        elif subcmd == "set_home":
+            self.sender.set_home()
+            print("Saving current arm positions as new home.")
+
         elif subcmd == "reboot_arm":
             self.sender.reboot_arm()
             print("Rebooting arm motors...")
@@ -198,7 +203,7 @@ class CLI:
         else:
             print(f"Unknown send command: '{subcmd}' with {len(args) - 1} args")
             print("Available: traction, arm_1a1b, arm_j2..j5, beak, reset_arm, "
-                  "reboot_arm, reboot_traction, joint_1a1b, joint_roll")
+                  "set_home, reboot_arm, reboot_traction, joint_1a1b, joint_roll")
 
     def _handle_monitor(self, args: list[str]) -> None:
         filter_name = args[0].lower() if args else "all"
