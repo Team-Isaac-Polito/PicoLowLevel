@@ -236,6 +236,10 @@ int32_t JOINT_pos0_mot_2 = 0;
 int32_t JOINT_pos_mot_1LR[2] = {0, 0};
 int32_t JOINT_pos_mot_2 = 0;
 
+int32_t JOINT_old_pos_mot_1LR[2] = {0, 0};
+
+#define JOINT_de_can_dxl 10
+
 int32_t JOINT_posf_1a1b[2] = {0, 0};
 int32_t JOINT_posf_2 = 0;
 
@@ -578,14 +582,11 @@ void handleSetpoint(uint8_t msg_id, const byte *msg_data)
       ARM_old_pos_mot_5 = ARM_pos_mot_5;
     }
     Debug.print("ROLL ARM 5 MOTOR DATA : \t");
-    Debug.println(ARM_pos0_mot_5);
+    Debug.println(ARM_pos_mot_5);
     break;
 
     //========================================================
 
-    Debug.print("ROLL ARM 5 MOTOR DATA : \t");
-    Debug.println(ARM_pos0_mot_5);
-    break;
   case ARM_ROLL_6_SETPOINT:
 
     memcpy(&ARM_servo_data_mot_6, msg_data, 4);
@@ -673,6 +674,14 @@ void handleSetpoint(uint8_t msg_id, const byte *msg_data)
 
     JOINT_pos_mot_1LR[0] = (int32_t)(-((JOINT_theta_dxl * RAD_TO_DXL) + (JOINT_phi_dxl * RAD_TO_DXL)) / 2) + JOINT_pos0_mot_1LR[0];
     JOINT_pos_mot_1LR[1] = (int32_t)(((JOINT_theta_dxl * RAD_TO_DXL) - (JOINT_phi_dxl * RAD_TO_DXL)) / 2) + JOINT_pos0_mot_1LR[1];
+
+    if (abs(JOINT_pos_mot_1LR[0] - JOINT_old_pos_mot_1LR[0]) > JOINT_de_can_dxl ||
+        abs(JOINT_pos_mot_1LR[1] - JOINT_old_pos_mot_1LR[1]) > JOINT_de_can_dxl)
+    {
+      JOINT_dxl.setGoalPosition_EPCM(JOINT_pos_mot_1LR);
+      JOINT_old_pos_mot_1LR[0] = JOINT_pos_mot_1LR[0];
+      JOINT_old_pos_mot_1LR[1] = JOINT_pos_mot_1LR[1];
+    }
     break;
 
 
