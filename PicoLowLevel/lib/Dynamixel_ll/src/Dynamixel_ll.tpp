@@ -195,6 +195,29 @@ uint8_t DynamixelLL::setHomingOffset_A(const float (&offsetAngle)[N])
 
 
 template <uint8_t N>
+uint8_t DynamixelLL::setCurrentLimit(const uint16_t (&limits)[N])
+{
+    if (checkArraySize(N) != 0)
+        return 1;
+
+    uint32_t processedLimits[_numMotors];
+    for (uint8_t i = 0; i < _numMotors; i++)
+        processedLimits[i] = (limits[i] > 2047) ? 2047 : limits[i];
+
+    return syncWrite(38, 2, _motorIDs, processedLimits, _numMotors);
+}
+
+
+template <uint8_t N>
+uint8_t DynamixelLL::getCurrentLimit(uint16_t (&limits)[N])
+{
+    if (checkArraySize(N) != 0)
+        return 1;
+    return syncRead(38, 2, _motorIDs, limits, _numMotors);
+}
+
+
+template <uint8_t N>
 uint8_t DynamixelLL::setGoalPosition_PCM(const uint16_t (&goalPositions)[N])
 {
     if (checkArraySize(N) != 0)
