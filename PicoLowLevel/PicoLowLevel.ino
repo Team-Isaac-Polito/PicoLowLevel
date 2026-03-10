@@ -177,7 +177,8 @@ float ARM_thetaf_dxl_vel = 0.0f;
 
 int16_t ARM_presentLoad_mot_6 = 0;
 
-bool first_startup_arm = false;
+// first_startup_arm removed — current positions are now always read before
+// enabling torque in MODC_ARM_INIT() to prevent violent startup motion.
 
 uint8_t ErrorStatusArm[7] = {0, 0, 0, 0, 0, 0, 0};
 
@@ -441,7 +442,7 @@ void loop()
       ARM_mot_4.getHardwareErrorStatus(ErrorStatusArm[4]);
       ARM_mot_5.getHardwareErrorStatus(ErrorStatusArm[5]);
     }
-    if (error_var = 4)
+    if (error_var == 4)
     {
       ARM_mot_6.getHardwareErrorStatus(ErrorStatusArm[6]);
       error_var = 0;
@@ -638,7 +639,7 @@ void handleSetpoint(uint8_t msg_id, const byte *msg_data)
     JOINT_pos_mot_2 = JOINT_pos0_mot_2 + JOINT_valueToSend;
    
       JOINT_mot_2.setGoalPosition_EPCM(JOINT_pos_mot_2);
- 
+    break;
     
 #endif
     //========================================================
@@ -862,7 +863,37 @@ void MODC_ARM_INIT()
   ARM_mot_6.setProfileAcceleration(ProfileAcceleration);
 
   delay(10);
-  // Enable torque for all motors.
+
+  // Read current motor positions BEFORE enabling torque to prevent violent
+  // startup motion. Set goal = current so motors stay in place when torque
+  // is enabled, then smoothly move to home position via profile velocity.
+  int32_t current_pos_1LR[2];
+  int32_t current_pos_2, current_pos_3, current_pos_4, current_pos_5, current_pos_6;
+
+  bool posReadOk =
+    ARM_dxl.getPresentPosition(current_pos_1LR) == 0 &&
+    ARM_mot_2.getPresentPosition(current_pos_2) == 0 &&
+    ARM_mot_3.getPresentPosition(current_pos_3) == 0 &&
+    ARM_mot_4.getPresentPosition(current_pos_4) == 0 &&
+    ARM_mot_5.getPresentPosition(current_pos_5) == 0 &&
+    ARM_mot_6.getPresentPosition(current_pos_6) == 0;
+
+  if (!posReadOk) {
+    Debug.println("ARM init: position reads failed, torque disabled", Levels::WARN);
+    return;
+  }
+
+  // Pre-load goal position registers with current positions (while torque is off)
+  ARM_dxl.setGoalPosition_EPCM(current_pos_1LR);
+  ARM_mot_2.setGoalPosition_EPCM(current_pos_2);
+  ARM_mot_3.setGoalPosition_EPCM(current_pos_3);
+  ARM_mot_4.setGoalPosition_EPCM(current_pos_4);
+  ARM_mot_5.setGoalPosition_EPCM(current_pos_5);
+  ARM_mot_6.setGoalPosition_EPCM(current_pos_6);
+
+  delay(10);
+
+  // NOW enable torque safely — motors stay in place since goal ≈ current
   ARM_dxl.setTorqueEnable(true);
   mot_Left_1_ARM.setTorqueEnable(true);
   mot_Right_1_ARM.setTorqueEnable(true);
@@ -872,31 +903,20 @@ void MODC_ARM_INIT()
   ARM_mot_4.setTorqueEnable(true);
   ARM_mot_5.setTorqueEnable(true);
   ARM_mot_6.setTorqueEnable(true);
-  // Insert here the initial positions
+
   delay(10);
 
-  if (first_startup_arm)
-  {
+  // Initial (home) positions for the arm motors 
+  // these can be adjusted as needed given the output from dxl_get_position.ino
+  ARM_pos0_mot_1LR[0] = 1709;
+  ARM_pos0_mot_1LR[1] = 3836;
+  ARM_pos0_mot_2 = 3537;
+  ARM_pos0_mot_3 = 3043;
+  ARM_pos0_mot_4 = 2072;
+  ARM_pos0_mot_5 = 3647;
+  ARM_pos0_mot_6 = 141;
 
-    first_startup_arm = false;
-
-    ARM_dxl.getPresentPosition(ARM_pos0_mot_1LR);
-    ARM_mot_2.getPresentPosition(ARM_pos0_mot_2);
-    ARM_mot_3.getPresentPosition(ARM_pos0_mot_3);
-    ARM_mot_4.getPresentPosition(ARM_pos0_mot_4);
-    ARM_mot_5.getPresentPosition(ARM_pos0_mot_5);
-    ARM_mot_6.getPresentPosition(ARM_pos0_mot_6);
-  }
-
-  // variabili per la posizione iniziale
-  ARM_pos0_mot_1LR[0] = 1231;
-  ARM_pos0_mot_1LR[1] = 1111;
-  ARM_pos0_mot_2 = 2586;
-  ARM_pos0_mot_3 = 3054;
-  ARM_pos0_mot_4 = 2077;
-  ARM_pos0_mot_5 = 3562;
-  ARM_pos0_mot_6 = 158;
-
+  // Smoothly move to home position (profile velocity/acceleration limits motion)
   RESET_ARM_INITIAL_POSITION();
 }
 
