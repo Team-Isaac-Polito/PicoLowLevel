@@ -140,6 +140,20 @@ h2 { color: var(--blue); margin-bottom: 8px; font-size: 1.1rem; }
         <button onclick="sendCmd()">Send</button>
         <button class="danger" onclick="stopAll()">STOP ALL</button>
       </div>
+      <div style="margin-top:12px;border-top:1px solid rgba(255,255,255,0.1);padding-top:8px">
+        <label style="font-size:0.8rem;color:var(--blue)">Burst Mode</label>
+        <div style="display:flex;gap:8px;align-items:center;margin-top:4px;flex-wrap:wrap">
+          <div style="display:flex;flex-direction:column;gap:2px">
+            <label style="font-size:0.75rem;color:var(--green)">Count</label>
+            <input id="burstCount" type="number" min="1" max="1000" value="1" style="width:80px">
+          </div>
+          <div style="display:flex;flex-direction:column;gap:2px">
+            <label style="font-size:0.75rem;color:var(--green)">Interval (ms)</label>
+            <input id="burstInterval" type="number" min="10" max="5000" value="100" step="10" style="width:100px">
+          </div>
+          <span id="burstStatus" style="font-size:0.75rem;color:var(--yellow)"></span>
+        </div>
+      </div>
     </div>
     <div class="card">
       <h2 style="cursor:pointer;user-select:none" onclick="toggleStats()">Statistics <span id="statsToggle" style="font-size:0.8rem">▾</span></h2>
@@ -162,6 +176,7 @@ let lastMsgTime = 0;
 let paused = false;
 let msgBuffer = [];
 let dirty = false;
+let burstTimer = null;
 
 // Detect if user scrolled up — pause auto-scroll
 feed.addEventListener('scroll', () => {
@@ -380,17 +395,45 @@ setInterval(() => {
   msgBuffer = [];
 }, 100);
 
-function sendCmd() {
-  const cmd = document.getElementById('cmdType').value;
-  const target = parseInt(document.getElementById('targetModule').value);
-  const v1 = parseFloat(document.getElementById('val1').value) || 0;
-  const v2 = parseFloat(document.getElementById('val2').value) || 0;
+function sendOne(cmd, target, v1, v2) {
   fetch('/send', {method:'POST', headers:{'Content-Type':'application/json'},
     body: JSON.stringify({command: cmd, target: target, val1: v1, val2: v2})
   }).then(r => r.json()).then(d => { if(d.error) alert(d.error); });
 }
 
+function sendCmd() {
+  const cmd = document.getElementById('cmdType').value;
+  const target = parseInt(document.getElementById('targetModule').value);
+  const v1 = parseFloat(document.getElementById('val1').value) || 0;
+  const v2 = parseFloat(document.getElementById('val2').value) || 0;
+  const count = parseInt(document.getElementById('burstCount').value) || 1;
+  const interval = parseInt(document.getElementById('burstInterval').value) || 100;
+
+  if (count <= 1) { sendOne(cmd, target, v1, v2); return; }
+
+  if (burstTimer) { clearInterval(burstTimer); burstTimer = null; }
+  const status = document.getElementById('burstStatus');
+  let sent = 0;
+  sendOne(cmd, target, v1, v2);
+  sent++;
+  status.textContent = 'Sending ' + sent + '/' + count + '...';
+
+  burstTimer = setInterval(() => {
+    sendOne(cmd, target, v1, v2);
+    sent++;
+    status.textContent = 'Sending ' + sent + '/' + count + '...';
+    if (sent >= count) {
+      clearInterval(burstTimer);
+      burstTimer = null;
+      status.textContent = 'Done \u2014 sent ' + count + ' messages';
+      setTimeout(() => status.textContent = '', 5000);
+    }
+  }, interval);
+}
+
 function stopAll() {
+  if (burstTimer) { clearInterval(burstTimer); burstTimer = null; }
+  document.getElementById('burstStatus').textContent = '';
   fetch('/stop', {method:'POST'}).then(r => r.json());
 }
 </script>
