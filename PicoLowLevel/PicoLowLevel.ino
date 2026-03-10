@@ -971,9 +971,9 @@ void MODC_JOINT_INIT()
 
   delay(10);
   // Enable torque for all motors.
-  JOINT_dxl.setTorqueEnable(false);
-  JOINT_mot_Left_1.setTorqueEnable(false);
-  JOINT_mot_Right_1.setTorqueEnable(false);
+  JOINT_dxl.setTorqueEnable(true);
+  JOINT_mot_Left_1.setTorqueEnable(true);
+  JOINT_mot_Right_1.setTorqueEnable(true);
  
   // Insert here the initial positions
   delay(10);
