@@ -869,12 +869,19 @@ void MODC_ARM_INIT()
   // is enabled, then smoothly move to home position via profile velocity.
   int32_t current_pos_1LR[2];
   int32_t current_pos_2, current_pos_3, current_pos_4, current_pos_5, current_pos_6;
-  ARM_dxl.getPresentPosition(current_pos_1LR);
-  ARM_mot_2.getPresentPosition(current_pos_2);
-  ARM_mot_3.getPresentPosition(current_pos_3);
-  ARM_mot_4.getPresentPosition(current_pos_4);
-  ARM_mot_5.getPresentPosition(current_pos_5);
-  ARM_mot_6.getPresentPosition(current_pos_6);
+
+  bool posReadOk =
+    ARM_dxl.getPresentPosition(current_pos_1LR) == 0 &&
+    ARM_mot_2.getPresentPosition(current_pos_2) == 0 &&
+    ARM_mot_3.getPresentPosition(current_pos_3) == 0 &&
+    ARM_mot_4.getPresentPosition(current_pos_4) == 0 &&
+    ARM_mot_5.getPresentPosition(current_pos_5) == 0 &&
+    ARM_mot_6.getPresentPosition(current_pos_6) == 0;
+
+  if (!posReadOk) {
+    Debug.println("ARM init: position reads failed, torque disabled", Levels::WARN);
+    return;
+  }
 
   // Pre-load goal position registers with current positions (while torque is off)
   ARM_dxl.setGoalPosition_EPCM(current_pos_1LR);
