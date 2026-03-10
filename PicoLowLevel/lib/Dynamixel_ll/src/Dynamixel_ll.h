@@ -50,6 +50,19 @@ struct MovingStatus
 };
 
 /**
+ * @struct DxlStats
+ * @brief Communication statistics for a Dynamixel servo instance.
+ */
+struct DxlStats {
+    uint32_t txCount;    ///< Total packets sent.
+    uint32_t rxSuccess;  ///< Successful receive operations.
+    uint32_t rxFail;     ///< Failed receive operations.
+    uint32_t timeouts;   ///< Receive timeouts (subset of rxFail).
+    uint32_t crcErrors;  ///< CRC mismatches (subset of rxFail).
+    uint32_t retries;    ///< Read retry attempts.
+};
+
+/**
  * @class DynamixelLL
  * @brief Low-level driver for Dynamixel servos.
  */
@@ -524,6 +537,23 @@ public:
      */
     uint8_t reboot();
 
+    /**
+     * @brief Returns the communication statistics for this instance.
+     * @return const DxlStats& Reference to the stats struct.
+     */
+    const DxlStats& getStats() const;
+
+    /**
+     * @brief Resets all communication statistics to zero.
+     */
+    void resetStats();
+
+    /**
+     * @brief Sets the maximum number of retries for readRegister.
+     * @param retries Maximum retry count (0 = no retries, default 2).
+     */
+    void setMaxRetries(uint8_t retries);
+
 private:
     HardwareSerial &_serial; ///< Reference to the serial interface.
     uint8_t _servoID;        ///< Servo ID.
@@ -532,8 +562,10 @@ private:
     uint8_t _numMotors = 1;       ///< Virtual broadcaster number of motors.
     uint8_t *_motorIDs = nullptr; ///< Virtual broadcaster motor IDs.
 
-    bool _debug = false; ///< Debug mode flag.
-    uint8_t _error;      ///< Last error code.
+    bool _debug = false;    ///< Debug mode flag.
+    uint8_t _error;          ///< Last error code.
+    DxlStats _stats = {};    ///< Communication statistics.
+    uint8_t _maxRetries = 2; ///< Max read retry attempts.
 
     /**
      * @brief Receives a status packet from the servo.

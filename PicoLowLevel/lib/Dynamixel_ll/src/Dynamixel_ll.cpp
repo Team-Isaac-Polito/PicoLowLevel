@@ -255,8 +255,14 @@ uint8_t DynamixelLL::writeRegister(uint16_t address, uint32_t value, uint8_t siz
 }
 
 
+const DxlStats& DynamixelLL::getStats() const { return _stats; }
+void DynamixelLL::resetStats() { _stats = {}; }
+void DynamixelLL::setMaxRetries(uint8_t retries) { _maxRetries = retries; }
+
+
 bool DynamixelLL::sendPacket(const uint8_t *packet, uint8_t length)
 {
+    _stats.txCount++;
     if (_debug)
     {
         Serial.print("Sent Packet: ");
@@ -331,6 +337,8 @@ StatusPacket DynamixelLL::receivePacket()
    // Serial.println("  ");
     if (!headerFound)
     {
+        _stats.timeouts++;
+        _stats.rxFail++;
         if (_debug)
             Serial.println("Header not found within timeout");
         return result;
@@ -345,6 +353,8 @@ StatusPacket DynamixelLL::receivePacket()
     }
     if ((index - headerStart) < 7)
     {
+        _stats.timeouts++;
+        _stats.rxFail++;
         if (_debug)
             Serial.println("Timeout waiting for header extension");
         return result;
@@ -363,6 +373,8 @@ StatusPacket DynamixelLL::receivePacket()
     }
     if ((index - headerStart) < totalPacketLength)
     {
+        _stats.timeouts++;
+        _stats.rxFail++;
         if (_debug)
             Serial.println("Incomplete packet received (timeout)");
         return result;
@@ -401,11 +413,14 @@ StatusPacket DynamixelLL::receivePacket()
     uint16_t computedCRC = calculateCRC(&buffer[headerStart ], 9 + paramLength);
     if (receivedCRC != computedCRC)
     {
+        _stats.crcErrors++;
+        _stats.rxFail++;
         if (_debug)
             Serial.println("CRC invalid");
         return result;
     }
 
+    _stats.rxSuccess++;
     result.valid = true;
     return result;
 }
