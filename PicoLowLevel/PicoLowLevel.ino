@@ -899,14 +899,15 @@ void MODC_ARM_INIT()
 
   delay(10);
 
-  // Set calibration home positions
-  ARM_pos0_mot_1LR[0] = 1231;
-  ARM_pos0_mot_1LR[1] = 1111;
-  ARM_pos0_mot_2 = 2586;
-  ARM_pos0_mot_3 = 3054;
-  ARM_pos0_mot_4 = 2077;
-  ARM_pos0_mot_5 = 3562;
-  ARM_pos0_mot_6 = 158;
+  // Initial (home) positions for the arm motors 
+  // these can be adjusted as needed given the output from dxl_get_position.ino
+  ARM_pos0_mot_1LR[0] = 1709;
+  ARM_pos0_mot_1LR[1] = 3836;
+  ARM_pos0_mot_2 = 3537;
+  ARM_pos0_mot_3 = 3043;
+  ARM_pos0_mot_4 = 2072;
+  ARM_pos0_mot_5 = 3647;
+  ARM_pos0_mot_6 = 141;
 
   // Smoothly move to home position (profile velocity/acceleration limits motion)
   RESET_ARM_INITIAL_POSITION();
