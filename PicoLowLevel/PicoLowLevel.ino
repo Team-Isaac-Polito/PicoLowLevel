@@ -255,7 +255,9 @@ void setup()
 {
 
   Serial.begin(115200);
-  LittleFS.begin();
+  if (!LittleFS.begin()) {
+    Serial.println("LittleFS mount failed");
+  }
 
   Debug.setLevel(Levels::INFO); // comment to set debug verbosity to debug
   Debug.println("BEGIN", Levels::INFO);
@@ -622,10 +624,43 @@ void handleSetpoint(uint8_t msg_id, const byte *msg_data)
     break;
 
   case SET_HOME:
-    saveHomePositions();
+  {
+    int32_t persist_flag = 0;
+    memcpy(&persist_flag, msg_data, 4);
+
+    // Read current positions as new home
+    uint8_t read_err = 0;
+    read_err |= ARM_dxl.getPresentPosition(ARM_pos0_mot_1LR);
+    read_err |= ARM_mot_2.getPresentPosition(ARM_pos0_mot_2);
+    read_err |= ARM_mot_3.getPresentPosition(ARM_pos0_mot_3);
+    read_err |= ARM_mot_4.getPresentPosition(ARM_pos0_mot_4);
+    read_err |= ARM_mot_5.getPresentPosition(ARM_pos0_mot_5);
+    read_err |= ARM_mot_6.getPresentPosition(ARM_pos0_mot_6);
+
+    if (read_err != 0) {
+      Debug.println("SET_HOME aborted: failed to read motor positions", Levels::WARN);
+      break;
+    }
+
+    // Reset deltas
+    ARM_delta_pos0_mot_1LR[0] = 0;
+    ARM_delta_pos0_mot_1LR[1] = 0;
+    ARM_delta_pos0_mot_2 = 0;
+    ARM_delta_pos0_mot_3 = 0;
+    ARM_delta_pos0_mot_4 = 0;
+    ARM_delta_pos0_mot_5 = 0;
+    ARM_delta_pos0_mot_6 = 0;
+
+    if (persist_flag == 1) {
+      saveHomePositions();
+      Debug.println("SET_HOME: permanent — saved to flash", Levels::INFO);
+    } else {
+      Debug.println("SET_HOME: interim — session only", Levels::INFO);
+    }
+
     RESET_ARM_INITIAL_POSITION();
-    Debug.println("SET_HOME: new home position saved and applied", Levels::INFO);
     break;
+  }
 
 #endif
 
@@ -821,19 +856,6 @@ bool loadHomePositions() {
 }
 
 void saveHomePositions() {
-  uint8_t err = 0;
-  err |= ARM_dxl.getPresentPosition(ARM_pos0_mot_1LR);
-  err |= ARM_mot_2.getPresentPosition(ARM_pos0_mot_2);
-  err |= ARM_mot_3.getPresentPosition(ARM_pos0_mot_3);
-  err |= ARM_mot_4.getPresentPosition(ARM_pos0_mot_4);
-  err |= ARM_mot_5.getPresentPosition(ARM_pos0_mot_5);
-  err |= ARM_mot_6.getPresentPosition(ARM_pos0_mot_6);
-
-  if (err != 0) {
-    Debug.println("SET_HOME aborted: failed to read motor positions", Levels::WARN);
-    return;
-  }
-
   int32_t positions[7] = {
     ARM_pos0_mot_1LR[0], ARM_pos0_mot_1LR[1],
     ARM_pos0_mot_2, ARM_pos0_mot_3,
@@ -847,15 +869,6 @@ void saveHomePositions() {
   }
   f.write((uint8_t*)positions, sizeof(positions));
   f.close();
-
-  // Reset deltas since current position is the new home
-  ARM_delta_pos0_mot_1LR[0] = 0;
-  ARM_delta_pos0_mot_1LR[1] = 0;
-  ARM_delta_pos0_mot_2 = 0;
-  ARM_delta_pos0_mot_3 = 0;
-  ARM_delta_pos0_mot_4 = 0;
-  ARM_delta_pos0_mot_5 = 0;
-  ARM_delta_pos0_mot_6 = 0;
 
   Debug.println("Home positions saved to flash", Levels::INFO);
 }

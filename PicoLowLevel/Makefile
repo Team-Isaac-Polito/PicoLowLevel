@@ -5,7 +5,7 @@ SKETCH_PATH = $(CURDIR)
 SKETCH_NAME = $(notdir $(SKETCH_PATH))
 
 # Board configuration
-BOARD_FQBN ?= rp2040:rp2040:rpipico
+BOARD_FQBN ?= rp2040:rp2040:rpipico:flash=2097152_65536
 OUTPUT_DIR = $(CURDIR)/build/output
 BUILD_DIR = $(CURDIR)/build
 LIBS_DIR = $(CURDIR)/lib
