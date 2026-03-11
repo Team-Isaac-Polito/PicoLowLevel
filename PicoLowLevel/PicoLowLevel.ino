@@ -821,12 +821,18 @@ bool loadHomePositions() {
 }
 
 void saveHomePositions() {
-  ARM_dxl.getPresentPosition(ARM_pos0_mot_1LR);
-  ARM_mot_2.getPresentPosition(ARM_pos0_mot_2);
-  ARM_mot_3.getPresentPosition(ARM_pos0_mot_3);
-  ARM_mot_4.getPresentPosition(ARM_pos0_mot_4);
-  ARM_mot_5.getPresentPosition(ARM_pos0_mot_5);
-  ARM_mot_6.getPresentPosition(ARM_pos0_mot_6);
+  uint8_t err = 0;
+  err |= ARM_dxl.getPresentPosition(ARM_pos0_mot_1LR);
+  err |= ARM_mot_2.getPresentPosition(ARM_pos0_mot_2);
+  err |= ARM_mot_3.getPresentPosition(ARM_pos0_mot_3);
+  err |= ARM_mot_4.getPresentPosition(ARM_pos0_mot_4);
+  err |= ARM_mot_5.getPresentPosition(ARM_pos0_mot_5);
+  err |= ARM_mot_6.getPresentPosition(ARM_pos0_mot_6);
+
+  if (err != 0) {
+    Debug.println("SET_HOME aborted: failed to read motor positions", Levels::WARN);
+    return;
+  }
 
   int32_t positions[7] = {
     ARM_pos0_mot_1LR[0], ARM_pos0_mot_1LR[1],
