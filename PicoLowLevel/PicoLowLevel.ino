@@ -194,14 +194,21 @@ DynamixelLL ARM_mot_4(Serial1, 214);
 DynamixelLL ARM_mot_5(Serial1, 215);
 DynamixelLL ARM_mot_6(Serial1, 216);
 
-bool arm_roll_close_6_active = false;
-bool arm_roll_open_6_active = false;
+// Beak/gripper (motor 6, XL430-W250) configuration
+// Positions calibrated with dxl_get_position.ino in Extended Position Mode
+const int32_t BEAK_POS_OPEN = 4202;
+const int32_t BEAK_POS_CLOSE = 3686;
+const int16_t BEAK_LOAD_THRESHOLD = 150;  // 0.1% units (~15% max torque), triggers grip detection
+const int32_t BEAK_POS_TOLERANCE = 20;    // encoder units (~1.7°)
+const uint32_t BEAK_TIMEOUT_MS = 3000;    // max time for motion before giving up
+const int16_t BEAK_HOLD_PWM = 250;        // ~28% max PWM for holding torque after grip
+const int16_t BEAK_FULL_PWM = 885;        // 100% max PWM for free movement
+const uint8_t BEAK_TEMP_LIMIT = 65;       // °C, reduce holding force before 72° shutdown
 
-//========================================================
-bool ARM_end_mot_6 = true; // reset ARM_end_mot_6 at each loop
-int32_t ARM_target_pos_mot_6_open = 3686;
-int32_t ARM_target_pos_mot_6_close = 4202;
-//========================================================
+enum BeakState { BEAK_IDLE, BEAK_CLOSING, BEAK_OPENING, BEAK_HOLDING };
+BeakState beak_state = BEAK_IDLE;
+uint32_t beak_motion_start_ms = 0;
+uint32_t beak_temp_check_ms = 0;
 
 #endif
 
@@ -379,45 +386,57 @@ void loop()
   // wm.handle();
   display.handleGUI();
 
-  // Arm mot6 control for open/closeing gripper
+  // Beak gripper state machine (motor 6)
 #ifdef MODC_ARM
-  if (arm_roll_close_6_active)
+  if (beak_state == BEAK_CLOSING)
   {
     ARM_mot_6.getCurrentLoad(ARM_presentLoad_mot_6);
-
-    if (ARM_end_mot_6)
-    {
-
-      ARM_mot_6.setGoalPosition_EPCM(ARM_target_pos_mot_6_close);
-      ARM_end_mot_6 = 0;
-    }
-    else if (ARM_presentLoad_mot_6 >= 150 || abs(ARM_pos_mot_6_actual - ARM_target_pos_mot_6_close) <= 20)
-    {
-
-      arm_roll_close_6_active = false; // fine movimento
-      arm_roll_open_6_active = false;  // fine movimento
-      ARM_mot_6.setGoalPosition_EPCM(ARM_pos_mot_6_actual);
-    }
-  }
-
-  if (arm_roll_open_6_active)
-  {
-    ARM_mot_6.getCurrentLoad(ARM_presentLoad_mot_6);
-
     ARM_mot_6.getPresentPosition(ARM_pos_mot_6_actual);
 
-    if (ARM_end_mot_6)
-    {
+    bool load_detected = abs(ARM_presentLoad_mot_6) >= BEAK_LOAD_THRESHOLD;
+    bool pos_reached = abs(ARM_pos_mot_6_actual - BEAK_POS_CLOSE) <= BEAK_POS_TOLERANCE;
+    bool timed_out = (millis() - beak_motion_start_ms) > BEAK_TIMEOUT_MS;
 
-      ARM_mot_6.setGoalPosition_EPCM(ARM_target_pos_mot_6_open);
-      ARM_end_mot_6 = 0;
-    }
-    else if (ARM_presentLoad_mot_6 >= 150 || abs(ARM_pos_mot_6_actual - ARM_target_pos_mot_6_open) <= 20)
+    if (load_detected || pos_reached || timed_out)
     {
-
-      arm_roll_open_6_active = false;  // fine movimento
-      arm_roll_close_6_active = false; // fine movimento
+      // Freeze at current position and limit PWM to hold gently
+      ARM_mot_6.getPresentPosition(ARM_pos_mot_6_actual);
       ARM_mot_6.setGoalPosition_EPCM(ARM_pos_mot_6_actual);
+      ARM_mot_6.setGoalPWM(BEAK_HOLD_PWM);
+      beak_state = BEAK_HOLDING;
+      beak_temp_check_ms = millis();
+    }
+  }
+  else if (beak_state == BEAK_OPENING)
+  {
+    ARM_mot_6.getCurrentLoad(ARM_presentLoad_mot_6);
+    ARM_mot_6.getPresentPosition(ARM_pos_mot_6_actual);
+
+    bool pos_reached = abs(ARM_pos_mot_6_actual - BEAK_POS_OPEN) <= BEAK_POS_TOLERANCE;
+    bool timed_out = (millis() - beak_motion_start_ms) > BEAK_TIMEOUT_MS;
+
+    if (pos_reached || timed_out)
+    {
+      ARM_mot_6.setGoalPosition_EPCM(ARM_pos_mot_6_actual);
+      ARM_mot_6.setGoalPWM(BEAK_FULL_PWM);
+      beak_state = BEAK_IDLE;
+    }
+  }
+  else if (beak_state == BEAK_HOLDING)
+  {
+    // Periodic temperature check to prevent overheating (~every 500ms)
+    if (millis() - beak_temp_check_ms > 500)
+    {
+      beak_temp_check_ms = millis();
+      uint8_t temp = 0;
+      ARM_mot_6.getPresentTemperature(temp);
+      if (temp >= BEAK_TEMP_LIMIT)
+        ARM_mot_6.setGoalPWM(BEAK_HOLD_PWM / 2);
+
+      uint8_t hwErr = 0;
+      ARM_mot_6.getHardwareErrorStatus(hwErr);
+      if (hwErr != 0)
+        beak_state = BEAK_IDLE;
     }
   }
 #endif
@@ -589,22 +608,21 @@ void handleSetpoint(uint8_t msg_id, const byte *msg_data)
   case ARM_ROLL_6_SETPOINT:
 
     memcpy(&ARM_servo_data_mot_6, msg_data, 4);
-    // Serial.print("ARM ROLL 6 SETPOINT  ");
-    // Serial.println(ARM_servo_data_mot_6);
     if (ARM_servo_data_mot_6 == 0)
     {
-      // Serial.println("ARM ROLL 6 SETPOINT 1");
-
-      arm_roll_close_6_active = true; // attiva la modalità di inseguimento
-      arm_roll_open_6_active = false; // attiva la modalità di inseguimento
-      ARM_end_mot_6 = true;               // reset ARM_end_mot_6 at each loop
+      // Close beak: full PWM for approach, then PWM-limited hold on contact
+      ARM_mot_6.setGoalPWM(BEAK_FULL_PWM);
+      ARM_mot_6.setGoalPosition_EPCM(BEAK_POS_CLOSE);
+      beak_motion_start_ms = millis();
+      beak_state = BEAK_CLOSING;
     }
-    if (ARM_servo_data_mot_6 == 1)
+    else if (ARM_servo_data_mot_6 == 1)
     {
-      // Serial.println("ARM ROLL 6 SETPOINT 0");
-      arm_roll_close_6_active = false; // attiva la modalità di inseguimento
-      arm_roll_open_6_active = true;   // attiva la modalità di inseguimento
-      ARM_end_mot_6 = true;                // reset ARM_end_mot_6 at each loop
+      // Open beak: restore full PWM and move to open position
+      ARM_mot_6.setGoalPWM(BEAK_FULL_PWM);
+      ARM_mot_6.setGoalPosition_EPCM(BEAK_POS_OPEN);
+      beak_motion_start_ms = millis();
+      beak_state = BEAK_OPENING;
     }
     break;
 
