@@ -201,7 +201,8 @@ const CMDS_ARM = [
     { val: 'beak_open', label: 'Beak Open — Gripper open' },
     { val: 'reset_arm', label: 'Reset Arm — Move to home position' },
     { val: 'reboot_arm', label: 'Reboot Arm — Restart Dynamixel motors' },
-    { val: 'set_home', label: 'Set Home — Save current position as home' },
+    { val: 'set_home', label: 'Set Home (Interim) — Session only, resets on reboot' },
+    { val: 'set_home_permanent', label: 'Set Home (Permanent) — Persisted to flash' },
   ]},
   { group: 'System', items: [
     { val: 'reboot_traction', label: 'Reboot Traction — Restart DC motors' },
@@ -227,8 +228,8 @@ const CMDS_JOINT = [
 const CMD_INFO = {
   traction:    { desc: 'Set traction motor speeds. Positive = forward, negative = reverse. Typical range: -200 to 200 RPM.',
                  lbl1: 'Left RPM', lbl2: 'Right RPM', inputs: 2, step: 5 },
-  arm_1a1b:   { desc: 'Set arm J1 differential shoulder joint. Theta controls yaw, phi controls pitch. Range: approx -1.57 to 1.57 rad.',
-                 lbl1: 'Theta / Yaw (rad)', lbl2: 'Phi / Pitch (rad)', inputs: 2, step: 0.05 },
+  arm_1a1b:   { desc: 'Set arm J1 differential shoulder joint. Theta controls pitch, phi controls yaw. Range: approx -1.57 to 1.57 rad.',
+                 lbl1: 'Theta / Pitch (rad)', lbl2: 'Phi / Yaw (rad)', inputs: 2, step: 0.05 },
   arm_j2:     { desc: 'Set arm elbow pitch (J2, Dynamixel XM540). Range: approx -1.57 to 1.57 rad (0 = straight).',
                  lbl1: 'Angle (rad)', lbl2: '', inputs: 1, step: 0.05 },
   arm_j3:     { desc: 'Set arm forearm roll (J3, Dynamixel XM540). Range: approx -3.14 to 3.14 rad.',
@@ -241,7 +242,8 @@ const CMD_INFO = {
   beak_open:  { desc: 'Open the beak/gripper. No parameters needed — sends open command immediately.', lbl1: '', lbl2: '', inputs: 0, step: 1 },
   reset_arm:  { desc: 'Move all arm joints to their home position. Reads current positions, then slowly returns to zero.', lbl1: '', lbl2: '', inputs: 0, step: 1 },
   reboot_arm: { desc: 'Reboot all arm Dynamixel motors via protocol command. Use when motors are in error state.', lbl1: '', lbl2: '', inputs: 0, step: 1 },
-  set_home:   { desc: 'Save current arm positions as the new home position (persisted to flash).', lbl1: '', lbl2: '', inputs: 0, step: 1 },
+  set_home:   { desc: 'Set current arm position as home for this session only. Resets on power cycle.', lbl1: '', lbl2: '', inputs: 0, step: 1 },
+  set_home_permanent: { desc: 'Set current arm position as home and persist to flash. Survives power cycles.', lbl1: '', lbl2: '', inputs: 0, step: 1 },
   reboot_traction: { desc: 'Reboot traction DC motors. Sends a reboot command to the traction controller.', lbl1: '', lbl2: '', inputs: 0, step: 1 },
   stop_all:   { desc: 'Emergency stop — sends zero speed to all traction motors on all modules.', lbl1: '', lbl2: '', inputs: 0, step: 1 },
   joint_1a1b: { desc: 'Set inter-module joint differential pitch/yaw. Theta controls yaw, phi controls pitch. Range: approx -1.57 to 1.57 rad.',
@@ -518,7 +520,9 @@ def send_command():
         elif cmd == "reboot_arm":
             sender.reboot_arm()
         elif cmd == "set_home":
-            sender.set_home()
+            sender.set_home(persist=False)
+        elif cmd == "set_home_permanent":
+            sender.set_home(persist=True)
         elif cmd == "reboot_traction":
             sender.reboot_traction(destination=dest)
         elif cmd == "joint_1a1b":

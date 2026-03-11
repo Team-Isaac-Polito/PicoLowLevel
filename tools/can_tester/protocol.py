@@ -186,7 +186,7 @@ PAYLOAD_FORMATS: dict[int, PayloadFormat] = {
     # Arm commands (no payload)
     MsgType.RESET_ARM: PayloadFormat("", [], ""),
     MsgType.REBOOT_ARM: PayloadFormat("", [], ""),
-    MsgType.SET_HOME: PayloadFormat("", [], ""),
+    MsgType.SET_HOME: PayloadFormat("<i", ["persist"], "0=interim,1=permanent"),
 
     # Arm velocity feedback
     MsgType.ARM_PITCH_1a1b_FEEDBACK_VEL: PayloadFormat("<ff", ["theta_vel", "phi_vel"], "rad/s"),

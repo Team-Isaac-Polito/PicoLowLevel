@@ -16,7 +16,7 @@ Commands:
     send arm_1a1b <theta> <phi>             Set arm differential J1
     send beak open|close                    Control beak gripper
     send reset_arm                          Move arm to home position
-    send set_home                           Save current arm position as home
+    send set_home [permanent]               Set current position as home (default: interim)
     send reboot_arm                         Reboot arm motors
     send reboot_traction                    Reboot traction motors
     stop                                    Emergency stop all motors
@@ -179,8 +179,10 @@ class CLI:
             print("Reset arm to home position.")
 
         elif subcmd == "set_home":
-            self.sender.set_home()
-            print("Saving current arm positions as new home.")
+            persist = len(parts) > 2 and parts[2] == "permanent"
+            self.sender.set_home(persist=persist)
+            mode = "permanent (flash)" if persist else "interim (session)"
+            print(f"Set home: {mode}")
 
         elif subcmd == "reboot_arm":
             self.sender.reboot_arm()

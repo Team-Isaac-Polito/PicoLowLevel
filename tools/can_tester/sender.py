@@ -73,7 +73,7 @@ class CanSender:
         )
 
     def arm_pitch_1a1b(self, theta: float, phi: float) -> None:
-        """Set arm J1 differential pitch/roll."""
+        """Set arm J1 differential pitch/yaw."""
         self.send(MsgType.ARM_PITCH_1a1b_SETPOINT, theta=theta, phi=phi)
 
     def arm_pitch_j2(self, angle: float) -> None:
@@ -105,9 +105,9 @@ class CanSender:
         """Reboot all arm Dynamixel motors."""
         self.send(MsgType.REBOOT_ARM)
 
-    def set_home(self) -> None:
-        """Save current arm motor positions as new home (persisted to flash)."""
-        self.send(MsgType.SET_HOME)
+    def set_home(self, persist: bool = False) -> None:
+        """Set current arm position as home. persist=True saves to flash."""
+        self.send(MsgType.SET_HOME, persist=1 if persist else 0)
 
     def reboot_traction(
         self,
