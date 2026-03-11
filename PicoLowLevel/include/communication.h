@@ -31,6 +31,7 @@
 
 #define RESET_ARM 0x5D
 #define REBOOT_ARM 0x5E
+#define SET_HOME 0x5F
 
 #define ARM_PITCH_1a1b_FEEDBACK_VEL 0x80
 #define ARM_PITCH_2_FEEDBACK_VEL 0x81
