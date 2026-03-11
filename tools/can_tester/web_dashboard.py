@@ -9,8 +9,8 @@ Provides a browser-based UI at http://localhost:8080 with:
 - Auto-reconnecting real-time display
 
 Usage:
-    python -m can_tester.web_dashboard --interface gs_usb --channel 0
-    python -m can_tester.web_dashboard --interface socketcan --channel can0
+    python -m tools.can_tester.web_dashboard --interface gs_usb --channel 0
+    python -m tools.can_tester.web_dashboard --interface socketcan --channel can0
 """
 
 from __future__ import annotations
@@ -20,7 +20,7 @@ import json
 import sys
 import threading
 import time
-from queue import Queue, Empty
+from queue import Queue, Empty, Full
 
 from flask import Flask, Response, request, jsonify, render_template_string
 
@@ -226,7 +226,7 @@ const CMDS_JOINT = [
 // Command metadata: description, field labels, numeric input count, step size
 const CMD_INFO = {
   traction:    { desc: 'Set traction motor speeds. Positive = forward, negative = reverse. Typical range: -200 to 200 RPM.',
-                 lbl1: 'Right RPM', lbl2: 'Left RPM', inputs: 2, step: 5 },
+                 lbl1: 'Left RPM', lbl2: 'Right RPM', inputs: 2, step: 5 },
   arm_1a1b:   { desc: 'Set arm J1 differential shoulder joint. Theta controls yaw, phi controls pitch. Range: approx -1.57 to 1.57 rad.',
                  lbl1: 'Theta / Yaw (rad)', lbl2: 'Phi / Pitch (rad)', inputs: 2, step: 0.05 },
   arm_j2:     { desc: 'Set arm elbow pitch (J2, Dynamixel XM540). Range: approx -1.57 to 1.57 rad (0 = straight).',
@@ -488,7 +488,9 @@ def stream():
 @app.route("/send", methods=["POST"])
 def send_command():
     """Handle send command from web UI."""
-    data = request.json
+    data = request.get_json(silent=True)
+    if not data:
+        return jsonify({"error": "Missing or invalid JSON payload"}), 400
     cmd = data.get("command", "")
     dest = int(data.get("target", ModuleAddress.MK2_MOD1))
     v1 = float(data.get("val1", 0))
@@ -565,7 +567,7 @@ def can_to_sse_callback(decoded_id, payload, raw_msg):
         for q in event_queues:
             try:
                 q.put_nowait(event)
-            except:
+            except Full:
                 pass  # Drop if client is slow
 
 
@@ -579,7 +581,7 @@ def main():
     parser.add_argument("--channel", "-c", default="0")
     parser.add_argument("--bitrate", "-b", type=int, default=125000)
     parser.add_argument("--port", "-p", type=int, default=8080)
-    parser.add_argument("--host", default="0.0.0.0")
+    parser.add_argument("--host", default="127.0.0.1")
     parser.add_argument(
         "--demo", action="store_true",
         help="Use virtual CAN bus for GUI preview (no hardware needed)",

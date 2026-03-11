@@ -1,4 +1,4 @@
-"""Allow running as `python -m can_tester`."""
+"""Allow running as `python -m tools.can_tester`."""
 from .cli import main
 
 main()

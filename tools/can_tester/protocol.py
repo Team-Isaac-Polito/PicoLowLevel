@@ -117,12 +117,15 @@ try:
         for k, v in _header_defines.items()
         if k in _py_defines and v != _py_defines[k]
     }
-    if _missing or _changed:
+    _extra = {k: v for k, v in _py_defines.items() if k not in _header_defines}
+    if _missing or _changed or _extra:
         parts = []
         if _missing:
             parts.append(f"New defines in communication.h not in protocol.py: {_missing}")
         if _changed:
             parts.append(f"Changed values: {_changed}")
+        if _extra:
+            parts.append(f"Python-only entries not in communication.h: {_extra}")
         warnings.warn(
             "protocol.py is out of sync with communication.h — "
             + "; ".join(parts),

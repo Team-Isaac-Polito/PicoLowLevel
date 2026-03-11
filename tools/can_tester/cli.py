@@ -3,9 +3,9 @@
 Interactive CLI for PicoLowLevel CAN bus testing.
 
 Usage:
-    python -m can_tester.cli --interface socketcan --channel can0
-    python -m can_tester.cli --interface gs_usb --channel 0   # Innomaker USB2CAN on Windows/Linux
-    python -m can_tester.cli --interface slcan --channel COM3  # Serial CAN adapter
+    python -m tools.can_tester --interface socketcan --channel can0
+    python -m tools.can_tester --interface gs_usb --channel 0   # Innomaker USB2CAN on Windows/Linux
+    python -m tools.can_tester --interface slcan --channel COM3  # Serial CAN adapter
 
 Commands:
     send traction <left_rpm> <right_rpm>    Set traction motor speeds
