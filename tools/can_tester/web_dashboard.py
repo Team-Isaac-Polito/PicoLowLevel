@@ -40,6 +40,9 @@ monitor: CanMonitor = None  # type: ignore
 event_queues: list[Queue] = []
 event_queues_lock = threading.Lock()
 
+# Accumulated positions for relative mode (per-command)
+_positions: dict[str, list[float]] = {}
+
 
 # ─── HTML template ───────────────────────────────────────────────────────────
 
@@ -140,6 +143,17 @@ h2 { color: var(--blue); margin-bottom: 8px; font-size: 1.1rem; }
         <button onclick="sendCmd()">Send</button>
         <button class="danger" onclick="stopAll()">STOP ALL</button>
       </div>
+      <div id="cmdOptions" style="margin-top:8px;display:none">
+        <label style="font-size:0.8rem;color:var(--green);cursor:pointer">
+          <input type="checkbox" id="optPermanent"> Permanent (persist to flash)
+        </label>
+      </div>
+      <div id="relativeMode" style="margin-top:8px;display:none">
+        <label style="font-size:0.8rem;color:var(--green);cursor:pointer">
+          <input type="checkbox" id="optRelative"> Relative mode (delta from current)
+        </label>
+        <button id="btnResetOrigin" onclick="fetch('/reset_positions',{method:'POST'}).then(()=>{const b=document.getElementById('btnResetOrigin');b.textContent='✓ Origin Reset';setTimeout(()=>b.innerHTML='&#8634; Reset Origin',2000)})" title="Set the current position as the new zero reference for relative mode" style="margin-left:8px;font-size:0.75rem;background:var(--accent);color:var(--text);border:1px solid rgba(255,255,255,0.1);padding:2px 8px;border-radius:4px;cursor:pointer">&#8634; Reset Origin</button>
+      </div>
       <div style="margin-top:12px;border-top:1px solid rgba(255,255,255,0.1);padding-top:8px">
         <label style="font-size:0.8rem;color:var(--blue)">Burst Mode</label>
         <div style="display:flex;gap:8px;align-items:center;margin-top:4px;flex-wrap:wrap">
@@ -152,6 +166,27 @@ h2 { color: var(--blue); margin-bottom: 8px; font-size: 1.1rem; }
             <input id="burstInterval" type="number" min="10" max="5000" value="100" step="10" style="width:100px">
           </div>
           <span id="burstStatus" style="font-size:0.75rem;color:var(--yellow)"></span>
+        </div>
+      </div>
+      <div style="margin-top:12px;border-top:1px solid rgba(255,255,255,0.1);padding-top:8px">
+        <label style="font-size:0.8rem;color:var(--blue);cursor:pointer" onclick="document.getElementById('seqPanel').style.display=document.getElementById('seqPanel').style.display==='none'?'':'none'">
+          Sequence Builder <span style="font-size:0.7rem">(click to expand)</span>
+        </label>
+        <div id="seqPanel" style="display:none;margin-top:8px">
+          <p style="font-size:0.75rem;color:#888;margin-bottom:6px">Build a sequence of commands with different parameters. Click "Add Current" to add the current command/params to the sequence.</p>
+          <div style="display:flex;gap:4px;margin-bottom:8px">
+            <button onclick="addToSequence()" style="font-size:0.75rem;background:var(--accent);color:var(--text);border:1px solid rgba(255,255,255,0.1);padding:4px 10px;border-radius:4px;cursor:pointer">+ Add Current</button>
+            <button onclick="clearSequence()" style="font-size:0.75rem;background:var(--accent);color:var(--text);border:1px solid rgba(255,255,255,0.1);padding:4px 10px;border-radius:4px;cursor:pointer">Clear</button>
+            <button onclick="runSequence()" style="font-size:0.75rem;background:var(--green);color:var(--bg);border:none;padding:4px 10px;border-radius:4px;cursor:pointer;font-weight:bold">Run Sequence</button>
+          </div>
+          <div style="display:flex;gap:8px;align-items:center;margin-bottom:6px">
+            <label style="font-size:0.75rem;color:var(--green)">Delay between (ms)</label>
+            <input id="seqDelay" type="number" min="0" max="5000" value="100" step="10" style="width:80px">
+            <label style="font-size:0.75rem;color:var(--green);cursor:pointer"><input type="checkbox" id="seqLoop"> Loop</label>
+            <label style="font-size:0.75rem;color:var(--green);cursor:pointer"><input type="checkbox" id="seqParallel"> Parallel (no delay)</label>
+          </div>
+          <div id="seqList" style="font-size:0.75rem;font-family:monospace;max-height:150px;overflow-y:auto"></div>
+          <span id="seqStatus" style="font-size:0.75rem;color:var(--yellow)"></span>
         </div>
       </div>
     </div>
@@ -201,8 +236,7 @@ const CMDS_ARM = [
     { val: 'beak_open', label: 'Beak Open — Gripper open' },
     { val: 'reset_arm', label: 'Reset Arm — Move to home position' },
     { val: 'reboot_arm', label: 'Reboot Arm — Restart Dynamixel motors' },
-    { val: 'set_home', label: 'Set Home (Interim) — Session only, resets on reboot' },
-    { val: 'set_home_permanent', label: 'Set Home (Permanent) — Persisted to flash' },
+    { val: 'set_home', label: 'Set Home — Save current position as home' },
   ]},
   { group: 'System', items: [
     { val: 'reboot_traction', label: 'Reboot Traction — Restart DC motors' },
@@ -228,22 +262,21 @@ const CMDS_JOINT = [
 const CMD_INFO = {
   traction:    { desc: 'Set traction motor speeds. Positive = forward, negative = reverse. Typical range: -200 to 200 RPM.',
                  lbl1: 'Left RPM', lbl2: 'Right RPM', inputs: 2, step: 5 },
-  arm_1a1b:   { desc: 'Set arm J1 differential shoulder joint. Theta controls pitch, phi controls yaw. Range: approx -1.57 to 1.57 rad.',
+  arm_1a1b:   { desc: 'Set arm J1 differential shoulder joint. Theta controls pitch, phi controls yaw.',
                  lbl1: 'Theta / Pitch (rad)', lbl2: 'Phi / Yaw (rad)', inputs: 2, step: 0.05 },
-  arm_j2:     { desc: 'Set arm elbow pitch (J2, Dynamixel XM540). Range: approx -1.57 to 1.57 rad (0 = straight).',
+  arm_j2:     { desc: 'Set arm elbow pitch (J2, Dynamixel XM540).',
                  lbl1: 'Angle (rad)', lbl2: '', inputs: 1, step: 0.05 },
-  arm_j3:     { desc: 'Set arm forearm roll (J3, Dynamixel XM540). Range: approx -3.14 to 3.14 rad.',
+  arm_j3:     { desc: 'Set arm forearm roll (J3, Dynamixel XM540).',
                  lbl1: 'Angle (rad)', lbl2: '', inputs: 1, step: 0.05 },
-  arm_j4:     { desc: 'Set arm wrist pitch (J4, Dynamixel XL430). Range: approx -1.57 to 1.57 rad.',
+  arm_j4:     { desc: 'Set arm wrist pitch (J4, Dynamixel XL430).',
                  lbl1: 'Angle (rad)', lbl2: '', inputs: 1, step: 0.05 },
-  arm_j5:     { desc: 'Set arm wrist roll (J5, Dynamixel XL430). Range: approx -3.14 to 3.14 rad.',
+  arm_j5:     { desc: 'Set arm wrist roll (J5, Dynamixel XL430).',
                  lbl1: 'Angle (rad)', lbl2: '', inputs: 1, step: 0.05 },
   beak_close: { desc: 'Close the beak/gripper. No parameters needed — sends close command immediately.', lbl1: '', lbl2: '', inputs: 0, step: 1 },
   beak_open:  { desc: 'Open the beak/gripper. No parameters needed — sends open command immediately.', lbl1: '', lbl2: '', inputs: 0, step: 1 },
   reset_arm:  { desc: 'Move all arm joints to their home position. Reads current positions, then slowly returns to zero.', lbl1: '', lbl2: '', inputs: 0, step: 1 },
   reboot_arm: { desc: 'Reboot all arm Dynamixel motors via protocol command. Use when motors are in error state.', lbl1: '', lbl2: '', inputs: 0, step: 1 },
-  set_home:   { desc: 'Set current arm position as home for this session only. Resets on power cycle.', lbl1: '', lbl2: '', inputs: 0, step: 1 },
-  set_home_permanent: { desc: 'Set current arm position as home and persist to flash. Survives power cycles.', lbl1: '', lbl2: '', inputs: 0, step: 1 },
+  set_home:   { desc: 'Set current arm position as new home. Check "Permanent" to persist across power cycles.', lbl1: '', lbl2: '', inputs: 0, step: 1, hasOptions: true },
   reboot_traction: { desc: 'Reboot traction DC motors. Sends a reboot command to the traction controller.', lbl1: '', lbl2: '', inputs: 0, step: 1 },
   stop_all:   { desc: 'Emergency stop — sends zero speed to all traction motors on all modules.', lbl1: '', lbl2: '', inputs: 0, step: 1 },
   joint_1a1b: { desc: 'Set inter-module joint differential pitch/yaw. Theta controls yaw, phi controls pitch. Range: approx -1.57 to 1.57 rad.',
@@ -295,6 +328,11 @@ function updateForm() {
   f1.style.display = info.inputs >= 1 ? '' : 'none';
   f2.style.display = info.inputs >= 2 ? '' : 'none';
   group.style.display = info.inputs > 0 ? '' : 'none';
+  // Show permanent checkbox for set_home
+  document.getElementById('cmdOptions').style.display = info.hasOptions ? '' : 'none';
+  // Show relative mode for arm/joint angle commands
+  const isAngle = cmd.startsWith('arm_') || cmd.startsWith('joint_');
+  document.getElementById('relativeMode').style.display = (isAngle && info.inputs > 0) ? '' : 'none';
 }
 rebuildCommandDropdown();  // set initial state
 
@@ -397,9 +435,9 @@ setInterval(() => {
   msgBuffer = [];
 }, 100);
 
-function sendOne(cmd, target, v1, v2) {
+function sendOne(cmd, target, v1, v2, opts) {
   fetch('/send', {method:'POST', headers:{'Content-Type':'application/json'},
-    body: JSON.stringify({command: cmd, target: target, val1: v1, val2: v2})
+    body: JSON.stringify({command: cmd, target: target, val1: v1, val2: v2, ...opts})
   }).then(r => r.json()).then(d => { if(d.error) alert(d.error); });
 }
 
@@ -410,18 +448,21 @@ function sendCmd() {
   const v2 = parseFloat(document.getElementById('val2').value) || 0;
   const count = parseInt(document.getElementById('burstCount').value) || 1;
   const interval = parseInt(document.getElementById('burstInterval').value) || 100;
+  const opts = {};
+  if (document.getElementById('optPermanent').checked) opts.permanent = true;
+  if (document.getElementById('optRelative').checked) opts.relative = true;
 
-  if (count <= 1) { sendOne(cmd, target, v1, v2); return; }
+  if (count <= 1) { sendOne(cmd, target, v1, v2, opts); return; }
 
   if (burstTimer) { clearInterval(burstTimer); burstTimer = null; }
   const status = document.getElementById('burstStatus');
   let sent = 0;
-  sendOne(cmd, target, v1, v2);
+  sendOne(cmd, target, v1, v2, opts);
   sent++;
   status.textContent = 'Sending ' + sent + '/' + count + '...';
 
   burstTimer = setInterval(() => {
-    sendOne(cmd, target, v1, v2);
+    sendOne(cmd, target, v1, v2, opts);
     sent++;
     status.textContent = 'Sending ' + sent + '/' + count + '...';
     if (sent >= count) {
@@ -435,8 +476,73 @@ function sendCmd() {
 
 function stopAll() {
   if (burstTimer) { clearInterval(burstTimer); burstTimer = null; }
+  if (seqTimer) { clearTimeout(seqTimer); seqTimer = null; seqRunning = false; }
   document.getElementById('burstStatus').textContent = '';
+  document.getElementById('seqStatus').textContent = '';
   fetch('/stop', {method:'POST'}).then(r => r.json());
+}
+
+// ── Sequence Builder ──
+let cmdSequence = [];
+let seqTimer = null;
+let seqRunning = false;
+
+function addToSequence() {
+  const cmd = document.getElementById('cmdType').value;
+  const target = parseInt(document.getElementById('targetModule').value);
+  const v1 = parseFloat(document.getElementById('val1').value) || 0;
+  const v2 = parseFloat(document.getElementById('val2').value) || 0;
+  const info = CMD_INFO[cmd] || {};
+  cmdSequence.push({cmd, target, v1, v2});
+  renderSequence();
+}
+
+function clearSequence() { cmdSequence = []; renderSequence(); }
+
+function removeFromSequence(i) { cmdSequence.splice(i, 1); renderSequence(); }
+
+function renderSequence() {
+  const el = document.getElementById('seqList');
+  if (cmdSequence.length === 0) { el.innerHTML = '<span style="color:#666">No commands queued</span>'; return; }
+  el.innerHTML = cmdSequence.map((s, i) =>
+    `<div style="padding:2px 0;border-bottom:1px solid rgba(255,255,255,0.05);">`
+    + `<span style="color:var(--blue)">${i+1}.</span> `
+    + `<span style="color:var(--green)">${s.cmd}</span> `
+    + `v1=${s.v1} v2=${s.v2} → 0x${s.target.toString(16)} `
+    + `<a href="#" onclick="removeFromSequence(${i});return false" style="color:var(--red);text-decoration:none">✕</a>`
+    + `</div>`
+  ).join('');
+}
+renderSequence();
+
+function runSequence() {
+  if (cmdSequence.length === 0) return;
+  const delay = parseInt(document.getElementById('seqDelay').value) || 100;
+  const loop = document.getElementById('seqLoop').checked;
+  const parallel = document.getElementById('seqParallel').checked;
+  const status = document.getElementById('seqStatus');
+
+  if (parallel) {
+    cmdSequence.forEach(s => sendOne(s.cmd, s.target, s.v1, s.v2, {}));
+    status.textContent = 'Sent ' + cmdSequence.length + ' commands in parallel';
+    if (loop) { seqTimer = setTimeout(runSequence, delay); seqRunning = true; }
+    return;
+  }
+
+  seqRunning = true;
+  let idx = 0;
+  function next() {
+    if (!seqRunning) return;
+    if (idx >= cmdSequence.length) {
+      if (loop) { idx = 0; } else { status.textContent = 'Sequence complete'; seqRunning = false; return; }
+    }
+    const s = cmdSequence[idx];
+    sendOne(s.cmd, s.target, s.v1, s.v2, {});
+    status.textContent = 'Step ' + (idx+1) + '/' + cmdSequence.length;
+    idx++;
+    seqTimer = setTimeout(next, delay);
+  }
+  next();
 }
 </script>
 </body></html>"""
@@ -497,6 +603,18 @@ def send_command():
     dest = int(data.get("target", ModuleAddress.MK2_MOD1))
     v1 = float(data.get("val1", 0))
     v2 = float(data.get("val2", 0))
+    permanent = data.get("permanent", False)
+    relative = data.get("relative", False)
+
+    # Relative mode: accumulate deltas into absolute positions
+    if relative and cmd in _positions:
+        _positions[cmd][0] += v1
+        _positions[cmd][1] += v2
+        v1, v2 = _positions[cmd]
+    elif relative:
+        _positions[cmd] = [v1, v2]
+    else:
+        _positions[cmd] = [v1, v2]
 
     try:
         if cmd == "traction":
@@ -520,9 +638,7 @@ def send_command():
         elif cmd == "reboot_arm":
             sender.reboot_arm()
         elif cmd == "set_home":
-            sender.set_home(persist=False)
-        elif cmd == "set_home_permanent":
-            sender.set_home(persist=True)
+            sender.set_home(persist=permanent)
         elif cmd == "reboot_traction":
             sender.reboot_traction(destination=dest)
         elif cmd == "joint_1a1b":
@@ -537,6 +653,13 @@ def send_command():
         return jsonify({"ok": True})
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+
+
+@app.route("/reset_positions", methods=["POST"])
+def reset_positions():
+    """Reset accumulated relative positions to zero."""
+    _positions.clear()
+    return jsonify({"ok": True})
 
 
 @app.route("/stop", methods=["POST"])
