@@ -474,6 +474,22 @@ public:
     uint8_t getMovingStatus(MovingStatus (&status)[N]);
 
     /**
+     * @brief Sets the Goal PWM value.
+     * In position/extended position modes, this acts as a final output limiter
+     * on the PID controller's PWM output, effectively capping max torque.
+     * @param goalPWM PWM value, clamped to [-885, 885]. 885 = 100% output.
+     * @return uint8_t 0 on success, nonzero on error.
+     */
+    uint8_t setGoalPWM(int16_t goalPWM);
+
+    /**
+     * @brief Reads the present internal temperature of the servo.
+     * @param temperature Reference to store temperature in degrees Celsius.
+     * @return uint8_t 0 on success, nonzero on error.
+     */
+    uint8_t getPresentTemperature(uint8_t &temperature);
+
+    /**
      * @brief Retrieves the hardware error status.
      * @param HardwareErrorStatus Reference to store the hardware error status byte.
      * @return uint8_t 0 on success, nonzero on error.

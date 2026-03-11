@@ -1231,3 +1231,24 @@ uint8_t DynamixelLL::getHardwareErrorStatus(uint8_t &HardwareErrorStatus)
     }
     return error;
 }
+
+uint8_t DynamixelLL::setGoalPWM(int16_t goalPWM)
+{
+    if (goalPWM > 885) goalPWM = 885;
+    if (goalPWM < -885) goalPWM = -885;
+    return writeRegister(100, static_cast<uint32_t>(static_cast<uint16_t>(goalPWM)), 2); // RAM address 100, 2 bytes
+}
+
+uint8_t DynamixelLL::getPresentTemperature(uint8_t &temperature)
+{
+    uint8_t error = readRegister(146, temperature, 1); // RAM address 146, 1 byte
+    if (error != 0)
+    {
+        if (_debug)
+        {
+            Serial.print("Error reading Present Temperature: ");
+            Serial.println(error, HEX);
+        }
+    }
+    return error;
+}
