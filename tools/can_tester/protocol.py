@@ -180,7 +180,7 @@ PAYLOAD_FORMATS: dict[int, PayloadFormat] = {
     MsgType.ARM_PITCH_4_FEEDBACK: PayloadFormat("<f", ["angle"], "rad"),
     MsgType.ARM_ROLL_5_SETPOINT: PayloadFormat("<f", ["angle"], "rad"),
     MsgType.ARM_ROLL_5_FEEDBACK: PayloadFormat("<f", ["angle"], "rad"),
-    MsgType.ARM_ROLL_6_SETPOINT: PayloadFormat("<i", ["command"], "0=close,1=open"),
+    MsgType.ARM_ROLL_6_SETPOINT: PayloadFormat("<i", ["command"], "0=close(PWM-limited hold),1=open"),
     MsgType.ARM_ROLL_6_FEEDBACK: PayloadFormat("<f", ["angle"], "rad"),
 
     # Arm commands (no payload)
