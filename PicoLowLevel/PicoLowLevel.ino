@@ -625,8 +625,7 @@ void handleSetpoint(uint8_t msg_id, const byte *msg_data)
 
   case SET_HOME:
   {
-    int32_t persist_flag = 0;
-    memcpy(&persist_flag, msg_data, 4);
+    bool persist = (msg_data[0] == 1);
 
     // Read current positions as new home
     uint8_t read_err = 0;
@@ -651,7 +650,7 @@ void handleSetpoint(uint8_t msg_id, const byte *msg_data)
     ARM_delta_pos0_mot_5 = 0;
     ARM_delta_pos0_mot_6 = 0;
 
-    if (persist_flag == 1) {
+    if (persist) {
       saveHomePositions();
       Debug.println("SET_HOME: permanent — saved to flash", Levels::INFO);
     } else {
@@ -867,7 +866,13 @@ void saveHomePositions() {
     Debug.println("Failed to save home positions", Levels::WARN);
     return;
   }
-  f.write((uint8_t*)positions, sizeof(positions));
+  size_t written = f.write((uint8_t*)positions, sizeof(positions));
+  if (written != sizeof(positions)) {
+    Debug.println("Partial write, removing corrupt file", Levels::WARN);
+    f.close();
+    LittleFS.remove(HOME_POSITIONS_FILE);
+    return;
+  }
   f.close();
 
   Debug.println("Home positions saved to flash", Levels::INFO);
