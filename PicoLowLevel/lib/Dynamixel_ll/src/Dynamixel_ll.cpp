@@ -179,6 +179,18 @@ uint8_t DynamixelLL::checkArraySize(uint8_t arraySize) const
 // ===============================
 
 
+uint8_t DynamixelLL::setCurrentLimit(uint16_t limit)
+{
+    if (limit > 2047) limit = 2047;
+    return writeRegister(38, limit, 2);
+}
+
+uint8_t DynamixelLL::getCurrentLimit(uint16_t &limit)
+{
+    return readRegister(38, limit, 2);
+}
+
+
 uint8_t DynamixelLL::writeRegister(uint16_t address, uint32_t value, uint8_t size)
 {
     if (_sync)
