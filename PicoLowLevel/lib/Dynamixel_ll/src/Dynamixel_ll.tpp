@@ -36,34 +36,38 @@ uint8_t DynamixelLL::readRegister(uint16_t address, T &value, uint8_t size)
     packet[12] = crc & 0xFF;
     packet[13] = (crc >> 8) & 0xFF;
 
-    // Transmit the packet.
-    if (!sendPacket(packet, 14))
-    {
-        if (_debug)
-            Serial.println("Error sending Read packet.");
-        return 1;
-    }
-    delay(time_delay);
-
-    // Receive and process the response.
-    StatusPacket response = receivePacket();
-    if (_debug)
-    {
-        if (!response.valid)
-            Serial.println("Invalid status packet received.");
-        if (response.error != 0)
-        {
-            Serial.print("Error in status packet: ");
-            Serial.println(response.error, HEX);
+    for (uint8_t attempt = 0; attempt <= _maxRetries; attempt++) {
+        if (attempt > 0) {
+            _stats.retries++;
+            delay(1);
         }
+
+        if (!sendPacket(packet, 14)) {
+            if (_debug)
+                Serial.println("Error sending Read packet.");
+            continue;
+        }
+        delay(time_delay);
+
+        StatusPacket response = receivePacket();
+        if (response.valid) {
+            if (_debug && response.error != 0) {
+                Serial.print("Error in status packet: ");
+                Serial.println(response.error, HEX);
+            }
+            value = 0;
+            for (uint8_t i = 0; i < response.dataLength; i++)
+                value |= (response.data[i] << (8 * i));
+            delay(time_delay);
+            return response.error;
+        }
+
+        if (_debug)
+            Serial.println("Invalid response, retrying read...");
     }
 
     value = 0;
-    for (uint8_t i = 0; i < response.dataLength; i++)
-        value |= (response.data[i] << (8 * i));
-
-    delay(time_delay);
-    return response.error;
+    return 1;
 }
 
 
