@@ -811,8 +811,8 @@ void sendFeedback()
 
 
   JOINT_dxl.getPresentPosition(JOINT_pos_mot_1LR);
-  JOINT_thetaf_dxl = (float)(((JOINT_pos_mot_1LR[0] - JOINT_pos0_mot_1LR[0]) + (JOINT_pos_mot_1LR[1] - JOINT_pos0_mot_1LR[1])) / 2) * DXL_TO_RAD;
-  JOINT_phif_dxl = (float)(((JOINT_pos_mot_1LR[0] - JOINT_pos0_mot_1LR[0]) - (JOINT_pos_mot_1LR[1] - JOINT_pos0_mot_1LR[1])) / 2) * DXL_TO_RAD;
+  JOINT_thetaf_dxl = ((float)((JOINT_pos_mot_1LR[0] - JOINT_pos0_mot_1LR[0]) + (JOINT_pos_mot_1LR[1] - JOINT_pos0_mot_1LR[1])) / 2.0f) * DXL_TO_RAD;
+  JOINT_phif_dxl   = ((float)((JOINT_pos_mot_1LR[0] - JOINT_pos0_mot_1LR[0]) - (JOINT_pos_mot_1LR[1] - JOINT_pos0_mot_1LR[1])) / 2.0f) * DXL_TO_RAD;
   JOINT_yaw_pitch_float[0] = JOINT_thetaf_dxl;
   JOINT_yaw_pitch_float[1] = JOINT_phif_dxl;
   canW.sendMessage(JOINT_PITCH_1a1b_FEEDBACK, JOINT_yaw_pitch_float, sizeof(JOINT_yaw_pitch_float));
