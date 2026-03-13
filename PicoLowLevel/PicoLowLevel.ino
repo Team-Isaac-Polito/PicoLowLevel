@@ -22,6 +22,7 @@
 #include <string.h> // strncpy, strlen
 
 #include "Dynamixel_ll.h"
+#include "IMU.h"
 
 #include "debug_log.h"
 // #define DEBUG_LOG_ENABLED // Uncomment to enable debug logging
@@ -242,6 +243,12 @@ float JOINT_phif_dxl = 0.0f;
 float JOINT_thetaf_dxl = 0.0f;
 #endif
 
+// IMU
+#ifdef MODC_IMU
+IMU imu;
+#endif
+
+
 Display display;
 
 
@@ -300,6 +307,22 @@ void setup()
 
 #ifdef MODC_JOINT
   MODC_JOINT_INIT();
+#endif
+
+#ifdef MODC_IMU
+  imu.begin(Wire1, 0x6A);
+  if (!imu.checkID()){
+    Serial.println("IMU not found!");
+    display.addError("IMU not found!", 16);
+  }
+  else {
+    imu.enableGyro();
+    imu.enableAccel();
+    Serial.println("IMU Initialized");
+    imu.calibrateAccel();
+    imu.calibrateGyro();
+    Serial.println("IMU Calibration Complete!");
+  }
 #endif
 
   Serial.println("Setup complete. Waiting for CAN messages...");
