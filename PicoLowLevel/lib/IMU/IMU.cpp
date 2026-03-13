@@ -137,7 +137,7 @@ void IMU::calibrateGyro()
     _offsetGyroZ = sumZ / CALIBRATION_DATA_SIZE;
 }
 
-// ======================== Orientation ========================
+// ======================== Orientation: Accel-only ========================
 
 void IMU::update()
 {
@@ -154,31 +154,86 @@ void IMU::update()
 
 float IMU::getPitch()
 {
-    // Call update() first for fresh data, or use cached value
-    // update();  // Uncomment for standalone use 
     return _cachedPitch;
 }
 
 float IMU::getRoll()
 {
-    // Call update() first for fresh data, or use cached value
-    // update();  // Uncomment for standalone use
     return _cachedRoll;
 }
 
+// ======================== Orientation: Complementary filter ========================
+//
+// Fuses accelerometer (absolute reference, noisy) with gyroscope
+// (smooth, but drifts over time) using a weighted blend each cycle:
+//
+//   angle = alpha * (angle + gyro_rate * dt) + (1 - alpha) * accel_angle
+//
+// alpha = 0.98 means: 98% trust gyro integration, 2% nudge toward accel.
+// This gives smooth, drift-free orientation at any update rate.
+//
+// Requires both enableAccel() and enableGyro() + both calibrations
+// to be called before use.
 
+void IMU::setAlpha(float alpha)
+{
+    _alpha = alpha;
+}
 
+void IMU::updateFused()
+{
+    // --- Read both sensors ---
+    SensorData accel, gyro;
+    readAccel(accel);
+    readGyro(gyro);
 
+    // --- Accel angles (absolute reference, in radians) ---
+    float ax = accel.x * LSM6DSL_SENSITIVITY_ACCEL * 0.001f;  // raw --> mg --> g
+    float ay = accel.y * LSM6DSL_SENSITIVITY_ACCEL * 0.001f;
+    float az = accel.z * LSM6DSL_SENSITIVITY_ACCEL * 0.001f;
 
+    float accelPitch = atan2f(ax, sqrtf(ay * ay + az * az));
+    float accelRoll  = atan2f(ay, sqrtf(ax * ax + az * az));
 
+    // --- Gyro rates (in radians/sec) ---
+    // raw --> dps (degrees per second) --> rad/s
+    float gyroPitchRate = gyro.x * LSM6DSL_SENSITIVITY_GYRO * DEG_TO_RAD_F;
+    float gyroRollRate  = gyro.y * LSM6DSL_SENSITIVITY_GYRO * DEG_TO_RAD_F;
 
+    // --- Time delta ---
+    unsigned long now = micros();
 
+    // First call: seed the filter with accel values (no gyro history yet)
+    if (!_fusedInitialized) {
+        _fusedPitch = accelPitch;
+        _fusedRoll  = accelRoll;
+        _lastFusedTime = now;
+        _fusedInitialized = true;
+        return;
+    }
 
+    float dt = (now - _lastFusedTime) * 1e-6f;  // microseconds --> seconds
+    _lastFusedTime = now;
 
+    // Guard against weird dt (e.g. micros() overflow, or first-call jitter)
+    if (dt <= 0.0f || dt > 1.0f) {
+        dt = 0.04f;  // fallback to 25Hz assumption
+    }
 
+    // --- Complementary filter ---
+    // Gyro path:  previous angle + (rotation rate × time elapsed)
+    // Accel path:  absolute angle from gravity
+    // Blend:       mostly trust gyro, nudge toward accel
+    _fusedPitch = _alpha * (_fusedPitch + gyroPitchRate * dt) + (1.0f - _alpha) * accelPitch;
+    _fusedRoll  = _alpha * (_fusedRoll  + gyroRollRate  * dt) + (1.0f - _alpha) * accelRoll;
+}
 
+float IMU::getFusedPitch()
+{
+    return _fusedPitch;
+}
 
-
-
-
-
+float IMU::getFusedRoll()
+{
+    return _fusedRoll;
+}

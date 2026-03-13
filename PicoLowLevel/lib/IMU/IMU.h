@@ -3,7 +3,11 @@
  * 
  * Converted from the original C driver for compatibility
  * with the PicoLowLevel Arduino firmware.
-  */
+ *
+ * Supports two orientation modes:
+ *   - Accelerometer-only:       call update(), then getPitch()/getRoll()
+ *   - Complementary filter:     call updateFused(), then getFusedPitch()/getFusedRoll()
+ */
  
 #ifndef IMU_H
 #define IMU_H
@@ -24,7 +28,13 @@
 // Sensitivity (from datasheet)
 #define LSM6DSL_SENSITIVITY_ACCEL  0.061f     // mg/LSB at +/-2g
 #define LSM6DSL_SENSITIVITY_GYRO   0.004375f  // dps/LSB at 125dps
+#define DEG_TO_RAD_F  0.017453293f            // pi / 180
 #define CALIBRATION_DATA_SIZE      1000
+
+// Complementary filter default coefficient
+// 0.98 = 98% gyro trust, 2% accel correction
+// Tune for best performance
+#define COMPLEMENTARY_FILTER_ALPHA 0.98f
  
 // Key Registers
 #define LSM6DSL_WHO_AM_I    0x0F
@@ -81,17 +91,38 @@ public:
     void calibrateGyro();
     void readGyro(SensorData &data);
 
+    // ---- Orientation: Accelerometer-only ----
+
     /** Read accelerometer once and update cached pitch/roll */
-    // Optional Use
     void update();
  
-    // ---- Orientation (computed from accelerometer) ----
- 
-    /** @return pitch angle in radians */
+    /** @return pitch angle in radians (accel-only) */
     float getPitch();
  
-    /** @return roll angle in radians */
+    /** @return roll angle in radians (accel-only) */
     float getRoll();
+
+    // ---- Orientation: Complementary filter (accel + gyro) ----
+
+    /**
+     * Set the filter coefficient alpha.
+     * Higher alpha (e.g. 0.98) = smoother, slower drift correction.
+     * Lower alpha (e.g. 0.90) = noisier, faster drift correction.
+     * @param alpha  Value between 0.0 and 1.0
+     */
+    void setAlpha(float alpha);
+
+    /**
+     * Read both accel and gyro, apply complementary filter.
+     * Must be called at a regular interval (e.g. every sendFeedback cycle).
+     */
+    void updateFused();
+
+    /** @return pitch angle in radians (fused) */
+    float getFusedPitch();
+
+    /** @return roll angle in radians (fused) */
+    float getFusedRoll();
  
 private:
     TwoWire *_wire;
@@ -106,9 +137,16 @@ private:
     int16_t _offsetGyroY = 0;
     int16_t _offsetGyroZ = 0;
 
-    // Cached angles (to get Roll and Pitch in a single read)
+    // Cached angles — accelerometer-only
     float _cachedPitch = 0.0f;
     float _cachedRoll  = 0.0f;
+
+    // Fused angles — complementary filter
+    float _fusedPitch = 0.0f;
+    float _fusedRoll  = 0.0f;
+    float _alpha = COMPLEMENTARY_FILTER_ALPHA;
+    unsigned long _lastFusedTime = 0;  // micros() timestamp of last updateFused()
+    bool _fusedInitialized = false;    // seed from accel on first call
  
     // Low-level I2C helpers
     void    writeRegister(uint8_t reg, uint8_t value);
@@ -117,9 +155,3 @@ private:
 };
  
 #endif
-
-
-
-
-
-
