@@ -19,6 +19,7 @@
 #elif defined(MK2_MOD1)
 #define CAN_ID    0x21  // MK2 first module (HEAD)
 #define MODC_ARM
+#define MODC_IMU 
 #define SERVO_ARM_2_PITCH_ID 112
 #define SERVO_ARM_3_ROLL_ID 113
 #define SERVO_ARM_4_PITCH_ID 214
@@ -30,6 +31,7 @@
 #define CAN_ID    0x22  // MK2 second module (MIDDLE)
 #define MODC_YAW
 #define MODC_JOINT
+#define MODC_IMU 
 //#define SERVO_JOINT_1d_PITCH_ID 2
 //#define SERVO_JOINT_1s_PITCH_ID 4
 //#define SERVO_JOINT_2_ROLL_ID 6
@@ -38,6 +40,7 @@
 #define CAN_ID    0x23  // MK2 third module 
 #define MODC_YAW
 #define MODC_JOINT
+#define MODC_IMU 
 //#define SERVO_JOINT_1d_PITCH_ID 2
 //#define SERVO_JOINT_1s_PITCH_ID 4
 //#define SERVO_JOINT_2_ROLL_ID 6
