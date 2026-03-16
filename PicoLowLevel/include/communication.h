@@ -46,7 +46,7 @@
 #define MOTOR_ARM_ERROR_STATUS 0x73     //TODO implement
 
 #define JOINT_PITCH_1a1b_SETPOINT 0x61
-//#define JOINT_PITCH_1a1b_FEEDBACK 0x62  // Deprecated, can be uncommented if needed for debug
+#define JOINT_PITCH_1a1b_FEEDBACK 0x62  // Deprecated, can be uncommented if needed for debug
 #define JOINT_ROLL_2_SETPOINT 0x63
 #define JOINT_ROLL_2_FEEDBACK 0x64
 
