@@ -148,8 +148,8 @@ void IMU::update()
     float ay = accel.y * LSM6DSL_SENSITIVITY_ACCEL * 0.001f;
     float az = accel.z * LSM6DSL_SENSITIVITY_ACCEL * 0.001f;
 
-    _cachedPitch = atan2f(ax, sqrtf(ay * ay + az * az));
-    _cachedRoll  = atan2f(ay, sqrtf(ax * ax + az * az));
+    _cachedPitch = 1.0f * atan2f(ay, sqrtf(ax * ax + az * az));
+    _cachedRoll  = 1.0f * atan2f(ax, sqrtf(ay * ay + az * az));
 }
 
 float IMU::getPitch()
