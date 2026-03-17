@@ -504,14 +504,18 @@ function removeFromSequence(i) { cmdSequence.splice(i, 1); renderSequence(); }
 function renderSequence() {
   const el = document.getElementById('seqList');
   if (cmdSequence.length === 0) { el.innerHTML = '<span style="color:#666">No commands queued</span>'; return; }
-  el.innerHTML = cmdSequence.map((s, i) =>
-    `<div style="padding:2px 0;border-bottom:1px solid rgba(255,255,255,0.05);">`
+  el.innerHTML = cmdSequence.map((s, i) => {
+    const info = CMD_INFO[s.cmd] || { lbl1: 'v1', lbl2: 'v2', inputs: 0 };
+    let params = '';
+    if (info.inputs >= 1) params += ` ${info.lbl1 || 'v1'}=${s.v1}`;
+    if (info.inputs >= 2) params += ` ${info.lbl2 || 'v2'}=${s.v2}`;
+    return `<div style="padding:2px 0;border-bottom:1px solid rgba(255,255,255,0.05);">`
     + `<span style="color:var(--blue)">${i+1}.</span> `
-    + `<span style="color:var(--green)">${s.cmd}</span> `
-    + `v1=${s.v1} v2=${s.v2} → 0x${s.target.toString(16)} `
+    + `<span style="color:var(--green)">${s.cmd}</span>`
+    + `<span style="color:#ccc">${params}</span> → 0x${s.target.toString(16)} `
     + `<a href="#" onclick="removeFromSequence(${i});return false" style="color:var(--red);text-decoration:none">✕</a>`
-    + `</div>`
-  ).join('');
+    + `</div>`;
+  }).join('');
 }
 renderSequence();
 
