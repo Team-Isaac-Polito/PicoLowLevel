@@ -196,8 +196,8 @@ DynamixelLL ARM_mot_6(Serial1, 216);
 
 // Beak/gripper (motor 6, XL430-W250) configuration
 // Positions calibrated with dxl_get_position.ino in Extended Position Mode
-const int32_t BEAK_POS_OPEN = 4202;
-const int32_t BEAK_POS_CLOSE = 3686;
+const int32_t BEAK_POS_OPEN = -154;
+const int32_t BEAK_POS_CLOSE = 154;
 const int16_t BEAK_LOAD_THRESHOLD = 150;  // 0.1% units (~15% max torque), triggers grip detection
 const int32_t BEAK_POS_TOLERANCE = 20;    // encoder units (~1.7°)
 const uint32_t BEAK_TIMEOUT_MS = 3000;    // max time for motion before giving up
