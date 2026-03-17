@@ -696,9 +696,9 @@ void handleSetpoint(uint8_t msg_id, const byte *msg_data)
     // 120 -> right motor (JOINT_pos_mot_1LR[1])
     JOINT_pos_mot_1LR[1] = (int32_t)((JOINT_theta_dxl * RAD_TO_DXL) - (JOINT_phi_dxl * RAD_TO_DXL)) + JOINT_pos0_mot_1LR[1];
 
-    JOINT_dxl.setGoalPosition_EPCM(JOINT_pos_mot_1LR);
-    JOINT_old_pos_mot_1LR[0] = JOINT_pos_mot_1LR[0];
-    JOINT_old_pos_mot_1LR[1] = JOINT_pos_mot_1LR[1];
+      JOINT_dxl.setGoalPosition_EPCM(JOINT_pos_mot_1LR);
+      JOINT_old_pos_mot_1LR[0] = JOINT_pos_mot_1LR[0];
+      JOINT_old_pos_mot_1LR[1] = JOINT_pos_mot_1LR[1];
     break;
 
 
@@ -707,7 +707,7 @@ void handleSetpoint(uint8_t msg_id, const byte *msg_data)
     memcpy(&servo_data_float, msg_data, 4);
     JOINT_valueToSend = (int32_t)(servo_data_float * RAD_TO_DXL);
     JOINT_pos_mot_2 = JOINT_pos0_mot_2 + JOINT_valueToSend;
-   
+
       JOINT_mot_2.setGoalPosition_EPCM(JOINT_pos_mot_2);
     break;
     
@@ -828,9 +828,9 @@ void sendFeedback()
 #ifdef MODC_JOINT
 
 
-  JOINT_dxl.getPresentPosition(JOINT_pos_mot_1LR);
-  JOINT_thetaf_dxl = ((float)((JOINT_pos_mot_1LR[0] - JOINT_pos0_mot_1LR[0]) + (JOINT_pos_mot_1LR[1] - JOINT_pos0_mot_1LR[1])) / 2.0f) * DXL_TO_RAD;
-  JOINT_phif_dxl   = ((float)((JOINT_pos_mot_1LR[0] - JOINT_pos0_mot_1LR[0]) - (JOINT_pos_mot_1LR[1] - JOINT_pos0_mot_1LR[1])) / 2.0f) * DXL_TO_RAD;
+  JOINT_dxl.getPresentPosition(JOINT_posf_1a1b);
+  JOINT_thetaf_dxl = ((float)((JOINT_posf_1a1b[0] - JOINT_pos0_mot_1LR[0]) + (JOINT_posf_1a1b[1] - JOINT_pos0_mot_1LR[1])) / 2.0f) * DXL_TO_RAD;
+  JOINT_phif_dxl   = ((float)((JOINT_posf_1a1b[0] - JOINT_pos0_mot_1LR[0]) - (JOINT_posf_1a1b[1] - JOINT_pos0_mot_1LR[1])) / 2.0f) * DXL_TO_RAD;
   JOINT_yaw_pitch_float[0] = JOINT_thetaf_dxl;
   JOINT_yaw_pitch_float[1] = JOINT_phif_dxl;
   canW.sendMessage(JOINT_PITCH_1a1b_FEEDBACK, JOINT_yaw_pitch_float, sizeof(JOINT_yaw_pitch_float));
