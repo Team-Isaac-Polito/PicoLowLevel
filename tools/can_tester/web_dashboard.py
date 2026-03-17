@@ -105,6 +105,7 @@ h2 { color: var(--blue); margin-bottom: 8px; font-size: 1.1rem; }
       <button data-filter="arm">Arm</button>
       <button data-filter="traction">Traction</button>
       <button data-filter="joint">Joint</button>
+      <button data-filter="imu">IMU</button>
       <button data-filter="feedback">Feedback</button>
       <button id="pauseBtn" onclick="togglePause()" style="margin-left:12px">⏸ Pause</button>
     </div>
