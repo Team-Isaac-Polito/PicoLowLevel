@@ -245,8 +245,6 @@ int32_t JOINT_pos_mot_2 = 0;
 
 int32_t JOINT_old_pos_mot_1LR[2] = {0, 0};
 
-#define JOINT_de_can_dxl 10
-
 int32_t JOINT_posf_1a1b[2] = {0, 0};
 int32_t JOINT_posf_2 = 0;
 
