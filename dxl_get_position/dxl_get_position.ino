@@ -1,5 +1,5 @@
 #include "Dynamixel_ll.h"
-#include "include/mod_config.h"
+#include "mod_config.h"
 
 #define ProfileAcceleration 10
 #define ProfileVelocity 20

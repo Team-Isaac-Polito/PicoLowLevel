@@ -6,15 +6,12 @@ SKETCH_NAME = $(notdir $(SKETCH_PATH))
 BOARD_FQBN ?= rp2040:rp2040:rpipico
 OUTPUT_DIR = $(CURDIR)/build/output
 BUILD_DIR = $(CURDIR)/build
-LIBS_DIR = $(CURDIR)/lib
-INCLUDE_DIR = $(CURDIR)/include
+# Shared library and include paths (from PicoLowLevel)
+SHARED_LIBS_DIR = $(CURDIR)/../PicoLowLevel/lib
+SHARED_INCLUDE_DIR = $(CURDIR)/../PicoLowLevel/include
 
-LIBRARY_PATHS = $(wildcard $(LIBS_DIR)/*/src)
-LIBRARY_FLAGS = $(addprefix --library ,$(LIBRARY_PATHS))
-
-INCLUDE_PATHS = $(INCLUDE_DIR) $(LIBRARY_PATHS)
-CFLAGS += $(foreach dir, $(INCLUDE_PATHS), -I$(dir))
-CXXFLAGS += $(foreach dir, $(INCLUDE_PATHS), -I$(dir))
+INCLUDE_PATHS = $(SHARED_INCLUDE_DIR)
+INCLUDE_FLAGS = $(foreach dir, $(INCLUDE_PATHS), -I$(dir))
 
 SUCCESS_SYMBOL = "======================================== Compilation completed successfully ========================================="
 ERROR_SYMBOL = "======================================== Compilation error! ========================================"
@@ -42,8 +39,8 @@ PORT ?= $(shell arduino-cli board list | findstr "Raspberry Pi Pico" | for /f "t
 # Compilation
 compile: clean_all
 	$(call print_green, $(COMPILATION_SYMBOL))
-	@arduino-cli compile --fqbn $(BOARD_FQBN) --build-path $(BUILD_DIR) $(SKETCH_PATH) --output-dir $(OUTPUT_DIR) $(LIBRARY_FLAGS) \
-		$(foreach dir, $(INCLUDE_PATHS), --build-property "compiler.cpp.extra_flags=-I$(dir) -D$(MODULE_DEFINE)") && \
+	@arduino-cli compile --fqbn $(BOARD_FQBN) --build-path $(BUILD_DIR) $(SKETCH_PATH) --output-dir $(OUTPUT_DIR) --libraries $(SHARED_LIBS_DIR) \
+		--build-property "compiler.cpp.extra_flags=$(INCLUDE_FLAGS) -D$(MODULE_DEFINE)" && \
 	$(call print_green, $(SUCCESS_SYMBOL)) || \
 	$(call print_red, $(ERROR_SYMBOL))
 
