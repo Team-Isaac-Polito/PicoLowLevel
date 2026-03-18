@@ -528,8 +528,8 @@ void handleSetpoint(uint8_t msg_id, const byte *msg_data)
     ARM_theta_dxl = servo_data_1a;
     ARM_phi_dxl = servo_data_1b;
 
-    ARM_pos_mot_1LR[0] = (int32_t)(-((ARM_theta_dxl * RAD_TO_DXL) + (ARM_phi_dxl * RAD_TO_DXL)) / 2) + ARM_pos0_mot_1LR[0];
-    ARM_pos_mot_1LR[1] = (int32_t)(((ARM_theta_dxl * RAD_TO_DXL) - (ARM_phi_dxl * RAD_TO_DXL)) / 2) + ARM_pos0_mot_1LR[1];
+    ARM_pos_mot_1LR[0] = (int32_t)(((ARM_theta_dxl * RAD_TO_DXL) + (ARM_phi_dxl * RAD_TO_DXL))) + ARM_pos0_mot_1LR[0];
+    ARM_pos_mot_1LR[1] = (int32_t)(((ARM_theta_dxl * RAD_TO_DXL) - (ARM_phi_dxl * RAD_TO_DXL))) + ARM_pos0_mot_1LR[1];
 
     if (abs(ARM_pos_mot_1LR[0] - ARM_old_pos_mot_1LR[0]) > ARM_de_can_dxl || abs(ARM_pos_mot_1LR[1] - ARM_old_pos_mot_1LR[1]) > ARM_de_can_dxl)
     {
@@ -769,8 +769,8 @@ void sendFeedback()
 #ifdef MODC_ARM
 
   ARM_dxl.getPresentPosition(ARM_posf_1a1b);
-  ARM_phif_dxl = -(float)((ARM_posf_1a1b[0] - ARM_pos0_mot_1LR[0]) + (ARM_posf_1a1b[1] - ARM_pos0_mot_1LR[1])) * DXL_TO_RAD;
-  ARM_thetaf_dxl = (float)(-(ARM_posf_1a1b[0] - ARM_pos0_mot_1LR[0]) + (ARM_posf_1a1b[1] - ARM_pos0_mot_1LR[1])) * DXL_TO_RAD;
+  ARM_phif_dxl = -(float)(((ARM_posf_1a1b[0] - ARM_pos0_mot_1LR[0]) + (ARM_posf_1a1b[1] - ARM_pos0_mot_1LR[1])) / 2.0f ) * DXL_TO_RAD;
+  ARM_thetaf_dxl = (float)(((ARM_posf_1a1b[0] - ARM_pos0_mot_1LR[0]) - (ARM_posf_1a1b[1] - ARM_pos0_mot_1LR[1])) / 2.0f ) * DXL_TO_RAD;
   ARM_posf_1a1b_float[0] = ARM_thetaf_dxl;
   ARM_posf_1a1b_float[1] = ARM_phif_dxl;
   canW.sendMessage(ARM_PITCH_1a1b_FEEDBACK, ARM_posf_1a1b_float, sizeof(ARM_posf_1a1b));
