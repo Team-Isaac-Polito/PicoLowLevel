@@ -851,6 +851,7 @@ void sendFeedback()
     float imu_roll = imu.getRoll();
     float imu_pitch = imu.getPitch();
     canW.sendMessage(JOINT_ROLL_FEEDBACK, &imu_roll, sizeof(imu_roll));
+    delayMicroseconds(1200); // Wait for 1 CAN frame at 125kbps to free a TX buffer
     canW.sendMessage(JOINT_PITCH_FEEDBACK, &imu_pitch, sizeof(imu_pitch));
 
     // OPTION B - Accelerometer + Gyroscope (Sensor Fusion)
@@ -858,6 +859,7 @@ void sendFeedback()
     // float imu_roll_fusion = imu.getFusedRoll();
     // float imu_pitch_fusion = imu.getFusedPitch();
     // canW.sendMessage(JOINT_ROLL_FEEDBACK, &imu_roll_fusion, sizeof(imu_roll_fusion));
+    // delayMicroseconds(1200);
     // canW.sendMessage(JOINT_PITCH_FEEDBACK, &imu_pitch_fusion, sizeof(imu_pitch_fusion));
     // #endif
   #endif
