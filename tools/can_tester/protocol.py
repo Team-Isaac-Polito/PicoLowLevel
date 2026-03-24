@@ -55,8 +55,10 @@ class MsgType(IntEnum):
     MOTOR_SETPOINT = 0x21
     MOTOR_FEEDBACK = 0x22
 
-    # Yaw
+    # Joint / IMU orientation feedback
     JOINT_YAW_FEEDBACK = 0x32
+    JOINT_PITCH_FEEDBACK = 0x34
+    JOINT_ROLL_FEEDBACK = 0x36
 
     # End Effector (MK1 legacy)
     DATA_EE_PITCH_SETPOINT = 0x41
@@ -101,6 +103,10 @@ class MsgType(IntEnum):
     ARM_PITCH_4_FEEDBACK_VEL = 0x83
     ARM_ROLL_5_FEEDBACK_VEL = 0x84
     ARM_ROLL_6_FEEDBACK_VEL = 0x85
+
+    # IMU raw data (debug)
+    IMU_RAW_ACCEL = 0x92
+    IMU_RAW_GYRO = 0x93
 
 
 # ─── Validate against communication.h (optional) ────────────────────────────
@@ -166,8 +172,10 @@ PAYLOAD_FORMATS: dict[int, PayloadFormat] = {
     MsgType.BATTERY_PERCENT: PayloadFormat("<f", ["percent"], "%"),
     MsgType.BATTERY_TEMPERATURE: PayloadFormat("<f", ["temperature"], "°C"),
 
-    # Yaw
+    # Joint / IMU orientation feedback
     MsgType.JOINT_YAW_FEEDBACK: PayloadFormat("<f", ["angle"], "deg"),
+    MsgType.JOINT_PITCH_FEEDBACK: PayloadFormat("<f", ["pitch"], "rad"),
+    MsgType.JOINT_ROLL_FEEDBACK: PayloadFormat("<f", ["roll"], "rad"),
 
     # Arm position setpoints / feedback
     MsgType.ARM_PITCH_1a1b_SETPOINT: PayloadFormat("<ff", ["theta", "phi"], "rad"),
@@ -210,6 +218,10 @@ PAYLOAD_FORMATS: dict[int, PayloadFormat] = {
 
     # Traction control (no payload)
     MsgType.MOTOR_TRACTION_REBOOT: PayloadFormat("", [], ""),
+
+    # IMU raw data (debug)
+    MsgType.IMU_RAW_ACCEL: PayloadFormat("<fff", ["ax", "ay", "az"], "g"),
+    MsgType.IMU_RAW_GYRO: PayloadFormat("<fff", ["gx", "gy", "gz"], "dps"),
 
     # End effector — MK1 legacy
     MsgType.DATA_EE_PITCH_SETPOINT: PayloadFormat("<i", ["position"], "DU"),

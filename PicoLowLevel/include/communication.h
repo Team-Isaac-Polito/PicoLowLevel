@@ -9,6 +9,8 @@
 #define MOTOR_SETPOINT 0x21
 #define MOTOR_FEEDBACK 0x22
 #define JOINT_YAW_FEEDBACK 0x32
+#define JOINT_PITCH_FEEDBACK  0x34
+#define JOINT_ROLL_FEEDBACK   0x36
 #define DATA_EE_PITCH_SETPOINT 0x41
 #define DATA_EE_HEAD_PITCH_SETPOINT 0x43
 #define DATA_EE_HEAD_ROLL_SETPOINT 0x45
@@ -44,11 +46,14 @@
 #define MOTOR_ARM_ERROR_STATUS 0x73     //TODO implement
 
 #define JOINT_PITCH_1a1b_SETPOINT 0x61
-#define JOINT_PITCH_1a1b_FEEDBACK 0x62
+#define JOINT_PITCH_1a1b_FEEDBACK 0x62  // Deprecated, can be uncommented if needed for debug
 #define JOINT_ROLL_2_SETPOINT 0x63
 #define JOINT_ROLL_2_FEEDBACK 0x64
 
 #define MOTOR_TRACTION_REBOOT 0x71 
 #define DATA_PITCH 0x04 // Deprecated?
+
+#define IMU_RAW_ACCEL  0x92  // optional, for debug purposes
+#define IMU_RAW_GYRO   0x93  // optional, for debug purposes
 
 #endif
