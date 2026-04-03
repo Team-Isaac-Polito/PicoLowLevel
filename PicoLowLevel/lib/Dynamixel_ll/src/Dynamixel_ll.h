@@ -115,6 +115,21 @@ public:
      * @param mode The desired mode (1, 3, 4, or 16).
      * @return uint8_t 0 on success, nonzero if unsupported.
      */
+
+    /**
+     * @brief Retrieves the communication diagnostic counters.
+     * @param crcErrors Reference to store total CRC failures.
+     * @param timeouts Reference to store total communication timeouts.
+     * @param totalPackets Reference to store the total number of packets sent.
+     */
+    void getDiagnostics(uint32_t &crcErrors, uint32_t &timeouts, uint32_t &totalPackets);
+
+    /**
+     * @brief Resets the communication diagnostic counters to zero.
+     */
+    void resetDiagnostics();
+
+
     uint8_t setOperatingMode(uint8_t mode);
 
     /**
@@ -534,7 +549,11 @@ private:
 
     bool _debug = false; ///< Debug mode flag.
     uint8_t _error;      ///< Last error code.
+    uint32_t _crcErrorCount = 0;
+    uint32_t _timeoutCount = 0;
+    uint32_t _totalPacketsSent = 0;
 
+    static const uint8_t MAX_RETRIES = 3;
     /**
      * @brief Receives a status packet from the servo.
      * @param expectedParams Expected parameter byte count.
