@@ -229,29 +229,45 @@ uint8_t DynamixelLL::writeRegister(uint16_t address, uint32_t value, uint8_t siz
     packet[lenNoCRC]     = crc & 0xFF;         // Append CRC LSB.
     packet[lenNoCRC + 1] = (crc >> 8) & 0xFF;    // Append CRC MSB.
 
-    // Send the Packet
-    if (!sendPacket(packet, lenNoCRC + 2))
-    {
-        if (_debug)
-            Serial.println("Error sending Write packet.");
-        return 1;
-    }
-    //delay(time_delay);
-
-    // Receive and Process the Response
-    StatusPacket response = receivePacket();
-    if (_debug)
-    {
-        if (!response.valid)
-            Serial.println("Invalid status packet received.");
-        if (response.error != 0)
-        {
-            Serial.print("Error in status packet: ");
-            Serial.println(response.error, HEX);
+// Compute and Append the CRC
+    uint8_t lenNoCRC = 10 + size; // the packet length excluding the CRC field.
+    uint16_t crc = calculateCRC(packet, lenNoCRC);
+    packet[lenNoCRC]     = crc & 0xFF;         // Append CRC LSB.
+    packet[lenNoCRC + 1] = (crc >> 8) & 0xFF;    // Append CRC MSB.
+    
+    uint8_t retries = 0;
+    while (retries < MAX_RETRIES) {
+        _totalPacketsSent++;
+        
+        // Send the Packet
+        if (!sendPacket(packet, lenNoCRC + 2)) {
+            if (_debug) Serial.println("Error sending Write packet.");
+            return 1;
+        }
+        
+        // Receive and Process the Response
+        StatusPacket response = receivePacket();
+        
+        if (response.valid) {
+            // Handshake Successful!
+            if (_debug && response.error != 0) {
+                Serial.print("Error in status packet: ");
+                Serial.println(response.error, HEX);
+            }
+            return response.error; // Return 0 (success) or hardware error code
+            
+        } else {
+            // Handshake Failed (Noise or Timeout)
+            retries++;
+            if (_debug) {
+                Serial.print("[DXL Warning] Write failed. Retrying... Attempt: ");
+                Serial.println(retries);
+            }
+            delay(2); // Brief pause before blasting the packet again
         }
     }
 
-    return response.error;
+    return 255; // if CAN communication failures (for Max retries reached)
 }
 
 
@@ -327,7 +343,11 @@ StatusPacket DynamixelLL::receivePacket()
             }
         }
     }
-
+    // If we exited the loop and the index is still 0 (or very low)--> Time out
+    if (index == 0 || (millis() - start) >= timeout) {
+        _timeoutCount++;  // Increment the diagnostic counter!
+        return result;    // Returns the invalid packet
+    }
    // Serial.println("  ");
     if (!headerFound)
     {
@@ -395,17 +415,16 @@ StatusPacket DynamixelLL::receivePacket()
     {
         result.data[i] = buffer[headerStart + 9 + i ];
     }
-
     // Read the CRC from the packet.
-    uint16_t receivedCRC = buffer[headerStart + 9 + paramLength ] | (buffer[headerStart + 10 + paramLength ] << 8);
-    uint16_t computedCRC = calculateCRC(&buffer[headerStart ], 9 + paramLength);
-    if (receivedCRC != computedCRC)
-    {
-        if (_debug)
-            Serial.println("CRC invalid");
-        return result;
-    }
+    uint16_t calculated_crc = calculateCRC(buffer, packet_length - 2);
+    uint16_t received_crc = buffer[packet_length - 2] | (buffer[packet_length - 1] << 8);
 
+    if (calculated_crc != received_crc) {
+        _crcErrorCount++; // Increment the diagnostic counter that tracks errors
+        if (_debug) Serial.println("[DXL Error] CRC Mismatch!");
+        return result;    // Returns the invalid packet
+    }
+    
     result.valid = true;
     return result;
 }
@@ -1251,4 +1270,15 @@ uint8_t DynamixelLL::getPresentTemperature(uint8_t &temperature)
         }
     }
     return error;
+}
+void DynamixelLL::getDiagnostics(uint32_t &crcErrors, uint32_t &timeouts, uint32_t &totalPackets) {
+    crcErrors = _crcErrorCount;
+    timeouts = _timeoutCount;
+    totalPackets = _totalPacketsSent;
+}
+
+void DynamixelLL::resetDiagnostics() {
+    _crcErrorCount = 0;
+    _timeoutCount = 0;
+    _totalPacketsSent = 0;
 }
