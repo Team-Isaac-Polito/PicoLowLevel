@@ -36,34 +36,54 @@ uint8_t DynamixelLL::readRegister(uint16_t address, T &value, uint8_t size)
     packet[12] = crc & 0xFF;
     packet[13] = (crc >> 8) & 0xFF;
 
-    // Transmit the packet.
-    if (!sendPacket(packet, 14))
-    {
-        if (_debug)
-            Serial.println("Error sending Read packet.");
-        return 1;
-    }
-    delay(time_delay);
+   // Compute and append CRC (over the first 12 bytes)
+    uint16_t crc = calculateCRC(packet, 12);
+    packet[12] = crc & 0xFF;
+    packet[13] = (crc >> 8) & 0xFF;
+    uint8_t retries = 0;
+    while (retries < MAX_RETRIES) {
+        _totalPacketsSent++;
+        
+        // Transmit the packet.
+        if (!sendPacket(packet, 14)) {
+            if (_debug) Serial.println("Error sending Read packet.");
+            return 1;
+        }
+        delay(time_delay);
 
-    // Receive and process the response.
-    StatusPacket response = receivePacket();
-    if (_debug)
-    {
-        if (!response.valid)
-            Serial.println("Invalid status packet received.");
-        if (response.error != 0)
-        {
-            Serial.print("Error in status packet: ");
-            Serial.println(response.error, HEX);
+        // Receive and process the response.
+        StatusPacket response = receivePacket();
+        
+        if (response.valid) {
+            // Handshake Successful!
+            if (response.error != 0) {
+                if (_debug) {
+                    Serial.print("Error in status packet: ");
+                    Serial.println(response.error, HEX);
+                }
+                return response.error;
+            }
+            
+            // Extract the requested value
+            value = 0;
+            for (uint8_t i = 0; i < response.dataLength; i++) {
+                value |= (response.data[i] << (8 * i));
+            }
+            delay(time_delay);
+            return 0; // Success
+            
+        } else {
+            // Handshake Failed
+            retries++;
+            if (_debug) {
+                Serial.print("[DXL Warning] Read failed. Retrying... Attempt: ");
+                Serial.println(retries);
+            }
+            delay(2);
         }
     }
 
-    value = 0;
-    for (uint8_t i = 0; i < response.dataLength; i++)
-        value |= (response.data[i] << (8 * i));
-
-    delay(time_delay);
-    return response.error;
+    return 255; // Communication Failure (for Max retries reached)
 }
 
 
