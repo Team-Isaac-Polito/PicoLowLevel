@@ -174,6 +174,21 @@ uint8_t DynamixelLL::checkArraySize(uint8_t arraySize) const
 }
 
 
+void DynamixelLL::getDiagnostics(uint32_t &crcErrors, uint32_t &timeouts, uint32_t &totalPackets) {
+    crcErrors = _crcErrorCount;
+    timeouts = _timeoutCount;
+    totalPackets = _totalPacketsSent;
+}
+
+
+void DynamixelLL::resetDiagnostics() {
+    _crcErrorCount = 0;
+    _timeoutCount = 0;
+    _totalPacketsSent = 0;
+}
+
+
+
 // ===============================
 // ==   Instruction Functions   ==
 // ===============================
@@ -229,29 +244,35 @@ uint8_t DynamixelLL::writeRegister(uint16_t address, uint32_t value, uint8_t siz
     packet[lenNoCRC]     = crc & 0xFF;         // Append CRC LSB.
     packet[lenNoCRC + 1] = (crc >> 8) & 0xFF;    // Append CRC MSB.
 
-    // Send the Packet
-    if (!sendPacket(packet, lenNoCRC + 2))
-    {
-        if (_debug)
-            Serial.println("Error sending Write packet.");
-        return 1;
-    }
-    //delay(time_delay);
+    uint8_t retries = 0;
+    while (retries < MAX_RETRIES) {
+        _totalPacketsSent++;
+        // Send the Packet
+        if (!sendPacket(packet, lenNoCRC + 2)){
+            if (_debug) Serial.println("Error sending Write packet.");
+            return 1;
+        }
 
-    // Receive and Process the Response
-    StatusPacket response = receivePacket();
-    if (_debug)
-    {
-        if (!response.valid)
-            Serial.println("Invalid status packet received.");
-        if (response.error != 0)
-        {
-            Serial.print("Error in status packet: ");
-            Serial.println(response.error, HEX);
+        // Receive and Process the Response
+        StatusPacket response = receivePacket();
+        if (response.valid) {
+            // Handshake Successful!
+            if (_debug && response.error != 0) {
+                Serial.print("Error in status packet: ");
+                Serial.println(response.error, HEX);
+            }
+            return response.error;
+            } else {
+            // Handshake Failed (Noise or Timeout)
+            retries++;
+            if (_debug) {
+                Serial.print("[DXL Warning] Write failed. Retrying... Attempt: ");
+                Serial.println(retries);
+            }
+            delay(2); // Brief pause before retrying
         }
     }
-
-    return response.error;
+    return 255; // Communication Failure (Max retries reached)
 }
 
 
@@ -288,8 +309,8 @@ StatusPacket DynamixelLL::receivePacket()
     const uint8_t maxPacketSize = 64;         // Maximum allowed packet size.
     uint8_t buffer[maxPacketSize];           // Buffer for incoming bytes.
     uint16_t index = 0;                      // Index into the buffer.
-    uint32_t start = millis();
-    const uint32_t timeout = 5;           // Timeout in milliseconds.
+    unsigned long start = millis();
+    unsigned long timeout = 10;           // Timeout in milliseconds.
     bool headerFound = false;                // Flag to indicate header detection.
 
     // Step 1: Locate header (0xFF, 0xFF, 0xFD, 0x00)
@@ -327,6 +348,13 @@ StatusPacket DynamixelLL::receivePacket()
             }
         }
     }
+
+    // Timeout Diagnostic tracking
+    if ((millis() - start) >= timeout || index == 0) {
+        _timeoutCount++;  
+        return result;    
+    }
+    
 
    // Serial.println("  ");
     if (!headerFound)
@@ -396,16 +424,15 @@ StatusPacket DynamixelLL::receivePacket()
         result.data[i] = buffer[headerStart + 9 + i ];
     }
 
-    // Read the CRC from the packet.
-    uint16_t receivedCRC = buffer[headerStart + 9 + paramLength ] | (buffer[headerStart + 10 + paramLength ] << 8);
-    uint16_t computedCRC = calculateCRC(&buffer[headerStart ], 9 + paramLength);
-    if (receivedCRC != computedCRC)
-    {
-        if (_debug)
-            Serial.println("CRC invalid");
-        return result;
+    // Read the CRC from the packet (new crc diagnostic tracking)
+    uint16_t calculated_crc = calculateCRC(buffer, totalPacketLength - 2);
+    uint16_t received_crc = buffer[totalPacketLength - 2] | (buffer[totalPacketLength - 1] << 8);
+    if (calculated_crc != received_crc) {
+        _crcErrorCount++; 
+        if (_debug) Serial.println("[DXL Error] CRC Mismatch!");
+        return result;    
     }
-
+    
     result.valid = true;
     return result;
 }
