@@ -354,6 +354,7 @@ StatusPacket DynamixelLL::receivePacket()
         _timeoutCount++;  
         return result;    
     }
+    
 
    // Serial.println("  ");
     if (!headerFound)
