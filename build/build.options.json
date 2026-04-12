@@ -1,0 +1,9 @@
+{
+  "additionalFiles": "..\\..\\..,..\\..\\..,..\\..\\..,..\\..\\..,..\\..\\..,..\\..\\..,..\\..\\..,..\\..\\..\\..\\..,..\\..\\..\\..\\..,..\\..\\..\\..\\..,..\\..\\..\\..\\..,..\\..\\..\\..\\..,..\\..\\..\\..\\..,..\\..\\..\\..\\..,..\\..\\..\\..\\..,..\\..\\..\\..\\..,..\\..\\..\\..\\..,..\\..\\..\\..\\..,..\\..\\..\\..\\..,..\\..\\..\\..\\..,..\\..\\..\\..\\..,..\\..\\..\\..\\..,..\\..\\..\\..\\..,..\\..\\..\\..\\..,..\\..\\..\\..\\..,..\\..\\..\\..\\..,..\\..\\..\\..\\..,..\\..\\..\\..\\..,..\\..\\..\\..\\..,..\\..\\..\\..\\..,..\\..\\..\\..\\..,..\\..\\..\\..\\..,..\\..\\..\\..\\..,..\\..\\..\\..\\..,..\\..\\..\\..\\..,..\\..\\..\\..\\..,..\\..\\..\\..\\..,..\\..\\..\\..\\..,..\\..\\..\\..\\..,..\\..\\..\\..\\..,..\\..\\..\\..\\..,..\\..\\..\\..\\..,..\\..\\..\\..\\..,..\\..\\..\\..\\..,..\\..\\..\\..\\..",
+  "compiler.optimization_flags": "",
+  "customBuildProperties": "compiler.cpp.extra_flags=-IC:/Users/sghio/Documents/PicoLowLevel/PicoLowLevel/include -DMK2_MOD1",
+  "fqbn": "rp2040:rp2040:rpipico:flash=2097152_65536",
+  "hardwareFolders": "C:\\Users\\sghio\\AppData\\Local\\Arduino15\\packages\\rp2040\\hardware\\rp2040\\5.5.1,C:\\Users\\sghio\\AppData\\Local\\Arduino15\\packages\\rp2040\\hardware\\rp2040\\5.5.1",
+  "otherLibrariesFolders": "C:\\Users\\sghio\\Documents\\PicoLowLevel\\PicoLowLevel\\lib,C:\\Users\\sghio\\OneDrive\\Documenti\\Arduino\\libraries",
+  "sketchLocation": "C:\\Users\\sghio\\Documents\\PicoLowLevel\\PicoLowLevel"
+}
