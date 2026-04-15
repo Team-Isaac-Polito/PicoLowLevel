@@ -779,71 +779,71 @@ void sendFeedback()
   canW.sendMessage(MOTOR_TRACTION_ERROR_STATUS, ErrorStatus_traction, 2);
 
   // send yaw angle of the joint if this module has one
-  #ifdef MODC_YAW
-    encoderYaw.update();
-    float angle = encoderYaw.readAngle();
-    canW.sendMessage(JOINT_YAW_FEEDBACK, &angle, 4);
-  #endif
+#ifdef MODC_YAW
+  encoderYaw.update();
+  float angle = encoderYaw.readAngle();
+  canW.sendMessage(JOINT_YAW_FEEDBACK, &angle, 4);
+#endif
 
-    // Send the present position data of the arm motors
+  // Send the present position data of the arm motors
 
-  #ifdef MODC_ARM
+#ifdef MODC_ARM
 
-    ARM_dxl.getPresentPosition(ARM_posf_1a1b);
-    ARM_phif_dxl = -(float)(((ARM_posf_1a1b[0] - ARM_pos0_mot_1LR[0]) + (ARM_posf_1a1b[1] - ARM_pos0_mot_1LR[1])) / 2.0f ) * DXL_TO_RAD;
-    ARM_thetaf_dxl = (float)(((ARM_posf_1a1b[0] - ARM_pos0_mot_1LR[0]) - (ARM_posf_1a1b[1] - ARM_pos0_mot_1LR[1])) / 2.0f ) * DXL_TO_RAD;
-    ARM_posf_1a1b_float[0] = ARM_thetaf_dxl;
-    ARM_posf_1a1b_float[1] = ARM_phif_dxl;
-    canW.sendMessage(ARM_PITCH_1a1b_FEEDBACK, ARM_posf_1a1b_float, sizeof(ARM_posf_1a1b));
-    ARM_mot_2.getPresentPosition(ARM_posf_2);
-    ARM_posf_2_float = (float)(ARM_posf_2 - ARM_pos0_mot_2) * DXL_TO_RAD;
-    canW.sendMessage(ARM_PITCH_2_FEEDBACK, &ARM_posf_2_float, sizeof(ARM_posf_2));
-    ARM_mot_3.getPresentPosition(ARM_posf_3);
-    ARM_posf_3_float = (float)(ARM_posf_3 - ARM_pos0_mot_3) * DXL_TO_RAD;
-    canW.sendMessage(ARM_ROLL_3_FEEDBACK, &ARM_posf_3_float, sizeof(ARM_posf_3));
-    ARM_mot_4.getPresentPosition(ARM_posf_4);
-    ARM_posf_4_float = (float)(ARM_posf_4 - ARM_pos0_mot_4) * DXL_TO_RAD;
-    canW.sendMessage(ARM_PITCH_4_FEEDBACK, &ARM_posf_4_float, sizeof(ARM_posf_4));
-    ARM_mot_5.getPresentPosition(ARM_posf_5);
-    ARM_posf_5_float = (float)(ARM_posf_5 - ARM_pos0_mot_5) * DXL_TO_RAD;
-    canW.sendMessage(ARM_ROLL_5_FEEDBACK, &ARM_posf_5_float, sizeof(ARM_posf_5));
-    ARM_mot_6.getPresentPosition(ARM_posf_6);
-    ARM_posf_6_float = (float)(ARM_posf_6 - ARM_pos0_mot_6) * DXL_TO_RAD;
-    canW.sendMessage(ARM_ROLL_6_FEEDBACK, &ARM_posf_6_float, sizeof(ARM_posf_6));
+  ARM_dxl.getPresentPosition(ARM_posf_1a1b);
+  ARM_phif_dxl = -(float)(((ARM_posf_1a1b[0] - ARM_pos0_mot_1LR[0]) + (ARM_posf_1a1b[1] - ARM_pos0_mot_1LR[1])) / 2.0f ) * DXL_TO_RAD;
+  ARM_thetaf_dxl = (float)(((ARM_posf_1a1b[0] - ARM_pos0_mot_1LR[0]) - (ARM_posf_1a1b[1] - ARM_pos0_mot_1LR[1])) / 2.0f ) * DXL_TO_RAD;
+  ARM_posf_1a1b_float[0] = ARM_thetaf_dxl;
+  ARM_posf_1a1b_float[1] = ARM_phif_dxl;
+  canW.sendMessage(ARM_PITCH_1a1b_FEEDBACK, ARM_posf_1a1b_float, sizeof(ARM_posf_1a1b));
+  ARM_mot_2.getPresentPosition(ARM_posf_2);
+  ARM_posf_2_float = (float)(ARM_posf_2 - ARM_pos0_mot_2) * DXL_TO_RAD;
+  canW.sendMessage(ARM_PITCH_2_FEEDBACK, &ARM_posf_2_float, sizeof(ARM_posf_2));
+  ARM_mot_3.getPresentPosition(ARM_posf_3);
+  ARM_posf_3_float = (float)(ARM_posf_3 - ARM_pos0_mot_3) * DXL_TO_RAD;
+  canW.sendMessage(ARM_ROLL_3_FEEDBACK, &ARM_posf_3_float, sizeof(ARM_posf_3));
+  ARM_mot_4.getPresentPosition(ARM_posf_4);
+  ARM_posf_4_float = (float)(ARM_posf_4 - ARM_pos0_mot_4) * DXL_TO_RAD;
+  canW.sendMessage(ARM_PITCH_4_FEEDBACK, &ARM_posf_4_float, sizeof(ARM_posf_4));
+  ARM_mot_5.getPresentPosition(ARM_posf_5);
+  ARM_posf_5_float = (float)(ARM_posf_5 - ARM_pos0_mot_5) * DXL_TO_RAD;
+  canW.sendMessage(ARM_ROLL_5_FEEDBACK, &ARM_posf_5_float, sizeof(ARM_posf_5));
+  ARM_mot_6.getPresentPosition(ARM_posf_6);
+  ARM_posf_6_float = (float)(ARM_posf_6 - ARM_pos0_mot_6) * DXL_TO_RAD;
+  canW.sendMessage(ARM_ROLL_6_FEEDBACK, &ARM_posf_6_float, sizeof(ARM_posf_6));
 
-    // Arm velocity feedback (RPM → rad/s)
-    ARM_dxl.getPresentVelocity_RPM(ARM_vel_mot1a1b);
+  // Arm velocity feedback (RPM → rad/s)
+  ARM_dxl.getPresentVelocity_RPM(ARM_vel_mot1a1b);
 
-    ARM_phif_dxl_vel = -(float)((ARM_vel_mot1a1b[0]) + (ARM_vel_mot1a1b[1])) * 2 * M_PI / 60;
-    ARM_thetaf_dxl_vel = (float)(-(ARM_vel_mot1a1b[0]) + (ARM_vel_mot1a1b[1])) * 2 * M_PI / 60;
-    ARM_vel_mot1a1b[0] = ARM_thetaf_dxl_vel;
-    ARM_vel_mot1a1b[1] = ARM_phif_dxl_vel;
+  ARM_phif_dxl_vel = -(float)((ARM_vel_mot1a1b[0]) + (ARM_vel_mot1a1b[1])) * 2 * M_PI / 60;
+  ARM_thetaf_dxl_vel = (float)(-(ARM_vel_mot1a1b[0]) + (ARM_vel_mot1a1b[1])) * 2 * M_PI / 60;
+  ARM_vel_mot1a1b[0] = ARM_thetaf_dxl_vel;
+  ARM_vel_mot1a1b[1] = ARM_phif_dxl_vel;
 
-    canW.sendMessage(ARM_PITCH_1a1b_FEEDBACK_VEL, &ARM_vel_mot1a1b, sizeof(ARM_vel_mot1a1b));
+  canW.sendMessage(ARM_PITCH_1a1b_FEEDBACK_VEL, &ARM_vel_mot1a1b, sizeof(ARM_vel_mot1a1b));
 
-    ARM_mot_2.getPresentVelocity_RPM(ARM_vel_mot2);
-    ARM_vel_mot2 = ARM_vel_mot2 * 2 * M_PI / 60;
-    canW.sendMessage(ARM_PITCH_2_FEEDBACK_VEL, &ARM_vel_mot2, sizeof(ARM_vel_mot2));
+  ARM_mot_2.getPresentVelocity_RPM(ARM_vel_mot2);
+  ARM_vel_mot2 = ARM_vel_mot2 * 2 * M_PI / 60;
+  canW.sendMessage(ARM_PITCH_2_FEEDBACK_VEL, &ARM_vel_mot2, sizeof(ARM_vel_mot2));
 
-    ARM_mot_3.getPresentVelocity_RPM(ARM_vel_mot3);
-    ARM_vel_mot3 = ARM_vel_mot3 * 2 * M_PI / 60;
-    canW.sendMessage(ARM_ROLL_3_FEEDBACK_VEL, &ARM_vel_mot3, sizeof(ARM_vel_mot3));
+  ARM_mot_3.getPresentVelocity_RPM(ARM_vel_mot3);
+  ARM_vel_mot3 = ARM_vel_mot3 * 2 * M_PI / 60;
+  canW.sendMessage(ARM_ROLL_3_FEEDBACK_VEL, &ARM_vel_mot3, sizeof(ARM_vel_mot3));
 
-    ARM_mot_4.getPresentVelocity_RPM(ARM_vel_mot4);
-    ARM_vel_mot4 = ARM_vel_mot4 * 2 * M_PI / 60;
-    canW.sendMessage(ARM_PITCH_4_FEEDBACK_VEL, &ARM_vel_mot4, sizeof(ARM_vel_mot4));
+  ARM_mot_4.getPresentVelocity_RPM(ARM_vel_mot4);
+  ARM_vel_mot4 = ARM_vel_mot4 * 2 * M_PI / 60;
+  canW.sendMessage(ARM_PITCH_4_FEEDBACK_VEL, &ARM_vel_mot4, sizeof(ARM_vel_mot4));
 
-    ARM_mot_5.getPresentVelocity_RPM(ARM_vel_mot5);
-    ARM_vel_mot5 = ARM_vel_mot5 * 2 * M_PI / 60;
-    canW.sendMessage(ARM_ROLL_5_FEEDBACK_VEL, &ARM_vel_mot5, sizeof(ARM_vel_mot5));
+  ARM_mot_5.getPresentVelocity_RPM(ARM_vel_mot5);
+  ARM_vel_mot5 = ARM_vel_mot5 * 2 * M_PI / 60;
+  canW.sendMessage(ARM_ROLL_5_FEEDBACK_VEL, &ARM_vel_mot5, sizeof(ARM_vel_mot5));
 
-    ARM_mot_6.getPresentVelocity_RPM(ARM_vel_mot6);
-    ARM_vel_mot6 = ARM_vel_mot6 * 2 * M_PI / 60;
-    canW.sendMessage(ARM_ROLL_6_FEEDBACK_VEL, &ARM_vel_mot6, sizeof(ARM_vel_mot6));
+  ARM_mot_6.getPresentVelocity_RPM(ARM_vel_mot6);
+  ARM_vel_mot6 = ARM_vel_mot6 * 2 * M_PI / 60;
+  canW.sendMessage(ARM_ROLL_6_FEEDBACK_VEL, &ARM_vel_mot6, sizeof(ARM_vel_mot6));
 
-    canW.sendMessage(MOTOR_ARM_ERROR_STATUS, ErrorStatusArm, 7);
+  canW.sendMessage(MOTOR_ARM_ERROR_STATUS, ErrorStatusArm, 7);
 
-  #endif
+#endif
 
   #ifdef MODC_IMU
     //OPTION A - Accelerometer Only (No Sensor Fusion)
@@ -863,8 +863,8 @@ void sendFeedback()
     // canW.sendMessage(JOINT_PITCH_FEEDBACK, &imu_pitch_fusion, sizeof(imu_pitch_fusion));
     // #endif
   #endif
-    // Send the present position data of the joint motors
-  #ifdef MODC_JOINT
+  // Send the present position data of the joint motors
+#ifdef MODC_JOINT
 
   JOINT_dxl.getPresentPosition(JOINT_posf_1a1b);
   JOINT_thetaf_dxl = ((float)((JOINT_posf_1a1b[0] - JOINT_pos0_mot_1LR[0]) + (JOINT_posf_1a1b[1] - JOINT_pos0_mot_1LR[1])) / 2.0f) * DXL_TO_RAD;
@@ -1065,15 +1065,13 @@ void MODC_ARM_INIT()
   ARM_mot_6.setTorqueEnable(true);
   // Load home positions from flash, fall back to compiled defaults
   delay(10);
-  if (!loadHomePositions()) {
-    ARM_pos0_mot_1LR[0] = ARM_DEFAULT_HOME[0];
-    ARM_pos0_mot_1LR[1] = ARM_DEFAULT_HOME[1];
-    ARM_pos0_mot_2 = ARM_DEFAULT_HOME[2];
-    ARM_pos0_mot_3 = ARM_DEFAULT_HOME[3];
-    ARM_pos0_mot_4 = ARM_DEFAULT_HOME[4];
-    ARM_pos0_mot_5 = ARM_DEFAULT_HOME[5];
-    ARM_pos0_mot_6 = ARM_DEFAULT_HOME[6];
-  }
+  ARM_pos0_mot_1LR[0] = ARM_DEFAULT_HOME[0];
+  ARM_pos0_mot_1LR[1] = ARM_DEFAULT_HOME[1];
+  ARM_pos0_mot_2 = ARM_DEFAULT_HOME[2];
+  ARM_pos0_mot_3 = ARM_DEFAULT_HOME[3];
+  ARM_pos0_mot_4 = ARM_DEFAULT_HOME[4];
+  ARM_pos0_mot_5 = ARM_DEFAULT_HOME[5];
+  ARM_pos0_mot_6 = ARM_DEFAULT_HOME[6];
 
   RESET_ARM_INITIAL_POSITION();
 }
