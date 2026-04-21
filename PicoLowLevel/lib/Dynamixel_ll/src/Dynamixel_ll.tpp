@@ -459,7 +459,7 @@ uint8_t DynamixelLL::setProfileAcceleration(const uint32_t (&profileAcceleration
         // Choose the maximum allowed acceleration based on profile type.
         const uint32_t maxProfileAcceleration = timeBased ? 32737UL : 32767UL;
         
-        if (profileAcceleration > maxProfileAcceleration)
+        if (profileAcceleration[i] > maxProfileAcceleration)
         {
             if (_debug)
             {
@@ -473,7 +473,7 @@ uint8_t DynamixelLL::setProfileAcceleration(const uint32_t (&profileAcceleration
         // For time-based profiles, ensure that acceleration does not exceed half of the current profile velocity.
         uint32_t currentProfileVelocity = 0;
         error = readRegister(112, currentProfileVelocity, 4);
-        if (timeBased && error == 0 && currentProfileVelocity > 0 && profileAcceleration > (currentProfileVelocity / 2))
+        if (timeBased && error == 0 && currentProfileVelocity > 0 && profileAcceleration[i] > (currentProfileVelocity / 2))
         {
             uint32_t clampedValue = currentProfileVelocity / 2;
             if (_debug)
@@ -488,7 +488,7 @@ uint8_t DynamixelLL::setProfileAcceleration(const uint32_t (&profileAcceleration
         } else
             processedProfileAcceleration[i] = profileAcceleration[i];
     }
-    return syncWrite(118, 4, _motorIDs, processedProfileAcceleration, _numMotors); // RAM address 108, 4 bytes
+    return syncWrite(108, 4, _motorIDs, processedProfileAcceleration, _numMotors); // RAM address 108, 4 bytes
 }
 
 template <uint8_t N>

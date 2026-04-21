@@ -19,6 +19,7 @@
 #elif defined(MK2_MOD1)
 #define CAN_ID    0x21  // MK2 first module (HEAD)
 #define TRACTION_VELOCITY_COEFF 1.0f  ///< Locomotion velocity scaling (head module, reference)
+#define TRACTION_VELOCITY_COEFF_REV 0.9f ///< Reverse locomotion scaling (head becomes tail)
 #define MODC_ARM
 #define MODC_IMU 
 #define SERVO_ARM_2_PITCH_ID 112
@@ -30,7 +31,8 @@
 
 #elif defined(MK2_MOD2)
 #define CAN_ID    0x22  // MK2 second module (MIDDLE)
-#define TRACTION_VELOCITY_COEFF 0.85f ///< Locomotion velocity scaling (middle module)
+#define TRACTION_VELOCITY_COEFF 0.95f ///< Locomotion velocity scaling (middle module)
+#define TRACTION_VELOCITY_COEFF_REV 0.95f ///< Reverse locomotion scaling (middle stays middle)
 #define MODC_YAW
 #define MODC_JOINT
 #define MODC_IMU 
@@ -40,7 +42,8 @@
 
 #elif defined(MK2_MOD3)
 #define CAN_ID    0x23  // MK2 third module 
-#define TRACTION_VELOCITY_COEFF 0.7f  ///< Locomotion velocity scaling (tail module)
+#define TRACTION_VELOCITY_COEFF 0.9f  ///< Locomotion velocity scaling (tail module)
+#define TRACTION_VELOCITY_COEFF_REV 1.0f ///< Reverse locomotion scaling (tail becomes head)
 #define MODC_YAW
 #define MODC_JOINT
 #define MODC_IMU 
@@ -51,6 +54,10 @@
 
 #ifndef TRACTION_VELOCITY_COEFF
 #define TRACTION_VELOCITY_COEFF 1.0f ///< Default: no scaling
+#endif
+
+#ifndef TRACTION_VELOCITY_COEFF_REV
+#define TRACTION_VELOCITY_COEFF_REV 1.0f ///< Default: no scaling (reverse)
 #endif
 
 #endif

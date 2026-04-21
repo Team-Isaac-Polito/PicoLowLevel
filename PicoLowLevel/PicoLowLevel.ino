@@ -536,8 +536,11 @@ void handleSetpoint(uint8_t msg_id, const byte *msg_data)
     memcpy(&speeds_dxl[1], msg_data, 4);
     memcpy(&speeds_dxl[0], msg_data + 4, 4);
 
-    speeds_dxl[0] *= TRACTION_VELOCITY_COEFF;
-    speeds_dxl[1] *= TRACTION_VELOCITY_COEFF;
+    float coeff = (speeds_dxl[0] + speeds_dxl[1] < 0.0f)
+        ? TRACTION_VELOCITY_COEFF_REV
+        : TRACTION_VELOCITY_COEFF;
+    speeds_dxl[0] *= coeff;
+    speeds_dxl[1] *= coeff;
 
     dxl_traction.setGoalVelocity_RPM(speeds_dxl);
     Debug.println("TRACTION DATA :\tleft: \t" + String(speeds_dxl[0]) + "\tright: \t" + String(speeds_dxl[1]));
@@ -1199,7 +1202,9 @@ void DXL_TRACTION_INIT()
   dxl_traction.setOperatingMode(1); // Velocity Control Mode
 
   delay(10);
-  // Set Profile Velocity and Profile Acceleration for smooth motion.
+  // Set Profile Acceleration to 0 (infinite) for instant velocity response.
+  uint32_t profileAccel[2] = {0, 0};
+  dxl_traction.setProfileAcceleration(profileAccel);
 
   // Enable torque for all motors.
   dxl_traction.setTorqueEnable(true);
