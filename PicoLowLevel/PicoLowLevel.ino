@@ -536,6 +536,12 @@ void handleSetpoint(uint8_t msg_id, const byte *msg_data)
     memcpy(&speeds_dxl[1], msg_data, 4);
     memcpy(&speeds_dxl[0], msg_data + 4, 4);
 
+    float coeff = (speeds_dxl[0] + speeds_dxl[1] < 0.0f)
+        ? TRACTION_VELOCITY_COEFF_REV
+        : TRACTION_VELOCITY_COEFF;
+    speeds_dxl[0] *= coeff;
+    speeds_dxl[1] *= coeff;
+
     dxl_traction.setGoalVelocity_RPM(speeds_dxl);
     Debug.println("TRACTION DATA :\tleft: \t" + String(speeds_dxl[0]) + "\tright: \t" + String(speeds_dxl[1]));
     break;
@@ -976,14 +982,14 @@ void MODC_ARM_INIT()
   delay(10);
 
   // Enable or disable debug mode for troubleshooting
-  mot_Left_1_ARM.setDebug(false);
-  mot_Right_1_ARM.setDebug(false);
-  ARM_mot_2.setDebug(false);
-  ARM_mot_3.setDebug(false);
-  ARM_mot_4.setDebug(false);
-  ARM_mot_5.setDebug(false);
-  ARM_mot_6.setDebug(false);
-  ARM_dxl.setDebug(false);
+  mot_Left_1_ARM.setDebug(true);
+  mot_Right_1_ARM.setDebug(true);
+  ARM_mot_2.setDebug(true);
+  ARM_mot_3.setDebug(true);
+  ARM_mot_4.setDebug(true);
+  ARM_mot_5.setDebug(true);
+  ARM_mot_6.setDebug(true);
+  ARM_dxl.setDebug(true);
 
   // Enable sync mode for multiple motor control.
   ARM_dxl.enableSync(motorIDs_ARM, numMotors_ARM);
@@ -1193,10 +1199,12 @@ void DXL_TRACTION_INIT()
   mot_Right_traction.setDriveMode(false, false, false);
 
   // Set Operating Mode for each motor:
-  dxl_traction.setOperatingMode(1); // Extended Position Mode
+  dxl_traction.setOperatingMode(1); // Velocity Control Mode
 
   delay(10);
-  // Set Profile Velocity and Profile Acceleration for smooth motion.
+  // Set Profile Acceleration to 0 (infinite) for instant velocity response.
+  uint32_t profileAccel[2] = {0, 0};
+  dxl_traction.setProfileAcceleration(profileAccel);
 
   // Enable torque for all motors.
   dxl_traction.setTorqueEnable(true);
