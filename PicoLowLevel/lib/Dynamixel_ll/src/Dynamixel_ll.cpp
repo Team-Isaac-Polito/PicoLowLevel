@@ -1252,3 +1252,41 @@ uint8_t DynamixelLL::getPresentTemperature(uint8_t &temperature)
     }
     return error;
 }
+
+uint8_t DynamixelLL::setCurrentLimit(uint16_t currentLimit)
+{
+    if (currentLimit > 2047)
+    {
+        if (_debug) Serial.println("Error: Current limit exceeds maximum (2047).");
+        return 1;
+    }
+
+    uint8_t torqueState;
+    uint8_t err = readRegister(64, torqueState, 1); // RAM address 64, 1 byte
+    if (err != 0) return err;
+
+    // It should not be possible to set the current limit while torque is enabled.
+    // If toqrue is enabled, the EEPROM is locked and the current limit cannot be written.
+    // As a safety measure, check that torque is disabled before setting the current limit.
+    if (torqueState)
+    {
+        if (_debug) Serial.println("Error: Disable torque before setting current limit.");
+        return 1;
+    }
+
+    return writeRegister(38, static_cast<uint32_t>(currentLimit), 2); // EEPROM address 38, 2 bytes
+} 
+
+uint8_t DynamixelLL::getCurrentLimit(uint16_t &currentLimit)
+{
+    uint8_t error = readRegister(38, currentLimit, 2); // EEPROM address 38, 2 byte
+    if (error != 0)
+    {
+        if (_debug)
+        {
+            Serial.print("Error reading Current Limit: ");
+            Serial.println(error, HEX);
+        }
+    }
+    return error;
+}

@@ -628,3 +628,34 @@ uint8_t DynamixelLL::getPresentVelocity_RPM(float (&rpms)[N])
     }
     return error;
 }
+
+template <uint8_t N>
+uint8_t DynamixelLL::setCurrentLimit(const uint16_t (&limits)[N])
+{
+    if (checkArraySize(N) != 0)
+        return 1;
+
+    // Check torque is disabled before writing EEPROM
+    uint8_t torqueState;
+    uint8_t err = readRegister(64, torqueState, 1);
+    if (err != 0) return err;
+    if (torqueState)
+    {
+        if (_debug) Serial.println("Error: Disable torque before setting current limit.");
+        return 1;
+    }
+
+    // Validate and convert each limit to uint32_t for syncWrite
+    uint32_t processedLimits[_numMotors];
+    for (uint8_t i = 0; i < _numMotors; i++)
+    {
+        if (limits[i] > 2047)
+        {
+            if (_debug) Serial.println("Error: Current limit exceeds maximum (2047).");
+            return 1;
+        }
+        processedLimits[i] = static_cast<uint32_t>(limits[i]);
+    }
+
+    return syncWrite(38, 2, _motorIDs, processedLimits, _numMotors); // EEPROM address 38, 2 bytes
+}

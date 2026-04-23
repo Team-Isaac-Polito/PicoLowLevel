@@ -1059,6 +1059,17 @@ void MODC_ARM_INIT()
 
   delay(10);
 
+  // Set Current Limit for Joint Motors
+  ARM_dxl.setCurrentLimit(ARM_CURRENT_LIMIT);
+  ARM_mot_2.setCurrentLimit(ARM_CURRENT_LIMIT);
+  // For these joints, no current limit registers are available.
+  // ARM_mot_3.setCurrentLimit(ARM_CURRENT_LIMIT);
+  // ARM_mot_4.setCurrentLimit(ARM_CURRENT_LIMIT);
+  // ARM_mot_5.setCurrentLimit(ARM_CURRENT_LIMIT);
+  // ARM_mot_6.setCurrentLimit(ARM_CURRENT_LIMIT);
+
+  delay(10);
+
   // NOW enable torque safely — motors stay in place since goal ≈ current
   ARM_dxl.setTorqueEnable(true);
   mot_Left_1_ARM.setTorqueEnable(true);
@@ -1152,6 +1163,13 @@ void MODC_JOINT_INIT()
   
 
   delay(10);
+
+  // Set Current Limit for each motor
+  JOINT_dxl.setCurrentLimit(JOINT_CURRENT_LIMIT);
+  JOINT_mot_Left_1.setCurrentLimit(JOINT_CURRENT_LIMIT);
+  JOINT_mot_Right_1.setCurrentLimit(JOINT_CURRENT_LIMIT);
+
+  delay(10);
   // Enable torque for all motors.
   JOINT_dxl.setTorqueEnable(true);
   JOINT_mot_Left_1.setTorqueEnable(true);
@@ -1205,6 +1223,10 @@ void DXL_TRACTION_INIT()
   // Set Profile Acceleration to 0 (infinite) for instant velocity response.
   uint32_t profileAccel[2] = {0, 0};
   dxl_traction.setProfileAcceleration(profileAccel);
+
+  // Set Current Limit for all motors.
+  uint16_t currentLimit[2] = {TRACTION_CURRENT_LIMIT, TRACTION_CURRENT_LIMIT};
+  dxl_traction.setCurrentLimit(currentLimit);
 
   // Enable torque for all motors.
   dxl_traction.setTorqueEnable(true);

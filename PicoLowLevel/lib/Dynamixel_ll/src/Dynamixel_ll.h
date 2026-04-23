@@ -524,6 +524,24 @@ public:
      */
     uint8_t reboot();
 
+    // Current Limit Management --> Added by Aminadab Z.
+    // ---------------------------------------------------------------------------
+    /** 
+     * @brief A function to set the current limit for a single motor.
+     * @param limit The current limit to set.
+     * @return uint8_t 0 if successful, nonzero if failed.
+    */
+    uint8_t setCurrentLimit(uint16_t limit);   // single motor
+    template <uint8_t N>
+    uint8_t setCurrentLimit(const uint16_t (&limits)[N]);
+
+    /** 
+     * @brief A function to obtain the current limit for a single motor from the register.
+     * @param limit Reference to store the current limit.
+     * @return uint8_t 0 if successful, nonzero if failed.
+    */
+    uint8_t getCurrentLimit(uint16_t &limit);  // single motor
+
 private:
     HardwareSerial &_serial; ///< Reference to the serial interface.
     uint8_t _servoID;        ///< Servo ID.
@@ -667,6 +685,10 @@ private:
      * @return uint8_t 0 if valid, nonzero if invalid.
      */
     uint8_t checkArraySize(uint8_t arraySize) const;
+
+    
+
+
 };
 
 // Include the template definitions.

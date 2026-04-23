@@ -48,6 +48,11 @@
 // Motor configuration
 #define MAX_SPEED 65.f
 
+// MOTOR CURRENT LIMIT
+#define ARM_CURRENT_LIMIT 1100        //~ 3A
+#define JOINT_CURRENT_LIMIT 1100      //~ 3A
+#define TRACTION_CURRENT_LIMIT 1500   //~ 4A
+
 // Encoder pins
 #define ENC_TR_LEFT_A   12
 #define ENC_TR_LEFT_B   13
