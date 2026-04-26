@@ -1,0 +1,26 @@
+# Build outputs
+**/build/
+**/build[0-9]*/
+out_*/
+.cache/
+
+# Compiled binaries
+*.elf
+*.bin
+*.uf2
+*.map
+*.hex
+
+# IDE / Editor
+.vscode/
+.github/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
