@@ -51,6 +51,20 @@ struct MovingStatus
 };
 
 /**
+ * @struct DxlStats
+ * @brief Communication statistics for a Dynamixel servo instance.
+ */
+struct DxlStats 
+{
+    uint32_t txCount;    ///< Total packets sent.
+    uint32_t rxSuccess;  ///< Successful receive operations.
+    uint32_t rxFail;     ///< Failed receive operations.
+    uint32_t timeouts;   ///< Receive timeouts (subset of rxFail).
+    uint32_t crcErrors;  ///< CRC mismatches (subset of rxFail).
+    uint32_t retries;    ///< Read retry attempts.
+};
+
+/**
  * @class DynamixelLL
  * @brief Low-level driver for Dynamixel servos.
  */
@@ -530,7 +544,19 @@ public:
      * @param crcErrors Reference to store total CRC failures.
      * @param timeouts Reference to store total communication timeouts.
      * @param totalPackets Reference to store the total number of packets sent.
+     * 
      */
+     /**
+     * @brief Returns the communication statistics for this instance.
+     * @return const DxlStats& Reference to the stats struct.
+     */
+    const DxlStats& getStats() const;
+
+    /**
+     * @brief Resets all communication statistics to zero.
+     */
+    void resetStats();
+
     void getDiagnostics(uint32_t &crcErrors, uint32_t &timeouts, uint32_t &totalPackets);
 
     /**
@@ -549,11 +575,13 @@ private:
     bool _debug = false; ///< Debug mode flag.
     uint8_t _error;      ///< Last error code.
 
-    uint32_t _crcErrorCount = 0;
-    uint32_t _timeoutCount = 0;
-    uint32_t _totalPacketsSent = 0;
-
-    static const uint8_t MAX_RETRIES = 3; // it is the max number of attempts made to resend packets
+    uint32_t _crcErrorCount = 0;     ///< Total CRC validation failures.
+    uint32_t _timeoutCount = 0;      ///< Total communication timeouts.
+    uint32_t _totalPacketsSent = 0;  ///< Total instruction packets sent.
+    uint32_t _successCount = 0;
+    uint32_t _retryCount = 0;
+    static constexpr uint8_t MAX_ATTEMPTS = 3; ///< Maximum transmission attempts per operation.
+    DxlStats _stats = {};
 
     /**
      * @brief Receives a status packet from the servo.

@@ -37,11 +37,12 @@ uint8_t DynamixelLL::readRegister(uint16_t address, T &value, uint8_t size)
     packet[13] = (crc >> 8) & 0xFF;
 
     uint8_t retries = 0;
-    while (retries < MAX_RETRIES) {
-        _totalPacketsSent++;
-        
+    while (retries < MAX_ATTEMPTS) 
+    {
+        _totalPacketsSent++;       
         // Transmit the packet.
-        if (!sendPacket(packet, 14)) {
+        if (!sendPacket(packet, 14)) 
+        {
             if (_debug) Serial.println("Error sending Read packet.");
             return 1;
         }
@@ -49,10 +50,14 @@ uint8_t DynamixelLL::readRegister(uint16_t address, T &value, uint8_t size)
 
         // Receive and process the response.
         StatusPacket response = receivePacket();
-        if (response.valid) {
+        if (response.valid) 
+        {
+             _stats.rxSuccess++;
             // Handshake Successful!
-            if (response.error != 0) {
-                if (_debug) {
+            if (response.error != 0) 
+            {
+                if (_debug) 
+                {
                     Serial.print("Error in status packet: ");
                     Serial.println(response.error, HEX);
                 }
@@ -60,20 +65,24 @@ uint8_t DynamixelLL::readRegister(uint16_t address, T &value, uint8_t size)
             }
             // Extract the requested value
             value = 0;
-            for (uint8_t i = 0; i < response.dataLength; i++) {
+            for (uint8_t i = 0; i < response.dataLength; i++) 
+            {
                 value |= (response.data[i] << (8 * i));
             }
             delay(time_delay);
             return 0; // Success.
-            } else {
-                // Handshake Failed
-                retries++;
-                if (_debug) {
-                    Serial.print("[DXL Warning] Read failed. Retrying... Attempt: ");
-                    Serial.println(retries);
-                }
-                delay(2);
+        } 
+        else 
+        {
+            // Handshake Failed
+            retries++;
+            if (_debug) 
+            {
+                Serial.print("[DXL Warning] Read failed. Retrying... Attempt: ");
+                Serial.println(retries);
             }
+            delay(2);
+        }
     }
     return 255; // Communication Failure (Max retries reached)
 }
@@ -104,6 +113,10 @@ uint8_t DynamixelLL::syncRead(uint16_t address, uint8_t dataLength, const uint8_
             if (_debug)
                 Serial.println("Invalid status packet received.");
             continue;
+        }
+        else
+        {
+            _stats.rxSuccess++;
         }
         if (response.error != 0)
         {
@@ -167,7 +180,9 @@ uint8_t DynamixelLL::setHomingOffset(const int32_t (&offset)[N])
             offsetArray[i] = 1044479;
             if (_debug)
                 Serial.println("Warning: Homing offset clamped to 1044479.");
-        } else if (offset[i] < -1044479) {
+        } 
+        else if (offset[i] < -1044479)
+        {
             offsetArray[i] = -1044479;
             if (_debug)
                 Serial.println("Warning: Homing offset clamped to -1044479.");
@@ -195,11 +210,14 @@ uint8_t DynamixelLL::setHomingOffset_A(const float (&offsetAngle)[N])
             offsetArray[i] = 1044479;
             if (_debug)
                 Serial.println("Warning: Homing offset clamped to 1044479.");
-        } else if (offsetPulse[i] < -1044479) {
+        } 
+        else if (offsetPulse[i] < -1044479) 
+        {
             offsetArray[i] = -1044479;
             if (_debug)
                 Serial.println("Warning: Homing offset clamped to -1044479.");
-        } else
+        } 
+        else
             offsetArray[i] = static_cast<uint32_t>(offsetPulse[i]);
     }
     return syncWrite(20, 4, _motorIDs, offsetArray, _numMotors); // RAM address 20, 4 bytes
@@ -217,7 +235,8 @@ uint8_t DynamixelLL::setGoalPosition_PCM(const uint16_t (&goalPositions)[N])
     {
         processedPositions[i] = goalPositions[i];
 
-        if (processedPositions[i] > 4095) {
+        if (processedPositions[i] > 4095)
+        {
             processedPositions[i] = 4095;
             if (_debug)
                 Serial.println("Warning: Goal position clamped to 4095.");
@@ -238,7 +257,8 @@ uint8_t DynamixelLL::setGoalPosition_A_PCM(const float (&angleDegrees)[N])
     {
         // Convert angle in degrees to pulses using conversion factor 0.088 [deg/pulse].
         processedPositions[i] = static_cast<uint32_t>(angleDegrees[i] / 0.088);
-        if (processedPositions[i] > 4095) {
+        if (processedPositions[i] > 4095) 
+        {
             processedPositions[i] = 4095;
             if (_debug)
                 Serial.println("Warning: Angle conversion resulted in value exceeding 4095, clamped.");
@@ -262,11 +282,14 @@ uint8_t DynamixelLL::setGoalPosition_EPCM(const int32_t (&extendedPositions)[N])
             processedPositions[i] = 1048575;
             if (_debug)
                 Serial.println("Warning: Extended position clamped to 1048575.");
-        } else if (extendedPositions[i] < -1048575) {
+        } 
+        else if (extendedPositions[i] < -1048575)
+        {
             processedPositions[i] = -1048575;
             if (_debug)
                 Serial.println("Warning: Extended position clamped to -1048575.");
-        } else
+        } 
+        else
             processedPositions[i] = static_cast<uint32_t>(extendedPositions[i]);
     }
     return syncWrite(116, 4, _motorIDs, processedPositions, _numMotors); // RAM address 116, 4 bytes
@@ -494,10 +517,13 @@ uint8_t DynamixelLL::setProfileAcceleration(const uint32_t (&profileAcceleration
                 Serial.println(clampedValue);
             }
             processedProfileAcceleration[i] = clampedValue;
-        } else if (error != 0 && _debug) {
+        } 
+        else if (error != 0 && _debug) 
+        {
             Serial.print("Error reading Profile Velocity: ");
             Serial.println(error);
-        } else
+        } 
+        else
             processedProfileAcceleration[i] = profileAcceleration[i];
     }
     return syncWrite(118, 4, _motorIDs, processedProfileAcceleration, _numMotors); // RAM address 108, 4 bytes
@@ -597,7 +623,8 @@ uint8_t DynamixelLL::getMovingStatus(MovingStatus (&status)[N])
             Serial.print("Error reading Moving Status: ");
             Serial.println(error);
         }
-    } else
+    } 
+    else
     {
         for (uint8_t i = 0; i < _numMotors; i++)
         {
@@ -634,7 +661,9 @@ uint8_t DynamixelLL::getPresentVelocity_RPM(float (&rpms)[N])
             Serial.print("Error reading Present Velocity: ");
             Serial.println(error);
         }
-    } else {
+    } 
+    else 
+    {
         for (uint8_t i = 0; i < _numMotors; i++)
             rpms[i] = static_cast<float>(temp[i]) * 0.229f;  // convert to RPM in float
     }

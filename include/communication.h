@@ -56,4 +56,6 @@
 #define IMU_RAW_ACCEL  0x92  // optional, for debug purposes
 #define IMU_RAW_GYRO   0x93  // optional, for debug purposes
 
+#define DXL_COMM_STATS 0x74
+
 #endif

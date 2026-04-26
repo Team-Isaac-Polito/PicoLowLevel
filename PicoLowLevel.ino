@@ -45,6 +45,14 @@ void saveHomePositions();
 
 #define BaudRateDXL 2000000
 
+struct DxlStatsPayload {
+    uint32_t txCount;
+    uint32_t rxSuccess;
+    uint32_t rxTimeout;
+    uint32_t rxCrcError;
+    uint32_t rxRetries;
+};
+
 int time_bat = 0;
 int time_tel = 0;
 int time_data = 0;
@@ -88,6 +96,9 @@ float currentSpeeds_left_float = 0.0f;
 float currentSpeeds_right_float = 0.0f;
 
 int32_t servo_data;
+
+static unsigned long lastStatsTx = 0;
+const unsigned long STATS_INTERVAL_MS = 1000; // millis interval for transmission (in this case 1 Hz = 1 s)
 
 #ifdef MODC_YAW
 AbsoluteEncoder encoderYaw(ABSOLUTE_ENCODER_ADDRESS);
@@ -352,9 +363,27 @@ void setup()
 
 void loop()
 {
+  unsigned long currentMillis = millis();
+  unsigned long prevMillis_status, interval_status;
   int time_cur = millis();
   uint8_t msg_id;
   byte msg_data[8];
+
+  if (currentMillis - lastStatsTx >= STATS_INTERVAL_MS)
+  {
+    sendFeedback();
+    prevMillis_status = currentMillis;
+  }
+
+  
+  static unsigned long prevMillis_dxl_stats = 0;
+  const unsigned long interval_dxl_stats = 1000; // Send stats every 1 second
+
+  if (currentMillis - prevMillis_dxl_stats >= interval_dxl_stats)
+  {
+    sendDxlStats();
+    prevMillis_dxl_stats = currentMillis;
+  }
 
   // health checks
   if (time_cur - time_bat >= DT_BAT)
@@ -877,6 +906,25 @@ void sendFeedback()
   canW.sendMessage(JOINT_ROLL_2_FEEDBACK, &JOINT_posf_2_float, sizeof(JOINT_posf_2_float));
 #endif
 
+}
+
+void sendDxlStats() {
+    // 1. Usiamo 'auto': il compilatore capisce da solo il tipo di dato restituito dalla libreria!
+    const auto& stats = dxl_traction.getStats();
+
+    // 2. Mappiamo i valori nella nostra struct per il CAN bus
+    DxlStatsPayload payload;
+    payload.txCount    = stats.txCount;
+    payload.rxSuccess  = stats.rxSuccess;   
+    payload.rxTimeout  = stats.timeouts;    
+    payload.rxCrcError = stats.crcErrors;   
+    payload.rxRetries  = stats.retries;     
+
+    canW.sendMessage(DXL_COMM_STATS, (byte*)&payload, sizeof(payload)); 
+    
+    #ifdef DEBUG_LOG_ENABLED
+    Serial.println("Sent DXL Stats over CAN.");
+    #endif
 }
 
 void okInterrupt()

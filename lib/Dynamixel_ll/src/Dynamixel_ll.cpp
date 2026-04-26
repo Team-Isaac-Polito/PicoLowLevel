@@ -83,18 +83,17 @@ uint16_t DynamixelLL::calculateCRC(const uint8_t *data_blk_ptr, uint8_t data_blk
 
 void DynamixelLL::printResponse()
 {
-    // Pulisce eventuali byte rimasti nel buffer prima di leggere la risposta
+    // Cleans the buffer before reading
     while (_serial.available())
     {
-        _serial.read(); // Consuma i byte nel buffer
+        _serial.read(); 
     }
 
     unsigned long startMillis = millis();
-    unsigned long timeout = 5; // Timeout di 1 secondo per la lettura
+    const unsigned long timeout = 5; 
 
         Serial.println("Inizio lettura risposta:");
 
-    // Legge i byte dalla seriale
     while (millis() - startMillis < timeout)
     {
         if (_serial.available())
@@ -174,14 +173,16 @@ uint8_t DynamixelLL::checkArraySize(uint8_t arraySize) const
 }
 
 
-void DynamixelLL::getDiagnostics(uint32_t &crcErrors, uint32_t &timeouts, uint32_t &totalPackets) {
+void DynamixelLL::getDiagnostics(uint32_t &crcErrors, uint32_t &timeouts, uint32_t &totalPackets) 
+{
     crcErrors = _crcErrorCount;
     timeouts = _timeoutCount;
     totalPackets = _totalPacketsSent;
 }
 
 
-void DynamixelLL::resetDiagnostics() {
+void DynamixelLL::resetDiagnostics() 
+{
     _crcErrorCount = 0;
     _timeoutCount = 0;
     _totalPacketsSent = 0;
@@ -245,27 +246,39 @@ uint8_t DynamixelLL::writeRegister(uint16_t address, uint32_t value, uint8_t siz
     packet[lenNoCRC + 1] = (crc >> 8) & 0xFF;    // Append CRC MSB.
 
     uint8_t retries = 0;
-    while (retries < MAX_RETRIES) {
+    while (retries <= MAX_ATTEMPTS) 
+    {
         _totalPacketsSent++;
         // Send the Packet
-        if (!sendPacket(packet, lenNoCRC + 2)){
+        if (!sendPacket(packet, lenNoCRC + 2))
+        {
             if (_debug) Serial.println("Error sending Write packet.");
             return 1;
         }
 
         // Receive and Process the Response
         StatusPacket response = receivePacket();
-        if (response.valid) {
-            // Handshake Successful!
-            if (_debug && response.error != 0) {
+        if (response.valid) 
+        {
+            _successCount++;
+            if (retries > 0) 
+            {
+                _retryCount++; // This transaction failed initially, but was recovered!
+            }
+            // Handshake Successfull!
+            if (_debug && response.error != 0) 
+            {
                 Serial.print("Error in status packet: ");
                 Serial.println(response.error, HEX);
             }
             return response.error;
-            } else {
-            // Handshake Failed (Noise or Timeout)
+        } 
+        else 
+        {
+            // Handshake Failed (for Noise or Timeout)
             retries++;
-            if (_debug) {
+            if (_debug) 
+            {
                 Serial.print("[DXL Warning] Write failed. Retrying... Attempt: ");
                 Serial.println(retries);
             }
@@ -305,7 +318,6 @@ bool DynamixelLL::sendPacket(const uint8_t *packet, uint8_t length)
 StatusPacket DynamixelLL::receivePacket()
 {
     StatusPacket result = {false, 0, 0, {0}, 0};
-   
     const uint8_t maxPacketSize = 64;         // Maximum allowed packet size.
     uint8_t buffer[maxPacketSize];           // Buffer for incoming bytes.
     uint16_t index = 0;                      // Index into the buffer.
@@ -332,7 +344,8 @@ StatusPacket DynamixelLL::receivePacket()
                
                // Serial.println("fix_error 0");
                 break;
-            } else if (index >= 3 &&
+            } 
+            else if (index >= 3 &&
                 buffer[index - 3] == 0xFF &&
                 buffer[index - 2] == 0xFD &&
                 buffer[index - 1] == 0x00)
@@ -349,19 +362,14 @@ StatusPacket DynamixelLL::receivePacket()
         }
     }
 
-    // Timeout Diagnostic tracking
-    if ((millis() - start) >= timeout || index == 0) {
-        _timeoutCount++;  
-        return result;    
-    }
-    
-
-   // Serial.println("  ");
-    if (!headerFound)
+    if ((millis() - start) >= timeout || index == 0 || !headerFound) 
     {
-        if (_debug)
-            Serial.println("Header not found within timeout");
-        return result;
+        _timeoutCount++;  
+        if (_debug && !headerFound) 
+        {
+            Serial.println("Header not found within timeout or buffer limit");
+        }
+        return result;    
     }
     uint16_t headerStart = index - 4 ;
 
@@ -397,9 +405,11 @@ StatusPacket DynamixelLL::receivePacket()
     }
 
     // Step 5: Debug print of the packet
-    if (_debug) {
+    if (_debug) 
+    {
         Serial.print("Received Packet: ");
-        for (uint16_t i = headerStart; i < headerStart + totalPacketLength; i++) {
+        for (uint16_t i = headerStart; i < headerStart + totalPacketLength; i++) 
+        {
             Serial.print("0x");
             if (buffer[i] < 0x10) Serial.print("0");
             Serial.print(buffer[i], HEX);
@@ -425,15 +435,16 @@ StatusPacket DynamixelLL::receivePacket()
     }
 
     // Read the CRC from the packet (new crc diagnostic tracking)
-    uint16_t calculated_crc = calculateCRC(buffer, totalPacketLength - 2);
-    uint16_t received_crc = buffer[totalPacketLength - 2] | (buffer[totalPacketLength - 1] << 8);
-    if (calculated_crc != received_crc) {
+    uint16_t calculatedCrc = calculateCRC(buffer, totalPacketLength - 2);
+    uint16_t receivedCrc = buffer[headerStart + totalPacketLength - 2] | (buffer[headerStart +totalPacketLength - 1] << 8);
+    if (calculatedCrc != receivedCrc) {
         _crcErrorCount++; 
         if (_debug) Serial.println("[DXL Error] CRC Mismatch!");
         return result;    
     }
     
     result.valid = true;
+    _stats.rxSuccess++;
     return result;
 }
 
@@ -933,7 +944,9 @@ uint8_t DynamixelLL::setHomingOffset(int32_t offset)
         offset = 1044479;
         if (_debug)
             Serial.println("Warning: Homing offset clamped to 1044479.");
-    } else if (offset < -1044479) {
+    } 
+    else if (offset < -1044479) 
+    {
         offset = -1044479;
         if (_debug)
             Serial.println("Warning: Homing offset clamped to -1044479.");
@@ -951,7 +964,9 @@ uint8_t DynamixelLL::setHomingOffset_A(float offsetAngle)
         offset = 1044479;
         if (_debug)
             Serial.println("Warning: Homing offset clamped to 1044479.");
-    } else if (offset < -1044479) {
+    } 
+    else if (offset < -1044479) 
+    {
         offset = -1044479;
         if (_debug)
             Serial.println("Warning: Homing offset clamped to -1044479.");
@@ -993,7 +1008,9 @@ uint8_t DynamixelLL::setGoalPosition_EPCM(int32_t extendedPosition)
         extendedPosition = 1048575;
         if (_debug)
             Serial.println("Warning: Extended position clamped to 1048575.");
-    } else if (extendedPosition < -1048575) {
+    } 
+    else if (extendedPosition < -1048575) 
+    {
         extendedPosition = -1048575;
         if (_debug)
             Serial.println("Warning: Extended position clamped to -1048575.");
@@ -1230,7 +1247,9 @@ uint8_t DynamixelLL::getMovingStatus(MovingStatus &status)
             Serial.print("Error reading Moving Status, error code: ");
             Serial.println(error, HEX);
         }
-    } else {
+    }
+    else
+    {
         // Decode bits 5 & 4 for Velocity Profile Type.
         uint8_t profileBits = (status.raw >> 4) & 0x03;
         status.profileType = static_cast<VelocityProfileType>(profileBits);
@@ -1278,4 +1297,14 @@ uint8_t DynamixelLL::getPresentTemperature(uint8_t &temperature)
         }
     }
     return error;
+}
+
+const DxlStats& DynamixelLL::getStats() const
+{
+    return _stats;
+}
+
+void DynamixelLL::resetStats()
+{
+    _stats = {};
 }
