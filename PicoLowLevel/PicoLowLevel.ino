@@ -182,7 +182,7 @@ float ARM_thetaf_dxl_vel = 0.0f;
 int16_t ARM_presentLoad_mot_6 = 0;
 
 #define HOME_POSITIONS_FILE "/home_pos.bin"
-static const int32_t ARM_DEFAULT_HOME[] = {3157, 1619, 4279, 3131, 1692, 3538, 147};
+static const int32_t ARM_DEFAULT_HOME[] = {1328, 641, 4101, 3072, 1757, 3612, 144};
 
 uint8_t ErrorStatusArm[7] = {0, 0, 0, 0, 0, 0, 0};
 
