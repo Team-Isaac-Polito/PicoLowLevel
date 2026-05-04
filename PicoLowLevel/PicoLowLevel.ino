@@ -64,13 +64,10 @@ DynamixelLL dxl_traction(Serial1, 0);
 const uint8_t motorIDs_traction[] = {212, 114};
 // NOTE: variable names mot_Left/mot_Right are swapped relative to physical
 // motor positions (212 = physical right, 114 = physical left).
-// The robot still drives correctly because the memcpy order inside
-// MOTOR_SETPOINT compensates: speeds_dxl[0] receives the CAN "right"
-// value and is sync-written to ID 212 (physical right), speeds_dxl[1]
-// receives "left" and goes to ID 114 (physical left).
-// setDriveMode(reverse=true) on ID 212 only corrects for the opposite
-// motor mounting orientation — it does NOT fix the naming mismatch.
-// The debug print labels ("left: speeds_dxl[0]") are also swapped.
+// speeds_dxl[0] = right_rpm (CAN bytes 0-3) -> motor 212 (physical right).
+// speeds_dxl[1] = left_rpm  (CAN bytes 4-7) -> motor 114 (physical left).
+// setDriveMode(reverse=true) on ID 212 corrects for the opposite motor
+// mounting orientation so both tracks go forward with the same sign input.
 const uint8_t numMotors_traction = sizeof(motorIDs_traction) / sizeof(motorIDs_traction[0]);
 DynamixelLL mot_Left_traction(Serial1, motorIDs_traction[0]);   // ID 212 — physical RIGHT motor
 DynamixelLL mot_Right_traction(Serial1, motorIDs_traction[1]);  // ID 114 — physical LEFT motor
@@ -533,8 +530,8 @@ void handleSetpoint(uint8_t msg_id, const byte *msg_data)
   case MOTOR_SETPOINT:
   {
 
-    memcpy(&speeds_dxl[1], msg_data, 4);
-    memcpy(&speeds_dxl[0], msg_data + 4, 4);
+    memcpy(&speeds_dxl[0], msg_data, 4);
+    memcpy(&speeds_dxl[1], msg_data + 4, 4);
 
     float coeff = (speeds_dxl[0] + speeds_dxl[1] < 0.0f)
         ? TRACTION_VELOCITY_COEFF_REV
@@ -543,7 +540,7 @@ void handleSetpoint(uint8_t msg_id, const byte *msg_data)
     speeds_dxl[1] *= coeff;
 
     dxl_traction.setGoalVelocity_RPM(speeds_dxl);
-    Debug.println("TRACTION DATA :\tleft: \t" + String(speeds_dxl[0]) + "\tright: \t" + String(speeds_dxl[1]));
+    Debug.println("TRACTION DATA :\tright: \t" + String(speeds_dxl[0]) + "\tleft: \t" + String(speeds_dxl[1]));
     break;
   }
 
@@ -555,8 +552,8 @@ void handleSetpoint(uint8_t msg_id, const byte *msg_data)
     ARM_theta_dxl = servo_data_1a;
     ARM_phi_dxl = servo_data_1b;
 
-    ARM_pos_mot_1LR[0] = (int32_t)(((ARM_theta_dxl * RAD_TO_DXL) + (ARM_phi_dxl * RAD_TO_DXL))) + ARM_pos0_mot_1LR[0];
-    ARM_pos_mot_1LR[1] = (int32_t)(((ARM_theta_dxl * RAD_TO_DXL) - (ARM_phi_dxl * RAD_TO_DXL))) + ARM_pos0_mot_1LR[1];
+    ARM_pos_mot_1LR[0] = (int32_t)(((ARM_theta_dxl * RAD_TO_DXL) - (ARM_phi_dxl * RAD_TO_DXL))) + ARM_pos0_mot_1LR[0];
+    ARM_pos_mot_1LR[1] = (int32_t)(((ARM_theta_dxl * RAD_TO_DXL) + (ARM_phi_dxl * RAD_TO_DXL))) + ARM_pos0_mot_1LR[1];
 
     if (abs(ARM_pos_mot_1LR[0] - ARM_old_pos_mot_1LR[0]) > ARM_de_can_dxl || abs(ARM_pos_mot_1LR[1] - ARM_old_pos_mot_1LR[1]) > ARM_de_can_dxl)
     {
@@ -797,7 +794,7 @@ void sendFeedback()
 
   ARM_dxl.getPresentPosition(ARM_posf_1a1b);
   ARM_phif_dxl = -(float)(((ARM_posf_1a1b[0] - ARM_pos0_mot_1LR[0]) + (ARM_posf_1a1b[1] - ARM_pos0_mot_1LR[1])) / 2.0f ) * DXL_TO_RAD;
-  ARM_thetaf_dxl = (float)(((ARM_posf_1a1b[0] - ARM_pos0_mot_1LR[0]) - (ARM_posf_1a1b[1] - ARM_pos0_mot_1LR[1])) / 2.0f ) * DXL_TO_RAD;
+  ARM_thetaf_dxl = (float)(((ARM_posf_1a1b[1] - ARM_pos0_mot_1LR[1]) - (ARM_posf_1a1b[0] - ARM_pos0_mot_1LR[0])) / 2.0f ) * DXL_TO_RAD;
   ARM_posf_1a1b_float[0] = ARM_thetaf_dxl;
   ARM_posf_1a1b_float[1] = ARM_phif_dxl;
   canW.sendMessage(ARM_PITCH_1a1b_FEEDBACK, ARM_posf_1a1b_float, sizeof(ARM_posf_1a1b));
@@ -821,7 +818,7 @@ void sendFeedback()
   ARM_dxl.getPresentVelocity_RPM(ARM_vel_mot1a1b);
 
   ARM_phif_dxl_vel = -(float)((ARM_vel_mot1a1b[0]) + (ARM_vel_mot1a1b[1])) * 2 * M_PI / 60;
-  ARM_thetaf_dxl_vel = (float)(-(ARM_vel_mot1a1b[0]) + (ARM_vel_mot1a1b[1])) * 2 * M_PI / 60;
+  ARM_thetaf_dxl_vel = (float)((ARM_vel_mot1a1b[0]) - (ARM_vel_mot1a1b[1])) * 2 * M_PI / 60;
   ARM_vel_mot1a1b[0] = ARM_thetaf_dxl_vel;
   ARM_vel_mot1a1b[1] = ARM_phif_dxl_vel;
 
