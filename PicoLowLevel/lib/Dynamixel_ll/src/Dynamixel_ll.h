@@ -85,9 +85,26 @@ public:
 
     /**
      * @brief Enables or disables debugging output.
-     * @param enable True to enable debug messages.
+      * @param enable True to enable warning-focused debug output.
      */
     void setDebug(bool enable);
+
+    /**
+     * @enum DebugLevel
+     * @brief Verbosity levels for DYNAMIXEL debug output.
+     */
+    enum DebugLevel {
+        DXL_OFF = 0,
+        DXL_WARN = 1,
+        DXL_INFO = 2,
+        DXL_DEBUG = 3
+    };
+
+    /**
+     * @brief Set debug verbosity level.
+     * @param level One of DebugLevel (DXL_OFF..DXL_DEBUG).
+     */
+    void setDebugLevel(uint8_t level);
 
     /**
      * @brief Enables synchronization mode for multiple motors.
@@ -533,7 +550,10 @@ private:
     uint8_t *_motorIDs = nullptr; ///< Virtual broadcaster motor IDs.
 
     bool _debug = false; ///< Debug mode flag.
+    DebugLevel _debugLevel = DXL_OFF;
     uint8_t _error;      ///< Last error code.
+
+    bool shouldLog(DebugLevel level) const { return _debugLevel >= level; }
 
     /**
      * @brief Receives a status packet from the servo.

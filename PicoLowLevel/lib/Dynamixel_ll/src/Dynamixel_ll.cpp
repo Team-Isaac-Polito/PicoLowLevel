@@ -117,7 +117,15 @@ void DynamixelLL::printResponse()
 
 void DynamixelLL::setDebug(bool enable)
 {
-    _debug = enable;
+    setDebugLevel(enable ? DXL_WARN : DXL_OFF);
+}
+
+void DynamixelLL::setDebugLevel(uint8_t level)
+{
+    if (level > DXL_DEBUG)
+        level = DXL_DEBUG;
+    _debugLevel = static_cast<DebugLevel>(level);
+    _debug = shouldLog(DXL_WARN);
 }
 
 
@@ -257,7 +265,7 @@ uint8_t DynamixelLL::writeRegister(uint16_t address, uint32_t value, uint8_t siz
 
 bool DynamixelLL::sendPacket(const uint8_t *packet, uint8_t length)
 {
-    if (_debug)
+    if (shouldLog(DXL_DEBUG))
     {
         Serial.print("Sent Packet: ");
         for (uint8_t i = 0; i < length; ++i)
@@ -270,8 +278,8 @@ bool DynamixelLL::sendPacket(const uint8_t *packet, uint8_t length)
         }
         Serial.println();
     }
-    while (_serial.available())
-        _serial.read(); // Clear any pending data from the serial input buffer.
+     while (_serial.available())
+         _serial.read(); // Clear any pending data from the serial input buffer.
 
     size_t bytesWritten = _serial.write(packet, length);
 
@@ -331,8 +339,8 @@ StatusPacket DynamixelLL::receivePacket()
    // Serial.println("  ");
     if (!headerFound)
     {
-        if (_debug)
-            Serial.println("Header not found within timeout");
+        if (shouldLog(DXL_WARN))
+            Serial.println("[DXL WARN] Header not found within timeout");
         return result;
     }
     uint16_t headerStart = index - 4 ;
@@ -345,8 +353,8 @@ StatusPacket DynamixelLL::receivePacket()
     }
     if ((index - headerStart) < 7)
     {
-        if (_debug)
-            Serial.println("Timeout waiting for header extension");
+        if (shouldLog(DXL_WARN))
+            Serial.println("[DXL WARN] Timeout waiting for header extension");
         return result;
     }
     result.id = buffer[headerStart + 4 ];
@@ -363,13 +371,13 @@ StatusPacket DynamixelLL::receivePacket()
     }
     if ((index - headerStart) < totalPacketLength)
     {
-        if (_debug)
-            Serial.println("Incomplete packet received (timeout)");
+        if (shouldLog(DXL_WARN))
+            Serial.println("[DXL WARN] Incomplete packet received (timeout)");
         return result;
     }
 
     // Step 5: Debug print of the packet
-    if (_debug) {
+    if (shouldLog(DXL_DEBUG)) {
         Serial.print("Received Packet: ");
         for (uint16_t i = headerStart; i < headerStart + totalPacketLength; i++) {
             Serial.print("0x");
@@ -384,8 +392,6 @@ StatusPacket DynamixelLL::receivePacket()
     // [Header (4) | Packet ID (1) | Length (2) | Instruction (1) | Error (1) | Parameters (paramLength) | CRC (2)]
     if (buffer[headerStart + 7 ] != 0x55) // Verify instruction (expecting 0x55 for a status packet)
     {
-        if (_debug)
-            Serial.println("Invalid instruction; expected 0x55. Likely an echo; retrying...");
         return receivePacket();
     }
     result.error = buffer[headerStart + 8 ];
@@ -401,8 +407,8 @@ StatusPacket DynamixelLL::receivePacket()
     uint16_t computedCRC = calculateCRC(&buffer[headerStart ], 9 + paramLength);
     if (receivedCRC != computedCRC)
     {
-        if (_debug)
-            Serial.println("CRC invalid");
+        if (shouldLog(DXL_WARN))
+            Serial.println("[DXL WARN] CRC invalid");
         return result;
     }
 
