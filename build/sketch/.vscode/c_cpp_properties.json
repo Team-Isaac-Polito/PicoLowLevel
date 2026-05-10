@@ -1,0 +1,24 @@
+#line 1 "C:\\Users\\sghio\\Documents\\PicoLowLevel\\PicoLowLevel\\.vscode\\c_cpp_properties.json"
+{
+    "configurations": [
+        {
+            "name": "Win32",
+            "includePath": [
+                "${workspaceFolder}/**",
+                "${workspaceFolder}/include/**",
+                "C:/Users/sghio/AppData/Local/Arduino15/packages/rp2040/hardware/rp2040/5.5.1/cores/rp2040",
+                "C:/Users/sghio/AppData/Local/Arduino15/packages/rp2040/hardware/rp2040/5.5.1/variants/rpipico"
+            ],
+            "defines": [
+                "ARDUINO=10810",
+                "ARDUINO_ARCH_RP2040"
+            ],
+            "compilerPath": "C:/mingw64/bin/gcc.exe",
+            "cStandard": "c11",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "windows-gcc-arm"
+        }
+    ],
+    "version": 4
+}
+//"C:\Users\sghio\AppData\Local\Arduino15\packages\rp2040\hardware\rp2040\5.5.1\cores\rp2040\Arduino.h"

@@ -524,6 +524,19 @@ public:
      */
     uint8_t reboot();
 
+    /**
+     * @brief Retrieves the communication diagnostic counters.
+     * @param crcErrors Reference to store total CRC failures.
+     * @param timeouts Reference to store total communication timeouts.
+     * @param totalPackets Reference to store the total number of packets sent.
+     */
+    void getDiagnostics(uint32_t &crcErrors, uint32_t &timeouts, uint32_t &totalPackets);
+
+    /**
+     * @brief Resets the communication diagnostic counters to zero.
+     */
+    void resetDiagnostics();
+
 private:
     HardwareSerial &_serial; ///< Reference to the serial interface.
     uint8_t _servoID;        ///< Servo ID.
@@ -534,6 +547,12 @@ private:
 
     bool _debug = false; ///< Debug mode flag.
     uint8_t _error;      ///< Last error code.
+
+    uint32_t _crcErrorCount = 0;
+    uint32_t _timeoutCount = 0;
+    uint32_t _totalPacketsSent = 0;
+
+    static const uint8_t MAX_RETRIES = 3; // it is the max number of attempts made to resend packets
 
     /**
      * @brief Receives a status packet from the servo.
