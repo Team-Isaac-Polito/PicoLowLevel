@@ -33,9 +33,7 @@ void DynamixelLL::ledOff()
     //delay(time_delay);
 }
 
-
-
-uint16_t DynamixelLL::calculateCRC(const uint8_t *data_blk_ptr, uint8_t data_blk_size)
+uint16_t DynamixelLL::calculateCRC(const uint8_t *data_blk_ptr, uint16_t data_blk_size)
 {
     unsigned short crc_table[256] = {
         0x0000, 0x8005, 0x800F, 0x000A, 0x801B, 0x001E, 0x0014, 0x8011,
@@ -72,7 +70,7 @@ uint16_t DynamixelLL::calculateCRC(const uint8_t *data_blk_ptr, uint8_t data_blk
         0x8213, 0x0216, 0x021C, 0x8219, 0x0208, 0x820D, 0x8207, 0x0202};
 
     uint16_t crc_accum = 0;
-    for (uint8_t j = 0; j < data_blk_size; j++)
+    for (uint16_t j = 0; j < data_blk_size; j++)
     {
         uint16_t i = ((crc_accum >> 8) ^ data_blk_ptr[j]) & 0xFF;
         crc_accum = (crc_accum << 8) ^ crc_table[i];
@@ -324,16 +322,12 @@ StatusPacket DynamixelLL::receivePacket()
     unsigned long start = millis();
     unsigned long timeout = 10;           // Timeout in milliseconds.
     bool headerFound = false;                // Flag to indicate header detection.
-
     // Step 1: Locate header (0xFF, 0xFF, 0xFD, 0x00)
     while ((millis() - start) < timeout && index < maxPacketSize)
     {
         if (_serial.available())
         {
             buffer[index++] = _serial.read();
-            //Serial.print(buffer[index-1], HEX);
-            //Serial.print("  ");
-            // When there is at least 4 bytes, check the last 4 bytes.
             if (index >= 4 &&
                 buffer[index - 4] == 0xFF &&
                 buffer[index - 3] == 0xFF &&
@@ -341,8 +335,6 @@ StatusPacket DynamixelLL::receivePacket()
                 buffer[index - 1] == 0x00)
             {
                 headerFound = true;
-               
-               // Serial.println("fix_error 0");
                 break;
             } 
             else if (index >= 3 &&
@@ -355,8 +347,7 @@ StatusPacket DynamixelLL::receivePacket()
                 buffer[1] = 0xFF;
                 buffer[2] = 0xFD;
                 buffer[3] = 0x00;
-                index=4;
-               // Serial.println("fix_error 1");
+                index = 4;
                 break;
             }
         }
@@ -364,7 +355,7 @@ StatusPacket DynamixelLL::receivePacket()
 
     if ((millis() - start) >= timeout || index == 0 || !headerFound) 
     {
-        _timeoutCount++;  
+        _stats.timeouts++;
         if (_debug && !headerFound) 
         {
             Serial.println("Header not found within timeout or buffer limit");
@@ -381,6 +372,7 @@ StatusPacket DynamixelLL::receivePacket()
     }
     if ((index - headerStart) < 7)
     {
+        _stats.timeouts++;
         if (_debug)
             Serial.println("Timeout waiting for header extension");
         return result;
@@ -399,6 +391,7 @@ StatusPacket DynamixelLL::receivePacket()
     }
     if ((index - headerStart) < totalPacketLength)
     {
+        _stats.timeouts++;
         if (_debug)
             Serial.println("Incomplete packet received (timeout)");
         return result;
@@ -419,13 +412,13 @@ StatusPacket DynamixelLL::receivePacket()
     }
 
     // Step 6: Parse and validate the packet
-    // [Header (4) | Packet ID (1) | Length (2) | Instruction (1) | Error (1) | Parameters (paramLength) | CRC (2)]
     if (buffer[headerStart + 7 ] != 0x55) // Verify instruction (expecting 0x55 for a status packet)
     {
         if (_debug)
             Serial.println("Invalid instruction; expected 0x55. Likely an echo; retrying...");
         return receivePacket();
     }
+    
     result.error = buffer[headerStart + 8 ];
     uint8_t paramLength = lengthField - 4;
     result.dataLength = paramLength;
@@ -434,11 +427,13 @@ StatusPacket DynamixelLL::receivePacket()
         result.data[i] = buffer[headerStart + 9 + i ];
     }
 
-    // Read the CRC from the packet (new crc diagnostic tracking)
-    uint16_t calculatedCrc = calculateCRC(buffer, totalPacketLength - 2);
-    uint16_t receivedCrc = buffer[headerStart + totalPacketLength - 2] | (buffer[headerStart +totalPacketLength - 1] << 8);
+    // Step 7: Read the CRC from the packet
+    // CORRETTO: Passiamo '&buffer[headerStart]' invece di 'buffer' nel caso in cui ci sia spazzatura prima dell'header
+    uint16_t calculatedCrc = calculateCRC(&buffer[headerStart], totalPacketLength - 2);
+    uint16_t receivedCrc = buffer[headerStart + totalPacketLength - 2] | (buffer[headerStart + totalPacketLength - 1] << 8);
+    
     if (calculatedCrc != receivedCrc) {
-        _crcErrorCount++; 
+        _stats.crcErrors++;
         if (_debug) Serial.println("[DXL Error] CRC Mismatch!");
         return result;    
     }
@@ -447,7 +442,6 @@ StatusPacket DynamixelLL::receivePacket()
     _stats.rxSuccess++;
     return result;
 }
-
 
 uint8_t DynamixelLL::ping(uint32_t &value)
 {

@@ -91,57 +91,75 @@ uint8_t DynamixelLL::readRegister(uint16_t address, T &value, uint8_t size)
 template <typename T>
 uint8_t DynamixelLL::syncRead(uint16_t address, uint8_t dataLength, const uint8_t* ids, T* values, uint8_t count)
 {
-    // Send Sync Read Instruction Packet.
-    if (!sendSyncReadPacket(address, dataLength, ids, count))
+    for (uint8_t attempt = 0; attempt < MAX_ATTEMPTS; attempt++)
     {
-        if (_debug)
-            Serial.println("Error sending Sync Read packet.");
-        return 1;
+        // Track retries in diagnostics
+        if (attempt > 0) {
+            _stats.retries++;
+            delay(1);
+        }
+
+        // Send Sync Read Instruction Packet
+        if (!sendSyncReadPacket(address, dataLength, ids, count)) {
+            if (_debug) Serial.println("Error sending Sync Read packet.");
+            continue; // Retry the broadcast
+        }
+
+        uint8_t retError = 0;
+        for (uint8_t i = 0; i < count; i++) {
+            values[i] = 0;
+        }
+
+        uint8_t received = 0;
+        bool allPacketsValid = true;
+
+        // Loop through expected responses (one per motor)
+        while (received < count)
+        {
+            StatusPacket response = receivePacket();
+            received++;
+
+            if (!response.valid) {
+                if (_debug) Serial.println("Invalid status packet received during syncRead.");
+                allPacketsValid = false;
+                break; // Break the while loop to trigger a retry of the whole broadcast
+            } 
+            else {
+                _stats.rxSuccess++;
+            }
+
+            if (response.error != 0) {
+                if (_debug) {
+                    Serial.print("Error in status packet from device ");
+                    Serial.print(response.id);
+                    Serial.print(": 0x");
+                    Serial.println(response.error, HEX);
+                }
+                retError = response.error;
+            }
+
+            // Map the response data to the correct index in the output array
+            for (uint8_t i = 0; i < count; i++) {
+                if (ids[i] == response.id) {
+                    for (uint8_t j = 0; j < response.dataLength; j++) {
+                        values[i] |= (response.data[j] << (8 * j));
+                    }
+                    break;
+                }
+            }
+        }
+
+        // If we successfully received valid responses from ALL motors, we are done!
+        if (allPacketsValid) {
+            return retError; 
+        }
+
+        if (_debug) {
+            Serial.println("SyncRead transaction failed. Retrying...");
+        }
     }
 
-    uint8_t retError = 0;
-    for (uint8_t i = 0; i < count; i++)
-        values[i] = 0;
-    // For each device, read its response.
-    uint8_t received = 0;
-    while (received < count)
-    {
-        StatusPacket response = receivePacket();
-        received++;
-        if (!response.valid)
-        {
-            if (_debug)
-                Serial.println("Invalid status packet received.");
-            continue;
-        }
-        else
-        {
-            _stats.rxSuccess++;
-        }
-        if (response.error != 0)
-        {
-            if (_debug)
-            {
-                Serial.print("Error in status packet from device ");
-                Serial.print(response.id);
-                Serial.print(": 0x");
-                Serial.println(response.error, HEX);
-            }
-            retError = response.error;
-            continue;
-        }
-        // Find the index in the provided ids array that matches the response id.
-        for (uint8_t i = 0; i < count; i++)
-        {
-            if (ids[i] == response.id)
-            {
-                for (uint8_t j = 0; j < response.dataLength; j++)
-                    values[i] |= (response.data[j] << (8 * j));
-                break;
-            }
-        }
-    }
-    return retError;
+    return 1; // Communication Failure (Max retries reached)
 }
 
 
