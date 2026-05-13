@@ -981,15 +981,15 @@ void MODC_ARM_INIT()
   ARM_mot_6.setStatusReturnLevel(2);
   delay(10);
 
-  // Enable or disable debug mode for troubleshooting
-  mot_Left_1_ARM.setDebugLevel(DynamixelLL::DXL_WARN);
-  mot_Right_1_ARM.setDebugLevel(DynamixelLL::DXL_WARN);
-  ARM_mot_2.setDebugLevel(DynamixelLL::DXL_WARN);
-  ARM_mot_3.setDebugLevel(DynamixelLL::DXL_WARN);
-  ARM_mot_4.setDebugLevel(DynamixelLL::DXL_WARN);
-  ARM_mot_5.setDebugLevel(DynamixelLL::DXL_WARN);
-  ARM_mot_6.setDebugLevel(DynamixelLL::DXL_WARN);
-  ARM_dxl.setDebugLevel(DynamixelLL::DXL_WARN);
+  // Set Dynamixel warning verbosity for arm troubleshooting.
+  mot_Left_1_ARM.setDebugLevel(Levels::WARN);
+  mot_Right_1_ARM.setDebugLevel(Levels::WARN);
+  ARM_mot_2.setDebugLevel(Levels::WARN);
+  ARM_mot_3.setDebugLevel(Levels::WARN);
+  ARM_mot_4.setDebugLevel(Levels::WARN);
+  ARM_mot_5.setDebugLevel(Levels::WARN);
+  ARM_mot_6.setDebugLevel(Levels::WARN);
+  ARM_dxl.setDebugLevel(Levels::WARN);
 
   // Enable sync mode for multiple motor control.
   ARM_dxl.enableSync(motorIDs_ARM, numMotors_ARM);

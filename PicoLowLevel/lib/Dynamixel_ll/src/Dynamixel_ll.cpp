@@ -83,6 +83,9 @@ uint16_t DynamixelLL::calculateCRC(const uint8_t *data_blk_ptr, uint8_t data_blk
 
 void DynamixelLL::printResponse()
 {
+    if (!shouldLog(Levels::DEBUG))
+        return;
+
     // Pulisce eventuali byte rimasti nel buffer prima di leggere la risposta
     while (_serial.available())
     {
@@ -92,12 +95,13 @@ void DynamixelLL::printResponse()
     unsigned long startMillis = millis();
     unsigned long timeout = 5; // Timeout di 1 secondo per la lettura
 
-        Serial.println("Inizio lettura risposta:");
+    Debug.println("Inizio lettura risposta:", Levels::DEBUG);
 
     // Legge i byte dalla seriale
+
     while (millis() - startMillis < timeout)
     {
-        if (_serial.available())
+      if (_serial.available())
         {
             uint8_t byte = _serial.read();
 
@@ -117,15 +121,56 @@ void DynamixelLL::printResponse()
 
 void DynamixelLL::setDebug(bool enable)
 {
-    setDebugLevel(enable ? DXL_WARN : DXL_OFF);
+    setDebugLevel(enable ? Levels::WARN : Levels::OFF);
 }
 
-void DynamixelLL::setDebugLevel(uint8_t level)
+void DynamixelLL::setDebugLevel(Levels level)
 {
-    if (level > DXL_DEBUG)
-        level = DXL_DEBUG;
-    _debugLevel = static_cast<DebugLevel>(level);
-    _debug = shouldLog(DXL_WARN);
+    _debugLevel = level;
+}
+
+bool DynamixelLL::shouldLog(Levels level) const
+{
+    return _debugLevel != Levels::OFF && level <= _debugLevel;
+}
+
+void DynamixelLL::printPacket(const char *label, const uint8_t *packet, uint16_t start, uint16_t length) const
+{
+    if (!shouldLog(Levels::DEBUG)) return;
+    
+    Serial.print(label);
+    Serial.print(": ");
+    for (uint16_t i = start; i < start + length; i++)
+    {
+        Serial.print("0x");
+        if (packet[i] < 0x10) Serial.print("0");
+        Serial.print(packet[i], HEX);
+        Serial.print(" ");
+    }
+    Serial.println();
+}
+
+void DynamixelLL::printDebugSummary()
+{
+    if (!shouldLog(Levels::INFO))
+        return;
+
+    uint32_t now = millis();
+    if (now - _lastDebugSummaryMs < 1000)
+        return;
+
+    _lastDebugSummaryMs = now;
+    String message = "Dynamixel summary: tx=";
+    message += _debugTxPackets;
+    message += " rx=";
+    message += _debugRxStatusPackets;
+    message += " echo=";
+    message += _debugRxEchoPackets;
+    message += " timeout=";
+    message += _debugRxTimeouts;
+    message += " crc=";
+    message += _debugRxCrcErrors;
+    Debug.println(message, Levels::INFO);
 }
 
 
@@ -134,8 +179,8 @@ void DynamixelLL::enableSync(const uint8_t* motorIDs, uint8_t numMotors)
     // Check if the number of motors is valid (at least two motors).
     if (numMotors < 2)
     {
-        if (_debug)
-            Serial.println("Invalid number of motors for sync mode. Must be at least 2.");
+        if (shouldLog(Levels::WARN))
+            Debug.println("Invalid number of motors for sync mode. Must be at least 2.", Levels::WARN);
         return;
     }
 
@@ -174,8 +219,8 @@ uint8_t DynamixelLL::checkArraySize(uint8_t arraySize) const
 {
     if (arraySize != _numMotors)
     {
-        if (_debug)
-            Serial.println("Error: Array size does not match number of motors.");
+        if (shouldLog(Levels::WARN))
+            Debug.println("Error: Array size does not match number of motors.", Levels::WARN);
         return 1;
     }
     return 0;
@@ -240,22 +285,22 @@ uint8_t DynamixelLL::writeRegister(uint16_t address, uint32_t value, uint8_t siz
     // Send the Packet
     if (!sendPacket(packet, lenNoCRC + 2))
     {
-        if (_debug)
-            Serial.println("Error sending Write packet.");
+        if (shouldLog(Levels::WARN))
+            Debug.println("Error sending Write packet.", Levels::WARN);
         return 1;
     }
     //delay(time_delay);
 
     // Receive and Process the Response
     StatusPacket response = receivePacket();
-    if (_debug)
+    if (shouldLog(Levels::WARN))
     {
         if (!response.valid)
-            Serial.println("Invalid status packet received.");
+            Debug.println("Invalid status packet received.", Levels::WARN);
         if (response.error != 0)
         {
-            Serial.print("Error in status packet: ");
-            Serial.println(response.error, HEX);
+            Debug.print("Error in status packet: ", Levels::WARN);
+            Debug.println(String(response.error, HEX), Levels::WARN);
         }
     }
 
@@ -265,22 +310,12 @@ uint8_t DynamixelLL::writeRegister(uint16_t address, uint32_t value, uint8_t siz
 
 bool DynamixelLL::sendPacket(const uint8_t *packet, uint8_t length)
 {
-    if (shouldLog(DXL_DEBUG))
-    {
-        Serial.print("Sent Packet: ");
-        for (uint8_t i = 0; i < length; ++i)
-        {
-            Serial.print("0x");
-            if (packet[i] < 0x10)
-                Serial.print("0");
-            Serial.print(packet[i], HEX);
-            Serial.print(" ");
-        }
-        Serial.println();
-    }
-     while (_serial.available())
-         _serial.read(); // Clear any pending data from the serial input buffer.
-
+    printPacket("Sent Packet", packet, 0, length);
+    _debugTxPackets++;
+    printDebugSummary();
+    while (_serial.available())
+        _serial.read(); // Clear any pending data from the serial input buffer.
+ 
     size_t bytesWritten = _serial.write(packet, length);
 
     _serial.flush();
@@ -298,9 +333,8 @@ StatusPacket DynamixelLL::receivePacket()
     uint16_t index = 0;                      // Index into the buffer.
     uint32_t start = millis();
     const uint32_t timeout = 5;           // Timeout in milliseconds.
-    bool headerFound = false;                // Flag to indicate header detection.
+    bool headerFound = false;                // Flag to indicate header detection.               
 
-    // Step 1: Locate header (0xFF, 0xFF, 0xFD, 0x00)
     while ((millis() - start) < timeout && index < maxPacketSize)
     {
         if (_serial.available())
@@ -315,10 +349,9 @@ StatusPacket DynamixelLL::receivePacket()
                 buffer[index - 2] == 0xFD &&
                 buffer[index - 1] == 0x00)
             {
-                headerFound = true;
-               
-               // Serial.println("fix_error 0");
-                break;
+                headerFound = true; 
+                // Serial.println("fix_error 0");
+                           break;
             } else if (index >= 3 &&
                 buffer[index - 3] == 0xFF &&
                 buffer[index - 2] == 0xFD &&
@@ -339,12 +372,11 @@ StatusPacket DynamixelLL::receivePacket()
    // Serial.println("  ");
     if (!headerFound)
     {
-        if (shouldLog(DXL_WARN))
-            Serial.println("[DXL WARN] Header not found within timeout");
+        if (shouldLog(Levels::WARN))
+            Debug.println("Dynamixel: Header not found within timeout", Levels::WARN);
         return result;
     }
-    uint16_t headerStart = index - 4 ;
-
+    
     // Step 2: Read header extension (ID and LENGTH fields; need 7 bytes total from header start)
     while ((millis() - start) < timeout && (index - headerStart) < 7 && index < maxPacketSize)
     {
@@ -353,15 +385,12 @@ StatusPacket DynamixelLL::receivePacket()
     }
     if ((index - headerStart) < 7)
     {
-        if (shouldLog(DXL_WARN))
-            Serial.println("[DXL WARN] Timeout waiting for header extension");
+        if (shouldLog(Levels::WARN))
+            Debug.println("Dynamixel: Timeout waiting for header extension", Levels::WARN);
         return result;
     }
-    result.id = buffer[headerStart + 4 ];
-
-    // Step 3: Determine total packet length
-    uint16_t lengthField = buffer[headerStart + 5 ] | (buffer[headerStart + 6 ] << 8); // LSB | MSB
-    uint16_t totalPacketLength = 7 + lengthField; // (header + ID + length field) + (Instruction + ERR + PARAM + CRC)
+    
+    result.id = buffer[headerStart + 4];
 
     // Step 4: Read remaining bytes until full packet is received
     while ((millis() - start) < timeout && (index - headerStart) < totalPacketLength && index < maxPacketSize)
@@ -371,27 +400,19 @@ StatusPacket DynamixelLL::receivePacket()
     }
     if ((index - headerStart) < totalPacketLength)
     {
-        if (shouldLog(DXL_WARN))
-            Serial.println("[DXL WARN] Incomplete packet received (timeout)");
+        _debugRxTimeouts++;
+        printDebugSummary();
+        if (shouldLog(Levels::WARN))
+            Debug.println("Dynamixel: Incomplete packet received (timeout)", Levels::WARN);
         return result;
     }
 
-    // Step 5: Debug print of the packet
-    if (shouldLog(DXL_DEBUG)) {
-        Serial.print("Received Packet: ");
-        for (uint16_t i = headerStart; i < headerStart + totalPacketLength; i++) {
-            Serial.print("0x");
-            if (buffer[i] < 0x10) Serial.print("0");
-            Serial.print(buffer[i], HEX);
-            Serial.print(" ");
-        }
-        Serial.println();
-    }
+    printPacket("Received Packet", buffer, headerStart, totalPacketLength);
 
-    // Step 6: Parse and validate the packet
-    // [Header (4) | Packet ID (1) | Length (2) | Instruction (1) | Error (1) | Parameters (paramLength) | CRC (2)]
-    if (buffer[headerStart + 7 ] != 0x55) // Verify instruction (expecting 0x55 for a status packet)
+    if (buffer[headerStart + 7] != 0x55) 
     {
+        _debugRxEchoPackets++;
+        printDebugSummary();
         return receivePacket();
     }
     result.error = buffer[headerStart + 8 ];
@@ -399,20 +420,23 @@ StatusPacket DynamixelLL::receivePacket()
     result.dataLength = paramLength;
     for (uint8_t i = 0; i < paramLength && i < 4; i++)
     {
-        result.data[i] = buffer[headerStart + 9 + i ];
+        result.data[i] = buffer[headerStart + 9 + i];
     }
-
-    // Read the CRC from the packet.
-    uint16_t receivedCRC = buffer[headerStart + 9 + paramLength ] | (buffer[headerStart + 10 + paramLength ] << 8);
-    uint16_t computedCRC = calculateCRC(&buffer[headerStart ], 9 + paramLength);
+   // Read the CRC from the packet.
+    uint16_t receivedCRC = buffer[headerStart + 9 + paramLength] | (buffer[headerStart + 10 + paramLength] << 8);
+    uint16_t computedCRC = calculateCRC(&buffer[headerStart], 9 + paramLength);
     if (receivedCRC != computedCRC)
     {
-        if (shouldLog(DXL_WARN))
-            Serial.println("[DXL WARN] CRC invalid");
+        _debugRxCrcErrors++;
+        printDebugSummary();
+        if (shouldLog(Levels::WARN))
+            Debug.println("Dynamixel: CRC invalid", Levels::WARN);
         return result;
     }
 
     result.valid = true;
+    _debugRxStatusPackets++;
+    printDebugSummary();
     return result;
 }
 
@@ -448,22 +472,22 @@ uint8_t DynamixelLL::ping(uint32_t &value)
     // Send the ping packet over the serial interface.
     if (!sendPacket(packet, lenNoCRC + 2))
     {
-        if (_debug)
-            Serial.println("Error sending Ping packet.");
+        if (shouldLog(Levels::WARN))
+            Debug.println("Error sending Ping packet.", Levels::WARN);
         return 1;
     }
     //delay(time_delay);
 
     // Receive the status packet in response.
     StatusPacket response = receivePacket();
-    if (_debug)
+    if (shouldLog(Levels::WARN))
     {
         if (!response.valid)
-            Serial.println("Invalid status packet received.");
+            Debug.println("Invalid status packet received.", Levels::WARN);
         if (response.error != 0)
         {
-            Serial.print("Error in status packet: ");
-            Serial.println(response.error, HEX);
+            Debug.print("Error in status packet: ", Levels::WARN);
+            Debug.println(String(response.error, HEX), Levels::WARN);
         }
     }
 
@@ -738,8 +762,8 @@ uint8_t DynamixelLL::bulkRead(const uint8_t* ids, uint16_t* addresses, uint8_t* 
     // Send Bulk Read Instruction Packet.
     if (!sendBulkReadPacket(ids, addresses, dataLengths, count))
     {
-        if (_debug)
-            Serial.println("Error sending Bulk Read packet.");
+        if (shouldLog(Levels::WARN))
+            Debug.println("Error sending Bulk Read packet.", Levels::WARN);
         return 1;
     }
 
@@ -750,12 +774,12 @@ uint8_t DynamixelLL::bulkRead(const uint8_t* ids, uint16_t* addresses, uint8_t* 
         StatusPacket response = receivePacket();
         if (!response.valid || response.error != 0)
         {
-            if (_debug)
+            if (shouldLog(Levels::WARN))
             {
-                Serial.print("Error in status packet from device ");
-                Serial.print(ids[i]);
-                Serial.print(": 0x");
-                Serial.println(response.error, HEX);
+                Debug.print("Error in status packet from device ", Levels::WARN);
+                Debug.print(ids[i], Levels::WARN);
+                Debug.print(": 0x", Levels::WARN);
+                Debug.println(String(response.error, HEX), Levels::WARN);
             }
             retError = response.error;
         }
@@ -806,22 +830,22 @@ uint8_t DynamixelLL::factoryReset(uint8_t level)
     // Send the Packet
     if (!sendPacket(packet, lenNoCRC + 2))
     {
-        if (_debug)
-            Serial.println("Error sending Factory Reset packet.");
+        if (shouldLog(Levels::WARN))
+            Debug.println("Error sending Factory Reset packet.", Levels::WARN);
         return 1;
     }
     delay(time_delay);
 
     // Receive and Process the Response
     StatusPacket response = receivePacket();
-    if (_debug)
+    if (shouldLog(Levels::WARN))
     {
         if (!response.valid)
-            Serial.println("Invalid status packet received.");
+            Debug.println("Invalid status packet received.", Levels::WARN);
         if (response.error != 0)
         {
-            Serial.print("Error in status packet: ");
-            Serial.println(response.error, HEX);
+            Debug.print("Error in status packet: ", Levels::WARN);
+            Debug.println(String(response.error, HEX), Levels::WARN);
         }
     }
 
@@ -864,22 +888,22 @@ uint8_t DynamixelLL::reboot()
     // Send the Packet
     if (!sendPacket(packet, lenNoCRC + 2))
     {
-        if (_debug)
-            Serial.println("Error sending Factory Reset packet.");
+        if (shouldLog(Levels::WARN))
+            Debug.println("Error sending Factory Reset packet.", Levels::WARN);
         return 1;
     }
     //delay(time_delay);
 
     // Receive and Process the Response
     StatusPacket response = receivePacket();
-    if (_debug)
+    if (shouldLog(Levels::WARN))
     {
         if (!response.valid)
-            Serial.println("Invalid status packet received.");
+            Debug.println("Invalid status packet received.", Levels::WARN);
         if (response.error != 0)
         {
-            Serial.print("Error in status packet: ");
-            Serial.println(response.error, HEX);
+            Debug.print("Error in status packet: ", Levels::WARN);
+            Debug.println(String(response.error, HEX), Levels::WARN);
         }
     }
 
@@ -896,8 +920,8 @@ uint8_t DynamixelLL::setOperatingMode(uint8_t mode)
 {
     if (!(mode == 1 || mode == 3 || mode == 4 || mode == 16))
     {
-        if (_debug)
-                Serial.print("Error: Unsupported operating mode.");
+        if (shouldLog(Levels::WARN))
+                Debug.print("Error: Unsupported operating mode.", Levels::WARN);
         return 1;
     }
     return writeRegister(11, mode, 1); // EEPROM address 11, 1 byte
@@ -910,12 +934,12 @@ uint8_t DynamixelLL::setHomingOffset(int32_t offset)
     if (offset > 1044479)
     {
         offset = 1044479;
-        if (_debug)
-            Serial.println("Warning: Homing offset clamped to 1044479.");
+        if (shouldLog(Levels::WARN))
+            Debug.println("Warning: Homing offset clamped to 1044479.", Levels::WARN);
     } else if (offset < -1044479) {
         offset = -1044479;
-        if (_debug)
-            Serial.println("Warning: Homing offset clamped to -1044479.");
+        if (shouldLog(Levels::WARN))
+            Debug.println("Warning: Homing offset clamped to -1044479.", Levels::WARN);
     }
     return writeRegister(20, static_cast<uint32_t>(offset), 4); // EEPROM address 20, 4 bytes
 }
@@ -928,12 +952,12 @@ uint8_t DynamixelLL::setHomingOffset_A(float offsetAngle)
     if (offset > 1044479)
     {
         offset = 1044479;
-        if (_debug)
-            Serial.println("Warning: Homing offset clamped to 1044479.");
+        if (shouldLog(Levels::WARN))
+            Debug.println("Warning: Homing offset clamped to 1044479.", Levels::WARN);
     } else if (offset < -1044479) {
         offset = -1044479;
-        if (_debug)
-            Serial.println("Warning: Homing offset clamped to -1044479.");
+        if (shouldLog(Levels::WARN))
+            Debug.println("Warning: Homing offset clamped to -1044479.", Levels::WARN);
     }
     return writeRegister(20, static_cast<uint32_t>(offset), 4); // EEPROM address 20, 4 bytes
 }
@@ -944,8 +968,8 @@ uint8_t DynamixelLL::setGoalPosition_PCM(uint16_t goalPosition)
     if (goalPosition > 4005)
     {
         goalPosition = 4005;
-        if (_debug)
-            Serial.println("Warning: Goal position clamped to 4005.");
+        if (shouldLog(Levels::WARN))
+            Debug.println("Warning: Goal position clamped to 4005.", Levels::WARN);
     }
     return writeRegister(116, goalPosition, 4); // RAM address 116, 4 bytes
 }
@@ -958,8 +982,8 @@ uint8_t DynamixelLL::setGoalPosition_A_PCM(float angleDegrees)
     if (goalPosition > 4095)
     {
         goalPosition = 4095;
-        if (_debug)
-            Serial.println("Warning: Angle conversion resulted in value exceeding 4095, clamped.");
+        if (shouldLog(Levels::WARN))
+            Debug.println("Warning: Angle conversion resulted in value exceeding 4095, clamped.", Levels::WARN);
     }
     return writeRegister(116, goalPosition, 4); // RAM address 116, 4 bytes
 }
@@ -970,12 +994,12 @@ uint8_t DynamixelLL::setGoalPosition_EPCM(int32_t extendedPosition)
     if (extendedPosition > 1048575)
     {
         extendedPosition = 1048575;
-        if (_debug)
-            Serial.println("Warning: Extended position clamped to 1048575.");
+        if (shouldLog(Levels::WARN))
+            Debug.println("Warning: Extended position clamped to 1048575.", Levels::WARN);
     } else if (extendedPosition < -1048575) {
         extendedPosition = -1048575;
-        if (_debug)
-            Serial.println("Warning: Extended position clamped to -1048575.");
+        if (shouldLog(Levels::WARN))
+            Debug.println("Warning: Extended position clamped to -1048575.", Levels::WARN);
     }
     return writeRegister(116, static_cast<uint32_t>(extendedPosition), 4); // RAM address 116, 4 bytes
 }
@@ -997,8 +1021,8 @@ uint8_t DynamixelLL::setStatusReturnLevel(uint8_t level)
 {
     if (level > 2)
     {
-        if (_debug)
-            Serial.println("Error: Invalid status return level. Allowed values: 0, 1, or 2.");
+        if (shouldLog(Levels::WARN))
+            Debug.println("Error: Invalid status return level. Allowed values: 0, 1, or 2.", Levels::WARN);
         return 1;
     }
     return writeRegister(68, level, 1); // RAM address 68, 1 byte
@@ -1009,8 +1033,8 @@ uint8_t DynamixelLL::setID(uint8_t newID)
 {
     if (newID > 253)
     {
-        if (_debug)
-            Serial.println("Error: Invalid ID. Valid IDs are 0 to 253.");
+        if (shouldLog(Levels::WARN))
+            Debug.println("Error: Invalid ID. Valid IDs are 0 to 253.", Levels::WARN);
         return 1;
     }
     return writeRegister(7, newID, 1); // EEPROM address 7, 1 byte
@@ -1033,10 +1057,10 @@ uint8_t DynamixelLL::setBaudRate(uint8_t baudRate)
 
     if (!valid)
     {
-        if (_debug)
+        if (shouldLog(Levels::WARN))
         {
-            Serial.print("Error: Unrecognized baud rate code: ");
-            Serial.println(baudRate);
+            Debug.print("Error: Unrecognized baud rate code: ", Levels::WARN);
+            Debug.println(baudRate, Levels::WARN);
         }
         return 1;
     }
@@ -1049,8 +1073,8 @@ uint8_t DynamixelLL::setReturnDelayTime(uint8_t delayTime)
     if (delayTime > 254)
     {
         delayTime = 254;
-        if (_debug)
-            Serial.println("Warning: setReturnDelayTime clamped to 254.");
+        if (shouldLog(Levels::WARN))
+            Debug.println("Warning: setReturnDelayTime clamped to 254.", Levels::WARN);
     }
     return writeRegister(9, delayTime, 1); // EEPROM address 9, 1 byte
 }
@@ -1081,10 +1105,10 @@ uint8_t DynamixelLL::setProfileVelocity(uint32_t profileVelocity)
 
     if (profileVelocity > maxProfileVelocity)
     {
-        if (_debug)
+        if (shouldLog(Levels::WARN))
         {
-            Serial.print("Profile velocity clamped to ");
-            Serial.println(maxProfileVelocity);
+            Debug.print("Profile velocity clamped to ", Levels::WARN);
+            Debug.println(maxProfileVelocity, Levels::WARN);
         }
         profileVelocity = maxProfileVelocity;
     }
@@ -1104,10 +1128,10 @@ uint8_t DynamixelLL::setProfileAcceleration(uint32_t profileAcceleration)
 
     if (profileAcceleration > maxProfileAcceleration)
     {
-        if (_debug)
+        if (shouldLog(Levels::WARN))
         {
-            Serial.print("Profile acceleration clamped to ");
-            Serial.println(maxProfileAcceleration);
+            Debug.print("Profile acceleration clamped to ", Levels::WARN);
+            Debug.println(maxProfileAcceleration, Levels::WARN);
         }
         profileAcceleration = maxProfileAcceleration;
     }
@@ -1118,15 +1142,15 @@ uint8_t DynamixelLL::setProfileAcceleration(uint32_t profileAcceleration)
     if (timeBased && error == 0 && currentProfileVelocity > 0 && profileAcceleration > (currentProfileVelocity / 2))
     {
         uint32_t clampedValue = currentProfileVelocity / 2;
-        if (_debug)
+        if (shouldLog(Levels::WARN))
         {
-            Serial.print("Profile acceleration clamped to half of current profile velocity: ");
-            Serial.println(clampedValue);
+            Debug.print("Profile acceleration clamped to half of current profile velocity: ", Levels::WARN);
+            Debug.println(clampedValue, Levels::WARN);
         }
         profileAcceleration = clampedValue;
-    } else if (error != 0 && _debug) {
-        Serial.print("Error reading Profile Velocity: ");
-        Serial.println(error);
+    } else if (error != 0 && shouldLog(Levels::WARN)) {
+        Debug.print("Error reading Profile Velocity: ", Levels::WARN);
+        Debug.println(error, Levels::WARN);
     }
     return writeRegister(108, profileAcceleration, 4); // RAM address 108, 4 bytes
 }
@@ -1138,12 +1162,12 @@ uint8_t DynamixelLL::setGoalVelocity_RPM(float rpm)
     if (rpm > maxRPM)
     {
         rpm = maxRPM;
-        if (_debug) Serial.println("Warning: RPM clamped to 30 (12V limit).");
+        if (shouldLog(Levels::WARN)) Debug.println("Warning: RPM clamped to 30 (12V limit).", Levels::WARN);
     }
     else if (rpm < -maxRPM)
     {
         rpm = -maxRPM;
-        if (_debug) Serial.println("Warning: RPM clamped to -30 (12V limit).");
+        if (shouldLog(Levels::WARN)) Debug.println("Warning: RPM clamped to -30 (12V limit).", Levels::WARN);
     }
 
     int16_t velocityValue = static_cast<int16_t>(rpm / 0.229f);
@@ -1157,10 +1181,10 @@ uint8_t DynamixelLL::getPresentVelocity_RPM(float &rpm)
     uint8_t error = readRegister(128, temp, 4); // address 128, 4 bytes
     if (error != 0)
     {
-        if (_debug)
+        if (shouldLog(Levels::WARN))
         {
-            Serial.print("Error reading Present Velocity: ");
-            Serial.println(error, HEX);
+            Debug.print("Error reading Present Velocity: ", Levels::WARN);
+            Debug.println(String(error, HEX), Levels::WARN);
         }
     } else {
         rpm = temp * 0.229f;  // convert to RPM in float
@@ -1174,10 +1198,10 @@ uint8_t DynamixelLL::getPresentPosition(int32_t &presentPosition)
     uint8_t error = readRegister(132, presentPosition, 4); // RAM address 132, 4 bytes
     if (error != 0)
     {
-        if (_debug)
+        if (shouldLog(Levels::WARN))
         {
-            Serial.print("Error reading Present Position: ");
-            Serial.println(error, HEX);
+            Debug.print("Error reading Present Position: ", Levels::WARN);
+            Debug.println(String(error, HEX), Levels::WARN);
         }
     }
     return error;
@@ -1189,10 +1213,10 @@ uint8_t DynamixelLL::getCurrentLoad(int16_t &currentLoad)
     uint8_t error = readRegister(126, currentLoad, 2); // RAM address 126, 2 bytes
     if (error != 0)
     {
-        if (_debug)
+        if (shouldLog(Levels::WARN))
         {
-            Serial.print("Error reading Current Load: ");
-            Serial.println(error, HEX);
+            Debug.print("Error reading Current Load: ", Levels::WARN);
+            Debug.println(String(error, HEX), Levels::WARN);
         }
     }
     return error;
@@ -1204,10 +1228,10 @@ uint8_t DynamixelLL::getMovingStatus(MovingStatus &status)
     uint8_t error = readRegister(123, status.raw, 1); // RAM address 123, 1 byte
     if (error != 0)
     {
-        if (_debug)
+        if (shouldLog(Levels::WARN))
         {
-            Serial.print("Error reading Moving Status, error code: ");
-            Serial.println(error, HEX);
+            Debug.print("Error reading Moving Status, error code: ", Levels::WARN);
+            Debug.println(String(error, HEX), Levels::WARN);
         }
     } else {
         // Decode bits 5 & 4 for Velocity Profile Type.
@@ -1229,10 +1253,10 @@ uint8_t DynamixelLL::getHardwareErrorStatus(uint8_t &HardwareErrorStatus)
     uint8_t error = readRegister(70, HardwareErrorStatus, 1); // RAM address 70, 1 bytes
     if (error != 0)
     {
-        if (_debug)
+        if (shouldLog(Levels::WARN))
         {
-            Serial.print("Error reading Current Load: ");
-            Serial.println(error, HEX);
+            Debug.print("Error reading Current Load: ", Levels::WARN);
+            Debug.println(String(error, HEX), Levels::WARN);
         }
     }
     return error;
@@ -1250,10 +1274,10 @@ uint8_t DynamixelLL::getPresentTemperature(uint8_t &temperature)
     uint8_t error = readRegister(146, temperature, 1); // RAM address 146, 1 byte
     if (error != 0)
     {
-        if (_debug)
+        if (shouldLog(Levels::WARN))
         {
-            Serial.print("Error reading Present Temperature: ");
-            Serial.println(error, HEX);
+            Debug.print("Error reading Present Temperature: ", Levels::WARN);
+            Debug.println(String(error, HEX), Levels::WARN);
         }
     }
     return error;

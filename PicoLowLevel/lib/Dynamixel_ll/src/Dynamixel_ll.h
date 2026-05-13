@@ -10,6 +10,7 @@
  */
 
 #include <Arduino.h>
+#include "Debug.h"
 
 /**
  * @struct StatusPacket
@@ -85,26 +86,15 @@ public:
 
     /**
      * @brief Enables or disables debugging output.
-      * @param enable True to enable warning-focused debug output.
+     * @param enable True to enable WARN-level output.
      */
     void setDebug(bool enable);
 
     /**
-     * @enum DebugLevel
-     * @brief Verbosity levels for DYNAMIXEL debug output.
-     */
-    enum DebugLevel {
-        DXL_OFF = 0,
-        DXL_WARN = 1,
-        DXL_INFO = 2,
-        DXL_DEBUG = 3
-    };
-
-    /**
      * @brief Set debug verbosity level.
-     * @param level One of DebugLevel (DXL_OFF..DXL_DEBUG).
+     * @param level One of the shared Debug Levels values.
      */
-    void setDebugLevel(uint8_t level);
+    void setDebugLevel(Levels level);
 
     /**
      * @brief Enables synchronization mode for multiple motors.
@@ -549,11 +539,19 @@ private:
     uint8_t _numMotors = 1;       ///< Virtual broadcaster number of motors.
     uint8_t *_motorIDs = nullptr; ///< Virtual broadcaster motor IDs.
 
-    bool _debug = false; ///< Debug mode flag.
-    DebugLevel _debugLevel = DXL_OFF;
+    Levels _debugLevel = Levels::OFF; ///< Dynamixel-specific debug verbosity.
     uint8_t _error;      ///< Last error code.
 
-    bool shouldLog(DebugLevel level) const { return _debugLevel >= level; }
+    bool shouldLog(Levels level) const;
+    void printPacket(const char *label, const uint8_t *packet, uint16_t start, uint16_t length) const;
+    void printDebugSummary();
+
+    uint32_t _debugTxPackets = 0;
+    uint32_t _debugRxStatusPackets = 0;
+    uint32_t _debugRxEchoPackets = 0;
+    uint32_t _debugRxTimeouts = 0;
+    uint32_t _debugRxCrcErrors = 0;
+    uint32_t _lastDebugSummaryMs = 0;
 
     /**
      * @brief Receives a status packet from the servo.
