@@ -327,22 +327,21 @@ bool DynamixelLL::sendPacket(const uint8_t *packet, uint8_t length)
 StatusPacket DynamixelLL::receivePacket()
 {
     StatusPacket result = {false, 0, 0, {0}, 0};
-   
-    const uint8_t maxPacketSize = 64;         // Maximum allowed packet size.
-    uint8_t buffer[maxPacketSize];           // Buffer for incoming bytes.
-    uint16_t index = 0;                      // Index into the buffer.
+    
+    const uint8_t maxPacketSize = 64;
+    uint8_t buffer[maxPacketSize];
+    uint16_t index = 0;
+    uint16_t headerStart = 0;
     uint32_t start = millis();
-    const uint32_t timeout = 5;           // Timeout in milliseconds.
-    bool headerFound = false;                // Flag to indicate header detection.               
+    const uint32_t timeout = 5;
+    bool headerFound = false;
 
     while ((millis() - start) < timeout && index < maxPacketSize)
     {
         if (_serial.available())
         {
             buffer[index++] = _serial.read();
-            //Serial.print(buffer[index-1], HEX);
-            //Serial.print("  ");
-            // When there is at least 4 bytes, check the last 4 bytes.
+            
             if (index >= 4 &&
                 buffer[index - 4] == 0xFF &&
                 buffer[index - 3] == 0xFF &&
@@ -350,8 +349,8 @@ StatusPacket DynamixelLL::receivePacket()
                 buffer[index - 1] == 0x00)
             {
                 headerFound = true; 
-                // Serial.println("fix_error 0");
-                           break;
+                headerStart = index - 4;
+                break;
             } else if (index >= 3 &&
                 buffer[index - 3] == 0xFF &&
                 buffer[index - 2] == 0xFD &&
@@ -362,21 +361,19 @@ StatusPacket DynamixelLL::receivePacket()
                 buffer[1] = 0xFF;
                 buffer[2] = 0xFD;
                 buffer[3] = 0x00;
-                index=4;
-               // Serial.println("fix_error 1");
+                index = 4;
+                headerStart = 0;
                 break;
             }
         }
     }
 
-   // Serial.println("  ");
     if (!headerFound)
     {
         if (shouldLog(Levels::WARN))
             Debug.println("Dynamixel: Header not found within timeout", Levels::WARN);
         return result;
     }
-    
     // Step 2: Read header extension (ID and LENGTH fields; need 7 bytes total from header start)
     while ((millis() - start) < timeout && (index - headerStart) < 7 && index < maxPacketSize)
     {
@@ -392,7 +389,9 @@ StatusPacket DynamixelLL::receivePacket()
     
     result.id = buffer[headerStart + 4];
 
-    // Step 4: Read remaining bytes until full packet is received
+    uint16_t lengthField = buffer[headerStart + 5] | (buffer[headerStart + 6] << 8);
+    uint16_t totalPacketLength = 7 + lengthField;
+
     while ((millis() - start) < timeout && (index - headerStart) < totalPacketLength && index < maxPacketSize)
     {
         if (_serial.available())
@@ -415,14 +414,15 @@ StatusPacket DynamixelLL::receivePacket()
         printDebugSummary();
         return receivePacket();
     }
-    result.error = buffer[headerStart + 8 ];
+    
+    result.error = buffer[headerStart + 8];
     uint8_t paramLength = lengthField - 4;
     result.dataLength = paramLength;
     for (uint8_t i = 0; i < paramLength && i < 4; i++)
     {
         result.data[i] = buffer[headerStart + 9 + i];
     }
-   // Read the CRC from the packet.
+      // Read the CRC from the packet.
     uint16_t receivedCRC = buffer[headerStart + 9 + paramLength] | (buffer[headerStart + 10 + paramLength] << 8);
     uint16_t computedCRC = calculateCRC(&buffer[headerStart], 9 + paramLength);
     if (receivedCRC != computedCRC)

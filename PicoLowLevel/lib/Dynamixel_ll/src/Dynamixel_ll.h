@@ -10,7 +10,7 @@
  */
 
 #include <Arduino.h>
-#include "Debug.h"
+#include <Debug.h>
 
 /**
  * @struct StatusPacket
