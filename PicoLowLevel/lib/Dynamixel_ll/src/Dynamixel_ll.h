@@ -10,6 +10,7 @@
  */
 
 #include <Arduino.h>
+#include <Debug.h>
 
 /**
  * @struct StatusPacket
@@ -85,9 +86,15 @@ public:
 
     /**
      * @brief Enables or disables debugging output.
-     * @param enable True to enable debug messages.
+     * @param enable True to enable WARN-level output.
      */
     void setDebug(bool enable);
+
+    /**
+     * @brief Set debug verbosity level.
+     * @param level One of the shared Debug Levels values.
+     */
+    void setDebugLevel(Levels level);
 
     /**
      * @brief Enables synchronization mode for multiple motors.
@@ -532,8 +539,19 @@ private:
     uint8_t _numMotors = 1;       ///< Virtual broadcaster number of motors.
     uint8_t *_motorIDs = nullptr; ///< Virtual broadcaster motor IDs.
 
-    bool _debug = false; ///< Debug mode flag.
+    Levels _debugLevel = Levels::OFF; ///< Dynamixel-specific debug verbosity.
     uint8_t _error;      ///< Last error code.
+
+    bool shouldLog(Levels level) const;
+    void printPacket(const char *label, const uint8_t *packet, uint16_t start, uint16_t length) const;
+    void printDebugSummary();
+
+    uint32_t _debugTxPackets = 0;
+    uint32_t _debugRxStatusPackets = 0;
+    uint32_t _debugRxEchoPackets = 0;
+    uint32_t _debugRxTimeouts = 0;
+    uint32_t _debugRxCrcErrors = 0;
+    uint32_t _lastDebugSummaryMs = 0;
 
     /**
      * @brief Receives a status packet from the servo.

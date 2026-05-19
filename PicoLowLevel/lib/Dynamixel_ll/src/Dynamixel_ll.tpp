@@ -39,22 +39,22 @@ uint8_t DynamixelLL::readRegister(uint16_t address, T &value, uint8_t size)
     // Transmit the packet.
     if (!sendPacket(packet, 14))
     {
-        if (_debug)
-            Serial.println("Error sending Read packet.");
+        if (shouldLog(Levels::WARN))
+            Debug.println("Error sending Read packet.", Levels::WARN);
         return 1;
     }
     delay(time_delay);
 
     // Receive and process the response.
     StatusPacket response = receivePacket();
-    if (_debug)
+    if (shouldLog(Levels::WARN))
     {
         if (!response.valid)
-            Serial.println("Invalid status packet received.");
+            Debug.println("Invalid status packet received.", Levels::WARN);
         if (response.error != 0)
         {
-            Serial.print("Error in status packet: ");
-            Serial.println(response.error, HEX);
+            Debug.print("Error in status packet: ", Levels::WARN);
+            Debug.println(String(response.error, HEX), Levels::WARN);
         }
     }
 
@@ -73,8 +73,8 @@ uint8_t DynamixelLL::syncRead(uint16_t address, uint8_t dataLength, const uint8_
     // Send Sync Read Instruction Packet.
     if (!sendSyncReadPacket(address, dataLength, ids, count))
     {
-        if (_debug)
-            Serial.println("Error sending Sync Read packet.");
+        if (shouldLog(Levels::WARN))
+            Debug.println("Error sending Sync Read packet.", Levels::WARN);
         return 1;
     }
 
@@ -89,18 +89,18 @@ uint8_t DynamixelLL::syncRead(uint16_t address, uint8_t dataLength, const uint8_
         received++;
         if (!response.valid)
         {
-            if (_debug)
-                Serial.println("Invalid status packet received.");
+            if (shouldLog(Levels::WARN))
+                Debug.println("Invalid status packet received.", Levels::WARN);
             continue;
         }
         if (response.error != 0)
         {
-            if (_debug)
+            if (shouldLog(Levels::WARN))
             {
-                Serial.print("Error in status packet from device ");
-                Serial.print(response.id);
-                Serial.print(": 0x");
-                Serial.println(response.error, HEX);
+                Debug.print("Error in status packet from device ", Levels::WARN);
+                Debug.print(response.id, Levels::WARN);
+                Debug.print(": 0x", Levels::WARN);
+                Debug.println(String(response.error, HEX), Levels::WARN);
             }
             retError = response.error;
             continue;
@@ -131,8 +131,8 @@ uint8_t DynamixelLL::setOperatingMode(const uint8_t (&modes)[N])
     { 
         if (!(modes[i] == 1 || modes[i] == 3 || modes[i] == 4 || modes[i] == 16))
         {
-            if (_debug)
-                Serial.print("Error: Unsupported operating mode.");
+            if (shouldLog(Levels::WARN))
+                Debug.print("Error: Unsupported operating mode.", Levels::WARN);
             return 1;
         }
         processedModes[i] = modes[i];
@@ -153,12 +153,12 @@ uint8_t DynamixelLL::setHomingOffset(const int32_t (&offset)[N])
         if (offset[i] > 1044479)
         {
             offsetArray[i] = 1044479;
-            if (_debug)
-                Serial.println("Warning: Homing offset clamped to 1044479.");
+            if (shouldLog(Levels::WARN))
+                Debug.println("Warning: Homing offset clamped to 1044479.", Levels::WARN);
         } else if (offset[i] < -1044479) {
             offsetArray[i] = -1044479;
-            if (_debug)
-                Serial.println("Warning: Homing offset clamped to -1044479.");
+            if (shouldLog(Levels::WARN))
+                Debug.println("Warning: Homing offset clamped to -1044479.", Levels::WARN);
         } else
             offsetArray[i] = offset[i];
     }
@@ -181,12 +181,12 @@ uint8_t DynamixelLL::setHomingOffset_A(const float (&offsetAngle)[N])
         if (offsetPulse[i] > 1044479)
         {
             offsetArray[i] = 1044479;
-            if (_debug)
-                Serial.println("Warning: Homing offset clamped to 1044479.");
+            if (shouldLog(Levels::WARN))
+                Debug.println("Warning: Homing offset clamped to 1044479.", Levels::WARN);
         } else if (offsetPulse[i] < -1044479) {
             offsetArray[i] = -1044479;
-            if (_debug)
-                Serial.println("Warning: Homing offset clamped to -1044479.");
+            if (shouldLog(Levels::WARN))
+                Debug.println("Warning: Homing offset clamped to -1044479.", Levels::WARN);
         } else
             offsetArray[i] = static_cast<uint32_t>(offsetPulse[i]);
     }
@@ -207,8 +207,8 @@ uint8_t DynamixelLL::setGoalPosition_PCM(const uint16_t (&goalPositions)[N])
 
         if (processedPositions[i] > 4095) {
             processedPositions[i] = 4095;
-            if (_debug)
-                Serial.println("Warning: Goal position clamped to 4095.");
+            if (shouldLog(Levels::WARN))
+                Debug.println("Warning: Goal position clamped to 4095.", Levels::WARN);
         }
     }
     return syncWrite(116, 4, _motorIDs, processedPositions, _numMotors); // RAM address 116, 4 bytes
@@ -228,8 +228,8 @@ uint8_t DynamixelLL::setGoalPosition_A_PCM(const float (&angleDegrees)[N])
         processedPositions[i] = static_cast<uint32_t>(angleDegrees[i] / 0.088);
         if (processedPositions[i] > 4095) {
             processedPositions[i] = 4095;
-            if (_debug)
-                Serial.println("Warning: Angle conversion resulted in value exceeding 4095, clamped.");
+            if (shouldLog(Levels::WARN))
+                Debug.println("Warning: Angle conversion resulted in value exceeding 4095, clamped.", Levels::WARN);
         }
     }
     return syncWrite(116, 4, _motorIDs, processedPositions, _numMotors); // RAM address 116, 4 bytes
@@ -248,12 +248,12 @@ uint8_t DynamixelLL::setGoalPosition_EPCM(const int32_t (&extendedPositions)[N])
         if (extendedPositions[i] > 1048575)
         {
             processedPositions[i] = 1048575;
-            if (_debug)
-                Serial.println("Warning: Extended position clamped to 1048575.");
+            if (shouldLog(Levels::WARN))
+                Debug.println("Warning: Extended position clamped to 1048575.", Levels::WARN);
         } else if (extendedPositions[i] < -1048575) {
             processedPositions[i] = -1048575;
-            if (_debug)
-                Serial.println("Warning: Extended position clamped to -1048575.");
+            if (shouldLog(Levels::WARN))
+                Debug.println("Warning: Extended position clamped to -1048575.", Levels::WARN);
         } else
             processedPositions[i] = static_cast<uint32_t>(extendedPositions[i]);
     }
@@ -298,8 +298,8 @@ uint8_t DynamixelLL::setStatusReturnLevel(const uint8_t (&levels)[N])
     {
         if (levels[i] > 2)
         {
-            if (_debug)
-                Serial.println("Error: Invalid status return level. Allowed values: 0, 1, or 2.");
+            if (shouldLog(Levels::WARN))
+                Debug.println("Error: Invalid status return level. Allowed values: 0, 1, or 2.", Levels::WARN);
             return 1;
         }
         processedLevels[i] = levels[i];
@@ -319,8 +319,8 @@ uint8_t DynamixelLL::setID(const uint8_t (&newIDs)[N])
     {
         if (newIDs[i] > 253)
         {
-            if (_debug)
-                Serial.println("Error: Invalid ID. Valid IDs are 0 to 253.");
+            if (shouldLog(Levels::WARN))
+                Debug.println("Error: Invalid ID. Valid IDs are 0 to 253.", Levels::WARN);
             return 1;
         }
         processedIDs[i] = newIDs[i];
@@ -352,10 +352,10 @@ uint8_t DynamixelLL::setBaudRate(const uint8_t (&baudRates)[N])
         
         if (!valid)
         {
-            if (_debug)
+            if (shouldLog(Levels::WARN))
             {
-                Serial.print("Error: Unrecognized baud rate code: ");
-                Serial.println(baudRates[i]);
+                Debug.print("Error: Unrecognized baud rate code: ", Levels::WARN);
+                Debug.println(baudRates[i], Levels::WARN);
             }
             return 1;
         }
@@ -378,8 +378,8 @@ uint8_t DynamixelLL::setReturnDelayTime(const uint8_t (&delayTime)[N])
         if (processedDelayTime[i] > 254)
         {
             processedDelayTime[i] = 254;
-            if (_debug)
-                Serial.println("Warning: setReturnDelayTime clamped to 254.");
+            if (shouldLog(Levels::WARN))
+                Debug.println("Warning: setReturnDelayTime clamped to 254.", Levels::WARN);
         }
     }
     return syncWrite(9, 1, _motorIDs, processedDelayTime, _numMotors); // EEPROM address 9, 1 byte
@@ -429,10 +429,10 @@ uint8_t DynamixelLL::setProfileVelocity(const uint32_t (&profileVelocity)[N])
         
         if (profileVelocity > maxProfileVelocity)
         {
-            if (_debug)
+            if (shouldLog(Levels::WARN))
             {
-                Serial.print("Profile velocity clamped to ");
-                Serial.println(maxProfileVelocity);
+                Debug.print("Profile velocity clamped to ", Levels::WARN);
+                Debug.println(maxProfileVelocity, Levels::WARN);
             }
             processedProfileVelocity[i] = maxProfileVelocity;
         } else
@@ -461,10 +461,10 @@ uint8_t DynamixelLL::setProfileAcceleration(const uint32_t (&profileAcceleration
         
         if (profileAcceleration[i] > maxProfileAcceleration)
         {
-            if (_debug)
+            if (shouldLog(Levels::WARN))
             {
-                Serial.print("Profile acceleration clamped to ");
-                Serial.println(maxProfileAcceleration);
+                Debug.print("Profile acceleration clamped to ", Levels::WARN);
+                Debug.println(maxProfileAcceleration, Levels::WARN);
             }
             processedProfileAcceleration[i] = maxProfileAcceleration;
         } else
@@ -476,15 +476,15 @@ uint8_t DynamixelLL::setProfileAcceleration(const uint32_t (&profileAcceleration
         if (timeBased && error == 0 && currentProfileVelocity > 0 && profileAcceleration[i] > (currentProfileVelocity / 2))
         {
             uint32_t clampedValue = currentProfileVelocity / 2;
-            if (_debug)
+            if (shouldLog(Levels::WARN))
             {
-                Serial.print("Profile acceleration clamped to half of current profile velocity: ");
-                Serial.println(clampedValue);
+                Debug.print("Profile acceleration clamped to half of current profile velocity: ", Levels::WARN);
+                Debug.println(clampedValue, Levels::WARN);
             }
             processedProfileAcceleration[i] = clampedValue;
-        } else if (error != 0 && _debug) {
-            Serial.print("Error reading Profile Velocity: ");
-            Serial.println(error);
+        } else if (error != 0 && shouldLog(Levels::WARN)) {
+            Debug.print("Error reading Profile Velocity: ", Levels::WARN);
+            Debug.println(error, Levels::WARN);
         } else
             processedProfileAcceleration[i] = profileAcceleration[i];
     }
@@ -510,19 +510,19 @@ uint8_t DynamixelLL::setGoalVelocity_RPM(const float (&rpmValues)[N])
         if (rpm > maxRPM)
         {
             rpm = maxRPM;
-            if (_debug)
+            if (shouldLog(Levels::WARN))
             {
-                Serial.print("Warning: RPM clamped to ");
-                Serial.println(maxRPM);
+                Debug.print("Warning: RPM clamped to ", Levels::WARN);
+                Debug.println(maxRPM, Levels::WARN);
             }
         }
         else if (rpm < -maxRPM)
         {
             rpm = -maxRPM;
-            if (_debug)
+            if (shouldLog(Levels::WARN))
             {
-                Serial.print("Warning: RPM clamped to ");
-                Serial.println(-maxRPM);
+                Debug.print("Warning: RPM clamped to ", Levels::WARN);
+                Debug.println(-maxRPM, Levels::WARN);
             }
         }
 
@@ -542,10 +542,10 @@ uint8_t DynamixelLL::getPresentPosition(int32_t (&presentPositions)[N])
     uint8_t error = syncRead(132, 4, _motorIDs, presentPositions, _numMotors); // RAM address 132, 4 bytes
     if (error != 0)
     {
-        if (_debug)
+        if (shouldLog(Levels::WARN))
         {
-            Serial.print("Error reading Present Position: ");
-            Serial.println(error);
+            Debug.print("Error reading Present Position: ", Levels::WARN);
+            Debug.println(error, Levels::WARN);
         }
     }
     return error;
@@ -561,10 +561,10 @@ uint8_t DynamixelLL::getCurrentLoad(int16_t (&currentLoad)[N])
     uint8_t error = syncRead(126, 2, _motorIDs, currentLoad, _numMotors); // RAM address 126, 2 bytes
     if (error != 0)
     {
-        if (_debug)
+        if (shouldLog(Levels::WARN))
         {
-            Serial.print("Error reading Current Load: ");
-            Serial.println(error);
+            Debug.print("Error reading Current Load: ", Levels::WARN);
+            Debug.println(error, Levels::WARN);
         }
     }
     return error;
@@ -580,10 +580,10 @@ uint8_t DynamixelLL::getMovingStatus(MovingStatus (&status)[N])
     uint8_t error = syncRead(123, 1, _motorIDs, temp, _numMotors); // RAM address 123, 1 byte
     if (error != 0)
     {
-        if (_debug)
+        if (shouldLog(Levels::WARN))
         {
-            Serial.print("Error reading Moving Status: ");
-            Serial.println(error);
+            Debug.print("Error reading Moving Status: ", Levels::WARN);
+            Debug.println(error, Levels::WARN);
         }
     } else
     {
@@ -617,10 +617,10 @@ uint8_t DynamixelLL::getPresentVelocity_RPM(float (&rpms)[N])
     uint8_t error = syncRead(128, 4, _motorIDs, temp, _numMotors); // RAM address 128, 4 bytes
     if (error != 0)
     {
-        if (_debug)
+        if (shouldLog(Levels::WARN))
         {
-            Serial.print("Error reading Present Velocity: ");
-            Serial.println(error);
+            Debug.print("Error reading Present Velocity: ", Levels::WARN);
+            Debug.println(error, Levels::WARN);
         }
     } else {
         for (uint8_t i = 0; i < _numMotors; i++)
