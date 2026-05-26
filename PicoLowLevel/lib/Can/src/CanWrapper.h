@@ -40,6 +40,20 @@ public:
      */
     bool readMessage(uint8_t* id, byte* data);
 
+    /**
+     * @brief Sends a broadcast CAN message (to all modules using prefix 0xFF).
+     */
+    bool sendBroadcast(uint8_t id, const void* data, uint8_t length);
+
+    /**
+     * @brief Reads a message from either own CAN_ID or broadcast.
+     * @param id Pointer to store the message ID.
+     * @param data Pointer to store message data.
+     * @param senderModule Pointer to store sender's CAN_ID (optional).
+     * @return True if a message was read.
+     */
+    bool readBroadcastMessage(uint8_t* id, byte* data, uint8_t* senderModule = nullptr);
+
 private:
     MCP2515 mcp2515; ///< MCP2515 object for CAN communication.
 };
