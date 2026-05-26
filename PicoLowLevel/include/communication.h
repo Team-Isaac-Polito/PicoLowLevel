@@ -56,4 +56,7 @@
 #define IMU_RAW_ACCEL  0x92  // optional, for debug purposes
 #define IMU_RAW_GYRO   0x93  // optional, for debug purposes
 
+#define SYSTEM_ID_EXCHANGE  0xA0  // Session ID almashish (startup consensus)
+#define SYSTEM_ID_UPDATE    0xA1  // Yangi session ID (consensus o'tgandan keyin)
+
 #endif
