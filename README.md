@@ -1,5 +1,11 @@
 # PicoLowLevel
 
+> [!CAUTION]
+> **THIS REPOSITORY IS DEPRECATED AND ARCHIVED**  
+> This RP2040/Pico W firmware is no longer maintained. Active development for the Rese.Q MK2 robot has migrated to a different platform.
+>
+> 👉 **Find the active code here:** [Team-Isaac-Polito/STM32LowLevel](https://github.com/Team-Isaac-Polito/STM32LowLevel.git)
+
 Low-level firmware for the **Rese.Q MK2** modular snake-like rescue robot, running on **Raspberry Pi Pico W** boards inside each module.
 
 > **Firmware version:** LL v0.2 (Dynamixel-only traction)
@@ -115,6 +121,9 @@ For the full protocol specification, see the [CAN Bus Protocol](https://docs.tea
 ---
 
 ## Contributing
+
+> [!NOTE]  
+> This project is archived. No new contributions, feature branches, or pull requests will be reviewed. Please direct all new development efforts to the [STM32LowLevel](https://github.com/Team-Isaac-Polito/STM32LowLevel.git) repository.
 
 All active development happens on `main`. Create feature branches from `main` and submit pull requests back to it.
 
