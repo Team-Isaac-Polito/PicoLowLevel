@@ -1,4 +1,4 @@
-# PicoLowLevel
+# PicoLowLevel [DEPRECATED, SEE THE NEW CODE HERE](https://github.com/Team-Isaac-Polito/STM32LowLevel.git)
 
 Low-level firmware for the **Rese.Q MK2** modular snake-like rescue robot, running on **Raspberry Pi Pico W** boards inside each module.
 
